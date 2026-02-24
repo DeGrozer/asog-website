@@ -5,8 +5,7 @@
   --color-gold: #F8AF21;
   --color-gold-dk: #e8a900;
   --color-sky: #43A7DB;
-  --color-dark: #020d18;
-  --color-dark: #0c1a26;
+  --color-dark: #03558C;
   --color-off: #F8F6F2;
 
   --font-display: "DM Serif Display", serif;
@@ -46,6 +45,8 @@
 
   #navImgLandscape {
     @apply w-0 h-0 opacity-0 overflow-hidden transition-all duration-[450ms] delay-100;
+    filter: brightness(0) invert(1);
+    transition: filter .35s ease, width .45s ease .1s, height .45s ease .1s, opacity .45s ease .1s;
   }
   #navbar.scrolled #navImgLandscape {
     @apply w-52 h-[76px] opacity-100;
@@ -96,6 +97,10 @@
   #navbar.scrolled #navR .nav-dd[data-order="5"] { order: 5; }
   #navbar.scrolled #navR .nav-btn[data-order="6"] { order: 6; }
 
+  .nav-btn {
+    @apply transition-all duration-300;
+  }
+
   /* ═══ DESKTOP DROPDOWNS ═══ */
   .nav-dd {
     @apply relative flex items-center;
@@ -120,7 +125,7 @@
   }
 
   .dd-item:hover {
-    @apply text-off bg-gold/10;
+    @apply text-off bg-sky/15;
   }
 
   .dd-sub {
@@ -141,7 +146,7 @@
   }
 
   .dd-label {
-    @apply block px-2.5 pt-2 pb-1 text-[0.5rem] font-bold tracking-widest uppercase text-gold/60;
+    @apply block px-2.5 pt-2 pb-1 text-[0.5rem] font-bold tracking-widest uppercase text-sky/70;
   }
 
   .dd-indent {
@@ -171,17 +176,17 @@
 
   .sl1 {
     background-image:
-      linear-gradient(135deg, rgba(3,85,140,.45) 0%, rgba(4,14,28,.65) 100%),
+      linear-gradient(135deg, rgba(67,167,219,.55) 0%, rgba(3,85,140,.75) 100%),
       url('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1920&q=80');
   }
   .sl2 {
     background-image:
-      linear-gradient(225deg, rgba(67,167,219,.35) 0%, rgba(13,27,42,.60) 100%),
+      linear-gradient(225deg, rgba(67,167,219,.40) 0%, rgba(3,85,140,.70) 100%),
       url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80');
   }
   .sl3 {
     background-image:
-      linear-gradient(315deg, rgba(14,26,43,.50) 0%, rgba(5,13,21,.68) 100%),
+      linear-gradient(315deg, rgba(3,85,140,.65) 0%, rgba(67,167,219,.45) 100%),
       url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80');
   }
 
@@ -238,15 +243,15 @@
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(3,85,140,.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(3,85,140,.045) 1px, transparent 1px);
+      linear-gradient(rgba(67,167,219,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(67,167,219,.06) 1px, transparent 1px);
     background-size: 60px 60px;
   }
   .ai-grid::after {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle, rgba(3,85,140,.08) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgba(67,167,219,.12) 1px, transparent 1px);
     background-size: 60px 60px;
   }
   .ai-grid-fade {
@@ -345,4 +350,33 @@
       object-fit: contain;
     }
   }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NAVBAR — CONTENT-AWARE  (outside @layer so it beats utilities)
+   ═══════════════════════════════════════════════════════════ */
+#navbar.on-light.scrolled {
+  background-color: rgba(255,255,255,.70) !important;
+  backdrop-filter: blur(32px) !important;
+}
+
+/* nav links → dark navy */
+#navbar.on-light .nav-link {
+  color: rgba(3,85,140,.55) !important;
+}
+#navbar.on-light .nav-link:hover {
+  color: #03558C !important;
+  border-color: #F8AF21 !important;
+}
+
+/* hamburger bars */
+#navbar.on-light #bar1,
+#navbar.on-light #bar2,
+#navbar.on-light #bar3 {
+  background-color: #03558C !important;
+}
+
+/* logo: show original colors on light bg */
+#navbar.on-light #navImgLandscape {
+  filter: none !important;
 }

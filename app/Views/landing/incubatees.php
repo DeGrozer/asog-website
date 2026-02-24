@@ -2,7 +2,7 @@
      ║  SECTION: FEATURED INCUBATEE                                       ║
      ║  Dark bg · spotlight card with visual + content                    ║
      ╚══════════════════════════════════════════════════════════════════════╝ -->
-<section id="incubatees" class="relative overflow-hidden bg-[#0c1a26] py-16 md:py-24 px-6 md:px-10 lg:px-14">
+<section id="incubatees" class="relative overflow-hidden bg-navy py-16 md:py-24 px-6 md:px-10 lg:px-14">
     <div class="max-w-[1200px] mx-auto relative z-[2]">
         <!-- Header row -->
         <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-4 mb-10 md:mb-12 reveal">
@@ -19,7 +19,7 @@
         </div>
 
         <!-- Card -->
-        <div class="rounded-lg reveal reveal-d1 border border-white/[.06] bg-[#0c1a26] overflow-hidden">
+        <div class="rounded-lg reveal reveal-d1 border border-sky/30 bg-sky/5 hover:bg-sky/10 overflow-hidden transition-colors duration-300">
             <div class="grid grid-cols-1 md:grid-cols-[1fr_1.2fr]">
                 <!-- Left visual -->
                 <div class="relative min-h-[280px] md:min-h-[400px] flex items-center justify-center bg-[#0a1628]">

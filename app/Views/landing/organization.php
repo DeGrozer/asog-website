@@ -2,7 +2,7 @@
      ║  SECTION: ORGANIZATION                                             ║
      ║  Dark bg · 4-column team grid                                      ║
      ╚══════════════════════════════════════════════════════════════════════╝ -->
-<section id="organization" class="relative overflow-hidden bg-[#0c1a26] py-16 md:py-24 px-6 md:px-10 lg:px-14">
+<section id="organization" class="relative overflow-hidden bg-navy py-16 md:py-24 px-6 md:px-10 lg:px-14">
     <div class="max-w-[1200px] mx-auto relative z-[2]">
         <div class="text-center reveal mb-10 md:mb-14">
             <div class="flex items-center justify-center gap-2 mb-3">

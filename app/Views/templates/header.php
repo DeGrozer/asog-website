@@ -96,7 +96,7 @@
             <a href="<?= base_url() ?>" id="navLogo" class="flex no-underline">
                 <img src="<?= base_url('asset/js/img/ASOG TBI/PNG/ASOG-TBI_seal_white.png') ?>" alt="ASOG TBI"
                     id="navImg" class="w-[80px] h-[80px]" />
-                <img src="<?= base_url('asset/js/img/ASOG TBI/PNG/asog logo variations_full-colored_landscape-light.png') ?>"
+                <img src="<?= base_url('asset/js/img/ASOG TBI/PNG/ASOG-TBI_full-colored_landscape.png') ?>"
                     alt="ASOG TBI" id="navImgLandscape" class="object-contain" />
             </a>
 

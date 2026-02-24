@@ -1,8 +1,32 @@
 /* ═══ NAVBAR SCROLL TOGGLE (desktop) ═══ */
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
+
+// Detect if the section behind the navbar has a light background
+function isLightBackground() {
+    const navBottom = navbar.getBoundingClientRect().bottom;
+    // Walk every <section> (and the <main> / <body> fallback)
+    const candidates = document.querySelectorAll('section, main');
+    for (const el of candidates) {
+        const r = el.getBoundingClientRect();
+        if (r.top <= navBottom && r.bottom >= navBottom) {
+            const bg = window.getComputedStyle(el).backgroundColor;
+            const rgb = bg.match(/\d+/g);
+            if (rgb && parseFloat(rgb[3] ?? 1) > 0) {          // skip transparent
+                const lum = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255;
+                return lum > 0.55;
+            }
+        }
+    }
+    return false;
+}
+
+function updateNavbar() {
     navbar.classList.toggle('scrolled', window.scrollY > 60);
-});
+    navbar.classList.toggle('on-light', isLightBackground());
+}
+
+window.addEventListener('scroll', updateNavbar, { passive: true });
+updateNavbar();
 
 /* ═══ MOBILE MENU TOGGLE ═══ */
 const menuBtn = document.getElementById('menuBtn');
