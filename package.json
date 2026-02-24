@@ -1,4 +1,11 @@
 {
+  "name": "asog-website",
+  "version": "1.0.0",
+  "description": "ASOG Technology Business Incubator Website",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/tailwind.css -o ./public/style.css",
+    "watch:css": "tailwindcss -i ./src/tailwind.css -o ./public/style.css --watch"
+  },
   "dependencies": {
     "@tailwindcss/cli": "^4.2.1"
   },
