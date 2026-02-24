@@ -1,4 +1,19 @@
-#-------------------------
+vendor/
+writable/
+env
+*.log
+*.cache
+*.tmp
+*.swp
+*.swo
+*.bak
+*.DS_Store
+node_modules/
+builds/
+composer.lock
+phpunit.xml
+/.idea/
+/.vscode/#-------------------------
 # Operating Specific Junk Files
 #-------------------------
 
