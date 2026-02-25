@@ -14,7 +14,7 @@ use CodeIgniter\HTTP\Files\UploadedFile;
  */
 class ImageUpload
 {
-    /** Base upload directory inside `writable/uploads/`. */
+    /** Base upload directory inside `public/uploads/`. */
     protected string $basePath;
 
     /** Maximum file size in KB. */
@@ -33,7 +33,7 @@ class ImageUpload
 
     public function __construct()
     {
-        $this->basePath = WRITEPATH . 'uploads' . DIRECTORY_SEPARATOR;
+        $this->basePath = FCPATH . 'uploads' . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -41,7 +41,7 @@ class ImageUpload
      *
      * @param  UploadedFile|null $file       The uploaded file instance.
      * @param  string            $subfolder  e.g. "posts", "team"
-     * @return string|null                   Relative path from writable/ or null on failure.
+     * @return string|null                   Relative path from public/ or null on failure.
      */
     public function upload(?UploadedFile $file, string $subfolder = 'posts'): ?string
     {
@@ -82,7 +82,7 @@ class ImageUpload
             return false;
         }
 
-        $fullPath = WRITEPATH . $relativePath;
+        $fullPath = FCPATH . $relativePath;
 
         if (is_file($fullPath)) {
             return unlink($fullPath);

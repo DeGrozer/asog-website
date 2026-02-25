@@ -9,6 +9,8 @@ class Landing extends BaseController
 {
     public function index(): string
     {
+        helper('text');
+        
         $postModel = new PostModel();
 
         $data = [

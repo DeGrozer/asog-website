@@ -19,7 +19,9 @@ class Uploads extends Controller
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        $mime = mime_content_type($fullPath);
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime  = finfo_file($finfo, $fullPath);
+        finfo_close($finfo);
 
         return $this->response
             ->setHeader('Content-Type', $mime)

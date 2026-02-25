@@ -34,7 +34,7 @@
 
 
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-[500]">
-        <div id="navIn" class="flex items-center justify-center px-4 lg:px-10 h-20 relative">
+        <div id="navIn" class="flex items-center px-4 lg:px-10 h-20 ">
 
             <!-- desktop left links -->
             <div class="nav-left absolute left-10 flex items-center gap-1 lg:flex hidden">
@@ -169,6 +169,14 @@
                                 <a href="<?= site_url('facilities') ?>" class="dd-item">Usage Policy</a>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="nav-dd group lo" data-order="3">
+                    <a href="<?= site_url('incubatees') ?>"
+                        class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold">Incubatees</a>
+                    <div class="dd-menu dd-right">
+                        <a href="<?= site_url('incubatees') ?>" class="dd-item">Cohort 1</a>
+                        <a href="<?= site_url('contact') ?>" class="dd-item">Apply for Cohort 2</a>
                     </div>
                 </div>
             </div>

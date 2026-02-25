@@ -8,11 +8,13 @@
 <section id="hero" class="relative w-full h-screen min-h-[640px] overflow-hidden flex items-end">
     <!-- Slides -->
     <?php if ($hasFeatured && ! empty($featuredPost['imagePath'])): ?>
-        <!-- Dynamic featured-post slide -->
-        <div class="slide sl-featured active" style="background-image:linear-gradient(135deg,rgba(3,85,140,.65) 0%,rgba(2,13,24,.45) 100%),url('<?= site_url($featuredPost['imagePath']) ?>');background-size:cover;background-position:center">
-            <div class="absolute right-[4%] bottom-[16%] font-display text-[18vw] leading-none text-white/[.022] pointer-events-none select-none whitespace-nowrap hidden md:block">
-                Featured</div>
-        </div>
+    <!-- Dynamic featured-post slide -->
+    <div class="slide sl-featured active"
+        style="background-image:linear-gradient(135deg,rgba(3,85,140,.65) 0%,rgba(2,13,24,.45) 100%),url('<?= base_url($featuredPost['imagePath']) ?>');background-size:cover;background-position:center">
+        <div
+            class="absolute right-[4%] bottom-[16%] font-display text-[18vw] leading-none text-white/[.022] pointer-events-none select-none whitespace-nowrap hidden md:block">
+            Featured</div>
+    </div>
     <?php endif; ?>
 
     <div class="slide sl1 <?= $hasFeatured ? '' : 'active' ?>">
@@ -63,16 +65,14 @@
         </div>
         <div class="relative min-h-[120px] md:min-h-[160px] mb-5">
             <?php if ($hasFeatured): ?>
-                <!-- Featured post headline -->
-                <h1 class="hl active font-display text-[clamp(1.4rem,2.6vw,2.6rem)] leading-[1.18] text-off">
-                    <span class="text-[.6rem] font-semibold tracking-[.16em] uppercase text-gold/80 block mb-2"><?= esc(ucfirst($featuredPost['category'])) ?></span>
-                    <?= esc($featuredPost['title']) ?>
-                    <?php if (! empty($featuredPost['shortDescription'])): ?>
-                        <span class="block text-[.85rem] font-light text-white/40 mt-3 font-body leading-relaxed max-w-[600px]"><?= esc(character_limiter($featuredPost['shortDescription'], 120)) ?></span>
-                    <?php endif; ?>
-                </h1>
+            <!-- Featured post headline -->
+            <h1 class="hl active font-display text-[clamp(1.4rem,2.6vw,2.6rem)] leading-[1.18] text-off">
+                <?= esc($featuredPost['title']) ?>
+            </h1>
             <?php endif; ?>
-            <h1 class="hl <?= $hasFeatured ? '' : 'active' ?> font-display text-[clamp(1.4rem,2.6vw,2.6rem)] leading-[1.18] text-off">Engineering
+            <h1
+                class="hl <?= $hasFeatured ? '' : 'active' ?> font-display text-[clamp(1.4rem,2.6vw,2.6rem)] leading-[1.18] text-off">
+                Engineering
                 &amp;<br /><em class="italic text-gold">AI-Driven Innovations</em><br />for the Food Value Chain</h1>
             <h1 class="hl font-display text-[clamp(1.4rem,2.6vw,2.6rem)] leading-[1.18] text-off">Empowering
                 Startups<br />Through <em class="italic text-gold">Cutting-Edge</em><br />Technology</h1>
@@ -81,14 +81,14 @@
         </div>
         <div class="flex items-center gap-2 mt-8 md:mt-10">
             <?php if ($hasFeatured): ?>
-                <button class="ind active border-none p-0 cursor-pointer" onclick="goTo(0)"></button>
-                <button class="ind border-none p-0 cursor-pointer" onclick="goTo(1)"></button>
-                <button class="ind border-none p-0 cursor-pointer" onclick="goTo(2)"></button>
-                <button class="ind border-none p-0 cursor-pointer" onclick="goTo(3)"></button>
+            <button class="ind active border-none p-0 cursor-pointer" onclick="goTo(0)"></button>
+            <button class="ind border-none p-0 cursor-pointer" onclick="goTo(1)"></button>
+            <button class="ind border-none p-0 cursor-pointer" onclick="goTo(2)"></button>
+            <button class="ind border-none p-0 cursor-pointer" onclick="goTo(3)"></button>
             <?php else: ?>
-                <button class="ind active border-none p-0 cursor-pointer" onclick="goTo(0)"></button>
-                <button class="ind border-none p-0 cursor-pointer" onclick="goTo(1)"></button>
-                <button class="ind border-none p-0 cursor-pointer" onclick="goTo(2)"></button>
+            <button class="ind active border-none p-0 cursor-pointer" onclick="goTo(0)"></button>
+            <button class="ind border-none p-0 cursor-pointer" onclick="goTo(1)"></button>
+            <button class="ind border-none p-0 cursor-pointer" onclick="goTo(2)"></button>
             <?php endif; ?>
         </div>
     </div>

@@ -14,7 +14,7 @@
 
                 <!-- Brand column -->
                 <div>
-                    <img src="asog-logo-landscape-light.png" alt="ASOG TBI"
+                    <img src="<?= base_url('asset/js/img/ASOG TBI/PNG/asog logo variations_full-colored_landscape-light.png') ?>" alt="ASOG TBI"
                         class="h-[44px] md:h-[52px] object-contain mb-5" />
                     <p class="text-[.78rem] font-light leading-[1.8] text-white/35 mb-6">A DOST-PCIEERD funded
                         technology business incubator at Camarines Sur Polytechnic Colleges — empowering startups and

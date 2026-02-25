@@ -25,14 +25,14 @@
     @apply justify-center transition-all duration-500 py-2;
   }
   #navbar.scrolled #navIn {
-    @apply h-14 px-6 md:px-10 lg:px-14 justify-end py-0 max-w-[1200px] mx-auto;
+    @apply h-14 pl-2 pr-0 justify-between py-0;
   }
 
   #navLogo {
     @apply absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 transition-all duration-500;
   }
   #navbar.scrolled #navLogo {
-    @apply left-0 translate-x-0 flex-row gap-2.5 items-center ml-0;
+    @apply static translate-x-0 flex-row gap-0 items-center shrink-0;
   }
 
   #navImg {
@@ -48,21 +48,21 @@
     transition: filter .35s ease, width .45s ease .1s, height .45s ease .1s, opacity .45s ease .1s;
   }
   #navbar.scrolled #navImgLandscape {
-    @apply w-48 h-10 opacity-100 -ml-3;
+    @apply w-80 h-16 opacity-100;
   }
 
   .nav-left {
     @apply transition-all duration-300;
   }
   #navbar.scrolled .nav-left {
-    @apply opacity-0 invisible pointer-events-none;
+    @apply opacity-0 invisible pointer-events-none absolute;
   }
 
   #navR {
     @apply transition-all duration-500;
   }
   #navbar.scrolled #navR {
-    @apply static flex-nowrap items-center gap-0.5;
+    @apply static flex-nowrap items-center gap-0;
   }
 
   .nav-link {
@@ -85,7 +85,7 @@
     transition: opacity .35s .1s ease, max-width .45s ease, padding .35s ease, width .45s ease;
   }
   #navbar.scrolled .lo {
-    @apply opacity-100 w-auto max-w-[260px] px-4 overflow-visible;
+    @apply opacity-100 w-auto max-w-[260px] px-2 overflow-visible;
   }
 
   /* ═══ SCROLLED DATA-ORDER REORDERING ═══ */
@@ -377,5 +377,10 @@
 
 /* logo: show original colors on light bg */
 #navbar.on-light #navImgLandscape {
+  filter: none !important;
+}
+
+/* seal: on light bg when scrolled, use the colored version */
+#navbar.on-light.scrolled #navImg {
   filter: none !important;
 }
