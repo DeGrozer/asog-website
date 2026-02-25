@@ -11,7 +11,7 @@ class About extends BaseController
         return view('templates/header', $data)
             . view('about/header')
             . view('landing/about')        
-            . view('templates/map')        
+            // . view('templates/map')        
             . view('templates/footer');
     }
 }

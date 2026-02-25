@@ -11,7 +11,7 @@ class Contact extends BaseController
         return view('templates/header', $data)
             . view('contact/header')
             . view('landing/contact')
-            . view('templates/map')
+            // . view('templates/map')
             . view('templates/footer');
     }
 }

@@ -11,7 +11,7 @@ class Incubatees extends BaseController
         return view('templates/header', $data)
             . view('incubatees/header')
             . view('landing/incubatees')
-            . view('templates/map')
+            // . view('templates/map')
             . view('templates/footer');
     }
 }

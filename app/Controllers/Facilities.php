@@ -11,7 +11,7 @@ class Facilities extends BaseController
         return view('templates/header', $data)
             . view('facilities/header')
             . view('landing/facilities')
-            . view('templates/map')
+            // . view('templates/map')
             . view('templates/footer');
     }
 }

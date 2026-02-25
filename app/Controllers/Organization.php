@@ -11,7 +11,7 @@ class Organization extends BaseController
         return view('templates/header', $data)
             . view('organization/header')
             . view('landing/organization')
-            . view('templates/map')
+            // . view('templates/map')
             . view('templates/footer');
     }
 }

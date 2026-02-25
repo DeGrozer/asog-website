@@ -1,17 +1,48 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Controllers\BaseController;
+use App\Models\PostModel;
 
 class News extends BaseController
 {
     public function index(): string
     {
-        $data = ['title' => 'News & Insights - ASOG-TBI'];
+        $postModel = new PostModel();
+
+        $data = [
+            'title'       => 'News & Insights - ASOG-TBI',
+            'latestPosts' => $postModel->getPublished(),
+        ];
+
         return view('templates/header', $data)
             . view('news/header')
-            . view('landing/news')
-            . view('templates/map')
+            . view('landing/news', $data)
+            . view('templates/footer');
+    }
+
+    /**
+     * Display a single post by slug.
+     */
+    public function show(string $slug): string
+    {
+        helper('text');
+        $postModel = new PostModel();
+        $post = $postModel->getBySlug($slug);
+
+        if (! $post) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Post not found.');
+        }
+
+        $data = [
+            'title'       => esc($post['title']) . ' - ASOG-TBI',
+            'post'        => $post,
+            'latestPosts' => $postModel->getPublished(3),
+        ];
+
+        return view('templates/header', $data)
+            . view('news/detail', $data)
             . view('templates/footer');
     }
 }

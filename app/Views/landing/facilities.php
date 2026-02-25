@@ -27,7 +27,7 @@
                 </div>
                 <div class="p-5 md:p-7">
                     <h3 class="font-display text-[1.1rem] text-dark mb-2">AIRCoDe Lab</h3>
-                    <p class="text-[.8rem] font-light leading-[1.75] text-dark/40">Lorem ipsum dolor sit amet,
+                    <p class="text-[2rem] font-medium leading-[1.75] text-dark/40">Lorem ipsum dolor sit amet,
                         consectetur adipiscing elit. Ut enim ad minim veniam quis nostrud.</p>
                 </div>
             </div>

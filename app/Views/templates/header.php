@@ -23,8 +23,6 @@
 <body class="font-body bg-dark text-off overflow-x-hidden">
     <a class="sr-only focus:not-sr-only" href="#main">Skip to content</a>
 
-
-
     <!--
          ╔══════════════════════════════════════════════════════════════╗
          ║  NAVBAR                                                      ║
@@ -66,13 +64,16 @@
                                 <span class="dd-label">Incubation Center</span>
                                 <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">The Co-Lab (Coworking
                                     Space)</a>
-                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">The Innovators' Suite</a>
+                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">The Innovators'
+                                    Suite</a>
                                 <span class="dd-label">Partner Facilities</span>
                                 <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">AI Research Center for
                                     Community
                                     Development</a>
-                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">Fabrication Laboratory</a>
-                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">Shared Service Facility</a>
+                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">Fabrication
+                                    Laboratory</a>
+                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">Shared Service
+                                    Facility</a>
                                 <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">Intellectual Property
                                     Management
                                     Unit</a>
@@ -150,14 +151,20 @@
                                     class="ml-auto text-[.5rem] opacity-40">▸</span></div>
                             <div class="dd-sub-menu">
                                 <span class="dd-label">Incubation Center</span>
-                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">The Co-Lab (Coworking Space)</a>
-                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">The Innovators' Suite</a>
+                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">The Co-Lab (Coworking
+                                    Space)</a>
+                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">The Innovators'
+                                    Suite</a>
                                 <span class="dd-label">Partner Facilities</span>
-                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">AI Research Center for Community
+                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">AI Research Center for
+                                    Community
                                     Development</a>
-                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">Fabrication Laboratory</a>
-                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">Shared Service Facility</a>
-                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">Intellectual Property Management
+                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">Fabrication
+                                    Laboratory</a>
+                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">Shared Service
+                                    Facility</a>
+                                <a href="<?= site_url('facilities') ?>" class="dd-item dd-indent">Intellectual Property
+                                    Management
                                     Unit</a>
                                 <a href="<?= site_url('facilities') ?>" class="dd-item">Usage Policy</a>
                             </div>

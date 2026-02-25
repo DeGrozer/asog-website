@@ -11,7 +11,7 @@ class Programs extends BaseController
         return view('templates/header', $data)
             . view('programs/header')
             . view('landing/programs')
-            . view('templates/map')
+            // . view('templates/map')
             . view('templates/footer');
     }
 }

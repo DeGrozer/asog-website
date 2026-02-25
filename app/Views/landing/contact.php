@@ -21,18 +21,18 @@
                 <div class="space-y-5">
                     <div>
                         <span
-                            class="text-[.54rem] font-semibold tracking-[.16em] uppercase text-dark/30 block mb-1.5">Email</span>
+                            class="text-[.54rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-1.5">Email</span>
                         <span class="text-[.9rem] text-dark/55 font-light">asogtbi@cspc.edu.ph</span>
                     </div>
                     <div>
                         <span
-                            class="text-[.54rem] font-semibold tracking-[.16em] uppercase text-dark/30 block mb-1.5">Location</span>
+                            class="text-[.54rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-1.5">Location</span>
                         <span class="text-[.9rem] text-dark/55 font-light">Camarines Sur Polytechnic Colleges, Nabua,
                             Camarines Sur</span>
                     </div>
                     <div>
                         <span
-                            class="text-[.54rem] font-semibold tracking-[.16em] uppercase text-dark/30 block mb-1.5">Social</span>
+                            class="text-[.54rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-1.5">Social</span>
                         <div class="flex gap-3 mt-1">
                             <a href="#"
                                 class="text-[.6rem] font-semibold tracking-[.12em] uppercase text-dark/35 no-underline border border-dark/[.1] px-3 py-1.5 rounded-sm transition-colors duration-200 hover:text-gold hover:border-gold/40 hover:bg-gold/[.05]">Facebook</a>
@@ -51,21 +51,21 @@
                 <form class="space-y-5" onsubmit="return false">
                     <div>
                         <label
-                            class="text-[.54rem] font-semibold tracking-[.16em] uppercase text-dark/60 block mb-2">Name</label>
+                            class="text-[.54rem] font-bold tracking-[.50em] uppercase text-dark/60 block mb-2">Name</label>
                         <input type="text"
                             class="w-full bg-white border border-dark/[.2] rounded-sm px-4 py-3 text-[.85rem] text-dark font-light outline-none transition-colors duration-200 focus:border-gold/50 focus:shadow-sm focus:shadow-gold/10 placeholder:text-dark/45"
                             placeholder="Your full name">
                     </div>
                     <div>
                         <label
-                            class="text-[.54rem] font-semibold tracking-[.16em] uppercase text-dark/60 block mb-2">Email</label>
+                            class="text-[.54rem] font-bold tracking-[.16em] uppercase text-dark/60 block mb-2">Email</label>
                         <input type="email"
                             class="w-full bg-white border border-dark/[.2] rounded-sm px-4 py-3 text-[.85rem] text-dark font-light outline-none transition-colors duration-200 focus:border-gold/50 focus:shadow-sm focus:shadow-gold/10 placeholder:text-dark/45"
                             placeholder="your@email.com">
                     </div>
                     <div>
                         <label
-                            class="text-[.54rem] font-semibold tracking-[.16em] uppercase text-dark/60 block mb-2">Message</label>
+                            class="text-[.54rem] font-bold tracking-[.16em] uppercase text-dark/60 block mb-2">Message</label>
                         <textarea rows="4"
                             class="w-full bg-white border border-dark/[.2] rounded-sm px-4 py-3 text-[.85rem] text-dark font-light outline-none resize-none transition-colors duration-200 focus:border-gold/50 focus:shadow-sm focus:shadow-gold/10 placeholder:text-dark/45"
                             placeholder="How can we help?"></textarea>
