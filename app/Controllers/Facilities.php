@@ -1,17 +1,44 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Controllers\BaseController;
+use App\Models\FacilityModel;
 
 class Facilities extends BaseController
 {
     public function index(): string
     {
-        $data = ['title' => 'Facilities - ASOG-TBI'];
+        $facilityModel = new FacilityModel();
+
+        $data = [
+            'title'      => 'Facilities - ASOG-TBI',
+            'facilities' => $facilityModel->getPublished(),
+        ];
+
         return view('templates/header', $data)
             . view('facilities/header')
-            . view('landing/facilities')
-            // . view('templates/map')
+            . view('facilities/list', $data)
+            . view('templates/footer');
+    }
+
+    public function show(string $slug): string
+    {
+        $facilityModel = new FacilityModel();
+        $facility = $facilityModel->getBySlug($slug);
+
+        if (! $facility) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Facility not found.');
+        }
+
+        $data = [
+            'title'      => esc($facility['name']) . ' - ASOG-TBI',
+            'facility'   => $facility,
+            'facilities' => $facilityModel->getPublished(),
+        ];
+
+        return view('templates/header', $data)
+            . view('facilities/detail', $data)
             . view('templates/footer');
     }
 }

@@ -23,12 +23,17 @@ $routes->get('/about', 'About::index');
  * ────────────────────────────────────────────────────────────────────────────
  */
 $routes->get('/programs', 'Programs::index');
+$routes->get('/programs/(:segment)', 'Programs::show/$1');
 $routes->get('/facilities', 'Facilities::index');
+$routes->get('/facilities/(:segment)', 'Facilities::show/$1');
 $routes->get('/incubatees', 'Incubatees::index');
+$routes->get('/incubatees/(:segment)', 'Incubatees::show/$1');
 $routes->get('/news', 'News::index');
 $routes->get('/news/(:segment)', 'News::show/$1');
 $routes->get('/organization', 'Organization::index');
+$routes->get('/organization/(:segment)', 'Organization::show/$1');
 $routes->get('/contact', 'Contact::index');
+$routes->post('/contact/send', 'Contact::send');
 
 /*
  * ────────────────────────────────────────────────────────────────────────────
@@ -95,4 +100,8 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('team/(:num)/edit', 'Admin\TeamAdmin::edit/$1');
     $routes->put('team/(:num)', 'Admin\TeamAdmin::update/$1');
     $routes->delete('team/(:num)', 'Admin\TeamAdmin::delete/$1');
+    
+    // Site Settings
+    $routes->get('settings', 'Admin\SettingsAdmin::index');
+    $routes->post('settings', 'Admin\SettingsAdmin::update');
 });

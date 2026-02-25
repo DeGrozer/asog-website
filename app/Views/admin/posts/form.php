@@ -75,10 +75,11 @@
                 <span class="hint">This appears on news cards as the preview text.</span>
             </div>
 
-            <!-- Content -->
+            <!-- Content (Quill Rich Text Editor) -->
             <div class="form-group form-full">
-                <label for="content">Content</label>
-                <textarea id="content" name="content" placeholder="Full post content…"><?= esc($post['content'] ?? old('content', '')) ?></textarea>
+                <label>Content</label>
+                <div class="quill-editor" style="min-height:200px;background:#fff;border:1px solid #d4d0cb;border-radius:.3rem"><?= $post['content'] ?? old('content', '') ?></div>
+                <input type="hidden" name="content" class="quill-content" value="<?= esc($post['content'] ?? old('content', '')) ?>">
             </div>
 
             <!-- Image -->

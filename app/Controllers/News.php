@@ -9,16 +9,19 @@ class News extends BaseController
 {
     public function index(): string
     {
-        $postModel = new PostModel();
+        $postModel  = new PostModel();
+        $allPosts   = $postModel->getPublished();
+        $latestPost = ! empty($allPosts) ? array_shift($allPosts) : null;
 
         $data = [
             'title'       => 'News & Insights - ASOG-TBI',
-            'latestPosts' => $postModel->getPublished(),
+            'latestPost'  => $latestPost,
+            'posts'       => $allPosts,
         ];
 
         return view('templates/header', $data)
             . view('news/header')
-            . view('landing/news', $data)
+            . view('news/list', $data)
             . view('templates/footer');
     }
 
@@ -27,7 +30,6 @@ class News extends BaseController
      */
     public function show(string $slug): string
     {
-        helper('text');
         $postModel = new PostModel();
         $post = $postModel->getBySlug($slug);
 

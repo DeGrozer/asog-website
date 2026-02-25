@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* ═══ SMOOTH SCROLL for anchor links ═══ */
+html {
+  scroll-behavior: smooth;
+}
+
 @theme {
   --color-navy: #03558C;
   --color-gold: #F8AF21;
@@ -349,6 +354,29 @@
       object-fit: contain;
     }
   }
+
+  /* ═══ PROSE CONTENT — Rich text from Quill editor ═══ */
+  .prose-content h1 { font-size: 1.8rem; font-weight: 700; margin: 1.5em 0 .5em; color: #03558C; }
+  .prose-content h2 { font-size: 1.4rem; font-weight: 700; margin: 1.3em 0 .4em; color: #03558C; }
+  .prose-content h3 { font-size: 1.15rem; font-weight: 600; margin: 1.2em 0 .3em; color: #03558C; }
+  .prose-content p  { margin: 0 0 1em; }
+  .prose-content strong { font-weight: 600; color: rgba(3,85,140,.75); }
+  .prose-content em { font-style: italic; }
+  .prose-content u  { text-decoration: underline; text-underline-offset: 2px; }
+  .prose-content s  { text-decoration: line-through; }
+  .prose-content a  { color: #43A7DB; text-decoration: underline; transition: color .2s; }
+  .prose-content a:hover { color: #F8AF21; }
+  .prose-content ul { list-style: disc; padding-left: 1.5em; margin: 0 0 1em; }
+  .prose-content ol { list-style: decimal; padding-left: 1.5em; margin: 0 0 1em; }
+  .prose-content li { margin-bottom: .35em; }
+  .prose-content blockquote {
+    border-left: 3px solid #F8AF21;
+    padding: .5em 1em;
+    margin: 1em 0;
+    color: rgba(3,85,140,.5);
+    font-style: italic;
+  }
+  .prose-content img { max-width: 100%; border-radius: .3rem; margin: 1em 0; }
 }
 
 /* ═══════════════════════════════════════════════════════════

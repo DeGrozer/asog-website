@@ -41,31 +41,31 @@ if (! function_exists('renderToast')) {
             return '';
         }
 
-        $colors = [
-            'success' => ['bg' => '#ecfdf5', 'border' => '#10b981', 'text' => '#065f46', 'icon' => '✓'],
-            'error'   => ['bg' => '#fef2f2', 'border' => '#ef4444', 'text' => '#991b1b', 'icon' => '✕'],
-            'warning' => ['bg' => '#fffbeb', 'border' => '#f59e0b', 'text' => '#92400e', 'icon' => '!'],
-            'info'    => ['bg' => '#eff6ff', 'border' => '#3b82f6', 'text' => '#1e40af', 'icon' => 'ℹ'],
+        $accents = [
+            'success' => '#10b981',
+            'error'   => '#ef4444',
+            'warning' => '#f59e0b',
+            'info'    => '#03558C',
         ];
 
-        $c = $colors[$type] ?? $colors['info'];
+        $icons = [
+            'success' => '✓',
+            'error'   => '✕',
+            'warning' => '!',
+            'info'    => 'ℹ',
+        ];
+
+        $accent = $accents[$type] ?? $accents['info'];
+        $icon   = $icons[$type] ?? $icons['info'];
 
         return <<<HTML
-        <div id="toast"
-             style="position:fixed;top:1.5rem;right:1.5rem;z-index:9999;display:flex;align-items:center;gap:.75rem;
-                    background:{$c['bg']};border:1px solid {$c['border']}30;border-left:4px solid {$c['border']};
-                    color:{$c['text']};padding:.875rem 1.25rem;border-radius:.5rem;
-                    box-shadow:0 4px 24px rgba(0,0,0,.08);font-size:.875rem;font-family:'DM Sans',sans-serif;
-                    max-width:420px;animation:toastIn .35s ease forwards;">
-            <span style="font-size:1.15rem;font-weight:700;line-height:1">{$c['icon']}</span>
-            <span style="flex:1">{$message}</span>
-            <button onclick="this.parentElement.remove()"
-                    style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:{$c['text']}80;padding:0 0 0 .5rem;line-height:1">×</button>
+        <div id="toast" style="position:fixed;top:1.25rem;right:1.25rem;z-index:9999;display:flex;align-items:flex-start;gap:.6rem;background:#fff;border:1px solid #e5e7eb;border-left:3px solid {$accent};padding:.8rem 1rem;border-radius:.2rem;box-shadow:0 4px 20px rgba(0,0,0,.07);font-size:.82rem;font-family:'DM Sans',sans-serif;color:#334155;max-width:380px;min-width:240px;animation:toastIn .3s ease forwards">
+            <span style="color:{$accent};font-weight:700;font-size:.9rem;line-height:1;margin-top:.1rem">{$icon}</span>
+            <span style="flex:1;line-height:1.5">{$message}</span>
+            <button onclick="this.parentElement.remove()" style="background:none;border:none;cursor:pointer;font-size:.9rem;color:#94a3b8;padding:0;line-height:1;margin-left:.25rem">×</button>
         </div>
-        <style>
-            @keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
-        </style>
-        <script>setTimeout(()=>{const t=document.getElementById('toast');if(t){t.style.transition='opacity .4s,transform .4s';t.style.opacity='0';t.style.transform='translateX(40px)';setTimeout(()=>t.remove(),400)}},4000)</script>
+        <style>@keyframes toastIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}</style>
+        <script>setTimeout(()=>{const t=document.getElementById('toast');if(t){t.style.transition='opacity .3s,transform .3s';t.style.opacity='0';t.style.transform='translateY(-8px)';setTimeout(()=>t.remove(),300)}},4000)</script>
         HTML;
     }
 }
