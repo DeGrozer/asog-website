@@ -44,4 +44,19 @@ class Incubatees extends BaseController
             . view('incubatees/detail', $data)
             . view('templates/footer');
     }
+
+    public function apply(): string
+    {
+        $data = [
+            'title'        => 'Be an Incubatee - ASOG-TBI',
+            'heroSubtitle' => 'Applications',
+            'heroTitle'    => 'Be an Incubatee',
+            'heroDesc'     => 'Apply to the ASOG TBI incubation program and become part of our innovation ecosystem.',
+        ];
+
+        return view('templates/header', $data)
+            . view('templates/page_hero', $data)
+            . view('incubatees/apply', $data)
+            . view('templates/footer');
+    }
 }

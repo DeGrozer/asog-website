@@ -17,12 +17,12 @@ class About extends BaseController
             'heroBg'       => 'bg-light',
             'heroSubtitle' => 'About ASOG-TBI',
             'heroTitle'    => 'About Us',
-            'heroDesc'     => 'ASOG Technology Business Incubator (TBI) supports startups and MSMEs with facilities, mentorship, and services that accelerate innovation and commercialization.',
+            'heroDesc'     => 'Empowering startups and MSMEs with AI-driven engineering solutions for food value chain management — from the heart of the Bicol Region.',
         ];
 
         return view('templates/header', $data)
             . view('templates/page_hero', $data)
-            . view('landing/about', $data)
+            . view('about/index', $data)
             . view('templates/footer');
     }
 }

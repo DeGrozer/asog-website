@@ -39,7 +39,7 @@
         <?php endif; ?>
 
         <!-- Content (rendered as HTML from Quill) -->
-        <div class="prose-content text-[1.05rem] font-normal leading-[1.9] text-dark/70">
+        <div class="prose-content text-[1.05rem] font-normal leading-[1.9] text-dark/70 text-justify">
             <?= $post['content'] ?? '' ?>
         </div>
 

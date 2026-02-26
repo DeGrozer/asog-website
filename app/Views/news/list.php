@@ -7,12 +7,15 @@
 
     <div class="max-w-[1200px] mx-auto relative z-[2]">
 
+    <div id="events" class="scroll-mt-28"></div>
+    <div id="features" class="scroll-mt-28"></div>
+
         <?php if (! empty($latestPost)): ?>
         <!-- ─── LATEST RELEASE — big horizontal hero card ─── -->
         <div class="mb-10 md:mb-14">
             <div class="flex items-center gap-2 mb-5">
                 <span class="block w-[18px] h-[1.5px] bg-gold"></span>
-                <span class="text-[.55rem] font-semibold tracking-[.18em] uppercase text-gold">Latest Release</span>
+                <span id="latest-release" class="text-[.55rem] font-semibold tracking-[.18em] uppercase text-gold scroll-mt-28">Latest Release</span>
             </div>
 
             <a href="<?= site_url('news/' . $latestPost['slug']) ?>"
@@ -42,7 +45,7 @@
                         </div>
                         <h2 class="font-display text-[1.4rem] md:text-[1.7rem] lg:text-[2rem] leading-[1.15] text-dark mb-4 transition-colors duration-200 group-hover:text-navy"><?= esc($latestPost['title']) ?></h2>
                         <?php if (! empty($latestPost['shortDescription'])): ?>
-                            <p class="text-[.88rem] font-light leading-[1.8] text-dark/45 mb-6"><?= esc(character_limiter($latestPost['shortDescription'], 200)) ?></p>
+                            <p class="text-[.88rem] font-light leading-[1.8] text-dark/45 mb-6 text-justify"><?= esc(character_limiter($latestPost['shortDescription'], 200)) ?></p>
                         <?php endif; ?>
                         <?php if (! empty($latestPost['authorName'])): ?>
                             <span class="text-[.7rem] font-medium text-dark/30 mb-5">By <?= esc($latestPost['authorName']) ?></span>
@@ -61,7 +64,7 @@
         <div>
             <div class="flex items-center gap-2 mb-6">
                 <span class="block w-[18px] h-[1.5px] bg-navy"></span>
-                <span class="text-[.55rem] font-semibold tracking-[.18em] uppercase text-navy">More Articles</span>
+                <span id="more-articles" class="text-[.55rem] font-semibold tracking-[.18em] uppercase text-navy scroll-mt-28">More Articles</span>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
@@ -90,7 +93,7 @@
                         </div>
                         <h3 class="font-display text-[.98rem] md:text-[1.02rem] text-dark leading-snug mb-2 transition-colors duration-200 group-hover:text-gold"><?= esc($post['title']) ?></h3>
                         <?php if (! empty($post['shortDescription'])): ?>
-                            <p class="text-[.76rem] font-light leading-[1.7] text-dark/40"><?= esc(character_limiter($post['shortDescription'], 90)) ?></p>
+                            <p class="text-[.76rem] font-light leading-[1.7] text-dark/40 text-justify"><?= esc(character_limiter($post['shortDescription'], 90)) ?></p>
                         <?php endif; ?>
                     </div>
                 </a>
@@ -112,5 +115,5 @@
         </div>
         <?php endif; ?>
 
-    </div>
+    </div><!-- end max-w -->
 </section>

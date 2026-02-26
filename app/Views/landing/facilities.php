@@ -17,7 +17,7 @@
                 </div>
                 <h2 class="font-display text-3xl md:text-[2.1rem] leading-[1.12] text-dark">Our <em class="italic text-gold">Facilities</em></h2>
             </div>
-            <a href="<?= site_url('facilities') ?>" class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-dark/[.28] no-underline border-b border-dark/[.12] pb-0.5 transition-colors duration-200 hover:text-gold hover:border-gold shrink-0">View All Facilities →</a>
+            <a href="<?= site_url('programs#co-lab') ?>" class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-dark/[.28] no-underline border-b border-dark/[.12] pb-0.5 transition-colors duration-200 hover:text-gold hover:border-gold shrink-0">View All Facilities →</a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal-group">

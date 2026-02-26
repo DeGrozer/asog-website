@@ -6,7 +6,7 @@
     $ctaTitle       = $cta['ctaTitle']         ?? 'Ready to Build your <em class="italic text-gold">business</em> with us?';
     $ctaDesc        = $cta['ctaDescription']   ?? 'Apply to the ASOG TBI incubation program and get access to state-of-the-art facilities, mentorship, and funding opportunities.';
     $ctaBtnText     = $cta['ctaButtonText']    ?? 'Be an Incubatee';
-    $ctaBtnUrl      = $cta['ctaButtonUrl']     ?? '#contact';
+    $ctaBtnUrl      = $cta['ctaButtonUrl']     ?? site_url('be-an-incubatee');
     $ctaSecText     = $cta['ctaSecondaryText'] ?? 'Explore Our Program';
     $ctaSecUrl      = $cta['ctaSecondaryUrl']  ?? site_url('programs');
 ?>

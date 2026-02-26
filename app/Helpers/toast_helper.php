@@ -59,13 +59,13 @@ if (! function_exists('renderToast')) {
         $icon   = $icons[$type] ?? $icons['info'];
 
         return <<<HTML
-        <div id="toast" style="position:fixed;top:1.25rem;right:1.25rem;z-index:9999;display:flex;align-items:flex-start;gap:.6rem;background:#fff;border:1px solid #e5e7eb;border-left:3px solid {$accent};padding:.8rem 1rem;border-radius:.2rem;box-shadow:0 4px 20px rgba(0,0,0,.07);font-size:.82rem;font-family:'DM Sans',sans-serif;color:#334155;max-width:380px;min-width:240px;animation:toastIn .3s ease forwards">
+        <div id="toast" style="position:fixed;bottom:1.25rem;left:1.25rem;z-index:9999;display:flex;align-items:flex-start;gap:.6rem;background:#fff;border:1px solid #e5e7eb;border-left:3px solid {$accent};padding:.8rem 1rem;border-radius:.2rem;box-shadow:0 4px 20px rgba(0,0,0,.07);font-size:.82rem;font-family:'DM Sans',sans-serif;color:#334155;max-width:380px;min-width:240px;animation:toastIn .3s ease forwards">
             <span style="color:{$accent};font-weight:700;font-size:.9rem;line-height:1;margin-top:.1rem">{$icon}</span>
             <span style="flex:1;line-height:1.5">{$message}</span>
             <button onclick="this.parentElement.remove()" style="background:none;border:none;cursor:pointer;font-size:.9rem;color:#94a3b8;padding:0;line-height:1;margin-left:.25rem">×</button>
         </div>
-        <style>@keyframes toastIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}</style>
-        <script>setTimeout(()=>{const t=document.getElementById('toast');if(t){t.style.transition='opacity .3s,transform .3s';t.style.opacity='0';t.style.transform='translateY(-8px)';setTimeout(()=>t.remove(),300)}},4000)</script>
+        <style>@keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+        <script>setTimeout(()=>{const t=document.getElementById('toast');if(t){t.style.transition='opacity .3s,transform .3s';t.style.opacity='0';t.style.transform='translateY(8px)';setTimeout(()=>t.remove(),300)}},4000)</script>
         HTML;
     }
 }

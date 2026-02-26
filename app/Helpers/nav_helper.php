@@ -15,14 +15,24 @@ if (! function_exists('get_nav_urls')) {
     function get_nav_urls(): array
     {
         return [
+            // ── About Us ──
             'about'      => site_url('about'),
+
+            // ── Programs & Services ──
             'programs'   => site_url('programs'),
-            'facilities' => site_url('facilities'),
+            'facilities' => site_url('programs'),
+
+            // ── Incubatees ──
             'incubatees' => site_url('incubatees'),
+
+            // ── News & Insights ──
             'news'       => site_url('news'),
-            'org'        => site_url('organization'),
+
+            // ── Contact Us ──
             'contact'    => site_url('contact'),
-            'cta'        => site_url('contact'),
+
+            // ── CTA ──
+            'cta'        => site_url('be-an-incubatee'),
         ];
     }
 }

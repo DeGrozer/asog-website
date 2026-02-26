@@ -5,6 +5,14 @@
     <div class="ai-grid"></div>
     <div class="ai-grid-fade"></div>
 
+    <div id="co-lab" class="scroll-mt-28"></div>
+    <div id="innovators-suite" class="scroll-mt-28"></div>
+    <div id="aircode" class="scroll-mt-28"></div>
+    <div id="fablab" class="scroll-mt-28"></div>
+    <div id="ssf" class="scroll-mt-28"></div>
+    <div id="ip-unit" class="scroll-mt-28"></div>
+    <div id="usage-policy" class="scroll-mt-28"></div>
+
     <div class="max-w-[1200px] mx-auto relative z-[2]">
         <?php if (! empty($facilities)): ?>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">

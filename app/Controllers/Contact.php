@@ -22,6 +22,7 @@ class Contact extends BaseController
         return view('templates/header', $data)
             . view('templates/page_hero', $data)
             . view('landing/contact', $data)
+            . view('templates/map')
             . view('templates/footer');
     }
 

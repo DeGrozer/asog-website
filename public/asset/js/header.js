@@ -4,18 +4,24 @@ const navbar = document.getElementById('navbar');
 // Detect if the section behind the navbar has a light background
 function isLightBackground() {
     const navBottom = navbar.getBoundingClientRect().bottom;
-    // Walk every <section> (and the <main> / <body> fallback)
-    const candidates = document.querySelectorAll('section, main');
-    for (const el of candidates) {
-        const r = el.getBoundingClientRect();
-        if (r.top <= navBottom && r.bottom >= navBottom) {
-            const bg = window.getComputedStyle(el).backgroundColor;
-            const rgb = bg.match(/\d+/g);
-            if (rgb && parseFloat(rgb[3] ?? 1) > 0) {          // skip transparent
-                const lum = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255;
-                return lum > 0.55;
-            }
+    // Sample a point just below the navbar center
+    const x = window.innerWidth / 2;
+    const y = navBottom - 1;
+    // Temporarily hide navbar so elementFromPoint sees through it
+    navbar.style.pointerEvents = 'none';
+    navbar.style.visibility = 'hidden';
+    let el = document.elementFromPoint(x, y);
+    navbar.style.pointerEvents = '';
+    navbar.style.visibility = '';
+    // Walk up until we find an element with an actual background color
+    while (el && el !== document.documentElement) {
+        const bg = window.getComputedStyle(el).backgroundColor;
+        const rgb = bg.match(/\d+/g);
+        if (rgb && parseFloat(rgb[3] ?? 1) > 0) {
+            const lum = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255;
+            return lum > 0.55;
         }
+        el = el.parentElement;
     }
     return false;
 }

@@ -150,5 +150,11 @@
     </div>
 </footer>
 
+<!-- Toast notifications -->
+<?= function_exists('renderToast') ? renderToast() : '' ?>
+
+<!-- TOC scroll-spy (loaded only if sidebar exists on page) -->
+<script src="<?= base_url('js/toc.js') ?>" defer></script>
+
 </body>
 </html>

@@ -351,10 +351,11 @@
   }
 
   /* ═══ PROSE CONTENT — Rich text from Quill editor ═══ */
+  .prose-content { text-align: justify; text-justify: inter-word; }
   .prose-content h1 { font-size: 1.8rem; font-weight: 700; margin: 1.5em 0 .5em; color: #03558C; }
   .prose-content h2 { font-size: 1.4rem; font-weight: 700; margin: 1.3em 0 .4em; color: #03558C; }
   .prose-content h3 { font-size: 1.15rem; font-weight: 600; margin: 1.2em 0 .3em; color: #03558C; }
-  .prose-content p  { margin: 0 0 1em; }
+  .prose-content p  { margin: 0 0 1em; text-align: justify; }
   .prose-content strong { font-weight: 600; color: rgba(3,85,140,.75); }
   .prose-content em { font-style: italic; }
   .prose-content u  { text-decoration: underline; text-underline-offset: 2px; }
@@ -363,7 +364,7 @@
   .prose-content a:hover { color: #F8AF21; }
   .prose-content ul { list-style: disc; padding-left: 1.5em; margin: 0 0 1em; }
   .prose-content ol { list-style: decimal; padding-left: 1.5em; margin: 0 0 1em; }
-  .prose-content li { margin-bottom: .35em; }
+  .prose-content li { margin-bottom: .35em; text-align: justify; }
   .prose-content blockquote {
     border-left: 3px solid #F8AF21;
     padding: .5em 1em;
@@ -372,6 +373,24 @@
     font-style: italic;
   }
   .prose-content img { max-width: 100%; border-radius: .3rem; margin: 1em 0; }
+
+  /* ── TOC Sidebar — active state ── */
+  .toc-active {
+    color: #F8AF21 !important;
+    background: rgba(248, 175, 33, 0.06);
+    font-weight: 600;
+  }
+  .toc-active > span:first-child {
+    color: #F8AF21 !important;
+  }
+
+  /* TOC sidebar sticky positioning */
+  .toc-sidebar #tocList > div {
+    max-height: calc(100vh - 8rem);
+    overflow-y: auto;
+  }
+  .toc-sidebar #tocList > div::-webkit-scrollbar { width: 3px; }
+  .toc-sidebar #tocList > div::-webkit-scrollbar-thumb { background: rgba(3,85,140,.12); border-radius: 3px; }
 }
 
 /* ═══════════════════════════════════════════════════════════
