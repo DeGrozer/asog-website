@@ -14,13 +14,16 @@ class News extends BaseController
         $latestPost = ! empty($allPosts) ? array_shift($allPosts) : null;
 
         $data = [
-            'title'       => 'News & Insights - ASOG-TBI',
-            'latestPost'  => $latestPost,
-            'posts'       => $allPosts,
+            'title'        => 'News & Insights - ASOG-TBI',
+            'latestPost'   => $latestPost,
+            'posts'        => $allPosts,
+            'heroSubtitle' => 'Latest Updates',
+            'heroTitle'    => 'News & Insights',
+            'heroDesc'     => 'Read the latest events, features, and insights from ASOG-TBI.',
         ];
 
         return view('templates/header', $data)
-            . view('news/header')
+            . view('templates/page_hero', $data)
             . view('news/list', $data)
             . view('templates/footer');
     }

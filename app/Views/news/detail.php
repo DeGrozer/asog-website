@@ -1,11 +1,11 @@
 <!-- ╔══════════════════════════════════════════════════════════════════════╗
      ║  NEWS DETAIL — Single post view                                    ║
      ╚══════════════════════════════════════════════════════════════════════╝ -->
-<section class="relative bg-off py-20 md:py-28 px-6 md:px-10 lg:px-14">
+<section class="relative bg-off pt-32 md:pt-40 pb-20 md:pb-28 px-6 md:px-10 lg:px-14">
     <div class="ai-grid"></div>
     <div class="ai-grid-fade"></div>
 
-    <div class="max-w-[780px] mx-auto relative z-[2]">
+    <div class="max-w-[720px] mx-auto relative z-[2]">
         <!-- Back link -->
         <a href="<?= site_url('news') ?>"
            class="inline-flex items-center gap-1.5 text-[.65rem] font-semibold tracking-[.1em] uppercase text-dark/30 no-underline mb-8 transition-colors hover:text-gold">
@@ -39,7 +39,7 @@
         <?php endif; ?>
 
         <!-- Content (rendered as HTML from Quill) -->
-        <div class="prose-content text-[.92rem] font-light leading-[2] text-dark/55">
+        <div class="prose-content text-[1.05rem] font-normal leading-[1.9] text-dark/70">
             <?= $post['content'] ?? '' ?>
         </div>
 

@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-/* ═══ SMOOTH SCROLL for anchor links ═══ */
-html {
-  scroll-behavior: smooth;
-}
-
 @theme {
   --color-navy: #03558C;
   --color-gold: #F8AF21;
@@ -403,12 +398,12 @@ html {
   background-color: #03558C !important;
 }
 
-/* logo: show original colors on light bg */
-#navbar.on-light #navImgLandscape {
-  filter: none !important;
+/* seal: on light bg, tint the white seal → navy so it's visible */
+#navbar.on-light #navImg {
+  filter: brightness(0) saturate(100%) invert(25%) sepia(90%) saturate(1500%) hue-rotate(190deg) brightness(85%);
 }
 
-/* seal: on light bg when scrolled, use the colored version */
-#navbar.on-light.scrolled #navImg {
+/* logo: show original colors on light bg */
+#navbar.on-light #navImgLandscape {
   filter: none !important;
 }

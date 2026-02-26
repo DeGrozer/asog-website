@@ -12,12 +12,15 @@ class Incubatees extends BaseController
         $incubateeModel = new IncubateeModel();
 
         $data = [
-            'title'      => 'Incubatees - ASOG-TBI',
-            'incubatees' => $incubateeModel->getPublished(),
+            'title'        => 'Incubatees - ASOG-TBI',
+            'incubatees'   => $incubateeModel->getPublished(),
+            'heroSubtitle' => 'Spotlight',
+            'heroTitle'    => 'Our Incubatees',
+            'heroDesc'     => 'Profiles of startups and innovators in our incubation cohorts.',
         ];
 
         return view('templates/header', $data)
-            . view('incubatees/header')
+            . view('templates/page_hero', $data)
             . view('incubatees/list', $data)
             . view('templates/footer');
     }

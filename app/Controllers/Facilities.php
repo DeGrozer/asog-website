@@ -12,12 +12,15 @@ class Facilities extends BaseController
         $facilityModel = new FacilityModel();
 
         $data = [
-            'title'      => 'Facilities - ASOG-TBI',
-            'facilities' => $facilityModel->getPublished(),
+            'title'        => 'Facilities - ASOG-TBI',
+            'facilities'   => $facilityModel->getPublished(),
+            'heroSubtitle' => 'Infrastructure',
+            'heroTitle'    => 'Our Facilities',
+            'heroDesc'     => 'See our labs, coworking spaces, and partner facilities powering innovation in the Bicol Region.',
         ];
 
         return view('templates/header', $data)
-            . view('facilities/header')
+            . view('templates/page_hero', $data)
             . view('facilities/list', $data)
             . view('templates/footer');
     }

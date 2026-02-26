@@ -22,15 +22,15 @@
 
 <body class="font-body bg-dark text-off overflow-x-hidden">
     <?php
-    /* ── Nav URL helper: # anchors on landing, full URLs elsewhere ── */
-    $navAbout      = ! empty($isLanding) ? '#about'       : site_url('about');
-    $navPrograms   = ! empty($isLanding) ? '#programs'    : site_url('programs');
-    $navFacilities = ! empty($isLanding) ? '#facilities'  : site_url('facilities');
-    $navIncubatees = ! empty($isLanding) ? '#incubatees'  : site_url('incubatees');
-    $navNews       = ! empty($isLanding) ? '#news'        : site_url('news');
-    $navOrg        = ! empty($isLanding) ? '#organization': site_url('organization');
-    $navContact    = ! empty($isLanding) ? '#contact'     : site_url('contact');
-    $navCta        = ! empty($isLanding) ? '#cta'         : site_url('contact');
+    $nav = get_nav_urls();
+    $navAbout      = $nav['about'];
+    $navPrograms   = $nav['programs'];
+    $navFacilities = $nav['facilities'];
+    $navIncubatees = $nav['incubatees'];
+    $navNews       = $nav['news'];
+    $navOrg        = $nav['org'];
+    $navContact    = $nav['contact'];
+    $navCta        = $nav['cta'];
     ?>
     <a class="sr-only focus:not-sr-only" href="#main">Skip to content</a>
 

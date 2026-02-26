@@ -12,12 +12,15 @@ class Programs extends BaseController
         $programModel = new ProgramModel();
 
         $data = [
-            'title'    => 'Programs & Services - ASOG-TBI',
-            'programs' => $programModel->getPublished(),
+            'title'        => 'Programs & Services - ASOG-TBI',
+            'programs'     => $programModel->getPublished(),
+            'heroSubtitle' => 'Programs & Services',
+            'heroTitle'    => 'What We Offer',
+            'heroDesc'     => 'Explore our incubation, mentorship, and IP support programs designed to accelerate startups and MSMEs.',
         ];
 
         return view('templates/header', $data)
-            . view('programs/header')
+            . view('templates/page_hero', $data)
             . view('programs/list', $data)
             . view('templates/footer');
     }
