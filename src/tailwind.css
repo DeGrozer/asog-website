@@ -48,7 +48,7 @@
     transition: filter .35s ease, width .45s ease .1s, height .45s ease .1s, opacity .45s ease .1s;
   }
   #navbar.scrolled #navImgLandscape {
-    @apply w-80 h-16 opacity-100;
+    @apply w-50 h-20 opacity-100;
   }
 
   .nav-left {

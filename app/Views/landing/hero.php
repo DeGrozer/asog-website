@@ -94,6 +94,5 @@
     </div>
 </section>
 
-<!-- Hero & scroll-reveal scripts -->
+<!-- Hero script -->
 <script src="<?= base_url('js/hero.js') ?>" defer></script>
-<script src="<?= base_url('js/scroll-reveal.js') ?>" defer></script>

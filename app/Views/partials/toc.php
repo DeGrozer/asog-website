@@ -31,7 +31,7 @@
                 <?php foreach ($tocItems as $i => $item): ?>
                     <li>
                         <a href="#<?= esc($item['id']) ?>"
-                           class="toc-link flex items-baseline gap-2 py-1.5 text-[.78rem] font-normal text-dark/45 no-underline rounded-sm px-2 -mx-2 transition-all duration-200 hover:text-gold hover:bg-gold/[.04]"
+                           class="toc-link flex items-baseline gap-2 py-1.5 text-[.78rem] font-semibold text-dark/45 no-underline rounded-sm px-2 -mx-2 transition-all duration-200 hover:text-gold hover:bg-gold/[.04]"
                            data-toc-target="<?= esc($item['id']) ?>">
                             <span class="text-[.6rem] font-semibold text-dark/20 tabular-nums shrink-0"><?= $i + 1 ?></span>
                             <span><?= esc($item['label']) ?></span>
@@ -41,7 +41,7 @@
                                 <?php foreach ($item['children'] as $j => $child): ?>
                                     <li>
                                         <a href="#<?= esc($child['id']) ?>"
-                                           class="toc-link flex items-baseline gap-2 py-1 text-[.72rem] font-normal text-dark/35 no-underline rounded-sm px-2 -mx-2 transition-all duration-200 hover:text-gold hover:bg-gold/[.04]"
+                                           class="toc-link flex items-baseline gap-2 py-1 text-[.72rem] font-semibold text-dark/35 no-underline rounded-sm px-2 -mx-2 transition-all duration-200 hover:text-gold hover:bg-gold/[.04]"
                                            data-toc-target="<?= esc($child['id']) ?>">
                                             <span class="text-[.55rem] font-medium text-dark/15 tabular-nums shrink-0"><?= ($i + 1) ?>.<?= ($j + 1) ?></span>
                                             <span><?= esc($child['label']) ?></span>

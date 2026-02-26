@@ -2827,8 +2827,8 @@
     transition: filter .35s ease, width .45s ease .1s, height .45s ease .1s, opacity .45s ease .1s;
   }
   #navbar.scrolled #navImgLandscape {
-    height: calc(var(--spacing) * 16);
-    width: calc(var(--spacing) * 80);
+    height: calc(var(--spacing) * 20);
+    width: calc(var(--spacing) * 50);
     opacity: 100%;
   }
   .nav-left {
