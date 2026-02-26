@@ -57,52 +57,8 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     // Posts / Blog Management
     $routes->get('posts', 'Admin\PostsAdmin::index');
     $routes->get('posts/create', 'Admin\PostsAdmin::create');
-    $routes->post('posts', 'Admin\PostsAdmin::store');
+    $routes->post('posts/store', 'Admin\PostsAdmin::store');
     $routes->get('posts/(:num)/edit', 'Admin\PostsAdmin::edit/$1');
-    $routes->put('posts/(:num)', 'Admin\PostsAdmin::update/$1');
-    $routes->delete('posts/(:num)', 'Admin\PostsAdmin::delete/$1');
-    
-    // Programs Management
-    $routes->get('programs', 'Admin\ProgramsAdmin::index');
-    $routes->get('programs/create', 'Admin\ProgramsAdmin::create');
-    $routes->post('programs', 'Admin\ProgramsAdmin::store');
-    $routes->get('programs/(:num)/edit', 'Admin\ProgramsAdmin::edit/$1');
-    $routes->put('programs/(:num)', 'Admin\ProgramsAdmin::update/$1');
-    $routes->delete('programs/(:num)', 'Admin\ProgramsAdmin::delete/$1');
-    
-    // News Management
-    $routes->get('news', 'Admin\NewsAdmin::index');
-    $routes->get('news/create', 'Admin\NewsAdmin::create');
-    $routes->post('news', 'Admin\NewsAdmin::store');
-    $routes->get('news/(:num)/edit', 'Admin\NewsAdmin::edit/$1');
-    $routes->put('news/(:num)', 'Admin\NewsAdmin::update/$1');
-    $routes->delete('news/(:num)', 'Admin\NewsAdmin::delete/$1');
-    
-    // Facilities Management
-    $routes->get('facilities', 'Admin\FacilitiesAdmin::index');
-    $routes->get('facilities/create', 'Admin\FacilitiesAdmin::create');
-    $routes->post('facilities', 'Admin\FacilitiesAdmin::store');
-    $routes->get('facilities/(:num)/edit', 'Admin\FacilitiesAdmin::edit/$1');
-    $routes->put('facilities/(:num)', 'Admin\FacilitiesAdmin::update/$1');
-    $routes->delete('facilities/(:num)', 'Admin\FacilitiesAdmin::delete/$1');
-    
-    // Incubatees Management
-    $routes->get('incubatees', 'Admin\IncubateesAdmin::index');
-    $routes->get('incubatees/create', 'Admin\IncubateesAdmin::create');
-    $routes->post('incubatees', 'Admin\IncubateesAdmin::store');
-    $routes->get('incubatees/(:num)/edit', 'Admin\IncubateesAdmin::edit/$1');
-    $routes->put('incubatees/(:num)', 'Admin\IncubateesAdmin::update/$1');
-    $routes->delete('incubatees/(:num)', 'Admin\IncubateesAdmin::delete/$1');
-    
-    // Organization/Team Management
-    $routes->get('team', 'Admin\TeamAdmin::index');
-    $routes->get('team/create', 'Admin\TeamAdmin::create');
-    $routes->post('team', 'Admin\TeamAdmin::store');
-    $routes->get('team/(:num)/edit', 'Admin\TeamAdmin::edit/$1');
-    $routes->put('team/(:num)', 'Admin\TeamAdmin::update/$1');
-    $routes->delete('team/(:num)', 'Admin\TeamAdmin::delete/$1');
-    
-    // Site Settings
-    $routes->get('settings', 'Admin\SettingsAdmin::index');
-    $routes->post('settings', 'Admin\SettingsAdmin::update');
+    $routes->post('posts/(:num)/update', 'Admin\PostsAdmin::update/$1');
+    $routes->post('posts/(:num)/delete', 'Admin\PostsAdmin::delete/$1');
 });

@@ -7,120 +7,94 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet"/>
     <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet"/>
     <style>
-        /* ── Reset ── */
         *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'DM Sans',sans-serif;background:#f7f6f3;color:#1e293b;min-height:100vh}
+        body{font-family:'DM Sans',sans-serif;background:#f4f3f0;color:#1e293b;min-height:100vh}
         a{text-decoration:none;color:inherit}
         button{font-family:inherit}
 
-        /* ── Layout ── */
-        .admin-shell{display:flex;min-height:100vh}
+        .shell{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
 
-        /* ── Sidebar ── */
-        .sidebar{width:240px;background:#03558C;color:#fff;display:flex;flex-direction:column;position:fixed;inset:0 auto 0 0;z-index:100}
-        .sidebar-brand{padding:1.5rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.08)}
-        .sidebar-brand h2{font-family:'DM Serif Display',serif;font-size:1.1rem;font-weight:400;letter-spacing:.02em}
-        .sidebar-brand span{display:block;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.25rem}
-        .sidebar-nav{flex:1;padding:.75rem 0}
-        .sidebar-nav a{display:flex;align-items:center;gap:.65rem;padding:.7rem 1.25rem;font-size:.8rem;font-weight:500;color:rgba(255,255,255,.55);transition:all .2s;border-left:3px solid transparent}
-        .sidebar-nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
-        .sidebar-nav a.active{color:#F8AF21;background:rgba(248,175,33,.08);border-left-color:#F8AF21}
-        .sidebar-nav a svg{width:16px;height:16px;opacity:.65;flex-shrink:0}
-        .sidebar-nav a.active svg{opacity:1}
-        .sidebar-foot{padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,.08);font-size:.72rem;color:rgba(255,255,255,.35)}
-        .sidebar-foot a{color:rgba(255,255,255,.55);transition:color .2s;font-size:.78rem;display:inline-flex;align-items:center;gap:.4rem;margin-top:.35rem}
-        .sidebar-foot a:hover{color:#F8AF21}
+        /* Sidebar */
+        .side{background:#fff;border-right:1px solid #e4e2dd;display:flex;flex-direction:column}
+        .side-brand{padding:1.4rem 1.3rem}
+        .side-brand h2{font-family:'DM Serif Display',serif;font-size:.95rem;font-weight:400;color:#03558C}
+        .side-brand span{font-size:.55rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#94a3b8;display:block;margin-top:.15rem}
+        .side-sep{height:1px;background:#eceae6;margin:0 1.3rem}
+        .side-label{font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#b0ada7;padding:.9rem 1.3rem .4rem}
+        .side-nav{padding:.25rem .6rem}
+        .side-nav a{display:flex;align-items:center;gap:.55rem;padding:.55rem .7rem;font-size:.78rem;font-weight:500;color:#64748b;border-radius:.35rem;transition:all .15s}
+        .side-nav a:hover{color:#1e293b;background:#f4f3f0}
+        .side-nav a.on{color:#03558C;background:#edf5fc;font-weight:600}
+        .side-nav a svg{width:15px;height:15px;flex-shrink:0;opacity:.55}
+        .side-nav a.on svg{opacity:.85}
+        .side-foot{margin-top:auto;padding:1rem 1.3rem;border-top:1px solid #eceae6}
+        .side-foot .user{font-size:.72rem;color:#64748b;margin-bottom:.15rem}
+        .side-foot .user strong{color:#1e293b;font-weight:600}
+        .side-foot .out{font-size:.68rem;color:#94a3b8;transition:color .15s}
+        .side-foot .out:hover{color:#ef4444}
 
-        /* ── Main ── */
-        .main{flex:1;margin-left:240px;display:flex;flex-direction:column}
+        /* Main area */
+        .body{display:flex;flex-direction:column;min-width:0}
+        .bar{display:flex;justify-content:space-between;align-items:center;padding:0 2rem;height:52px;background:#fff;border-bottom:1px solid #e4e2dd;position:sticky;top:0;z-index:40}
+        .bar h1{font-size:.82rem;font-weight:600;color:#1e293b}
+        .bar-r a{font-size:.62rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#64748b;padding:.3rem .7rem;border:1px solid #e4e2dd;border-radius:.25rem;transition:all .15s}
+        .bar-r a:hover{border-color:#03558C;color:#03558C}
+        .page{padding:1.6rem 2rem;flex:1}
 
-        /* ── Topbar ── */
-        .topbar{display:flex;justify-content:space-between;align-items:center;padding:0 2rem;height:56px;background:#fff;border-bottom:1px solid #e8e5e0;position:sticky;top:0;z-index:50}
-        .topbar h1{font-family:'DM Serif Display',serif;font-size:1.15rem;font-weight:400;color:#03558C}
-        .topbar-right{display:flex;align-items:center;gap:.75rem}
-        .topbar-user{font-size:.75rem;color:#64748b;text-align:right}
-        .topbar-user strong{color:#1e293b}
-        .btn-logout{font-size:.65rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#03558C;background:#F8AF21;border:none;padding:.4rem .85rem;border-radius:.25rem;cursor:pointer;transition:background .2s}
-        .btn-logout:hover{background:#e8a900}
-
-        /* ── Content area ── */
-        .content{padding:1.75rem 2rem;flex:1}
-
-        /* ── Utility classes ── */
-        .btn{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.55rem 1.1rem;border-radius:.3rem;border:none;cursor:pointer;transition:all .2s}
-        .btn-primary{background:#03558C;color:#fff}
-        .btn-primary:hover{background:#024a7a}
-        .btn-gold{background:#F8AF21;color:#03558C}
-        .btn-gold:hover{background:#e8a900}
-        .btn-danger{background:#ef4444;color:#fff}
-        .btn-danger:hover{background:#dc2626}
-        .btn-outline{background:transparent;border:1px solid #d1d5db;color:#64748b}
-        .btn-outline:hover{border-color:#03558C;color:#03558C}
-        .btn-sm{padding:.35rem .75rem;font-size:.65rem}
+        /* Shared button styles */
+        .btn{display:inline-flex;align-items:center;gap:.35rem;font-size:.68rem;font-weight:600;letter-spacing:.03em;padding:.5rem 1rem;border-radius:.3rem;border:none;cursor:pointer;transition:all .15s}
+        .btn-p{background:#03558C;color:#fff}.btn-p:hover{background:#024a7a}
+        .btn-g{background:#F8AF21;color:#1e293b}.btn-g:hover{background:#e9a210}
+        .btn-d{background:#fff;color:#ef4444;border:1px solid #fecaca}.btn-d:hover{background:#fef2f2}
+        .btn-o{background:#fff;color:#64748b;border:1px solid #e4e2dd}.btn-o:hover{border-color:#03558C;color:#03558C}
+        .btn-s{padding:.35rem .65rem;font-size:.62rem}
     </style>
 </head>
 <body>
-<div class="admin-shell">
+<div class="shell">
 
-    <!-- ── Sidebar ── -->
-    <aside class="sidebar">
-        <div class="sidebar-brand">
+    <aside class="side">
+        <div class="side-brand">
             <h2>ASOG TBI</h2>
             <span>Content Manager</span>
         </div>
+        <div class="side-sep"></div>
 
-        <nav class="sidebar-nav">
-            <a href="<?= site_url('admin') ?>" class="<?= ($activePage ?? '') === 'dashboard' ? 'active' : '' ?>">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+        <div class="side-label">Menu</div>
+        <nav class="side-nav">
+            <a href="<?= site_url('admin') ?>" class="<?= ($activePage ?? '') === 'dashboard' ? 'on' : '' ?>">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>
                 Dashboard
             </a>
-            <a href="<?= site_url('admin/posts') ?>" class="<?= ($activePage ?? '') === 'posts' ? 'active' : '' ?>">
+            <a href="<?= site_url('admin/posts') ?>" class="<?= ($activePage ?? '') === 'posts' ? 'on' : '' ?>">
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 12h10"/></svg>
                 Posts
             </a>
-            <a href="<?= site_url('admin/programs') ?>" class="<?= ($activePage ?? '') === 'programs' ? 'active' : '' ?>">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                Programs
-            </a>
-            <a href="<?= site_url('admin/facilities') ?>" class="<?= ($activePage ?? '') === 'facilities' ? 'active' : '' ?>">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                Facilities
-            </a>
-            <a href="<?= site_url('admin/incubatees') ?>" class="<?= ($activePage ?? '') === 'incubatees' ? 'active' : '' ?>">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
-                Incubatees
-            </a>
-            <a href="<?= site_url('admin/team') ?>" class="<?= ($activePage ?? '') === 'team' ? 'active' : '' ?>">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                Team
-            </a>
-            <a href="<?= site_url('admin/settings') ?>" class="<?= ($activePage ?? '') === 'settings' ? 'active' : '' ?>">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                Settings
+        </nav>
+
+        <div class="side-sep" style="margin-top:.4rem"></div>
+        <nav class="side-nav" style="padding-top:.3rem">
+            <a href="<?= site_url('/') ?>" target="_blank">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                View website
             </a>
         </nav>
 
-        <div class="sidebar-foot">
-            <div><?= esc(session()->get('admin_email') ?? 'Admin') ?></div>
-            <a href="<?= site_url('asog-admin/logout') ?>">
-                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                Sign out
-            </a>
+        <div class="side-foot">
+            <div class="user"><strong><?= esc(session()->get('admin_name') ?? 'Admin') ?></strong></div>
+            <div class="user" style="margin-bottom:.4rem"><?= esc(session()->get('admin_email') ?? '') ?></div>
+            <a href="<?= site_url('asog-admin/logout') ?>" class="out">Sign out</a>
         </div>
     </aside>
 
-    <!-- ── Main ── -->
-    <div class="main">
-        <header class="topbar">
+    <div class="body">
+        <header class="bar">
             <h1><?= esc($pageTitle ?? 'Dashboard') ?></h1>
-            <div class="topbar-right">
-                <div class="topbar-user">
-                    <strong><?= esc(session()->get('admin_email') ?? 'Admin') ?></strong>
-                </div>
-                <a href="<?= site_url('asog-admin/logout') ?>" class="btn-logout">Logout</a>
+            <div class="bar-r">
+                <a href="<?= site_url('/') ?>" target="_blank">View site</a>
             </div>
         </header>
 
-        <div class="content">
+        <div class="page">
             <?php helper('toast'); ?>
             <?= renderToast() ?>

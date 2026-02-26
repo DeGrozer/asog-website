@@ -1,8 +1,7 @@
-        </div><!-- /.content -->
-    </div><!-- /.main -->
-</div><!-- /.admin-shell -->
+        </div>
+    </div>
+</div>
 
-<!-- Quill.js Rich-Text Editor -->
 <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -12,8 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
             theme: 'snow',
             modules: {
                 toolbar: [
-                    ['bold', 'italic', 'underline', 'strike'],
-                    [{ 'header': [2, 3, 4, false] }],
+                    ['bold', 'italic', 'underline'],
+                    [{ 'header': [2, 3, false] }],
                     [{ 'list': 'ordered' }, { 'list': 'bullet' }],
                     ['link'],
                     ['clean']
@@ -34,6 +33,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-
 </body>
 </html>

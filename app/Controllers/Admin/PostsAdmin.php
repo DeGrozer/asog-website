@@ -70,9 +70,14 @@ class PostsAdmin extends Controller
         // Generate slug
         $data['slug'] = $this->postModel->generateSlug($data['title']);
 
-        // Set publishedAt if publishing
+        // Set publishedAt — use custom date if provided, otherwise default to now
+        $customDate = $this->request->getPost('publishedAt');
         if ($data['isPublished']) {
-            $data['publishedAt'] = date('Y-m-d H:i:s');
+            $data['publishedAt'] = !empty($customDate)
+                ? $customDate . ' ' . date('H:i:s')
+                : date('Y-m-d H:i:s');
+        } elseif (!empty($customDate)) {
+            $data['publishedAt'] = $customDate . ' ' . date('H:i:s');
         }
 
         // Handle image upload
@@ -147,8 +152,11 @@ class PostsAdmin extends Controller
             $data['slug'] = $this->postModel->generateSlug($data['title'], $id);
         }
 
-        // Set publishedAt when first publishing
-        if ($data['isPublished'] && empty($post['publishedAt'])) {
+        // Set publishedAt — use custom date if provided
+        $customDate = $this->request->getPost('publishedAt');
+        if (!empty($customDate)) {
+            $data['publishedAt'] = $customDate . ' ' . date('H:i:s');
+        } elseif ($data['isPublished'] && empty($post['publishedAt'])) {
             $data['publishedAt'] = date('Y-m-d H:i:s');
         }
 

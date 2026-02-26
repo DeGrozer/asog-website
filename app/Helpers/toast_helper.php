@@ -11,61 +11,73 @@
  *
  * Usage in views:
  *   <?= renderToast() ?>
- */
+*/
 
 if (! function_exists('setToast')) {
-    /**
-     * Set a flash toast message.
-     *
-     * @param string $type    One of: success, error, info, warning
-     * @param string $message The toast body text.
-     */
-    function setToast(string $type, string $message): void
-    {
-        session()->setFlashdata('toast_type', $type);
-        session()->setFlashdata('toast_message', $message);
-    }
+/**
+* Set a flash toast message.
+*
+* @param string $type One of: success, error, info, warning
+* @param string $message The toast body text.
+*/
+function setToast(string $type, string $message): void
+{
+session()->setFlashdata('toast_type', $type);
+session()->setFlashdata('toast_message', $message);
+}
 }
 
 if (! function_exists('renderToast')) {
-    /**
-     * Render the toast HTML if a flash message exists.
-     * Returns empty string if no toast is queued.
-     */
-    function renderToast(): string
-    {
-        $type    = session()->getFlashdata('toast_type');
-        $message = session()->getFlashdata('toast_message');
+/**
+* Render the toast HTML if a flash message exists.
+* Returns empty string if no toast is queued.
+*/
+function renderToast(): string
+{
+$type = session()->getFlashdata('toast_type');
+$message = session()->getFlashdata('toast_message');
 
-        if (empty($type) || empty($message)) {
-            return '';
-        }
-
-        $accents = [
-            'success' => '#10b981',
-            'error'   => '#ef4444',
-            'warning' => '#f59e0b',
-            'info'    => '#03558C',
-        ];
-
-        $icons = [
-            'success' => '✓',
-            'error'   => '✕',
-            'warning' => '!',
-            'info'    => 'ℹ',
-        ];
-
-        $accent = $accents[$type] ?? $accents['info'];
-        $icon   = $icons[$type] ?? $icons['info'];
-
-        return <<<HTML
-        <div id="toast" style="position:fixed;bottom:1.25rem;left:1.25rem;z-index:9999;display:flex;align-items:flex-start;gap:.6rem;background:#fff;border:1px solid #e5e7eb;border-left:3px solid {$accent};padding:.8rem 1rem;border-radius:.2rem;box-shadow:0 4px 20px rgba(0,0,0,.07);font-size:.82rem;font-family:'DM Sans',sans-serif;color:#334155;max-width:380px;min-width:240px;animation:toastIn .3s ease forwards">
-            <span style="color:{$accent};font-weight:700;font-size:.9rem;line-height:1;margin-top:.1rem">{$icon}</span>
-            <span style="flex:1;line-height:1.5">{$message}</span>
-            <button onclick="this.parentElement.remove()" style="background:none;border:none;cursor:pointer;font-size:.9rem;color:#94a3b8;padding:0;line-height:1;margin-left:.25rem">×</button>
-        </div>
-        <style>@keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
-        <script>setTimeout(()=>{const t=document.getElementById('toast');if(t){t.style.transition='opacity .3s,transform .3s';t.style.opacity='0';t.style.transform='translateY(8px)';setTimeout(()=>t.remove(),300)}},4000)</script>
-        HTML;
-    }
+if (empty($type) || empty($message)) {
+return '';
 }
+
+$bg = [
+'success' => '#f0fdf4',
+'error' => '#fef2f2',
+'warning' => '#fffbeb',
+'info' => '#f0f7ff',
+];
+
+$fg = [
+'success' => '#166534',
+'error' => '#991b1b',
+'warning' => '#92400e',
+'info' => '#1e40af',
+];
+
+$border = [
+'success' => '#bbf7d0',
+'error' => '#fecaca',
+'warning' => '#fde68a',
+'info' => '#bfdbfe',
+];
+
+$b  = $bg[$type]     ?? $bg['info'];
+$f  = $fg[$type]     ?? $fg['info'];
+$bd = $border[$type] ?? $border['info'];
+
+return <<<HTML
+<div id="toast" style="position:fixed;bottom:1.25rem;left:1.25rem;z-index:9999;background:{$b};border:1px solid {$bd};padding:.55rem .9rem;border-radius:.3rem;font-size:.78rem;font-family:'DM Sans',sans-serif;color:{$f};max-width:340px;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s">
+    {$message}
+</div>
+<script>
+(function(){
+    var t=document.getElementById('toast');
+    if(!t)return;
+    requestAnimationFrame(function(){t.style.opacity='1';t.style.transform='translateY(0)'});
+    setTimeout(function(){t.style.opacity='0';t.style.transform='translateY(6px)';setTimeout(function(){t.remove()},250)},3500);
+})();
+</script>
+HTML;
+    }
+    }

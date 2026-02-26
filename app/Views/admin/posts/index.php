@@ -1,87 +1,80 @@
 <style>
-    .posts-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
-    .posts-toolbar .count{font-size:.82rem;color:#64748b}
-    .posts-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:.5rem;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-    .posts-table th{text-align:left;padding:.65rem 1rem;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#64748b;background:#f9fafb;border-bottom:1px solid #e8e5e0}
-    .posts-table td{padding:.75rem 1rem;font-size:.84rem;color:#334155;border-bottom:1px solid #f1f0ed;vertical-align:middle}
-    .posts-table tr:last-child td{border-bottom:none}
-    .posts-table tr:hover td{background:#fafaf8}
-    .post-thumb{width:48px;height:48px;border-radius:.3rem;object-fit:cover;background:#e8e5e0;display:block}
-    .post-thumb-empty{width:48px;height:48px;border-radius:.3rem;background:#e8e5e0;display:flex;align-items:center;justify-content:center;font-size:.5rem;color:#a5a09a;text-transform:uppercase;letter-spacing:.08em}
-    .badge{display:inline-block;font-size:.58rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .55rem;border-radius:.2rem}
-    .badge-pub{background:#ecfdf5;color:#065f46}
-    .badge-draft{background:#f1f5f9;color:#64748b}
-    .badge-cat{background:#eff6ff;color:#1e40af}
-    .badge-feat{background:#fffbeb;color:#92400e}
-    .actions{display:flex;gap:.4rem}
-    .actions a,.actions button{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:.25rem;border:1px solid #e5e7eb;background:#fff;cursor:pointer;transition:all .15s;color:#64748b;font-size:.8rem;text-decoration:none}
-    .actions a:hover,.actions button:hover{border-color:#03558C;color:#03558C}
-    .actions button.del:hover{border-color:#ef4444;color:#ef4444}
-    .empty-state{text-align:center;padding:4rem 2rem;color:#94a3b8}
-    .empty-state h3{font-family:'DM Serif Display',serif;font-size:1.25rem;color:#64748b;margin-bottom:.5rem;font-weight:400}
-    .empty-state p{font-size:.84rem;margin-bottom:1.25rem}
+    .toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+    .toolbar .count{font-size:.78rem;color:#94a3b8}
+    .posts-tbl{width:100%;background:#fff;border:1px solid #eceae6;border-radius:.4rem;border-collapse:separate;border-spacing:0;overflow:hidden}
+    .posts-tbl th{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8;text-align:left;padding:.5rem 1rem;background:#fafaf9;border-bottom:1px solid #eceae6}
+    .posts-tbl td{font-size:.8rem;color:#1e293b;padding:.65rem 1rem;border-bottom:1px solid #f4f3f0;vertical-align:middle}
+    .posts-tbl tr:last-child td{border-bottom:none}
+    .posts-tbl tbody tr:hover{background:#fafaf9}
+    .tbl-thumb{width:36px;height:36px;border-radius:.25rem;object-fit:cover;background:#eceae6;vertical-align:middle}
+    .tbl-thumb-empty{display:inline-block;width:36px;height:36px;border-radius:.25rem;background:#eceae6;vertical-align:middle}
+    .tbl-title{font-weight:600}
+    .tbl-desc{font-size:.7rem;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;display:block}
+    .tag{font-size:.52rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:.15rem .4rem;border-radius:.15rem;white-space:nowrap}
+    .tag-live{background:#ecfdf5;color:#065f46}
+    .tag-draft{background:#f1f5f9;color:#64748b}
+    .tag-feat{background:#fef3c7;color:#92400e}
+    .tag-cat{background:#edf5fc;color:#03558C}
+    .acts{display:flex;gap:.4rem}
+    .acts a{font-size:.72rem;color:#03558C;text-decoration:none}
+    .acts a:hover{text-decoration:underline}
+    .acts .del{color:#be123c}
+    .empty-row{text-align:center;padding:2rem;color:#94a3b8;font-size:.82rem}
+    .empty-row a{color:#03558C;text-decoration:underline}
+    .pagination{display:flex;align-items:center;gap:.25rem;margin-top:1rem;font-size:.78rem}
+    .pagination a,.pagination span{padding:.3rem .6rem;border-radius:.25rem;text-decoration:none;color:#03558C}
+    .pagination .cur{background:#03558C;color:#fff}
 </style>
 
-<div class="posts-toolbar">
-    <span class="count"><?= count($posts ?? []) ?> post<?= count($posts ?? []) !== 1 ? 's' : '' ?></span>
-    <a href="<?= site_url('admin/posts/create') ?>" class="btn btn-gold">+ New Post</a>
+<div class="toolbar">
+    <span class="count"><?= count($posts ?? []) ?> posts</span>
+    <a href="<?= site_url('admin/posts/create') ?>" class="btn-p">New post</a>
 </div>
 
 <?php if (empty($posts)): ?>
-    <div class="empty-state">
-        <h3>No posts yet</h3>
-        <p>Create your first blog post to get started.</p>
-        <a href="<?= site_url('admin/posts/create') ?>" class="btn btn-primary">Create Post</a>
-    </div>
+    <div class="empty-row">No posts yet. <a href="<?= site_url('admin/posts/create') ?>">Create one.</a></div>
 <?php else: ?>
-    <table class="posts-table">
+    <table class="posts-tbl">
         <thead>
             <tr>
-                <th style="width:60px"></th>
+                <th></th>
                 <th>Title</th>
                 <th>Category</th>
                 <th>Status</th>
                 <th>Date</th>
-                <th style="width:100px">Actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($posts as $post): ?>
+            <?php foreach ($posts as $p): ?>
                 <tr>
                     <td>
-                        <?php if (! empty($post['imagePath'])): ?>
-                            <img src="<?= site_url($post['imagePath']) ?>" alt="" class="post-thumb"/>
+                        <?php if (! empty($p['imagePath'])): ?>
+                            <img src="<?= site_url($p['imagePath']) ?>" alt="" class="tbl-thumb"/>
                         <?php else: ?>
-                            <div class="post-thumb-empty">No img</div>
+                            <span class="tbl-thumb-empty"></span>
                         <?php endif; ?>
                     </td>
                     <td>
-                        <strong style="display:block;margin-bottom:.15rem"><?= esc($post['title']) ?></strong>
-                        <?php if (! empty($post['shortDescription'])): ?>
-                            <span style="font-size:.75rem;color:#94a3b8"><?= esc(character_limiter($post['shortDescription'], 70)) ?></span>
-                        <?php endif; ?>
-                        <?php if ($post['isFeatured']): ?>
-                            <span class="badge badge-feat" style="margin-left:.35rem">Featured</span>
+                        <span class="tbl-title"><?= esc($p['title']) ?></span>
+                        <?php if (! empty($p['shortDescription'])): ?>
+                            <span class="tbl-desc"><?= esc($p['shortDescription']) ?></span>
                         <?php endif; ?>
                     </td>
-                    <td><span class="badge badge-cat"><?= esc(ucfirst($post['category'])) ?></span></td>
+                    <td><span class="tag tag-cat"><?= esc(ucfirst($p['category'])) ?></span></td>
                     <td>
-                        <?php if ($post['isPublished']): ?>
-                            <span class="badge badge-pub">Published</span>
-                        <?php else: ?>
-                            <span class="badge badge-draft">Draft</span>
+                        <span class="tag <?= $p['isPublished'] ? 'tag-live' : 'tag-draft' ?>"><?= $p['isPublished'] ? 'Published' : 'Draft' ?></span>
+                        <?php if (! empty($p['isFeatured'])): ?>
+                            <span class="tag tag-feat">Featured</span>
                         <?php endif; ?>
                     </td>
-                    <td style="font-size:.78rem;color:#94a3b8">
-                        <?= $post['publishedAt'] ? date('M j, Y', strtotime($post['publishedAt'])) : '—' ?>
-                    </td>
+                    <td style="font-size:.72rem;color:#94a3b8;white-space:nowrap"><?= $p['publishedAt'] ? date('M j, Y', strtotime($p['publishedAt'])) : '—' ?></td>
                     <td>
-                        <div class="actions">
-                            <a href="<?= site_url('admin/posts/' . $post['id'] . '/edit') ?>" title="Edit">✎</a>
-                            <form method="POST" action="<?= site_url('admin/posts/' . $post['id']) ?>" onsubmit="return confirm('Delete this post?')">
+                        <div class="acts">
+                            <a href="<?= site_url('admin/posts/' . $p['id'] . '/edit') ?>">Edit</a>
+                            <form action="<?= site_url('admin/posts/' . $p['id'] . '/delete') ?>" method="POST" onsubmit="return confirm('Delete this post?')">
                                 <?= csrf_field() ?>
-                                <input type="hidden" name="_method" value="DELETE"/>
-                                <button type="submit" class="del" title="Delete">✕</button>
+                                <button type="submit" class="del" style="background:none;border:none;cursor:pointer;font:inherit;color:inherit">Delete</button>
                             </form>
                         </div>
                     </td>
@@ -89,4 +82,5 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+
 <?php endif; ?>
