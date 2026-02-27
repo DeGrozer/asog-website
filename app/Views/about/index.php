@@ -22,12 +22,6 @@
                         ['id' => 'who-can-join', 'label' => 'Who Can Join?'],
                     ]],
                     ['id' => 'our-impact', 'label' => 'Our Impact'],
-                    ['id' => 'organization', 'label' => 'Organization', 'children' => [
-                        ['id' => 'core-team', 'label' => 'The Core Team'],
-                        ['id' => 'tbi-staff', 'label' => 'TBI Staff'],
-                        ['id' => 'faculty-mentors', 'label' => 'Faculty Mentors'],
-                        ['id' => 'industry-mentors', 'label' => 'Industry Mentors'],
-                    ]],
                 ];
             ?>
             <?= view('partials/toc', compact('tocTitle', 'tocItems')) ?>
@@ -93,93 +87,3 @@
     </div>
 </section>
 
-<!-- ╔══════════════════════════════════════════════════════════════════════╗
-     ║  ORGANIZATION                                                      ║
-     ╚══════════════════════════════════════════════════════════════════════╝ -->
-<section class="relative bg-white py-20 md:py-32 px-6 md:px-10 lg:px-14">
-    <div class="ai-grid"></div>
-    <div class="ai-grid-fade"></div>
-
-    <div class="max-w-[960px] mx-auto relative z-[2]">
-
-        <div class="text-center mb-16">
-            <div class="flex items-center justify-center gap-2 mb-4">
-                <span class="block w-[18px] h-[1.5px] bg-gold"></span>
-                <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-gold">Our People</span>
-                <span class="block w-[18px] h-[1.5px] bg-gold"></span>
-            </div>
-            <h2 id="organization" class="font-display text-[2rem] md:text-[2.6rem] leading-[1.15] text-dark scroll-mt-28">Organization</h2>
-            <p class="text-[.95rem] font-normal leading-[1.8] text-dark/50 mt-4 max-w-[560px] mx-auto">The people behind ASOG TBI — our core team, staff, faculty mentors, and industry mentors driving innovation in the Bicol Region.</p>
-        </div>
-
-        <!-- THE CORE TEAM -->
-        <div class="mb-16">
-            <h3 id="core-team" class="font-display text-[1.4rem] md:text-[1.7rem] leading-[1.2] text-dark mb-8 scroll-mt-28">The Core Team</h3>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-                <?php for ($i = 1; $i <= 4; $i++): ?>
-                <div class="group text-center">
-                    <div class="w-full aspect-square rounded-lg bg-dark/[.04] border border-dark/[.06] mb-4 flex items-center justify-center overflow-hidden">
-                        <span class="text-[.5rem] font-semibold tracking-[.2em] uppercase text-dark/15">Photo</span>
-                    </div>
-                    <h4 class="font-display text-[.95rem] text-dark leading-tight mb-0.5">Lorem Ipsum</h4>
-                    <p class="text-[.72rem] font-medium text-gold tracking-wide uppercase">Position Title</p>
-                </div>
-                <?php endfor; ?>
-            </div>
-        </div>
-
-        <div class="h-px bg-dark/[.06] my-14"></div>
-
-        <!-- TBI STAFF -->
-        <div class="mb-16">
-            <h3 id="tbi-staff" class="font-display text-[1.4rem] md:text-[1.7rem] leading-[1.2] text-dark mb-8 scroll-mt-28">TBI Staff</h3>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-                <?php for ($i = 1; $i <= 8; $i++): ?>
-                <div class="group text-center">
-                    <div class="w-full aspect-square rounded-lg bg-dark/[.04] border border-dark/[.06] mb-4 flex items-center justify-center overflow-hidden">
-                        <span class="text-[.5rem] font-semibold tracking-[.2em] uppercase text-dark/15">Photo</span>
-                    </div>
-                    <h4 class="font-display text-[.95rem] text-dark leading-tight mb-0.5">Lorem Ipsum</h4>
-                    <p class="text-[.72rem] font-medium text-gold tracking-wide uppercase">Staff Role</p>
-                </div>
-                <?php endfor; ?>
-            </div>
-        </div>
-
-        <div class="h-px bg-dark/[.06] my-14"></div>
-
-        <!-- MENTORS -->
-        <div class="mb-16">
-            <h3 id="mentors" class="font-display text-[1.4rem] md:text-[1.7rem] leading-[1.2] text-dark mb-8 scroll-mt-28">Mentors</h3>
-
-            <!-- Faculty Mentors -->
-            <h4 id="faculty-mentors" class="text-[.65rem] font-semibold tracking-[.18em] uppercase text-navy/50 mb-6 scroll-mt-28">Faculty Mentors</h4>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 mb-12">
-                <?php for ($i = 1; $i <= 4; $i++): ?>
-                <div class="group text-center">
-                    <div class="w-full aspect-square rounded-lg bg-dark/[.04] border border-dark/[.06] mb-4 flex items-center justify-center overflow-hidden">
-                        <span class="text-[.5rem] font-semibold tracking-[.2em] uppercase text-dark/15">Photo</span>
-                    </div>
-                    <h4 class="font-display text-[.95rem] text-dark leading-tight mb-0.5">Lorem Ipsum</h4>
-                    <p class="text-[.72rem] font-medium text-sky tracking-wide uppercase">Faculty Mentor</p>
-                </div>
-                <?php endfor; ?>
-            </div>
-
-            <!-- Industry Mentors -->
-            <h4 id="industry-mentors" class="text-[.65rem] font-semibold tracking-[.18em] uppercase text-navy/50 mb-6 scroll-mt-28">Industry Mentors</h4>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-                <?php for ($i = 1; $i <= 4; $i++): ?>
-                <div class="group text-center">
-                    <div class="w-full aspect-square rounded-lg bg-dark/[.04] border border-dark/[.06] mb-4 flex items-center justify-center overflow-hidden">
-                        <span class="text-[.5rem] font-semibold tracking-[.2em] uppercase text-dark/15">Photo</span>
-                    </div>
-                    <h4 class="font-display text-[.95rem] text-dark leading-tight mb-0.5">Lorem Ipsum</h4>
-                    <p class="text-[.72rem] font-medium text-sky tracking-wide uppercase">Industry Mentor</p>
-                </div>
-                <?php endfor; ?>
-            </div>
-        </div>
-
-    </div>
-</section>

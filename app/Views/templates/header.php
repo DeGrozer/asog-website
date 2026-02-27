@@ -58,11 +58,11 @@
                         <a href="<?= $navAbout ?>#why-choose-us" class="dd-item">Why Choose Us?</a>
                         <a href="<?= $navAbout ?>#our-impact" class="dd-item">Our Impact</a>
                         <span class="dd-label">Organization</span>
-                        <a href="<?= $navAbout ?>#core-team" class="dd-item dd-indent">The Core Team</a>
-                        <a href="<?= $navAbout ?>#tbi-staff" class="dd-item dd-indent">TBI Staff</a>
+                        <a href="<?= site_url('organization') ?>#core-team" class="dd-item dd-indent">The Core Team</a>
+                        <a href="<?= site_url('organization') ?>#tbi-staff" class="dd-item dd-indent">TBI Staff</a>
                         <span class="dd-label dd-indent">Mentors</span>
-                        <a href="<?= $navAbout ?>#faculty-mentors" class="dd-item dd-indent">Faculty Mentors</a>
-                        <a href="<?= $navAbout ?>#industry-mentors" class="dd-item dd-indent">Industry Mentors</a>
+                        <a href="<?= site_url('organization') ?>#faculty-mentors" class="dd-item dd-indent">Faculty Mentors</a>
+                        <a href="<?= site_url('organization') ?>#industry-mentors" class="dd-item dd-indent">Industry Mentors</a>
                     </div>
                 </div>
                 <!-- Programs & Services -->
@@ -146,11 +146,11 @@
                         <a href="<?= $navAbout ?>#why-choose-us" class="dd-item">Why Choose Us?</a>
                         <a href="<?= $navAbout ?>#our-impact" class="dd-item">Our Impact</a>
                         <span class="dd-label">Organization</span>
-                        <a href="<?= $navAbout ?>#core-team" class="dd-item dd-indent">The Core Team</a>
-                        <a href="<?= $navAbout ?>#tbi-staff" class="dd-item dd-indent">TBI Staff</a>
+                        <a href="<?= site_url('organization') ?>#core-team" class="dd-item dd-indent">The Core Team</a>
+                        <a href="<?= site_url('organization') ?>#tbi-staff" class="dd-item dd-indent">TBI Staff</a>
                         <span class="dd-label dd-indent">Mentors</span>
-                        <a href="<?= $navAbout ?>#faculty-mentors" class="dd-item dd-indent">Faculty Mentors</a>
-                        <a href="<?= $navAbout ?>#industry-mentors" class="dd-item dd-indent">Industry Mentors</a>
+                        <a href="<?= site_url('organization') ?>#faculty-mentors" class="dd-item dd-indent">Faculty Mentors</a>
+                        <a href="<?= site_url('organization') ?>#industry-mentors" class="dd-item dd-indent">Industry Mentors</a>
                     </div>
                 </div>
                 <div class="nav-dd group lo" data-order="2">
@@ -220,7 +220,7 @@
                 <a href="<?= $navAbout ?>#our-story" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Our Story</a>
                 <a href="<?= $navAbout ?>#why-choose-us" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Why Choose Us?</a>
                 <a href="<?= $navAbout ?>#our-impact" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Our Impact</a>
-                <a href="<?= $navAbout ?>#organization" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Organization</a>
+                <a href="<?= site_url('organization') ?>" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Organization</a>
             </div>
             <!-- Programs & Services -->
             <a href="<?= $navPrograms ?>"
