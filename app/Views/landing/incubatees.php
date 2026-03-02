@@ -13,7 +13,7 @@
                 </div>
                 <h2 class="font-display text-2xl md:text-[2rem] text-off leading-none">Featured Incubatee</h2>
             </div>
-            <a href="#"
+            <a href="<?= site_url('incubatees') ?>"
                 class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-white/[.28] no-underline border-b border-white/[.12] pb-0.5 transition-colors duration-200 hover:text-gold hover:border-gold shrink-0">View
                 All Incubatees</a>
         </div>
@@ -71,9 +71,9 @@
                                 Three</span>
                         </div>
                     </div>
-                    <a href="#"
+                    <a href="<?= site_url('incubatees') ?>"
                         class="group text-[.65rem] font-bold tracking-[.13em] uppercase text-gold no-underline inline-flex items-center gap-1.5 transition-all duration-200 hover:gap-3">
-                        Read Full Story <span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                        Read More <span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
                     </a>
                 </div>
             </div>

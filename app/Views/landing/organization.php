@@ -55,5 +55,13 @@
                     Lead</span>
             </div>
         </div>
+
+        <!-- See More -->
+        <div class="text-center mt-10 md:mt-14 reveal">
+            <a href="<?= site_url('organization') ?>"
+               class="inline-flex items-center gap-2 font-body text-[.62rem] font-bold tracking-[.2em] uppercase text-gold no-underline border border-gold/40 px-6 py-3 rounded-sm transition-all duration-200 hover:bg-gold/10 hover:border-gold">
+                See More <span aria-hidden="true">→</span>
+            </a>
+        </div>
     </div>
 </section>

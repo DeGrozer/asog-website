@@ -31,7 +31,7 @@
     $navNews       = site_url('news');
     $navOrg        = site_url('organization');
     $navContact    = site_url('contact');
-    $navCta        = site_url('contact');
+    $navCta        = site_url('incubatees/apply');
     ?>
     <a class="sr-only focus:not-sr-only" href="#main">Skip to content</a>
 
@@ -51,16 +51,9 @@
             <!-- desktop left links -->
             <div class="nav-left absolute left-10 flex items-center gap-1 lg:flex hidden">
                 <!-- About Us -->
-                <div class="nav-dd group">
-                    <a href="<?= $navAbout ?>"
-                        class="nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">About
-                        Us</a>
-                    <div class="dd-menu">
-                        <a href="<?= $navAbout ?>" class="dd-item">Our Story</a>
-                        <a href="<?= $navAbout ?>" class="dd-item">Why Choose Us?</a>
-                        <a href="<?= $navAbout ?>" class="dd-item">Our Impact</a>
-                    </div>
-                </div>
+                <a href="<?= $navAbout ?>"
+                    class="nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">About
+                    Us</a>
                 <!-- Programs & Services -->
                 <div class="nav-dd group">
                     <a href="<?= $navPrograms ?>"
@@ -115,20 +108,12 @@
                 </div>
                 <!-- CTA Button -->
                 <a href="<?= $navCta ?>" data-order="6"
-                    class="nav-btn ml-4 font-body text-[.63rem] font-bold tracking-[.13em] uppercase text-dark bg-gold border border-gold px-5 py-2 rounded-sm no-underline whitespace-nowrap shrink-0 transition-colors duration-200 hover:bg-gold-dk">Be
+                    class="nav-btn ml-4 font-body text-[.63rem] font-light  tracking-[.13em] uppercase text-white bg-gold border border-gold px-5 py-2 rounded-sm no-underline whitespace-nowrap shrink-0 transition-colors duration-200 hover:bg-gold-dk">Be
                     an Incubatee</a>
 
                 <!-- COLLAPSED DUPLICATES (appear on scroll via .lo) -->
-                <div class="nav-dd group lo" data-order="1">
-                    <a href="<?= $navAbout ?>"
-                        class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold">About
-                        Us</a>
-                    <div class="dd-menu dd-right">
-                        <a href="<?= $navAbout ?>" class="dd-item">Our Story</a>
-                        <a href="<?= $navAbout ?>" class="dd-item">Why Choose Us?</a>
-                        <a href="<?= $navAbout ?>" class="dd-item">Our Impact</a>
-                    </div>
-                </div>
+                <a href="<?= $navAbout ?>" class="nl nav-link lo text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold" data-order="1">About
+                    Us</a>
                 <div class="nav-dd group lo" data-order="2">
                     <a href="<?= $navPrograms ?>"
                         class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold">Programs
@@ -175,6 +160,8 @@
             </svg>
         </button>
         <nav class="flex flex-col gap-1">
+            <a href="<?= base_url() ?>"
+                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Home</a>
             <a href="<?= $navAbout ?>"
                 class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">About
                 Us</a>
@@ -182,7 +169,8 @@
                 class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Programs
                 &amp; Services</a>
             <a href="<?= $navFacilities ?>"
-                class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold">↳ Facilities</a>
+                class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold">↳
+                Facilities</a>
             <a href="<?= $navIncubatees ?>"
                 class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Incubatees</a>
             <a href="<?= $navNews ?>"

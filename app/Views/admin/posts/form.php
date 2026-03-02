@@ -10,8 +10,8 @@
 
 $isEdit  = isset($post);
 $formUrl = $isEdit
-    ? site_url('admin/posts/' . $post['id'] . '/update')
-    : site_url('admin/posts/store');
+    ? site_url('admin/posts/' . $post['id'])
+    : site_url('admin/posts');
 ?>
 
 <style>
@@ -47,6 +47,9 @@ $formUrl = $isEdit
 
 <form action="<?= $formUrl ?>" method="POST" enctype="multipart/form-data" id="postForm">
     <?= csrf_field() ?>
+    <?php if ($isEdit): ?>
+        <input type="hidden" name="_method" value="PUT"/>
+    <?php endif; ?>
     <div class="form-card">
         <div class="form-grid">
 
@@ -120,7 +123,7 @@ $formUrl = $isEdit
                 <label class="switch">
                     <input type="checkbox" name="isFeatured" value="1" <?= ($isEdit && ! empty($post['isFeatured'])) ? 'checked' : '' ?>>
                     <span class="track"></span>
-                    Featured
+                    Featured <span style="font-size:.65rem;color:#94a3b8;font-weight:400">(up to 5 show in hero)</span>
                 </label>
             </div>
 

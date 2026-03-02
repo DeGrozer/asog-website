@@ -24,6 +24,7 @@ class Landing extends BaseController
         $data = [
             'title'        => 'ASOG-TBI - Home',
             'isLanding'    => true,
+            'heroSlides'   => $postModel->getFeaturedSlides(5),
             'featuredPost' => $postModel->getFeatured(),
             'latestPosts'  => $postModel->getPublished(3),
             'programs'     => $programModel->getPublished(3),

@@ -91,6 +91,20 @@ class PostModel extends Model
     }
 
     /**
+     * Return up to $limit published+featured posts that have a cover image.
+     * Used by the landing-page hero slideshow.
+     */
+    public function getFeaturedSlides(int $limit = 5): array
+    {
+        return $this->where('isPublished', 1)
+                    ->where('isFeatured', 1)
+                    ->where('imagePath !=', '')
+                    ->where('imagePath IS NOT NULL', null, false)
+                    ->orderBy('publishedAt', 'DESC')
+                    ->findAll($limit);
+    }
+
+    /**
      * Return the latest published posts for the hero slideshow.
      */
     public function getHeroSlides(int $limit = 5): array

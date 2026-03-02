@@ -93,11 +93,6 @@ class PostsAdmin extends Controller
             }
         }
 
-        // Enforce single featured post — clear others before insert
-        if (! empty($data['isFeatured'])) {
-            $this->postModel->clearFeatured();
-        }
-
         if (! $this->postModel->insert($data)) {
             setToast('error', 'Validation failed: ' . implode(', ', $this->postModel->errors()));
             return redirect()->back()->withInput();
@@ -183,9 +178,7 @@ class PostsAdmin extends Controller
         }
 
         // Enforce single featured post — clear others before update
-        if (! empty($data['isFeatured'])) {
-            $this->postModel->clearFeatured($id);
-        }
+        // REMOVED: multiple featured posts are now allowed (up to 5 show in hero)
 
         if (! $this->postModel->update($id, $data)) {
             setToast('error', 'Validation failed: ' . implode(', ', $this->postModel->errors()));

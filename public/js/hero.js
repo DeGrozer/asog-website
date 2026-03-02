@@ -2,25 +2,27 @@
 (function () {
     var slides = document.querySelectorAll('#hero .slide');
     var hls    = document.querySelectorAll('#hero .hl');
+    var descs  = document.querySelectorAll('#hero .hl-desc');
+    var links  = document.querySelectorAll('#hero .hl-link');
     var dots   = document.querySelectorAll('#hero .ind');
     if (slides.length < 2) return;
 
     var cur   = 0;
-    var DELAY = 5000;
+    var DELAY = 5500;
     var timer;
 
     function go(n) {
-        /* Remove active from old */
-        if (slides[cur]) slides[cur].classList.remove('active');
-        if (hls[cur])    hls[cur].classList.remove('active');
-        if (dots[cur])   dots[cur].classList.remove('active');
+        /* Deactivate old */
+        [slides, hls, descs, links, dots].forEach(function (list) {
+            if (list[cur]) list[cur].classList.remove('active');
+        });
 
         cur = n;
 
         /* Activate new */
-        if (slides[cur]) slides[cur].classList.add('active');
-        if (hls[cur])    hls[cur].classList.add('active');
-        if (dots[cur])   dots[cur].classList.add('active');
+        [slides, hls, descs, links, dots].forEach(function (list) {
+            if (list[cur]) list[cur].classList.add('active');
+        });
     }
 
     function next() { go((cur + 1) % slides.length); }

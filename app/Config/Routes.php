@@ -28,6 +28,7 @@ $routes->get('/services', 'Programs::services');
 $routes->get('/facilities', 'Facilities::index');
 $routes->get('/facilities/(:segment)', 'Facilities::show/$1');
 $routes->get('/incubatees', 'Incubatees::index');
+$routes->get('/incubatees/apply', 'Incubatees::apply');
 $routes->get('/incubatees/(:segment)', 'Incubatees::show/$1');
 $routes->get('/news', 'News::index');
 $routes->get('/news/(:segment)', 'News::show/$1');

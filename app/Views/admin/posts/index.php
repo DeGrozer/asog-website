@@ -72,8 +72,9 @@
                     <td>
                         <div class="acts">
                             <a href="<?= site_url('admin/posts/' . $p['id'] . '/edit') ?>">Edit</a>
-                            <form action="<?= site_url('admin/posts/' . $p['id'] . '/delete') ?>" method="POST" onsubmit="return confirm('Delete this post?')">
+                            <form action="<?= site_url('admin/posts/' . $p['id']) ?>" method="POST" onsubmit="return confirm('Delete this post?')">
                                 <?= csrf_field() ?>
+                                <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="del" style="background:none;border:none;cursor:pointer;font:inherit;color:inherit">Delete</button>
                             </form>
                         </div>

@@ -59,7 +59,7 @@
                             <?= esc($latestPost['authorName']) ?></span>
                         <?php endif; ?>
                         <span
-                            class="inline-flex items-center gap-1.5 text-[.62rem] font-bold tracking-[.12em] uppercase text-gold transition-all duration-200 group-hover:gap-3">
+                            class="inline-flex items-center gap-2 text-[.62rem] font-bold tracking-[.12em] uppercase text-gold transition-all duration-200 group-hover:gap-3">
                             Read Article <span
                                 class="transition-transform duration-200 group-hover:translate-x-1">→</span>
                         </span>
