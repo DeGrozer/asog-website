@@ -25,14 +25,15 @@
     @apply justify-center transition-all duration-500 py-2;
   }
   #navbar.scrolled #navIn {
-    @apply h-14 pl-2 pr-0 justify-between py-0;
+    @apply h-14 px-10 justify-end py-0;
   }
 
   #navLogo {
     @apply absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 transition-all duration-500;
   }
   #navbar.scrolled #navLogo {
-    @apply static translate-x-0 flex-row gap-0 items-center shrink-0;
+    /* small devices: match section padding (px-6 = 1.5rem) */
+    @apply left-6 lg:left-10 translate-x-0 flex-row gap-2.5 items-center ml-0;
   }
 
   #navImg {
@@ -45,24 +46,23 @@
   #navImgLandscape {
     @apply w-0 h-0 opacity-0 overflow-hidden transition-all duration-[450ms] delay-100;
     filter: brightness(0) invert(1);
-    transition: filter .35s ease, width .45s ease .1s, height .45s ease .1s, opacity .45s ease .1s;
   }
   #navbar.scrolled #navImgLandscape {
-    @apply w-50 h-20 opacity-100;
+    @apply w-52 h-[76px] opacity-100;
   }
 
   .nav-left {
     @apply transition-all duration-300;
   }
   #navbar.scrolled .nav-left {
-    @apply opacity-0 invisible pointer-events-none absolute;
+    @apply opacity-0 invisible pointer-events-none;
   }
 
   #navR {
     @apply transition-all duration-500;
   }
   #navbar.scrolled #navR {
-    @apply static flex-nowrap items-center gap-0;
+    @apply static flex-nowrap items-center gap-0.5;
   }
 
   .nav-link {
@@ -85,7 +85,7 @@
     transition: opacity .35s .1s ease, max-width .45s ease, padding .35s ease, width .45s ease;
   }
   #navbar.scrolled .lo {
-    @apply opacity-100 w-auto max-w-[260px] px-2 overflow-visible;
+    @apply opacity-100 w-auto max-w-[260px] px-4 overflow-visible;
   }
 
   /* ═══ SCROLLED DATA-ORDER REORDERING ═══ */
@@ -95,10 +95,6 @@
   #navbar.scrolled #navR .nav-dd[data-order="4"] { order: 4; }
   #navbar.scrolled #navR .nav-dd[data-order="5"] { order: 5; }
   #navbar.scrolled #navR .nav-btn[data-order="6"] { order: 6; }
-
-  .nav-btn {
-    @apply transition-all duration-300;
-  }
 
   /* ═══ DESKTOP DROPDOWNS ═══ */
   .nav-dd {
@@ -347,6 +343,7 @@
       max-height: 38px !important;
       opacity: 1 !important;
       object-fit: contain;
+      filter: brightness(0) invert(1);
     }
   }
 

@@ -14,10 +14,9 @@ class About extends BaseController
         $data = [
             'title'        => 'About ASOG-TBI',
             'about'        => $settingModel->getByGroup('about'),
-            'heroBg'       => 'bg-light',
-            'heroSubtitle' => 'About ASOG-TBI',
-            'heroTitle'    => 'About Us',
-            'heroDesc'     => 'Empowering startups and MSMEs with AI-driven engineering solutions for food value chain management — from the heart of the Bicol Region.',
+            'heroSubtitle' => 'Get to Know Us',
+            'heroTitle'    => 'About ASOG-TBI',
+            'heroDesc'     => 'Bicol Region\'s Premier AI & Engineering Technology Business Incubator at Camarines Sur Polytechnic Colleges.',
         ];
 
         return view('templates/header', $data)

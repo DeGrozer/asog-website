@@ -1,17 +1,39 @@
 /* ═══ HERO SLIDESHOW ═══ */
-let cur = 0;
-const slides = document.querySelectorAll('.slide');
-const hls = document.querySelectorAll('.hl');
-const inds = document.querySelectorAll('.ind');
+(function () {
+    var slides = document.querySelectorAll('#hero .slide');
+    var hls    = document.querySelectorAll('#hero .hl');
+    var dots   = document.querySelectorAll('#hero .ind');
+    if (slides.length < 2) return;
 
-function goTo(n) {
-    slides[cur].classList.remove('active');
-    hls[cur].classList.remove('active');
-    inds[cur].classList.remove('active');
-    cur = n;
-    slides[cur].classList.add('active');
-    hls[cur].classList.add('active');
-    inds[cur].classList.add('active');
-}
+    var cur   = 0;
+    var DELAY = 5000;
+    var timer;
 
-setInterval(() => goTo((cur + 1) % slides.length), 5000);
+    function go(n) {
+        /* Remove active from old */
+        if (slides[cur]) slides[cur].classList.remove('active');
+        if (hls[cur])    hls[cur].classList.remove('active');
+        if (dots[cur])   dots[cur].classList.remove('active');
+
+        cur = n;
+
+        /* Activate new */
+        if (slides[cur]) slides[cur].classList.add('active');
+        if (hls[cur])    hls[cur].classList.add('active');
+        if (dots[cur])   dots[cur].classList.add('active');
+    }
+
+    function next() { go((cur + 1) % slides.length); }
+    function startTimer() { timer = setInterval(next, DELAY); }
+    function resetTimer() { clearInterval(timer); startTimer(); }
+
+    /* Expose goTo globally for inline onclick handlers in hero.php */
+    window.goTo = function (n) {
+        go(n);
+        resetTimer();
+    };
+
+    /* Boot */
+    go(0);
+    startTimer();
+})();

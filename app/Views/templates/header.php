@@ -22,14 +22,16 @@
 
 <body class="font-body bg-dark text-off overflow-x-hidden">
     <?php
-    $nav = get_nav_urls();
-    $navAbout      = $nav['about'];
-    $navPrograms   = $nav['programs'];
-    $navFacilities = $nav['facilities'];
-    $navIncubatees = $nav['incubatees'];
-    $navNews       = $nav['news'];
-    $navContact    = $nav['contact'];
-    $navCta        = $nav['cta'];
+    /* ── Nav URLs: always link to dedicated pages ── */
+    $navAbout      = site_url('about');
+    $navPrograms   = site_url('programs');
+    $navServices   = site_url('services');
+    $navFacilities = site_url('facilities');
+    $navIncubatees = site_url('incubatees');
+    $navNews       = site_url('news');
+    $navOrg        = site_url('organization');
+    $navContact    = site_url('contact');
+    $navCta        = site_url('contact');
     ?>
     <a class="sr-only focus:not-sr-only" href="#main">Skip to content</a>
 
@@ -53,16 +55,10 @@
                     <a href="<?= $navAbout ?>"
                         class="nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">About
                         Us</a>
-                    <div class="dd-menu" style="min-width:240px">
-                        <a href="<?= $navAbout ?>#our-story" class="dd-item">Our Story</a>
-                        <a href="<?= $navAbout ?>#why-choose-us" class="dd-item">Why Choose Us?</a>
-                        <a href="<?= $navAbout ?>#our-impact" class="dd-item">Our Impact</a>
-                        <span class="dd-label">Organization</span>
-                        <a href="<?= site_url('organization') ?>#core-team" class="dd-item dd-indent">The Core Team</a>
-                        <a href="<?= site_url('organization') ?>#tbi-staff" class="dd-item dd-indent">TBI Staff</a>
-                        <span class="dd-label dd-indent">Mentors</span>
-                        <a href="<?= site_url('organization') ?>#faculty-mentors" class="dd-item dd-indent">Faculty Mentors</a>
-                        <a href="<?= site_url('organization') ?>#industry-mentors" class="dd-item dd-indent">Industry Mentors</a>
+                    <div class="dd-menu">
+                        <a href="<?= $navAbout ?>" class="dd-item">Our Story</a>
+                        <a href="<?= $navAbout ?>" class="dd-item">Why Choose Us?</a>
+                        <a href="<?= $navAbout ?>" class="dd-item">Our Impact</a>
                     </div>
                 </div>
                 <!-- Programs & Services -->
@@ -70,24 +66,10 @@
                     <a href="<?= $navPrograms ?>"
                         class="nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">Programs
                         &amp; Services</a>
-                    <div class="dd-menu" style="min-width:280px">
-                        <a href="<?= $navPrograms ?>#altitude-program" class="dd-item">The ALTITUDE Program</a>
-                        <a href="<?= $navPrograms ?>#services-offered" class="dd-item">Services Offered</a>
-                        <div class="dd-sub">
-                            <div class="dd-item dd-sub-trigger">Facilities <span
-                                    class="ml-auto text-[.5rem] opacity-40">▸</span></div>
-                            <div class="dd-sub-menu">
-                                <span class="dd-label">Incubation Center</span>
-                                <a href="<?= $navPrograms ?>#co-lab" class="dd-item dd-indent">The Co-Lab (Coworking Space)</a>
-                                <a href="<?= $navPrograms ?>#innovators-suite" class="dd-item dd-indent">The Innovators' Suite</a>
-                                <span class="dd-label">Partner Facilities</span>
-                                <a href="<?= $navPrograms ?>#aircode" class="dd-item dd-indent">AI Research Center for Community Development</a>
-                                <a href="<?= $navPrograms ?>#fablab" class="dd-item dd-indent">Fabrication Laboratory</a>
-                                <a href="<?= $navPrograms ?>#ssf" class="dd-item dd-indent">Shared Service Facility</a>
-                                <a href="<?= $navPrograms ?>#ip-unit" class="dd-item dd-indent">Intellectual Property Management Unit</a>
-                                <a href="<?= $navPrograms ?>#usage-policy" class="dd-item">Usage Policy</a>
-                            </div>
-                        </div>
+                    <div class="dd-menu">
+                        <a href="<?= $navPrograms ?>" class="dd-item">The ALTITUDE Program</a>
+                        <a href="<?= $navServices ?>" class="dd-item">Services Offered</a>
+                        <a href="<?= $navFacilities ?>" class="dd-item">Facilities</a>
                     </div>
                 </div>
                 <!-- Incubatees -->
@@ -95,7 +77,7 @@
                     <a href="<?= $navIncubatees ?>"
                         class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">Incubatees</a>
                     <div class="dd-menu dd-right">
-                        <a href="<?= $navIncubatees ?>#cohort-1" class="dd-item">Cohort 1</a>
+                        <a href="<?= $navIncubatees ?>" class="dd-item">Cohort 1</a>
                         <a href="<?= $navContact ?>" class="dd-item">Apply for Cohort 2</a>
                     </div>
                 </div>
@@ -117,8 +99,8 @@
                         class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">News
                         &amp; Insights</a>
                     <div class="dd-menu dd-right">
-                        <a href="<?= $navNews ?>#events" class="dd-item">Events</a>
-                        <a href="<?= $navNews ?>#features" class="dd-item">Features &amp; Opinion</a>
+                        <a href="<?= $navNews ?>" class="dd-item">Events</a>
+                        <a href="<?= $navNews ?>" class="dd-item">Features &amp; Opinion</a>
                     </div>
                 </div>
                 <!-- Contact Us -->
@@ -127,8 +109,8 @@
                         class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">Contact
                         Us</a>
                     <div class="dd-menu dd-right">
-                        <a href="<?= $navContact ?>#contact-details" class="dd-item">Contact Details</a>
-                        <a href="<?= $navContact ?>#map" class="dd-item">Map</a>
+                        <a href="<?= $navContact ?>" class="dd-item">Contact Details</a>
+                        <a href="<?= $navContact ?>" class="dd-item">Map</a>
                     </div>
                 </div>
                 <!-- CTA Button -->
@@ -141,47 +123,27 @@
                     <a href="<?= $navAbout ?>"
                         class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold">About
                         Us</a>
-                    <div class="dd-menu dd-right" style="min-width:240px">
-                        <a href="<?= $navAbout ?>#our-story" class="dd-item">Our Story</a>
-                        <a href="<?= $navAbout ?>#why-choose-us" class="dd-item">Why Choose Us?</a>
-                        <a href="<?= $navAbout ?>#our-impact" class="dd-item">Our Impact</a>
-                        <span class="dd-label">Organization</span>
-                        <a href="<?= site_url('organization') ?>#core-team" class="dd-item dd-indent">The Core Team</a>
-                        <a href="<?= site_url('organization') ?>#tbi-staff" class="dd-item dd-indent">TBI Staff</a>
-                        <span class="dd-label dd-indent">Mentors</span>
-                        <a href="<?= site_url('organization') ?>#faculty-mentors" class="dd-item dd-indent">Faculty Mentors</a>
-                        <a href="<?= site_url('organization') ?>#industry-mentors" class="dd-item dd-indent">Industry Mentors</a>
+                    <div class="dd-menu dd-right">
+                        <a href="<?= $navAbout ?>" class="dd-item">Our Story</a>
+                        <a href="<?= $navAbout ?>" class="dd-item">Why Choose Us?</a>
+                        <a href="<?= $navAbout ?>" class="dd-item">Our Impact</a>
                     </div>
                 </div>
                 <div class="nav-dd group lo" data-order="2">
                     <a href="<?= $navPrograms ?>"
                         class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold">Programs
                         &amp; Services</a>
-                    <div class="dd-menu dd-right" style="min-width:280px">
-                        <a href="<?= $navPrograms ?>#altitude-program" class="dd-item">The ALTITUDE Program</a>
-                        <a href="<?= $navPrograms ?>#services-offered" class="dd-item">Services Offered</a>
-                        <div class="dd-sub">
-                            <div class="dd-item dd-sub-trigger">Facilities <span
-                                    class="ml-auto text-[.5rem] opacity-40">▸</span></div>
-                            <div class="dd-sub-menu">
-                                <span class="dd-label">Incubation Center</span>
-                                <a href="<?= $navPrograms ?>#co-lab" class="dd-item dd-indent">The Co-Lab (Coworking Space)</a>
-                                <a href="<?= $navPrograms ?>#innovators-suite" class="dd-item dd-indent">The Innovators' Suite</a>
-                                <span class="dd-label">Partner Facilities</span>
-                                <a href="<?= $navPrograms ?>#aircode" class="dd-item dd-indent">AI Research Center for Community Development</a>
-                                <a href="<?= $navPrograms ?>#fablab" class="dd-item dd-indent">Fabrication Laboratory</a>
-                                <a href="<?= $navPrograms ?>#ssf" class="dd-item dd-indent">Shared Service Facility</a>
-                                <a href="<?= $navPrograms ?>#ip-unit" class="dd-item dd-indent">Intellectual Property Management Unit</a>
-                                <a href="<?= $navPrograms ?>#usage-policy" class="dd-item">Usage Policy</a>
-                            </div>
-                        </div>
+                    <div class="dd-menu dd-right">
+                        <a href="<?= $navPrograms ?>" class="dd-item">The ALTITUDE Program</a>
+                        <a href="<?= $navServices ?>" class="dd-item">Services Offered</a>
+                        <a href="<?= $navFacilities ?>" class="dd-item">Facilities</a>
                     </div>
                 </div>
                 <div class="nav-dd group lo" data-order="3">
                     <a href="<?= $navIncubatees ?>"
                         class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold">Incubatees</a>
                     <div class="dd-menu dd-right">
-                        <a href="<?= $navIncubatees ?>#cohort-1" class="dd-item">Cohort 1</a>
+                        <a href="<?= $navIncubatees ?>" class="dd-item">Cohort 1</a>
                         <a href="<?= $navContact ?>" class="dd-item">Apply for Cohort 2</a>
                     </div>
                 </div>
@@ -212,45 +174,25 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
-        <nav class="flex flex-col gap-0">
-            <!-- About Us -->
+        <nav class="flex flex-col gap-1">
             <a href="<?= $navAbout ?>"
-                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">About Us</a>
-            <div class="flex flex-col pl-4 border-b border-white/[.06]">
-                <a href="<?= $navAbout ?>#our-story" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Our Story</a>
-                <a href="<?= $navAbout ?>#why-choose-us" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Why Choose Us?</a>
-                <a href="<?= $navAbout ?>#our-impact" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Our Impact</a>
-                <a href="<?= site_url('organization') ?>" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Organization</a>
-            </div>
-            <!-- Programs & Services -->
+                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">About
+                Us</a>
             <a href="<?= $navPrograms ?>"
-                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Programs &amp; Services</a>
-            <div class="flex flex-col pl-4 border-b border-white/[.06]">
-                <a href="<?= $navPrograms ?>#altitude-program" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">The ALTITUDE Program</a>
-                <a href="<?= $navPrograms ?>#services-offered" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Services Offered</a>
-                <a href="<?= $navPrograms ?>#co-lab" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Facilities</a>
-            </div>
-            <!-- Incubatees -->
+                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Programs
+                &amp; Services</a>
+            <a href="<?= $navFacilities ?>"
+                class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold">↳ Facilities</a>
             <a href="<?= $navIncubatees ?>"
                 class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Incubatees</a>
-            <div class="flex flex-col pl-4 border-b border-white/[.06]">
-                <a href="<?= $navIncubatees ?>#cohort-1" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Cohort 1</a>
-                <a href="<?= $navContact ?>" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Apply for Cohort 2</a>
-            </div>
-            <!-- News & Insights -->
             <a href="<?= $navNews ?>"
-                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">News &amp; Insights</a>
-            <div class="flex flex-col pl-4 border-b border-white/[.06]">
-                <a href="<?= $navNews ?>#events" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Events</a>
-                <a href="<?= $navNews ?>#features" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Features &amp; Opinion</a>
-            </div>
-            <!-- Contact Us -->
+                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">News
+                &amp; Insights</a>
+            <a href="<?= $navOrg ?>"
+                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Organization</a>
             <a href="<?= $navContact ?>"
-                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Contact Us</a>
-            <div class="flex flex-col pl-4 border-b border-white/[.06]">
-                <a href="<?= $navContact ?>#contact-details" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Contact Details</a>
-                <a href="<?= $navContact ?>#map" class="text-[.68rem] tracking-[.08em] uppercase text-white/35 no-underline py-2 transition-colors hover:text-gold">Map</a>
-            </div>
+                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Contact
+                Us</a>
         </nav>
         <a href="<?= $navCta ?>"
             class="mt-8 text-center font-body text-[.72rem] font-bold tracking-[.14em] uppercase text-dark bg-gold px-8 py-4 rounded-sm no-underline transition-colors hover:bg-gold-dk">Be

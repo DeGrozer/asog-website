@@ -92,8 +92,8 @@ $formUrl = $isEdit
                 <label>Content</label>
                 <div class="editor-wrap">
                     <div class="quill-editor"><?= $isEdit ? $post['content'] : old('content') ?></div>
+                    <input type="hidden" name="content" class="quill-content" value="<?= esc($isEdit ? $post['content'] : old('content')) ?>">
                 </div>
-                <input type="hidden" name="content" class="quill-content" value="<?= esc($isEdit ? $post['content'] : old('content')) ?>">
             </div>
 
             <!-- Image upload -->

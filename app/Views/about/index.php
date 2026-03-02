@@ -24,7 +24,7 @@
                     ['id' => 'our-impact', 'label' => 'Our Impact'],
                 ];
             ?>
-            <?= view('partials/toc', compact('tocTitle', 'tocItems')) ?>
+            <?= view('templates/toc', compact('tocTitle', 'tocItems')) ?>
 
             <!-- ── Main Content ── -->
             <div class="min-w-0">

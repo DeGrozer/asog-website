@@ -12,17 +12,17 @@ class Contact extends BaseController
         $settingModel = new SettingModel();
 
         $data = [
-            'title'        => 'Contact - ASOG-TBI',
-            'contact'      => $settingModel->getByGroup('contact'),
-            'heroSubtitle' => 'Get In Touch',
-            'heroTitle'    => 'Contact Us',
-            'heroDesc'     => 'Reach out to ASOG-TBI for partnerships, inquiries, or incubation applications.',
+            'title'   => 'Contact - ASOG-TBI',
+            'contact' => $settingModel->getByGroup('contact'),
         ];
+
+        $data['heroSubtitle'] = 'Reach Out';
+        $data['heroTitle']    = 'Contact Us';
+        $data['heroDesc']     = 'Have questions or want to collaborate? Get in touch with the ASOG-TBI team.';
 
         return view('templates/header', $data)
             . view('templates/page_hero', $data)
-            . view('landing/contact')
-            . view('templates/map')
+            . view('landing/contact', $data)
             . view('templates/footer');
     }
 

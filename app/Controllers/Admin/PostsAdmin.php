@@ -93,6 +93,11 @@ class PostsAdmin extends Controller
             }
         }
 
+        // Enforce single featured post — clear others before insert
+        if (! empty($data['isFeatured'])) {
+            $this->postModel->clearFeatured();
+        }
+
         if (! $this->postModel->insert($data)) {
             setToast('error', 'Validation failed: ' . implode(', ', $this->postModel->errors()));
             return redirect()->back()->withInput();
@@ -175,6 +180,11 @@ class PostsAdmin extends Controller
                 setToast('error', $uploader->getError());
                 return redirect()->back()->withInput();
             }
+        }
+
+        // Enforce single featured post — clear others before update
+        if (! empty($data['isFeatured'])) {
+            $this->postModel->clearFeatured($id);
         }
 
         if (! $this->postModel->update($id, $data)) {

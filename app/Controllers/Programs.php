@@ -12,16 +12,33 @@ class Programs extends BaseController
         $programModel = new ProgramModel();
 
         $data = [
-            'title'        => 'Programs & Services - ASOG-TBI',
-            'programs'     => $programModel->getPublished(),
-            'heroSubtitle' => 'Programs & Services',
-            'heroTitle'    => 'What We Offer',
-            'heroDesc'     => 'Explore our incubation, mentorship, and IP support programs designed to accelerate startups and MSMEs.',
+            'title'    => 'Programs & Services - ASOG-TBI',
+            'programs' => $programModel->getPublished(),
         ];
+
+        $data['heroSubtitle'] = 'What We Offer';
+        $data['heroTitle']    = 'Programs & Services';
+        $data['heroDesc']     = 'Explore the programs, services, and facilities that power innovation at ASOG-TBI.';
 
         return view('templates/header', $data)
             . view('templates/page_hero', $data)
             . view('programs/list', $data)
+            . view('templates/footer');
+    }
+
+    public function services(): string
+    {
+        $data = [
+            'title' => 'Services Offered - ASOG-TBI',
+        ];
+
+        $data['heroSubtitle'] = 'Comprehensive Support';
+        $data['heroTitle']    = 'Services Offered';
+        $data['heroDesc']     = 'A comprehensive range of capacity-building services designed to support startups and MSMEs at every stage.';
+
+        return view('templates/header', $data)
+            . view('templates/page_hero', $data)
+            . view('services/list', $data)
             . view('templates/footer');
     }
 

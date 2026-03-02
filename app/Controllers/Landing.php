@@ -40,7 +40,6 @@ class Landing extends BaseController
             . view('landing/hero', $data)
             . view('landing/about', $data)
             . view('landing/programs', $data)
-            . view('landing/facilities', $data)
             . view('landing/incubatees', $data)
             . view('landing/news', $data)
             . view('landing/organization', $data)

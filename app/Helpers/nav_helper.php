@@ -9,30 +9,36 @@
 if (! function_exists('get_nav_urls')) {
     /**
      * Get all navigation URLs as an array.
-     * 
+     * On the landing page ($isLanding = true) returns # anchors;
+     * everywhere else returns full site_url() paths.
+     *
+     * @param  bool  $isLanding  Whether we are on the landing page
      * @return array Associative array of navigation URLs
      */
-    function get_nav_urls(): array
+    function get_nav_urls(bool $isLanding = false): array
     {
+        if ($isLanding) {
+            return [
+                'about'      => '#about',
+                'programs'   => '#programs',
+                'facilities' => '#facilities',
+                'incubatees' => '#incubatees',
+                'news'       => '#news',
+                'org'        => '#organization',
+                'contact'    => '#contact',
+                'cta'        => '#cta',
+            ];
+        }
+
         return [
-            // ── About Us ──
             'about'      => site_url('about'),
-
-            // ── Programs & Services ──
             'programs'   => site_url('programs'),
-            'facilities' => site_url('programs'),
-
-            // ── Incubatees ──
+            'facilities' => site_url('facilities'),
             'incubatees' => site_url('incubatees'),
-
-            // ── News & Insights ──
             'news'       => site_url('news'),
-
-            // ── Contact Us ──
+            'org'        => site_url('organization'),
             'contact'    => site_url('contact'),
-
-            // ── CTA ──
-            'cta'        => site_url('be-an-incubatee'),
+            'cta'        => site_url('contact'),
         ];
     }
 }

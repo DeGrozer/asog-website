@@ -91,6 +91,16 @@ class PostModel extends Model
     }
 
     /**
+     * Return the latest published posts for the hero slideshow.
+     */
+    public function getHeroSlides(int $limit = 5): array
+    {
+        return $this->where('isPublished', 1)
+                    ->orderBy('publishedAt', 'DESC')
+                    ->findAll($limit);
+    }
+
+    /**
      * Find a post by its slug.
      */
     public function getBySlug(string $slug): ?array
@@ -98,6 +108,19 @@ class PostModel extends Model
         return $this->where('slug', $slug)
                     ->where('isPublished', 1)
                     ->first();
+    }
+
+    /**
+     * Clear the featured flag on ALL posts (so only one can be featured).
+     * Optionally exclude a specific post ID.
+     */
+    public function clearFeatured(?int $excludeId = null): void
+    {
+        $builder = $this->builder();
+        if ($excludeId !== null) {
+            $builder->where('id !=', $excludeId);
+        }
+        $builder->set('isFeatured', 0)->update();
     }
 
     /**

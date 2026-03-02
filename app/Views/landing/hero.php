@@ -1,5 +1,5 @@
 <!-- ╔══════════════════════════════════════════════════════════════════════╗
-     ║  SECTION: HERO                                                     ║
+     ║  SECTION: HERO                                                       ║
      ║  Full-screen slideshow with rotating headlines & indicator dots     ║
      ║  If a featured post exists, its image + title are injected as      ║
      ║  an additional (first) slide.                                      ║

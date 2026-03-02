@@ -12,12 +12,13 @@ class Organization extends BaseController
         $teamModel = new TeamMemberModel();
 
         $data = [
-            'title'        => 'Organization - ASOG-TBI',
-            'teamMembers'  => $teamModel->getPublished(),
-            'heroSubtitle' => 'The Team',
-            'heroTitle'    => 'Our Organization',
-            'heroDesc'     => 'Meet the people supporting ASOG-TBI\'s mission of empowering startups and MSMEs.',
+            'title'       => 'Organization - ASOG-TBI',
+            'teamMembers' => $teamModel->getPublished(),
         ];
+
+        $data['heroSubtitle'] = 'Our People';
+        $data['heroTitle']    = 'Organization';
+        $data['heroDesc']     = 'The team behind ASOG-TBI — leadership, staff, and mentors driving innovation forward.';
 
         return view('templates/header', $data)
             . view('templates/page_hero', $data)

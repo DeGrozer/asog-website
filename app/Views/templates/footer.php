@@ -153,6 +153,11 @@
 <!-- Toast notifications -->
 <?= function_exists('renderToast') ? renderToast() : '' ?>
 
+<!-- Hero slideshow (landing page only) -->
+<?php if (! empty($isLanding)): ?>
+<script src="<?= base_url('js/hero.js') ?>" defer></script>
+<?php endif; ?>
+
 <!-- Scroll-reveal animation observer -->
 <script src="<?= base_url('js/scroll-reveal.js') ?>" defer></script>
 

@@ -50,7 +50,7 @@
                 <div class="err"><?= esc(session()->getFlashdata('error')) ?></div>
             <?php endif; ?>
 
-            <form action="<?= site_url('asog-admin/authenticate') ?>" method="POST">
+            <form action="<?= site_url('asog-admin') ?>" method="POST">
                 <?= csrf_field() ?>
 
                 <div class="field">

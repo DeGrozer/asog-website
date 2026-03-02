@@ -12,12 +12,13 @@ class Incubatees extends BaseController
         $incubateeModel = new IncubateeModel();
 
         $data = [
-            'title'        => 'Incubatees - ASOG-TBI',
-            'incubatees'   => $incubateeModel->getPublished(),
-            'heroSubtitle' => 'Spotlight',
-            'heroTitle'    => 'Our Incubatees',
-            'heroDesc'     => 'Profiles of startups and innovators in our incubation cohorts.',
+            'title'      => 'Incubatees - ASOG-TBI',
+            'incubatees' => $incubateeModel->getPublished(),
         ];
+
+        $data['heroSubtitle'] = 'Our Startups';
+        $data['heroTitle']    = 'Incubatees';
+        $data['heroDesc']     = 'Meet the startups and innovators being nurtured through the ASOG-TBI incubation program.';
 
         return view('templates/header', $data)
             . view('templates/page_hero', $data)
@@ -42,21 +43,6 @@ class Incubatees extends BaseController
 
         return view('templates/header', $data)
             . view('incubatees/detail', $data)
-            . view('templates/footer');
-    }
-
-    public function apply(): string
-    {
-        $data = [
-            'title'        => 'Be an Incubatee - ASOG-TBI',
-            'heroSubtitle' => 'Applications',
-            'heroTitle'    => 'Be an Incubatee',
-            'heroDesc'     => 'Apply to the ASOG TBI incubation program and become part of our innovation ecosystem.',
-        ];
-
-        return view('templates/header', $data)
-            . view('templates/page_hero', $data)
-            . view('incubatees/apply', $data)
             . view('templates/footer');
     }
 }
