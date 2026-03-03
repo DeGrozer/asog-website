@@ -26,7 +26,7 @@
 
         <!-- Right body -->
         <div class="reveal reveal-d2">
-                <div class="text-sm md:text-base font-light leading-[2.0] text-dark/50 mb-5">
+            <div class="text-sm md:text-base font-light leading-[2.0] text-dark mb-5 text-justify">
                 <?= $about['aboutContent'] ?? '<p>The ASOG Technology Business Incubator (TBI) is an initiative of Camarines Sur Polytechnic Colleges, funded by DOST-PCIEERD, dedicated to fostering engineering and AI-based innovations for food value chain management across the Bicol Region.</p>' ?>
             </div>
             <?php

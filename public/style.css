@@ -532,6 +532,9 @@
   .max-h-\[440px\] {
     max-height: 440px;
   }
+  .min-h-\[10px\] {
+    min-height: 10px;
+  }
   .min-h-\[40px\] {
     min-height: 40px;
   }
@@ -920,6 +923,9 @@
       border-color: color-mix(in oklab, var(--color-navy) 12%, transparent);
     }
   }
+  .border-sky {
+    border-color: var(--color-sky);
+  }
   .border-sky\/30 {
     border-color: color-mix(in srgb, #43A7DB 30%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -976,6 +982,9 @@
   }
   .bg-\[\#0a1628\] {
     background-color: #0a1628;
+  }
+  .bg-\[\#0a1628\]\/30 {
+    background-color: color-mix(in oklab, #0a1628 30%, transparent);
   }
   .bg-\[\#e2dfd9\] {
     background-color: #e2dfd9;
@@ -1122,6 +1131,9 @@
   .p-8 {
     padding: calc(var(--spacing) * 8);
   }
+  .p-10 {
+    padding: calc(var(--spacing) * 10);
+  }
   .px-2 {
     padding-inline: calc(var(--spacing) * 2);
   }
@@ -1191,9 +1203,6 @@
   .pb-3 {
     padding-bottom: calc(var(--spacing) * 3);
   }
-  .pb-7 {
-    padding-bottom: calc(var(--spacing) * 7);
-  }
   .pb-8 {
     padding-bottom: calc(var(--spacing) * 8);
   }
@@ -1262,9 +1271,6 @@
   }
   .text-\[\.9rem\] {
     font-size: .9rem;
-  }
-  .text-\[\.46rem\] {
-    font-size: .46rem;
   }
   .text-\[\.48rem\] {
     font-size: .48rem;
@@ -1656,6 +1662,12 @@
   }
   .text-sky {
     color: var(--color-sky);
+  }
+  .text-sky\/60 {
+    color: color-mix(in srgb, #43A7DB 60%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      color: color-mix(in oklab, var(--color-sky) 60%, transparent);
+    }
   }
   .text-white {
     color: var(--color-white);
@@ -2052,6 +2064,16 @@
       }
     }
   }
+  .hover\:bg-sky\/80 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: color-mix(in srgb, #43A7DB 80%, transparent);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--color-sky) 80%, transparent);
+        }
+      }
+    }
+  }
   .hover\:bg-white\/\[\.04\] {
     &:hover {
       @media (hover: hover) {
@@ -2268,6 +2290,11 @@
       height: 500px;
     }
   }
+  .md\:min-h-\[50px\] {
+    @media (width >= 48rem) {
+      min-height: 50px;
+    }
+  }
   .md\:min-h-\[90px\] {
     @media (width >= 48rem) {
       min-height: 90px;
@@ -2380,6 +2407,11 @@
       padding: calc(var(--spacing) * 12);
     }
   }
+  .md\:p-14 {
+    @media (width >= 48rem) {
+      padding: calc(var(--spacing) * 14);
+    }
+  }
   .md\:px-10 {
     @media (width >= 48rem) {
       padding-inline: calc(var(--spacing) * 10);
@@ -2485,11 +2517,6 @@
   .md\:text-\[1\.2rem\] {
     @media (width >= 48rem) {
       font-size: 1.2rem;
-    }
-  }
-  .md\:text-\[1\.4rem\] {
-    @media (width >= 48rem) {
-      font-size: 1.4rem;
     }
   }
   .md\:text-\[1\.7rem\] {
@@ -2717,9 +2744,9 @@
     transition-duration: 500ms;
   }
   #navbar.scrolled {
-    background-color: color-mix(in srgb, #03558C 10%, transparent);
+    background-color: color-mix(in srgb, #03558C 60%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix(in oklab, var(--color-dark) 10%, transparent);
+      background-color: color-mix(in oklab, var(--color-dark) 60%, transparent);
     }
     --tw-backdrop-blur: blur(32px);
     -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);

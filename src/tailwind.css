@@ -18,7 +18,7 @@
     @apply transition-all duration-500;
   }
   #navbar.scrolled {
-    @apply bg-dark/10 backdrop-blur-[32px];
+    @apply bg-dark/60 backdrop-blur-[32px];
   }
 
   #navIn {
