@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\IncubateeModel;
+use App\Models\IncubateeApplicationModel;
 
 class Incubatees extends BaseController
 {
@@ -53,6 +54,82 @@ class Incubatees extends BaseController
         return view('templates/header', $data)
             . view('templates/page_hero', $data)
             . view('incubatees/apply_form', $data)
+            . view('templates/footer');
+    }
+
+    public function applyFormStore(): \CodeIgniter\HTTP\ResponseInterface
+    {
+        $applicationModel = new IncubateeApplicationModel();
+        
+        $data = [
+            'startupName'           => $this->request->getPost('startupName'),
+            'startupDescription'    => $this->request->getPost('startupDescription'),
+            'mainRisk'              => $this->request->getPost('mainRisk') ?? null,
+            'shortTermGoals'        => $this->request->getPost('shortTermGoals') ?? null,
+            'videoPresentationLink' => $this->request->getPost('videoPresentationLink'),
+            'applicantName'         => $this->request->getPost('applicantName'),
+            'applicantEmail'        => $this->request->getPost('applicantEmail'),
+            'contactNumber'         => $this->request->getPost('contactNumber'),
+            'applicationStatus'     => 'pending',
+        ];
+
+        // Validate
+        if (! $applicationModel->validate($data)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $applicationModel->errors());
+        }
+
+        // Handle file upload (CV)
+        if ($this->request->getFileMultiple('teamCv')) {
+            $files = $this->request->getFileMultiple('teamCv');
+            $uploadedPaths = [];
+
+            foreach ($files as $file) {
+                if ($file->isValid() && ! $file->hasMoved()) {
+                    // Validate file type and size
+                    if ($file->getSize() > 104857600) { // 100 MB
+                        return redirect()->back()
+                            ->withInput()
+                            ->with('error', 'CV file exceeds 100 MB limit.');
+                    }
+
+                    if ($file->getMimeType() !== 'application/pdf') {
+                        return redirect()->back()
+                            ->withInput()
+                            ->with('error', 'Only PDF files are accepted for CV.');
+                    }
+
+                    $newName = $file->getRandomName();
+                    $file->move(WRITEPATH . 'uploads/applications', $newName);
+                    $uploadedPaths[] = 'uploads/applications/' . $newName;
+                }
+            }
+
+            if (! empty($uploadedPaths)) {
+                $data['teamCvPath'] = implode(',', $uploadedPaths);
+            }
+        }
+
+        // Save application
+        if ($applicationModel->insert($data)) {
+            return redirect()->to(site_url('incubatees/apply/form/thank-you'))
+                ->with('success', 'Your application has been submitted successfully!');
+        }
+
+        return redirect()->back()
+            ->withInput()
+            ->with('error', 'Unable to submit application. Please try again.');
+    }
+
+    public function applyFormThankYou(): string
+    {
+        $data = [
+            'title' => 'Application Submitted - ASOG-TBI',
+        ];
+
+        return view('templates/header', $data)
+            . view('incubatees/apply_thank_you', $data)
             . view('templates/footer');
     }
 
