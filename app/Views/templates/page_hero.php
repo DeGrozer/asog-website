@@ -3,7 +3,7 @@
      ║  REUSABLE PAGE HERO — pass $heroSubtitle, $heroTitle, $heroDesc      ║
      ╚══════════════════════════════════════════════════════════════════════╝ 
 -->
-<section class="<?= $heroBg ?? 'bg-dark' ?> py-20">
+<section class="<?= $heroBg ?? 'bg-dark' ?> py-20 " data-navhint="dark">
     <div class="max-w-[1100px] mx-auto px-6 md:px-10 text-center">
         <div class="mb-4">
             <span class="inline-block w-[40px] h-[2px] bg-gold rounded-sm mb-4"></span>

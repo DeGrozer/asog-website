@@ -12,7 +12,8 @@
             $errs = session('errors') ?? [];
         ?>
 
-        <form action="<?= site_url('incubatees/apply/form') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?= site_url('incubatees/apply/form') ?>" method="post" enctype="multipart/form-data"
+              data-check-url="<?= site_url('incubatees/apply/form/check-email') ?>">
             <?= csrf_field() ?>
 
             <!-- ═══════════════════════════════════════════════════════
@@ -157,6 +158,46 @@
             </div>
 
             <!-- ═══════════════════════════════════════════════════════
+                 SECTION: LEAN CANVAS
+                 ═══════════════════════════════════════════════════════ -->
+            <div class="mb-10">
+                <div class="flex items-center gap-2 mb-5 pb-3 border-b-2 border-navy/15">
+                    <span class="block w-[18px] h-[2px] bg-gold"></span>
+                    <h3 class="text-[.62rem] font-bold tracking-[.2em] uppercase text-navy m-0">Lean Canvas</h3>
+                </div>
+
+                <div class="border border-navy/10 rounded-md overflow-hidden bg-white">
+                    <!-- Description row -->
+                    <div class="border-b border-navy/10 p-4 md:p-5 bg-navy/[.02]">
+                        <p class="text-[.78rem] text-dark/70 leading-[1.75] m-0">
+                            A <strong class="font-semibold text-dark/85">Lean Canvas</strong> is a one-page diagram designed for entrepreneurs to use when developing, evaluating, and validating a scalable startup business idea.
+                        </p>
+                        <p class="text-[.75rem] text-dark/55 leading-[1.7] mt-2 mb-0">
+                            Download the template first, fill out all the fields, and upload it below.
+                            To download, go to <strong class="font-semibold">File</strong> → <strong class="font-semibold">Download</strong> → <strong class="font-semibold">Microsoft Word (.docx)</strong>.
+                        </p>
+                        <a href="https://docs.google.com/document/d/1Dj1d7mKuE7QSOLzP8Xwn5GujfhcEeEzt/edit"
+                           target="_blank" rel="noopener"
+                           class="inline-flex items-center gap-1.5 mt-3 text-[.6rem] font-bold tracking-[.12em] uppercase text-navy no-underline border border-navy/20 px-4 py-2 rounded-sm transition-all duration-200 hover:bg-navy hover:text-white hover:border-navy">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            Download Lean Canvas Template
+                        </a>
+                    </div>
+
+                    <!-- Upload row -->
+                    <div class="p-4 md:p-5">
+                        <label for="leanCanvas" class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1">
+                            Your Startup's Lean Canvas <span class="text-red-400">*</span>
+                        </label>
+                        <span class="text-[.58rem] text-navy/30 block mb-3">Must be in .docx or PDF &middot; 1 file &middot; Max 10 MB</span>
+                        <input type="file" id="leanCanvas" name="leanCanvas" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                            class="w-full text-[.78rem] text-dark/60 file:mr-3 file:px-3 file:py-1.5 file:rounded-sm file:border file:border-navy/15 file:text-[.6rem] file:font-bold file:tracking-[.1em] file:uppercase file:text-navy file:bg-off file:cursor-pointer hover:file:bg-navy hover:file:text-white transition-colors">
+                        <span class="v-msg text-[.62rem] text-red-500 block mt-1.5 hidden" id="leanCanvasErr"><?= $errs['leanCanvas'] ?? '' ?></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════════════════════
                  SUBMIT
                  ═══════════════════════════════════════════════════════ -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2">
@@ -267,6 +308,10 @@
                         <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Video Link</span>
                         <a href="#" target="_blank" class="text-[.82rem] text-gold hover:text-gold-dk no-underline break-all" id="pv_videoPresentationLink">—</a>
                     </div>
+                    <div class="sm:col-span-2">
+                        <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Lean Canvas</span>
+                        <span class="text-[.82rem] text-dark/70" id="pv_leanCanvas">No file uploaded</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -283,8 +328,10 @@
     </div>
 </div>
 
-<!-- ═══ Real-time validation + Preview Modal ═══ -->
-<script>
+<script src="<?= base_url('js/apply_form.js') ?>"></script>
+
+<!-- ═══ (validation + modal logic lives in public/js/apply_form.js) ═══ -->
+<!--
 (function(){
   /* ── Validation rules ── */
   const rules = {
@@ -463,4 +510,4 @@
     if(validateAll()) openModal();
   });
 })();
-</script>
+-->

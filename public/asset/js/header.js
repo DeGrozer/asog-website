@@ -4,22 +4,33 @@ const navbar = document.getElementById('navbar');
 // Detect if the section behind the navbar has a light background
 function isLightBackground() {
     const navBottom = navbar.getBoundingClientRect().bottom;
-    // Walk all elements that might carry a background color
+
+    // 1. Prefer explicit data-navhint="dark" or "light" on the element behind the navbar
+    const hinted = document.querySelectorAll('[data-navhint]');
+    for (const el of hinted) {
+        const r = el.getBoundingClientRect();
+        if (r.top <= navBottom && r.bottom >= navBottom) {
+            return el.dataset.navhint === 'light';
+        }
+    }
+
+    // 2. Fallback: compute from background color of sections/divs
     const candidates = document.querySelectorAll('section, main, div[class*="bg-"]');
     let best = null;
     let bestZ = -Infinity;
     for (const el of candidates) {
         const r = el.getBoundingClientRect();
         if (r.top <= navBottom && r.bottom >= navBottom) {
-            const bg = window.getComputedStyle(el).backgroundColor;
-            const rgb = bg.match(/\d+/g);
-            if (rgb && parseFloat(rgb[3] ?? 1) > 0) {          // skip transparent
-                // Prefer elements further down the DOM (higher specificity)
-                const z = parseInt(window.getComputedStyle(el).zIndex) || 0;
+            const bg  = window.getComputedStyle(el).backgroundColor;
+            // Parse both rgb() and rgba() — extract r,g,b,a separately
+            const m   = bg.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?\)/);
+            if (m) {
+                const alpha = m[4] !== undefined ? parseFloat(m[4]) : 1;
+                if (alpha < 0.15) continue;           // skip near-transparent elements
                 const depth = getDepth(el);
                 if (depth > bestZ) {
                     bestZ = depth;
-                    const lum = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255;
+                    const lum = (0.299 * m[1] + 0.587 * m[2] + 0.114 * m[3]) / 255;
                     best = lum > 0.55;
                 }
             }

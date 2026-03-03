@@ -111,6 +111,36 @@ class Incubatees extends BaseController
             }
         }
 
+        // Handle Lean Canvas upload
+        $leanCanvasFile = $this->request->getFile('leanCanvas');
+        if ($leanCanvasFile && $leanCanvasFile->isValid() && ! $leanCanvasFile->hasMoved()) {
+            $allowedMimes = [
+                'application/pdf',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            ];
+
+            if ($leanCanvasFile->getSize() > 10485760) { // 10 MB
+                return redirect()->back()
+                    ->withInput()
+                    ->with('errors', array_merge($applicationModel->errors(), ['leanCanvas' => 'Lean Canvas file exceeds the 10 MB limit.']));
+            }
+
+            if (! in_array($leanCanvasFile->getMimeType(), $allowedMimes)) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('errors', array_merge($applicationModel->errors(), ['leanCanvas' => 'Only PDF or Word (.docx) files are accepted for the Lean Canvas.']));
+            }
+
+            $newName = $leanCanvasFile->getRandomName();
+            $leanCanvasFile->move(WRITEPATH . 'uploads/applications', $newName);
+            $data['leanCanvasPath'] = 'uploads/applications/' . $newName;
+        } else {
+            // Lean Canvas is required
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', array_merge($applicationModel->errors(), ['leanCanvas' => 'Please upload your completed Lean Canvas (.docx or PDF).']));
+        }
+
         // Save application
         if ($applicationModel->insert($data)) {
             return redirect()->to(site_url('incubatees/apply/form/thank-you'))

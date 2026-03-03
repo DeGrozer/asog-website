@@ -8,7 +8,7 @@ $heroSlides = $heroSlides ?? [];
 $hasSlides  = ! empty($heroSlides);
 $dotCount   = $hasSlides ? count($heroSlides) : 3;
 ?>
-<section id="hero" class="relative w-full h-screen min-h-[680px] overflow-hidden">
+<section id="hero" class="relative w-full h-screen min-h-[680px] overflow-hidden" data-navhint="dark">
 
     <!-- ── Background Slides ──────────────────────────────────── -->
     <?php if ($hasSlides): ?>
