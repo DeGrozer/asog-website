@@ -160,7 +160,7 @@ CREATE TABLE `sitesettings` (
 INSERT INTO `sitesettings` (`id`, `settingKey`, `settingValue`, `settingGroup`, `createdAt`, `updatedAt`) VALUES
 (1, 'aboutTitle', 'Built for Bicol\'s Future', 'about', '2026-02-25 14:21:16', '2026-02-25 14:21:16'),
 (2, 'aboutSubtitle', 'Who We Are', 'about', '2026-02-25 14:21:16', '2026-02-25 14:21:16'),
-(3, 'aboutContent', '<p>The ASOG Technology Business Incubator (TBI) is an initiative of Camarines Sur Polytechnic Colleges, funded by DOST-PCIEERD, dedicated to fostering engineering and AI-based innovations for food value chain management across the Bicol Region.</p><p>We empower startups and MSMEs with state-of-the-art facilities, expert mentorship, and end-to-end support — from ideation and prototyping to market validation and intellectual property protection.</p>', 'about', '2026-02-25 14:21:16', '2026-02-25 14:21:16'),
+(3, 'aboutContent', '<p>ASOG TBI operates under Camarines Sur Polytechnic Colleges with funding from DOST-PCIEERD. We work alongside startups and MSMEs across the Bicol Region — helping them build real products around food value chain management through engineering and AI.</p><p>Our team provides hands-on support from prototyping and mentorship to market validation and IP protection — so founders can focus on what they do best.</p>', 'about', '2026-02-25 14:21:16', '2026-02-25 14:21:16'),
 (4, 'aboutTags', 'AI Research,Food Value Chain,Startup Incubation,Engineering Innovation,MSME Support', 'about', '2026-02-25 14:21:16', '2026-02-25 14:21:16'),
 (5, 'heroTagline', 'Join the Ecosystem', 'hero', '2026-02-25 14:21:16', '2026-02-25 14:21:16'),
 (6, 'ctaTitle', 'Ready to Build your business with us?', 'cta', '2026-02-25 14:21:16', '2026-02-25 14:21:16'),

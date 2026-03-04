@@ -124,6 +124,42 @@ CREATE TABLE `siteSettings` (
     UNIQUE KEY `idx_settings_key` (`settingKey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- ─── contact_messages ──────────────────────────────────────────────────
+DROP TABLE IF EXISTS `contact_messages`;
+CREATE TABLE `contact_messages` (
+    `id`        INT UNSIGNED  AUTO_INCREMENT PRIMARY KEY,
+    `name`      VARCHAR(100)  NOT NULL,
+    `email`     VARCHAR(150)  NOT NULL,
+    `message`   TEXT          NOT NULL,
+    `isRead`    TINYINT(1)    NOT NULL DEFAULT 0,
+    `createdAt` DATETIME      NULL,
+    `updatedAt` DATETIME      NULL,
+    KEY `idx_contact_read` (`isRead`),
+    KEY `idx_contact_created` (`createdAt`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ─── incubatee_applications ─────────────────────────────────────────────
+DROP TABLE IF EXISTS `incubatee_applications`;
+CREATE TABLE `incubatee_applications` (
+    `id`                    INT UNSIGNED  AUTO_INCREMENT PRIMARY KEY,
+    `startupName`           VARCHAR(255)  NOT NULL,
+    `startupDescription`    TEXT          NOT NULL,
+    `mainRisk`              TEXT          NULL,
+    `shortTermGoals`        TEXT          NULL,
+    `teamCvPath`            TEXT          NULL,
+    `leanCanvasPath`        VARCHAR(500)  NULL,
+    `videoPresentationLink` VARCHAR(500)  NOT NULL,
+    `applicantName`         VARCHAR(255)  NOT NULL,
+    `applicantEmail`        VARCHAR(255)  NOT NULL,
+    `contactNumber`         VARCHAR(20)   NOT NULL,
+    `applicationStatus`     ENUM('pending','reviewed','accepted','rejected') NOT NULL DEFAULT 'pending',
+    `createdAt`             DATETIME      NULL,
+    `updatedAt`             DATETIME      NULL,
+    UNIQUE KEY `idx_applications_email` (`applicantEmail`),
+    KEY `idx_applications_status` (`applicationStatus`),
+    KEY `idx_applications_created` (`createdAt`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 SET FOREIGN_KEY_CHECKS = 1;
 
 
@@ -142,7 +178,7 @@ VALUES ('ASOG Admin', 'admin@asog.local',
 INSERT INTO `siteSettings` (`settingKey`, `settingValue`, `settingGroup`, `createdAt`, `updatedAt`) VALUES
 ('aboutTitle',       'Built for Bicol''s Future',                                                        'about',   NOW(), NOW()),
 ('aboutSubtitle',    'Who We Are',                                                                       'about',   NOW(), NOW()),
-('aboutContent',     '<p>The ASOG Technology Business Incubator (TBI) is an initiative of Camarines Sur Polytechnic Colleges, funded by DOST-PCIEERD, dedicated to fostering engineering and AI-based innovations for food value chain management across the Bicol Region.</p><p>We empower startups and MSMEs with state-of-the-art facilities, expert mentorship, and end-to-end support — from ideation and prototyping to market validation and intellectual property protection.</p>', 'about', NOW(), NOW()),
+('aboutContent',     '<p>ASOG TBI operates under Camarines Sur Polytechnic Colleges with funding from DOST-PCIEERD. We work alongside startups and MSMEs across the Bicol Region — helping them build real products around food value chain management through engineering and AI.</p><p>Our team provides hands-on support from prototyping and mentorship to market validation and IP protection — so founders can focus on what they do best.</p>', 'about', NOW(), NOW()),
 ('aboutTags',        'AI Research,Food Value Chain,Startup Incubation,Engineering Innovation,MSME Support', 'about', NOW(), NOW()),
 ('heroTagline',      'Join the Ecosystem',                                                               'hero',    NOW(), NOW()),
 ('ctaTitle',         'Ready to Build your business with us?',                                            'cta',     NOW(), NOW()),

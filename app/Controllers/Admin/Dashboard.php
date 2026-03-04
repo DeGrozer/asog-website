@@ -16,19 +16,22 @@ class Dashboard extends BaseController
         $allApps     = $this->applicationModel->getAll();
         $pendingApps = array_filter($allApps, fn($a) => $a['applicationStatus'] === 'pending');
 
+        $unreadMessages = $this->contactModel->countUnread();
+
         $data = [
-            'pageTitle'      => 'Dashboard',
-            'activePage'     => 'dashboard',
-            'totalPosts'     => count($allPosts),
-            'publishedPosts' => count($published),
-            'draftPosts'     => count($drafts),
-            'featuredPosts'  => count($featured),
-            'recentPosts'    => $this->postModel->orderBy('createdAt', 'DESC')->findAll(5),
-            'totalApps'      => count($allApps),
-            'pendingApps'    => count($pendingApps),
-            'acceptedApps'   => count(array_filter($allApps, fn($a) => $a['applicationStatus'] === 'accepted')),
-            'rejectedApps'   => count(array_filter($allApps, fn($a) => $a['applicationStatus'] === 'rejected')),
-            'recentApps'     => array_slice($allApps, 0, 5),
+            'pageTitle'       => 'Dashboard',
+            'activePage'      => 'dashboard',
+            'totalPosts'      => count($allPosts),
+            'publishedPosts'  => count($published),
+            'draftPosts'      => count($drafts),
+            'featuredPosts'   => count($featured),
+            'recentPosts'     => $this->postModel->orderBy('createdAt', 'DESC')->findAll(5),
+            'totalApps'       => count($allApps),
+            'pendingApps'     => count($pendingApps),
+            'acceptedApps'    => count(array_filter($allApps, fn($a) => $a['applicationStatus'] === 'accepted')),
+            'rejectedApps'    => count(array_filter($allApps, fn($a) => $a['applicationStatus'] === 'rejected')),
+            'recentApps'      => array_slice($allApps, 0, 5),
+            'unreadMessages'  => $unreadMessages,
         ];
 
         return view('admin/layout/header', $data)

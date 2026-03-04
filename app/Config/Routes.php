@@ -29,6 +29,7 @@ $routes->get('/incubatees', 'Incubatees::index');
 $routes->get('/incubatees/apply', 'Incubatees::apply');
 $routes->get('/incubatees/apply/form', 'Incubatees::applyForm');
 $routes->post('/incubatees/apply/form', 'Incubatees::applyFormStore');
+$routes->get('/incubatees/apply/form/check-email', 'Incubatees::checkEmail');
 $routes->get('/incubatees/apply/form/thank-you', 'Incubatees::applyFormThankYou');
 $routes->get('/news', 'News::index');
 $routes->get('/news/(:segment)', 'News::show/$1');
@@ -75,4 +76,10 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('applications', 'Admin\ApplicationsAdmin::index');
     $routes->get('applications/(:num)', 'Admin\ApplicationsAdmin::show/$1');
     $routes->put('applications/(:num)/status', 'Admin\ApplicationsAdmin::updateStatus/$1');
+
+    // Contact Messages
+    $routes->get('messages', 'Admin\MessagesAdmin::index');
+    $routes->get('messages/(:num)', 'Admin\MessagesAdmin::show/$1');
+    $routes->put('messages/(:num)/read', 'Admin\MessagesAdmin::toggleRead/$1');
+    $routes->delete('messages/(:num)', 'Admin\MessagesAdmin::delete/$1');
 });

@@ -175,6 +175,23 @@ class Incubatees extends BaseController
         }
     }
 
+    /**
+     * AJAX endpoint — check if an applicant email already exists in the DB.
+     * GET /incubatees/apply/form/check-email?email=...
+     */
+    public function checkEmail(): \CodeIgniter\HTTP\ResponseInterface
+    {
+        $email = trim($this->request->getGet('email') ?? '');
+
+        if ($email === '' || ! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return $this->response->setJSON(['exists' => false]);
+        }
+
+        $exists = $this->applicationModel->getByEmail($email) !== null;
+
+        return $this->response->setJSON(['exists' => $exists]);
+    }
+
     public function applyFormThankYou(): string
     {
         $data = [
