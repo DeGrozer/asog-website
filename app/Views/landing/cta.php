@@ -3,12 +3,12 @@
      ║  Dark bg · centered call-to-action                                 ║
      ╚══════════════════════════════════════════════════════════════════════╝ -->
 <?php
-    $ctaTitle       = $cta['ctaTitle']         ?? 'Ready to Build your <em class="italic text-gold">business</em> with us?';
-    $ctaDesc        = $cta['ctaDescription']   ?? 'Apply to the ASOG TBI incubation program and get access to state-of-the-art facilities, mentorship, and funding opportunities.';
-    $ctaBtnText     = $cta['ctaButtonText']    ?? 'Be an Incubatee';
-    $ctaBtnUrl      = $cta['ctaButtonUrl']     ?? '#contact';
-    $ctaSecText     = $cta['ctaSecondaryText'] ?? 'Explore Our Program';
-    $ctaSecUrl      = $cta['ctaSecondaryUrl']  ?? site_url('programs');
+    $ctaTitle       = 'Ready to Build your <em class="italic text-gold">business</em> with us?';
+    $ctaDesc        = 'Apply to the ASOG TBI incubation program and get access to state-of-the-art facilities, mentorship, and funding opportunities.';
+    $ctaBtnText     = 'Be an Incubatee';
+    $ctaBtnUrl      = site_url('incubatees/apply');
+    $ctaSecText     = 'Explore Our Program';
+    $ctaSecUrl      = site_url('programs');
 ?>
 <section id="cta"
     class="relative overflow-hidden bg-[#0A3A52] py-20 md:py-28 px-6 md:px-10 lg:px-14 flex flex-col items-center text-center">

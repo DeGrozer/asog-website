@@ -19,19 +19,6 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/[.06] rounded-sm overflow-hidden reveal-group">
-            <?php if (! empty($programs)): ?>
-            <?php foreach ($programs as $i => $prog): ?>
-            <a href="<?= site_url('programs/' . $prog['slug']) ?>"
-                class="rc group block bg-navy p-8 md:p-10 no-underline transition-colors duration-300 hover:bg-white/[.04]">
-                <span
-                    class="block text-[.5rem] font-semibold tracking-[.22em] uppercase text-gold/70 mb-4"><?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?></span>
-                <h3 class="font-display text-[1.15rem] text-off mb-3"><?= esc($prog['title']) ?></h3>
-                <p class="text-[.8rem] font-light leading-[1.8] text-white/30">
-                    <?= esc($prog['shortDescription'] ?? '') ?></p>
-            </a>
-            <?php endforeach; ?>
-            <?php else: ?>
-            <!-- Fallback static cards -->
             <div class="rc group block bg-navy p-8 md:p-10">
                 <span class="block text-[.5rem] font-semibold tracking-[.22em] uppercase text-gold/70 mb-4">01</span>
                 <h3 class="font-display text-[1.15rem] text-off mb-3">Incubation Program</h3>
@@ -50,7 +37,6 @@
                 <p class="text-[.8rem] font-light leading-[1.8] text-white/30">Navigate patents, trademarks, and IP
                     strategy with our dedicated Intellectual Property Management Unit.</p>
             </div>
-            <?php endif; ?>
         </div>
     </div>
 </section>

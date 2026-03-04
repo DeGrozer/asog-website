@@ -14,10 +14,10 @@
             <div class="flex items-center gap-2 mb-4">
                 <span class="block w-[18px] h-[1.5px] bg-navy"></span>
                 <span
-                    class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-navy"><?= esc($about['aboutSubtitle'] ?? 'Who We Are') ?></span>
+                    class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-navy">Who We Are</span>
             </div>
             <h2 class="font-display text-3xl md:text-[2.1rem] leading-[1.12] text-dark">
-                <?= str_replace("Bicol's", '<em class="italic text-gold">Bicol\'s</em>', $about['aboutTitle'] ?? "Built for Bicol's Future") ?>
+                Built for <em class="italic text-gold">Bicol's</em> Future
             </h2>
         </div>
 
@@ -27,10 +27,10 @@
         <!-- Right body -->
         <div class="reveal reveal-d2">
             <div class="text-sm md:text-base font-light leading-[2.0] text-dark mb-5 text-justify">
-                <?= $about['aboutContent'] ?? '<p>The ASOG Technology Business Incubator (TBI) is an initiative of Camarines Sur Polytechnic Colleges, funded by DOST-PCIEERD, dedicated to fostering engineering and AI-based innovations for food value chain management across the Bicol Region.</p>' ?>
+                <p>The ASOG Technology Business Incubator (TBI) is an initiative of Camarines Sur Polytechnic Colleges, funded by DOST-PCIEERD, dedicated to fostering engineering and AI-based innovations for food value chain management across the Bicol Region.</p>
             </div>
             <?php
-                $tags = ! empty($about['aboutTags']) ? explode(',', $about['aboutTags']) : ['AI Research', 'Food Value Chain', 'Startup Incubation', 'Engineering Innovation', 'MSME Support'];
+                $tags = ['AI Research', 'Food Value Chain', 'Startup Incubation', 'Engineering Innovation', 'MSME Support'];
             ?>
             <div class="flex flex-wrap gap-1.5 mt-7 reveal-group">
                 <?php foreach ($tags as $tag): ?>

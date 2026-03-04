@@ -3,22 +3,17 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\SettingModel;
 
 class Contact extends BaseController
 {
     public function index(): string
     {
-        $settingModel = new SettingModel();
-
         $data = [
-            'title'   => 'Contact - ASOG-TBI',
-            'contact' => $settingModel->getByGroup('contact'),
+            'title'        => 'Contact - ASOG-TBI',
+            'heroSubtitle' => 'Reach Out',
+            'heroTitle'    => 'Contact Us',
+            'heroDesc'     => 'Have questions or want to collaborate? Get in touch with the ASOG-TBI team.',
         ];
-
-        $data['heroSubtitle'] = 'Reach Out';
-        $data['heroTitle']    = 'Contact Us';
-        $data['heroDesc']     = 'Have questions or want to collaborate? Get in touch with the ASOG-TBI team.';
 
         return view('templates/header', $data)
             . view('templates/page_hero', $data)

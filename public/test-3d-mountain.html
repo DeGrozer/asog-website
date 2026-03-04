@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALTITUDE — 3D Journey · ASOG TBI</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #020d18;
+      overflow: hidden;
+      font-family: 'DM Sans', sans-serif;
+      color: #F8F6F2;
+    }
+
+    canvas { display: block; }
+
+    /* ── Title HUD ──────────────────────────────────────── */
+    #hud {
+      position: fixed;
+      top: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      pointer-events: none;
+      z-index: 20;
+    }
+    #hud .eyebrow {
+      font-size: 0.48rem;
+      letter-spacing: 0.30em;
+      text-transform: uppercase;
+      color: rgba(248,175,33,0.60);
+      margin-bottom: 7px;
+    }
+    #hud h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+      font-weight: 400;
+      color: #F8F6F2;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    #hud .tagline {
+      margin-top: 8px;
+      font-size: 0.52rem;
+      letter-spacing: 0.12em;
+      color: rgba(248,246,242,0.22);
+    }
+
+    /* ── Stage Labels ───────────────────────────────────── */
+    #labels {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 20;
+    }
+    .sl {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      transition: opacity 0.30s ease;
+      white-space: nowrap;
+    }
+    .sl-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #F8AF21;
+      box-shadow: 0 0 10px 2px rgba(248,175,33,0.65), 0 0 22px 4px rgba(248,175,33,0.25);
+      flex-shrink: 0;
+      animation: dotPulse 2.4s ease-in-out infinite;
+    }
+    /* Stagger pulse by stage index (set inline) */
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 8px 2px rgba(248,175,33,0.6); }
+      50%       { transform: scale(1.35); box-shadow: 0 0 16px 5px rgba(248,175,33,0.3); }
+    }
+    .sl-line {
+      width: 26px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(248,175,33,0) 0%, rgba(248,175,33,0.40) 100%);
+      flex-shrink: 0;
+    }
+    .sl-text { display: flex; flex-direction: column; gap: 1px; }
+    .sl-num {
+      font-size: 0.43rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(248,175,33,0.50);
+      line-height: 1;
+    }
+    .sl-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.0rem;
+      color: #F8F6F2;
+      line-height: 1.1;
+    }
+    .sl-phase {
+      font-size: 0.44rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(67,167,219,0.55);
+      margin-top: 1px;
+    }
+    .sl-quote {
+      font-size: 0.50rem;
+      color: rgba(248,246,242,0.22);
+      font-style: italic;
+      margin-top: 2px;
+      max-width: 180px;
+      white-space: normal;
+      line-height: 1.5;
+    }
+
+    /* ── Bottom hint ─────────────────────────────────────── */
+    #hint {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.44rem;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: rgba(248,246,242,0.14);
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    /* ── Brand badge ─────────────────────────────────────── */
+    #badge {
+      position: fixed;
+      bottom: 22px;
+      right: 26px;
+      pointer-events: none;
+      z-index: 20;
+      text-align: right;
+    }
+    #badge .bn { font-size: 0.40rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(248,246,242,0.14); }
+    #badge .bs { font-size: 0.37rem; letter-spacing: 0.16em; color: rgba(248,175,33,0.22); }
+
+    /* ── ALTITUDE expansion ──────────────────────────────── */
+    #acronym {
+      position: fixed;
+      top: 36px;
+      left: 28px;
+      pointer-events: none;
+      z-index: 20;
+    }
+    #acronym p {
+      font-size: 0.40rem;
+      letter-spacing: 0.16em;
+      color: rgba(248,246,242,0.11);
+      line-height: 1.9;
+    }
+    #acronym .accent { color: rgba(248,175,33,0.40); }
+  </style>
+</head>
+<body>
+
+<canvas id="c"></canvas>
+
+<div id="hud">
+  <p class="eyebrow">ASOG-TBI &middot; The ALTITUDE Program</p>
+  <h1>The Journey to Summit</h1>
+  <p class="tagline">Every startup dreams of reaching the top. Few are prepared for the climb.</p>
+</div>
+
+<div id="acronym">
+  <p><span class="accent">A</span>dvancing</p>
+  <p><span class="accent">L</span>ocal</p>
+  <p><span class="accent">T</span>echnology and</p>
+  <p><span class="accent">I</span>nnovation through</p>
+  <p><span class="accent">T</span>ransformative</p>
+  <p><span class="accent">U</span>pskilling,</p>
+  <p><span class="accent">D</span>evelopment, and</p>
+  <p><span class="accent">E</span>ntrepreneurship</p>
+</div>
+
+<div id="labels"></div>
+
+<p id="hint">Drag to orbit &middot; Scroll to zoom &middot; Auto-rotating</p>
+
+<div id="badge">
+  <p class="bn">ASOG Technology Business Incubator</p>
+  <p class="bs">Prototype · 3D Visualization</p>
+</div>
+
+<!-- ─────────────────────────────────────────────────────── -->
+
+<script type="importmap">
+{
+  "imports": {
+    "three":          "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/":  "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+/* ════════════════════════════════════════════════════════════
+   STAGE DATA
+════════════════════════════════════════════════════════════ */
+const STAGES = [
+  {
+    id:    '01',
+    name:  'Trailhead',
+    phase: 'Pre-Incubation Phase',
+    dur:   'Month 1',
+    quote: 'Each climb begins with a pause.',
+    t:     0.055,   // 0 = mountain base, 1 = peak
+  },
+  {
+    id:    '02',
+    name:  'Basecamp',
+    phase: 'Incubation Phase',
+    dur:   'Months 2–4',
+    quote: 'Effort becomes visible.',
+    t:     0.32,
+  },
+  {
+    id:    '03',
+    name:  'Ascent',
+    phase: 'Post-Incubation Phase',
+    dur:   'Months 5–6',
+    quote: 'The higher the climb, the more preparation matters.',
+    t:     0.62,
+  },
+  {
+    id:    '04',
+    name:  'Summit Launch',
+    phase: 'Graduation & Beyond',
+    dur:   'Post-Program',
+    quote: 'Reaching the summit does not mean standing still.',
+    t:     0.925,
+  },
+];
+
+const MTN_H = 8.5;   // mountain total height in world units
+
+/* ════════════════════════════════════════════════════════════
+   RENDERER
+════════════════════════════════════════════════════════════ */
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.setSize(innerWidth, innerHeight);
+
+/* ════════════════════════════════════════════════════════════
+   SCENE & CAMERA
+════════════════════════════════════════════════════════════ */
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x020d18);
+scene.fog = new THREE.FogExp2(0x030b16, 0.034);
+
+const camera = new THREE.PerspectiveCamera(46, innerWidth / innerHeight, 0.1, 300);
+camera.position.set(7.5, 5.8, 11.5);
+camera.lookAt(0, 3.2, 0);
+
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping    = true;
+controls.dampingFactor    = 0.06;
+controls.minDistance      = 6;
+controls.maxDistance      = 30;
+controls.maxPolarAngle    = Math.PI / 2.1;
+controls.target.set(0, 3.2, 0);
+controls.update();
+
+/* ════════════════════════════════════════════════════════════
+   LIGHTS
+════════════════════════════════════════════════════════════ */
+scene.add(new THREE.AmbientLight(0x1b3a58, 1.0));
+
+const sun = new THREE.DirectionalLight(0xfff6e8, 2.8);
+sun.position.set(9, 16, 7);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.far    = 60;
+sun.shadow.camera.left   = -14;
+sun.shadow.camera.right  =  14;
+sun.shadow.camera.top    =  18;
+sun.shadow.camera.bottom =  -4;
+scene.add(sun);
+
+const fill = new THREE.DirectionalLight(0x3A6EA0, 0.55);
+fill.position.set(-6, 4, -10);
+scene.add(fill);
+
+const rimLight = new THREE.DirectionalLight(0xF8AF21, 0.18);
+rimLight.position.set(-4, 12, -6);
+scene.add(rimLight);
+
+/* ════════════════════════════════════════════════════════════
+   MATH HELPERS
+════════════════════════════════════════════════════════════ */
+const lerp  = (a, b, t) => a + (b - a) * Math.max(0, Math.min(1, t));
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+const frac  = x => x - Math.floor(x);
+
+function hash(n)       { return frac(Math.sin(n) * 43758.5453); }
+function noise2(x, z)  {
+  const ix = Math.floor(x), iz = Math.floor(z);
+  const fx = frac(x),  fz = frac(z);
+  const ux = fx * fx * (3 - 2 * fx);
+  const uz = fz * fz * (3 - 2 * fz);
+  return lerp(
+    lerp(hash(ix + iz * 57), hash(ix + 1 + iz * 57), ux),
+    lerp(hash(ix + (iz+1)*57), hash(ix+1+(iz+1)*57), ux),
+    uz
+  );
+}
+function fbm(x, z, oct = 5) {
+  let v = 0, a = 0.5, f = 1;
+  for (let i = 0; i < oct; i++) { v += a * noise2(x*f, z*f); a *= 0.5; f *= 2.07; }
+  return v;
+}
+
+/* Mountain radius at normalised height t (0=base, 1=peak) */
+function mtnR(t) {
+  const pts = [
+    [0.00, 4.30], [0.06, 4.05], [0.14, 3.72], [0.23, 3.30],
+    [0.33, 2.78], [0.44, 2.18], [0.55, 1.58], [0.66, 1.02],
+    [0.76, 0.57], [0.86, 0.26], [0.94, 0.09], [1.00, 0.00],
+  ];
+  for (let i = 0; i < pts.length - 1; i++) {
+    const [t0, r0] = pts[i], [t1, r1] = pts[i+1];
+    if (t >= t0 && t <= t1) {
+      const s = (t - t0) / (t1 - t0);
+      return lerp(r0, r1, s * s * (3 - 2 * s));
+    }
+  }
+  return 0;
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOUNTAIN GROUP  (rotates independently of camera)
+════════════════════════════════════════════════════════════ */
+const mtnGroup = new THREE.Group();
+scene.add(mtnGroup);
+
+/* ── Lathe profile ─────────────────────────────────────── */
+const profilePts = [];
+for (let i = 0; i <= 50; i++) {
+  const t = i / 50;
+  profilePts.push(new THREE.Vector2(mtnR(t), t * MTN_H));
+}
+
+/* ── Geometry + noise displacement ─────────────────────── */
+const mtnGeo = new THREE.LatheGeometry(profilePts, 80, 0, Math.PI * 2);
+const pAttr  = mtnGeo.attributes.position;
+
+for (let i = 0; i < pAttr.count; i++) {
+  const x = pAttr.getX(i), y = pAttr.getY(i), z = pAttr.getZ(i);
+  const t     = y / MTN_H;
+  const theta = Math.atan2(z, x);
+  const r     = Math.sqrt(x*x + z*z);
+
+  // Displacement fades toward peak (keeps tip sharp)
+  const noiseVal = (fbm(theta * 2.1 + 0.7, t * 4.8, 5) - 0.5) * 2;
+  const scale    = Math.pow(Math.max(0, 1 - t), 1.5) * 0.52;
+  const newR     = Math.max(0, r + noiseVal * scale);
+
+  pAttr.setX(i, newR * Math.cos(theta));
+  pAttr.setZ(i, newR * Math.sin(theta));
+}
+pAttr.needsUpdate = true;
+mtnGeo.computeVertexNormals();
+
+/* ── Vertex colours by height + noise variation ─────────── */
+const cArr = new Float32Array(pAttr.count * 3);
+for (let i = 0; i < pAttr.count; i++) {
+  const x = pAttr.getX(i), y = pAttr.getY(i), z = pAttr.getZ(i);
+  const t     = clamp(y / MTN_H, 0, 1);
+  const theta = Math.atan2(z, x);
+
+  let r, g, b;
+  if (t < 0.14) {                          /* Dark navy base */
+    const s = t / 0.14;
+    r = lerp(0.008, 0.025, s);
+    g = lerp(0.030, 0.080, s);
+    b = lerp(0.075, 0.185, s);
+  } else if (t < 0.47) {                   /* Navy-blue mid slopes */
+    const s = (t - 0.14) / 0.33;
+    r = lerp(0.025, 0.072, s);
+    g = lerp(0.080, 0.185, s);
+    b = lerp(0.185, 0.360, s);
+  } else if (t < 0.76) {                   /* Blue-grey upper slopes */
+    const s = (t - 0.47) / 0.29;
+    r = lerp(0.072, 0.275, s);
+    g = lerp(0.185, 0.345, s);
+    b = lerp(0.360, 0.510, s);
+  } else {                                 /* Snow cap */
+    const s = (t - 0.76) / 0.24;
+    r = lerp(0.275, 0.920, s);
+    g = lerp(0.345, 0.940, s);
+    b = lerp(0.510, 0.975, s);
+  }
+
+  /* Subtle rock-tone variation */
+  const nv = (noise2(theta * 1.8 + 1.1, t * 5.5 + 0.3) - 0.5) * 0.065;
+  cArr[i*3]   = clamp(r + nv * 0.9, 0, 1);
+  cArr[i*3+1] = clamp(g + nv * 0.7, 0, 1);
+  cArr[i*3+2] = clamp(b + nv * 0.4, 0, 1);
+}
+mtnGeo.setAttribute('color', new THREE.BufferAttribute(cArr, 3));
+
+const mtnMesh = new THREE.Mesh(mtnGeo, new THREE.MeshPhongMaterial({
+  vertexColors: true,
+  flatShading:  true,
+  shininess:    7,
+  specular:     new THREE.Color(0x2a3f55),
+}));
+mtnMesh.castShadow = mtnMesh.receiveShadow = true;
+mtnGroup.add(mtnMesh);
+
+/* ── Ground disc ─────────────────────────────────────────── */
+const ground = new THREE.Mesh(
+  new THREE.CircleGeometry(22, 72),
+  new THREE.MeshStandardMaterial({ color: 0x02090e, roughness: 0.97 })
+);
+ground.rotation.x = -Math.PI / 2;
+ground.receiveShadow = true;
+scene.add(ground);
+
+/* ── Spiral trail path ───────────────────────────────────── */
+{
+  const pts = [];
+  for (let i = 0; i <= 300; i++) {
+    const t   = i / 300;
+    const y   = t * MTN_H * 0.97;
+    const r   = mtnR(t) * 0.90 + 0.14;
+    const ang = t * Math.PI * 4.5 + Math.PI * 0.15;  /* 2.25 full spirals */
+    pts.push(new THREE.Vector3(r * Math.cos(ang), y, r * Math.sin(ang)));
+  }
+  const trailGeo = new THREE.TubeGeometry(
+    new THREE.CatmullRomCurve3(pts), 300, 0.032, 5, false
+  );
+  mtnGroup.add(new THREE.Mesh(trailGeo, new THREE.MeshBasicMaterial({
+    color: 0xF8AF21, transparent: true, opacity: 0.20,
+  })));
+}
+
+/* ── Stage marker meshes ─────────────────────────────────── */
+const markerMeshes = [];
+STAGES.forEach(stage => {
+  const t     = stage.t;
+  const y     = t * MTN_H;
+  const r     = mtnR(t) * 0.88 + 0.22;
+  const angle = 0.12;                     /* front face, roughly toward camera */
+
+  const mx = r * Math.cos(angle);
+  const mz = r * Math.sin(angle);
+
+  /* Gold sphere */
+  const sphere = new THREE.Mesh(
+    new THREE.SphereGeometry(0.115, 22, 18),
+    new THREE.MeshStandardMaterial({
+      color:             0xF8AF21,
+      emissive:          0xF8AF21,
+      emissiveIntensity: 0.6,
+      metalness:         0.22,
+      roughness:         0.28,
+    })
+  );
+  sphere.position.set(mx, y, mz);
+  sphere.castShadow = true;
+  mtnGroup.add(sphere);
+  markerMeshes.push(sphere);
+
+  /* Torus ring */
+  const ring = new THREE.Mesh(
+    new THREE.TorusGeometry(0.22, 0.018, 8, 30),
+    new THREE.MeshBasicMaterial({ color: 0xF8AF21, transparent: true, opacity: 0.32 })
+  );
+  ring.position.copy(sphere.position);
+  ring.rotation.x = Math.PI / 2;
+  mtnGroup.add(ring);
+});
+
+/* ── Summit glow point light ─────────────────────────────── */
+const sumGlow = new THREE.PointLight(0xF8AF21, 1.4, 5.5);
+sumGlow.position.set(0, MTN_H + 0.4, 0);
+mtnGroup.add(sumGlow);
+
+/* ── Starfield ───────────────────────────────────────────── */
+{
+  const sv = [];
+  for (let i = 0; i < 2000; i++) {
+    const phi = Math.acos(2 * Math.random() - 1);
+    const tha = Math.random() * Math.PI * 2;
+    const R   = 90 + Math.random() * 30;
+    sv.push(R*Math.sin(phi)*Math.cos(tha), R*Math.cos(phi), R*Math.sin(phi)*Math.sin(tha));
+  }
+  const sg = new THREE.BufferGeometry();
+  sg.setAttribute('position', new THREE.Float32BufferAttribute(sv, 3));
+  scene.add(new THREE.Points(sg, new THREE.PointsMaterial({
+    color: 0xd8e8f0, size: 0.17, sizeAttenuation: true, transparent: true, opacity: 0.50,
+  })));
+}
+
+/* ── Atmospheric mist rings at base ──────────────────────── */
+for (let k = 0; k < 2; k++) {
+  const mist = new THREE.Mesh(
+    new THREE.TorusGeometry(5.5 + k * 2.6, 2.0 - k * 0.5, 6, 52),
+    new THREE.MeshBasicMaterial({
+      color: 0x071828, transparent: true,
+      opacity: 0.16 - k * 0.05, side: THREE.DoubleSide,
+    })
+  );
+  mist.rotation.x = Math.PI / 2;
+  mist.position.y = 0.08 + k * 0.05;
+  scene.add(mist);
+}
+
+/* ════════════════════════════════════════════════════════════
+   HTML LABELS
+════════════════════════════════════════════════════════════ */
+const labelContainer = document.getElementById('labels');
+
+STAGES.forEach((stage, idx) => {
+  const el = document.createElement('div');
+  el.className = 'sl';
+  el.innerHTML = `
+    <div class="sl-dot" style="animation-delay:${idx * 0.6}s"></div>
+    <div class="sl-line"></div>
+    <div class="sl-text">
+      <div class="sl-num">${stage.id} &middot; ${stage.dur}</div>
+      <div class="sl-name">${stage.name}</div>
+      <div class="sl-phase">${stage.phase}</div>
+      <div class="sl-quote">${stage.quote}</div>
+    </div>`;
+  labelContainer.appendChild(el);
+  stage.el = el;
+});
+
+/* ════════════════════════════════════════════════════════════
+   LABEL PROJECTION
+════════════════════════════════════════════════════════════ */
+const _wp = new THREE.Vector3();
+
+function updateLabels() {
+  STAGES.forEach((stage, idx) => {
+    markerMeshes[idx].getWorldPosition(_wp);
+
+    const proj = _wp.clone().project(camera);
+    if (proj.z >= 1) { stage.el.style.opacity = '0'; return; }
+
+    const sx = ( proj.x * 0.5 + 0.5) * innerWidth;
+    const sy = (-proj.y * 0.5 + 0.5) * innerHeight;
+
+    /* Visibility fade: is the marker on the front face? */
+    const outDir = new THREE.Vector3(_wp.x, 0, _wp.z).normalize();
+    const camDir = camera.position.clone().sub(_wp).normalize();
+    const dot    = outDir.dot(camDir);
+    const alpha  = clamp((dot + 0.18) / 0.55, 0, 1);
+
+    stage.el.style.opacity   = alpha;
+    stage.el.style.left      = (sx + 22) + 'px';
+    stage.el.style.top       = sy + 'px';
+    stage.el.style.transform = 'translateY(-50%)';
+  });
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESIZE
+════════════════════════════════════════════════════════════ */
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+/* ════════════════════════════════════════════════════════════
+   RENDER LOOP
+════════════════════════════════════════════════════════════ */
+const clock = new THREE.Clock();
+let   rotY  = 0;
+
+function animate() {
+  requestAnimationFrame(animate);
+  const dt = clock.getDelta();
+  const et = clock.getElapsedTime();
+
+  /* Auto-rotate mountain group */
+  rotY += dt * 0.13;          /* full revolution ≈ 48 s */
+  mtnGroup.rotation.y = rotY;
+
+  /* Summit glow breathes */
+  sumGlow.intensity = 0.9 + Math.sin(et * 1.75) * 0.50;
+
+  /* Markers pulse */
+  markerMeshes.forEach((m, i) => {
+    m.scale.setScalar(1 + Math.sin(et * 1.3 + i * 1.05) * 0.075);
+  });
+
+  controls.update();
+  updateLabels();
+  renderer.render(scene, camera);
+}
+
+animate();
+</script>
+</body>
+</html>

@@ -3,11 +3,11 @@
      ║  Light bg · info column + form column                              ║
      ╚══════════════════════════════════════════════════════════════════════╝ -->
 <?php
-    $contactEmail = $contact['contactEmail']   ?? 'asogtbi@cspc.edu.ph';
-    $contactAddr  = $contact['contactAddress'] ?? 'Camarines Sur Polytechnic Colleges, Nabua, Camarines Sur';
-    $contactPhone = $contact['contactPhone']   ?? '';
-    $fbUrl        = $contact['facebookUrl']    ?? '#';
-    $igUrl        = $contact['instagramUrl']   ?? '#';
+    $contactEmail = 'asogtbi@cspc.edu.ph';
+    $contactAddr  = 'Camarines Sur Polytechnic Colleges, Nabua, Camarines Sur';
+    $contactPhone = '';
+    $fbUrl        = '#';
+    $igUrl        = '#';
 ?>
 <section id="contact" class="relative overflow-hidden bg-off py-16 md:py-24 px-6 md:px-10 lg:px-14">
     <div class="ai-grid"></div>

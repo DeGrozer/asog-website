@@ -22,34 +22,6 @@
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 reveal-group">
-            <?php
-                $coreTeam = array_filter($teamMembers ?? [], fn($m) => stripos($m['position'] ?? '', 'Director') !== false || stripos($m['position'] ?? '', 'Manager') !== false || stripos($m['position'] ?? '', 'Lead') !== false || stripos($m['position'] ?? '', 'Head') !== false || stripos($m['position'] ?? '', 'Coordinator') !== false);
-                if (empty($coreTeam)) $coreTeam = array_slice($teamMembers ?? [], 0, 4);
-            ?>
-            <?php foreach ($coreTeam as $member): ?>
-            <a href="<?= site_url('organization/' . $member['slug']) ?>"
-                class="rc group no-underline block text-center">
-                <div
-                    class="w-full aspect-square rounded-lg bg-[#e9e6e1] border border-dark/[.06] overflow-hidden mb-4 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-dark/[.08] group-hover:-translate-y-1">
-                    <?php if (! empty($member['photoPath'])): ?>
-                    <img src="<?= base_url($member['photoPath']) ?>" alt="<?= esc($member['fullName']) ?>"
-                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <?php else: ?>
-                    <div class="w-full h-full flex items-center justify-center">
-                        <span
-                            class="font-display text-[2.4rem] text-dark/[.08]"><?= strtoupper(substr($member['fullName'], 0, 1)) ?></span>
-                    </div>
-                    <?php endif; ?>
-                </div>
-                <h4
-                    class="font-display text-[1.1rem] md:text-[1.2rem] font-semibold text-dark leading-tight transition-colors duration-200 group-hover:text-gold">
-                    <?= esc($member['fullName']) ?></h4>
-                <span
-                    class="text-[.68rem] font-semibold tracking-[.08em] uppercase text-gold mt-1.5 block"><?= esc($member['position']) ?></span>
-            </a>
-            <?php endforeach; ?>
-
-            <?php if (empty($teamMembers)): ?>
             <?php for ($i = 0; $i < 4; $i++): ?>
             <div class="rc text-center">
                 <div class="w-full aspect-square rounded-lg bg-[#e2dfd9] mb-4 flex items-center justify-center">
@@ -63,7 +35,6 @@
                     Title</span>
             </div>
             <?php endfor; ?>
-            <?php endif; ?>
         </div>
     </div>
 </section>
@@ -86,34 +57,6 @@
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-8 reveal-group">
-            <?php
-                $staff = array_filter($teamMembers ?? [], fn($m) => stripos($m['position'] ?? '', 'Staff') !== false || stripos($m['position'] ?? '', 'Assistant') !== false || stripos($m['position'] ?? '', 'Officer') !== false || stripos($m['position'] ?? '', 'Specialist') !== false || stripos($m['position'] ?? '', 'Analyst') !== false);
-                if (empty($staff)) $staff = array_slice($teamMembers ?? [], 4, 8);
-            ?>
-            <?php foreach ($staff as $member): ?>
-            <a href="<?= site_url('organization/' . $member['slug']) ?>"
-                class="rc group no-underline block text-center">
-                <div
-                    class="w-full aspect-square rounded-lg bg-[#e9e6e1] border border-dark/[.06] overflow-hidden mb-4 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-dark/[.08] group-hover:-translate-y-1">
-                    <?php if (! empty($member['photoPath'])): ?>
-                    <img src="<?= base_url($member['photoPath']) ?>" alt="<?= esc($member['fullName']) ?>"
-                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <?php else: ?>
-                    <div class="w-full h-full flex items-center justify-center">
-                        <span
-                            class="font-display text-[2.4rem] text-dark/[.08]"><?= strtoupper(substr($member['fullName'], 0, 1)) ?></span>
-                    </div>
-                    <?php endif; ?>
-                </div>
-                <h4
-                    class="font-display text-[1.05rem] font-semibold text-dark leading-tight transition-colors duration-200 group-hover:text-gold">
-                    <?= esc($member['fullName']) ?></h4>
-                <span
-                    class="text-[.64rem] font-semibold tracking-[.08em] uppercase text-navy mt-1.5 block"><?= esc($member['position']) ?></span>
-            </a>
-            <?php endforeach; ?>
-
-            <?php if (empty($teamMembers)): ?>
             <?php for ($i = 0; $i < 5; $i++): ?>
             <div class="rc text-center">
                 <div class="w-full aspect-square rounded-lg bg-[#e2dfd9] mb-4 flex items-center justify-center">
@@ -127,7 +70,6 @@
                     Role</span>
             </div>
             <?php endfor; ?>
-            <?php endif; ?>
         </div>
     </div>
 </section>
@@ -150,34 +92,6 @@
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 reveal-group">
-            <?php
-                $facultyMentors = array_filter($teamMembers ?? [], fn($m) => stripos($m['position'] ?? '', 'Faculty') !== false || stripos($m['position'] ?? '', 'Professor') !== false || stripos($m['position'] ?? '', 'Instructor') !== false);
-                if (empty($facultyMentors)) $facultyMentors = array_slice($teamMembers ?? [], 12, 4);
-            ?>
-            <?php foreach ($facultyMentors as $member): ?>
-            <a href="<?= site_url('organization/' . $member['slug']) ?>"
-                class="rc group no-underline block text-center">
-                <div
-                    class="w-full aspect-square rounded-lg bg-[#e9e6e1] border border-dark/[.06] overflow-hidden mb-4 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-dark/[.08] group-hover:-translate-y-1">
-                    <?php if (! empty($member['photoPath'])): ?>
-                    <img src="<?= base_url($member['photoPath']) ?>" alt="<?= esc($member['fullName']) ?>"
-                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <?php else: ?>
-                    <div class="w-full h-full flex items-center justify-center">
-                        <span
-                            class="font-display text-[2.4rem] text-dark/[.08]"><?= strtoupper(substr($member['fullName'], 0, 1)) ?></span>
-                    </div>
-                    <?php endif; ?>
-                </div>
-                <h4
-                    class="font-display text-[1.05rem] font-semibold text-dark leading-tight transition-colors duration-200 group-hover:text-gold">
-                    <?= esc($member['fullName']) ?></h4>
-                <span
-                    class="text-[.64rem] font-semibold tracking-[.08em] uppercase text-sky mt-1.5 block"><?= esc($member['position']) ?></span>
-            </a>
-            <?php endforeach; ?>
-
-            <?php if (empty($teamMembers)): ?>
             <?php for ($i = 0; $i < 4; $i++): ?>
             <div class="rc text-center">
                 <div class="w-full aspect-square rounded-lg bg-[#e2dfd9] mb-4 flex items-center justify-center">
@@ -191,7 +105,6 @@
                     Mentor</span>
             </div>
             <?php endfor; ?>
-            <?php endif; ?>
         </div>
     </div>
 </section>
@@ -214,34 +127,6 @@
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 reveal-group">
-            <?php
-                $industryMentors = array_filter($teamMembers ?? [], fn($m) => stripos($m['position'] ?? '', 'Industry') !== false || stripos($m['position'] ?? '', 'Consultant') !== false || stripos($m['position'] ?? '', 'Adviser') !== false || stripos($m['position'] ?? '', 'Advisor') !== false);
-                if (empty($industryMentors)) $industryMentors = array_slice($teamMembers ?? [], 16, 4);
-            ?>
-            <?php foreach ($industryMentors as $member): ?>
-            <a href="<?= site_url('organization/' . $member['slug']) ?>"
-                class="rc group no-underline block text-center">
-                <div
-                    class="w-full aspect-square rounded-lg bg-[#e9e6e1] border border-dark/[.06] overflow-hidden mb-4 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-dark/[.08] group-hover:-translate-y-1">
-                    <?php if (! empty($member['photoPath'])): ?>
-                    <img src="<?= base_url($member['photoPath']) ?>" alt="<?= esc($member['fullName']) ?>"
-                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <?php else: ?>
-                    <div class="w-full h-full flex items-center justify-center">
-                        <span
-                            class="font-display text-[2.4rem] text-dark/[.08]"><?= strtoupper(substr($member['fullName'], 0, 1)) ?></span>
-                    </div>
-                    <?php endif; ?>
-                </div>
-                <h4
-                    class="font-display text-[1.05rem] font-semibold text-dark leading-tight transition-colors duration-200 group-hover:text-gold">
-                    <?= esc($member['fullName']) ?></h4>
-                <span
-                    class="text-[.64rem] font-semibold tracking-[.08em] uppercase text-sky mt-1.5 block"><?= esc($member['position']) ?></span>
-            </a>
-            <?php endforeach; ?>
-
-            <?php if (empty($teamMembers)): ?>
             <?php for ($i = 0; $i < 4; $i++): ?>
             <div class="rc text-center">
                 <div class="w-full aspect-square rounded-lg bg-[#e2dfd9] mb-4 flex items-center justify-center">
@@ -255,7 +140,6 @@
                     Mentor</span>
             </div>
             <?php endfor; ?>
-            <?php endif; ?>
         </div>
     </div>
 </section>
