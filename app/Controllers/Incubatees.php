@@ -2,9 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
-use App\Models\IncubateeApplicationModel;
-
 class Incubatees extends BaseController
 {
     public function index()
@@ -44,7 +41,7 @@ class Incubatees extends BaseController
 
     public function applyFormStore(): \CodeIgniter\HTTP\ResponseInterface
     {
-        $applicationModel = new IncubateeApplicationModel();
+        $applicationModel = $this->applicationModel;
         
         $data = [
             'startupName'           => $this->request->getPost('startupName'),
@@ -128,6 +125,9 @@ class Incubatees extends BaseController
 
         // Save application
         if ($applicationModel->insert($data)) {
+            // Send a copy of their responses via email
+            $this->sendConfirmationEmail($data);
+
             return redirect()->to(site_url('incubatees/apply/form/thank-you'))
                 ->with('success', 'Your application has been submitted successfully!');
         }
@@ -135,6 +135,41 @@ class Incubatees extends BaseController
         return redirect()->back()
             ->withInput()
             ->with('error', 'Unable to submit application. Please try again.');
+    }
+
+    // ──────────────────────────────────────────────
+    // EMAIL — send applicant a copy of their responses
+    // ──────────────────────────────────────────────
+    private function sendConfirmationEmail(array $data): void
+    {
+        $email = \Config\Services::email();
+
+        // Skip silently if SMTP is not configured
+        $config = new \Config\Email();
+        if (empty($config->SMTPHost) && $config->protocol === 'smtp') {
+            log_message('info', 'Confirmation email skipped — SMTP not configured.');
+            return;
+        }
+
+        $body = view('emails/application_confirmation', [
+            'applicantName'         => $data['applicantName'],
+            'applicantEmail'        => $data['applicantEmail'],
+            'contactNumber'         => $data['contactNumber'],
+            'startupName'           => $data['startupName'],
+            'startupDescription'    => $data['startupDescription'],
+            'mainRisk'              => $data['mainRisk'] ?? '',
+            'shortTermGoals'        => $data['shortTermGoals'] ?? '',
+            'videoPresentationLink' => $data['videoPresentationLink'] ?? '',
+        ]);
+
+        $email->setTo($data['applicantEmail']);
+        $email->setSubject('ASOG-TBI — Application Received');
+        $email->setMessage($body);
+        $email->setMailType('html');
+
+        if (! $email->send(false)) {
+            log_message('error', 'Confirmation email failed: ' . $email->printDebugger(['headers']));
+        }
     }
 
     public function applyFormThankYou(): string

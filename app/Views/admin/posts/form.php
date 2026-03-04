@@ -28,13 +28,13 @@ $formUrl = $isEdit
     .editor-wrap{border:1px solid #ddd;border-radius:.25rem;overflow:hidden}
     .editor-wrap .ql-toolbar{border:none;border-bottom:1px solid #eee;background:#fafaf9}
     .editor-wrap .ql-container{border:none;font-family:'DM Sans',sans-serif;font-size:.82rem;min-height:200px}
-    .upload-zone{border:1.5px dashed #d4d0ca;border-radius:.35rem;padding:1.2rem;text-align:center;cursor:pointer;transition:border-color .15s,background .15s}
+    .upload-zone{border:1.5px dashed #d4d0ca;border-radius:.35rem;padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .15s,background .15s;position:relative}
     .upload-zone:hover{border-color:#03558C;background:#fafcff}
-    .upload-zone input{display:none}
+    .upload-zone input[type=file]{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
     .upload-zone .label{font-size:.78rem;color:#94a3b8}
     .upload-zone .label strong{color:#03558C}
-    .upload-preview{margin-top:.5rem}
-    .upload-preview img{max-height:140px;border-radius:.25rem}
+    .upload-preview{margin-top:.6rem}
+    .upload-preview img{max-height:220px;max-width:100%;border-radius:.3rem;border:1px solid #eceae6}
     .switch-row{display:flex;gap:1.5rem;align-items:center;margin-top:.25rem}
     .switch{display:flex;align-items:center;gap:.45rem;cursor:pointer;font-size:.78rem;color:#334155}
     .switch input{display:none}
@@ -42,7 +42,14 @@ $formUrl = $isEdit
     .switch input:checked + .track{background:#03558C}
     .switch .track::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .2s}
     .switch input:checked + .track::after{transform:translateX(14px)}
-    .form-actions{display:flex;gap:.5rem;justify-content:flex-end;margin-top:.25rem}
+    .form-actions{display:flex;gap:.55rem;justify-content:flex-end;align-items:center;margin-top:1rem;padding-top:.8rem;border-top:1px solid #eceae6}
+    .form-actions .btn-p,.form-actions .btn-g,.form-actions .btn-o{display:inline-flex;align-items:center;gap:.3rem;font-size:.68rem;font-weight:600;padding:.55rem 1.1rem;border-radius:.3rem;border:none;cursor:pointer;text-decoration:none;transition:all .15s}
+    .form-actions .btn-p{background:#03558C;color:#fff}
+    .form-actions .btn-p:hover{background:#024a7a}
+    .form-actions .btn-o{background:#fff;color:#64748b;border:1px solid #e4e2dd}
+    .form-actions .btn-o:hover{border-color:#03558C;color:#03558C}
+    .form-actions .btn-g{background:#F8AF21;color:#1e293b}
+    .form-actions .btn-g:hover{background:#e9a210}
 </style>
 
 <form action="<?= $formUrl ?>" method="POST" enctype="multipart/form-data" id="postForm">
@@ -102,15 +109,18 @@ $formUrl = $isEdit
             <!-- Image upload -->
             <div class="field">
                 <label>Cover image</label>
-                <div class="upload-zone" id="uploadZone" onclick="document.getElementById('imageInput').click()">
+                <div class="upload-zone" id="uploadZone">
                     <input type="file" name="image" id="imageInput" accept="image/*">
-                    <div class="label"><strong>Click to upload</strong> or drag an image here</div>
+                    <div class="label" id="uploadLabel"><strong>Click to upload</strong> or drag an image here</div>
                     <div class="upload-preview" id="uploadPreview">
                         <?php if ($isEdit && ! empty($post['imagePath'])): ?>
                             <img src="<?= site_url($post['imagePath']) ?>" alt="">
                         <?php endif; ?>
                     </div>
                 </div>
+                <?php if ($isEdit && ! empty($post['imagePath'])): ?>
+                    <p style="font-size:.62rem;color:#94a3b8;margin-top:.35rem">Click the image to replace the current cover</p>
+                <?php endif; ?>
             </div>
 
             <!-- Toggles -->
@@ -128,21 +138,66 @@ $formUrl = $isEdit
             </div>
 
             <div class="form-actions">
-                <a href="<?= site_url('admin/posts') ?>" class="btn-g">Cancel</a>
-                <button type="submit" class="btn-p"><?= $isEdit ? 'Save changes' : 'Publish post' ?></button>
+                <a href="<?= site_url('admin/posts') ?>" class="btn-o">← Back to posts</a>
+                <span style="flex:1"></span>
+                <button type="submit" class="btn-p">
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    <?= $isEdit ? 'Save changes' : 'Publish post' ?>
+                </button>
             </div>
         </div>
     </div>
 </form>
 
 <script>
-document.getElementById('imageInput').addEventListener('change', function () {
-    const file = this.files[0];
-    if (! file) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        document.getElementById('uploadPreview').innerHTML = '<img src="' + e.target.result + '" alt="">';
-    };
-    reader.readAsDataURL(file);
-});
+(function() {
+    var zone   = document.getElementById('uploadZone');
+    var input  = document.getElementById('imageInput');
+    var preview = document.getElementById('uploadPreview');
+    var label  = document.getElementById('uploadLabel');
+
+    // Hide prompt if there's already an image
+    if (preview.querySelector('img')) {
+        label.style.display = 'none';
+    }
+
+    // Click anywhere on zone → open file picker
+    zone.addEventListener('click', function(e) {
+        if (e.target === input) return; // avoid re-trigger
+        input.click();
+    });
+
+    // Show preview on file select
+    input.addEventListener('change', function() {
+        var file = this.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            preview.innerHTML = '<img src="' + e.target.result + '" alt="">';
+            label.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+    });
+
+    // Drag & drop support
+    zone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        zone.style.borderColor = '#03558C';
+        zone.style.background = '#fafcff';
+    });
+    zone.addEventListener('dragleave', function() {
+        zone.style.borderColor = '';
+        zone.style.background = '';
+    });
+    zone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        zone.style.borderColor = '';
+        zone.style.background = '';
+        var files = e.dataTransfer.files;
+        if (files.length > 0 && files[0].type.startsWith('image/')) {
+            input.files = files;
+            input.dispatchEvent(new Event('change'));
+        }
+    });
+})();
 </script>

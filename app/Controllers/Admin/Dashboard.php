@@ -2,20 +2,19 @@
 
 namespace App\Controllers\Admin;
 
-use CodeIgniter\Controller;
-use App\Models\PostModel;
+use App\Controllers\BaseController;
 
-class Dashboard extends Controller
+class Dashboard extends BaseController
 {
     public function index()
     {
-        helper(['toast']);
-        $postModel = new PostModel();
-
-        $allPosts = $postModel->findAll();
+        $allPosts = $this->postModel->findAll();
         $published = array_filter($allPosts, fn($p) => $p['isPublished'] == 1);
         $drafts    = array_filter($allPosts, fn($p) => $p['isPublished'] == 0);
         $featured  = array_filter($allPosts, fn($p) => $p['isFeatured'] == 1);
+
+        $allApps     = $this->applicationModel->getAll();
+        $pendingApps = array_filter($allApps, fn($a) => $a['applicationStatus'] === 'pending');
 
         $data = [
             'pageTitle'      => 'Dashboard',
@@ -24,7 +23,12 @@ class Dashboard extends Controller
             'publishedPosts' => count($published),
             'draftPosts'     => count($drafts),
             'featuredPosts'  => count($featured),
-            'recentPosts'    => $postModel->orderBy('createdAt', 'DESC')->findAll(5),
+            'recentPosts'    => $this->postModel->orderBy('createdAt', 'DESC')->findAll(5),
+            'totalApps'      => count($allApps),
+            'pendingApps'    => count($pendingApps),
+            'acceptedApps'   => count(array_filter($allApps, fn($a) => $a['applicationStatus'] === 'accepted')),
+            'rejectedApps'   => count(array_filter($allApps, fn($a) => $a['applicationStatus'] === 'rejected')),
+            'recentApps'     => array_slice($allApps, 0, 5),
         ];
 
         return view('admin/layout/header', $data)

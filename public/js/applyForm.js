@@ -195,6 +195,105 @@
 
 
   /* ─────────────────────────────────────────────────────────────────
+     3b. FILE UPLOAD PREVIEWS
+         Show file name + size below each file input, with a remove (✕)
+         button per file.  Uses a DataTransfer object to keep the
+         FileList in sync when individual files are removed.
+  ───────────────────────────────────────────────────────────────────── */
+  function formatBytes(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+    return (b / 1048576).toFixed(1) + ' MB';
+  }
+
+  // ── Team CV (multi-file) ──────────────────
+  var cvInput  = document.getElementById('teamCv');
+  var cvList   = document.getElementById('teamCvList');
+
+  function renderCvList() {
+    if (!cvInput || !cvList) return;
+    var files = cvInput.files;
+    cvList.innerHTML = '';
+    if (files.length === 0) { cvList.classList.add('hidden'); return; }
+    cvList.classList.remove('hidden');
+
+    Array.from(files).forEach(function (f, i) {
+      var li = document.createElement('li');
+      li.className = 'flex items-center gap-2 text-[.75rem] text-dark/70 bg-off/60 border border-navy/8 rounded px-3 py-1.5';
+
+      // PDF icon
+      li.innerHTML =
+        '<svg class="w-3.5 h-3.5 flex-shrink-0 text-red-400" fill="currentColor" viewBox="0 0 20 20">' +
+          '<path d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V8l-6-6H4zm7 1.5L16.5 9H12a1 1 0 01-1-1V3.5z"/>' +
+        '</svg>' +
+        '<span class="flex-1 truncate">' + escHtml(f.name) + '</span>' +
+        '<span class="text-[.65rem] text-navy/40 flex-shrink-0">' + formatBytes(f.size) + '</span>';
+
+      // Remove button
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'ml-1 text-dark/30 hover:text-red-500 transition-colors flex-shrink-0';
+      btn.title = 'Remove';
+      btn.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>';
+      btn.addEventListener('click', function () { removeCvFile(i); });
+      li.appendChild(btn);
+
+      cvList.appendChild(li);
+    });
+  }
+
+  function removeCvFile(index) {
+    var dt = new DataTransfer();
+    Array.from(cvInput.files).forEach(function (f, i) {
+      if (i !== index) dt.items.add(f);
+    });
+    cvInput.files = dt.files;
+    renderCvList();
+  }
+
+  if (cvInput) {
+    cvInput.addEventListener('change', renderCvList);
+  }
+
+  // ── Lean Canvas (single file) ─────────────
+  var lcInput   = document.getElementById('leanCanvas');
+  var lcPreview = document.getElementById('leanCanvasPreview');
+
+  function renderLcPreview() {
+    if (!lcInput || !lcPreview) return;
+    if (!lcInput.files || lcInput.files.length === 0) {
+      lcPreview.classList.add('hidden');
+      lcPreview.innerHTML = '';
+      return;
+    }
+    var f = lcInput.files[0];
+    lcPreview.classList.remove('hidden');
+    lcPreview.innerHTML =
+      '<div class="flex items-center gap-2 text-[.75rem] text-dark/70 bg-off/60 border border-navy/8 rounded px-3 py-1.5">' +
+        '<svg class="w-3.5 h-3.5 flex-shrink-0 text-navy/40" fill="currentColor" viewBox="0 0 20 20">' +
+          '<path d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V8l-6-6H4zm7 1.5L16.5 9H12a1 1 0 01-1-1V3.5z"/>' +
+        '</svg>' +
+        '<span class="flex-1 truncate">' + escHtml(f.name) + '</span>' +
+        '<span class="text-[.65rem] text-navy/40 flex-shrink-0">' + formatBytes(f.size) + '</span>' +
+        '<button type="button" onclick="document.getElementById(\'leanCanvas\').value=\'\';document.getElementById(\'leanCanvasPreview\').classList.add(\'hidden\');document.getElementById(\'leanCanvasPreview\').innerHTML=\'\';" ' +
+          'class="ml-1 text-dark/30 hover:text-red-500 transition-colors flex-shrink-0" title="Remove">' +
+          '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>' +
+        '</button>' +
+      '</div>';
+  }
+
+  if (lcInput) {
+    lcInput.addEventListener('change', renderLcPreview);
+  }
+
+  function escHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+
+  /* ─────────────────────────────────────────────────────────────────
      4. PREVIEW MODAL
   ───────────────────────────────────────────────────────────────────── */
   var modal = document.getElementById('previewModal');

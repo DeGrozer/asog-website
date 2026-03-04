@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
-
 class Contact extends BaseController
 {
     public function index(): string
@@ -26,8 +24,6 @@ class Contact extends BaseController
      */
     public function send()
     {
-        helper('toast');
-
         $rules = [
             'name'    => 'required|min_length[2]|max_length[100]',
             'email'   => 'required|valid_email|max_length[150]',

@@ -1,5 +1,5 @@
 <!-- ╔══════════════════════════════════════════════════════════════════════╗
-     ║  INCUBATEE APPLICATION FORM — Horizontal grid layout               ║
+     ║  INCUBATEE APPLICATION FORM — Horizontal grid layout                 ║
      ╚══════════════════════════════════════════════════════════════════════╝ -->
 <section class="relative bg-off py-16 md:py-24 px-6 md:px-10 lg:px-14">
     <div class="ai-grid"></div>
@@ -13,7 +13,7 @@
         ?>
 
         <form action="<?= site_url('incubatees/apply/form') ?>" method="post" enctype="multipart/form-data"
-              data-check-url="<?= site_url('incubatees/apply/form/check-email') ?>">
+            data-check-url="<?= site_url('incubatees/apply/form/check-email') ?>">
             <?= csrf_field() ?>
 
             <!-- ═══════════════════════════════════════════════════════
@@ -22,46 +22,49 @@
             <div class="mb-10">
                 <div class="flex items-center gap-2 mb-5 pb-3 border-b-2 border-navy/15">
                     <span class="block w-[18px] h-[2px] bg-gold"></span>
-                    <h3 class="text-[.62rem] font-bold tracking-[.2em] uppercase text-navy m-0">Applicant Information</h3>
+                    <h3 class="text-[.62rem] font-bold tracking-[.2em] uppercase text-navy m-0">Applicant Information
+                    </h3>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 border border-navy/10 rounded-md overflow-hidden bg-white">
                     <!-- Full Name -->
                     <div class="border-b md:border-b md:border-r border-navy/10 p-4 md:p-5">
-                        <label for="applicantName" class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                        <label for="applicantName"
+                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
                             Full Name <span class="text-red-400">*</span>
                         </label>
                         <input type="text" id="applicantName" name="applicantName" maxlength="255"
-                            data-v="required|min:2|name" 
+                            data-v="required|min:2|name"
                             class="v-field w-full bg-transparent border-none p-0 text-[.88rem] text-dark font-normal outline-none placeholder:text-dark/25"
-                            placeholder="Dela Cruz, Juan A."
-                            value="<?= old('applicantName') ?>" required>
+                            placeholder="Dela Cruz, Juan A." value="<?= old('applicantName') ?>" required>
                         <span class="text-[.58rem] text-navy/30 block mt-1">Last Name, First Name MI</span>
-                        <span class="v-msg text-[.62rem] text-red-500 block mt-1 hidden" data-for="applicantName"><?= $errs['applicantName'] ?? '' ?></span>
+                        <span class="v-msg text-[.62rem] text-red-500 block mt-1 hidden"
+                            data-for="applicantName"><?= $errs['applicantName'] ?? '' ?></span>
                     </div>
                     <!-- Email -->
                     <div class="border-b md:border-b md:border-r border-navy/10 p-4 md:p-5">
-                        <label for="applicantEmail" class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                        <label for="applicantEmail"
+                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
                             Email Address <span class="text-red-400">*</span>
                         </label>
                         <input type="email" id="applicantEmail" name="applicantEmail" maxlength="255"
                             data-v="required|email"
                             class="v-field w-full bg-transparent border-none p-0 text-[.88rem] text-dark font-normal outline-none placeholder:text-dark/25"
-                            placeholder="your.email@example.com"
-                            value="<?= old('applicantEmail') ?>" required>
-                        <span class="v-msg text-[.62rem] text-red-500 block mt-1 hidden" data-for="applicantEmail"><?= $errs['applicantEmail'] ?? '' ?></span>
+                            placeholder="your.email@example.com" value="<?= old('applicantEmail') ?>" required>
+                        <span class="v-msg text-[.62rem] text-red-500 block mt-1 hidden"
+                            data-for="applicantEmail"><?= $errs['applicantEmail'] ?? '' ?></span>
                     </div>
                     <!-- Contact -->
                     <div class="border-b border-navy/10 p-4 md:p-5">
-                        <label for="contactNumber" class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                        <label for="contactNumber"
+                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
                             Contact Number <span class="text-red-400">*</span>
                         </label>
-                        <input type="tel" id="contactNumber" name="contactNumber" maxlength="20"
-                            data-v="required|phone"
+                        <input type="tel" id="contactNumber" name="contactNumber" maxlength="20" data-v="required|phone"
                             class="v-field w-full bg-transparent border-none p-0 text-[.88rem] text-dark font-normal outline-none placeholder:text-dark/25"
-                            placeholder="09XX XXX XXXX"
-                            value="<?= old('contactNumber') ?>" required>
-                        <span class="v-msg text-[.62rem] text-red-500 block mt-1 hidden" data-for="contactNumber"><?= $errs['contactNumber'] ?? '' ?></span>
+                            placeholder="09XX XXX XXXX" value="<?= old('contactNumber') ?>" required>
+                        <span class="v-msg text-[.62rem] text-red-500 block mt-1 hidden"
+                            data-for="contactNumber"><?= $errs['contactNumber'] ?? '' ?></span>
                     </div>
                 </div>
             </div>
@@ -72,36 +75,42 @@
             <div class="mb-10">
                 <div class="flex items-center gap-2 mb-5 pb-3 border-b-2 border-navy/15">
                     <span class="block w-[18px] h-[2px] bg-gold"></span>
-                    <h3 class="text-[.62rem] font-bold tracking-[.2em] uppercase text-navy m-0">Presentation of Your Startup</h3>
+                    <h3 class="text-[.62rem] font-bold tracking-[.2em] uppercase text-navy m-0">Presentation of Your
+                        Startup</h3>
                 </div>
 
                 <div class="border border-navy/10 rounded-md overflow-hidden bg-white">
                     <!-- Row 1: Startup Name (full width) -->
                     <div class="border-b border-navy/10 p-4 md:p-5">
-                        <label for="startupName" class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                        <label for="startupName"
+                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
                             Startup Name <span class="text-red-400">*</span>
                         </label>
-                        <input type="text" id="startupName" name="startupName" maxlength="255"
-                            data-v="required|min:2"
+                        <input type="text" id="startupName" name="startupName" maxlength="255" data-v="required|min:2"
                             class="v-field w-full bg-transparent border-none p-0 text-[.88rem] text-dark font-normal outline-none placeholder:text-dark/25"
                             placeholder="e.g. GreenTech Innovations" value="<?= old('startupName') ?>" required>
-                        <span class="v-msg text-[.62rem] text-red-500 block mt-1 hidden" data-for="startupName"><?= $errs['startupName'] ?? '' ?></span>
+                        <span class="v-msg text-[.62rem] text-red-500 block mt-1 hidden"
+                            data-for="startupName"><?= $errs['startupName'] ?? '' ?></span>
                     </div>
                     <!-- Row 2: Description (full width) -->
                     <div class="border-b border-navy/10 p-4 md:p-5">
-                        <label for="startupDescription" class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                        <label for="startupDescription"
+                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
                             Describe your startup. How is it innovative? <span class="text-red-400">*</span>
                         </label>
                         <textarea id="startupDescription" name="startupDescription" rows="4" maxlength="2000"
                             data-v="required|min:10"
                             class="v-field w-full bg-transparent border-none p-0 text-[.88rem] text-dark font-normal outline-none resize-none placeholder:text-dark/25"
-                            placeholder="Describe your solution, target market, and what makes it unique..." required><?= old('startupDescription') ?></textarea>
-                        <span class="v-msg text-[.62rem] text-red-500 block mt-1 hidden" data-for="startupDescription"><?= $errs['startupDescription'] ?? '' ?></span>
+                            placeholder="Describe your solution, target market, and what makes it unique..."
+                            required><?= old('startupDescription') ?></textarea>
+                        <span class="v-msg text-[.62rem] text-red-500 block mt-1 hidden"
+                            data-for="startupDescription"><?= $errs['startupDescription'] ?? '' ?></span>
                     </div>
                     <!-- Row 3: Two columns — Risk + Goals -->
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="border-b md:border-b-0 md:border-r border-navy/10 p-4 md:p-5">
-                            <label for="mainRisk" class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                            <label for="mainRisk"
+                                class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
                                 Main Risk for Your Startup
                             </label>
                             <textarea id="mainRisk" name="mainRisk" rows="3" maxlength="1000"
@@ -109,7 +118,8 @@
                                 placeholder="Describe potential challenges..."><?= old('mainRisk') ?></textarea>
                         </div>
                         <div class="p-4 md:p-5">
-                            <label for="shortTermGoals" class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                            <label for="shortTermGoals"
+                                class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
                                 Short-term Goals (3–5 months)
                             </label>
                             <textarea id="shortTermGoals" name="shortTermGoals" rows="3" maxlength="1000"
@@ -126,32 +136,39 @@
             <div class="mb-10">
                 <div class="flex items-center gap-2 mb-5 pb-3 border-b-2 border-navy/15">
                     <span class="block w-[18px] h-[2px] bg-gold"></span>
-                    <h3 class="text-[.62rem] font-bold tracking-[.2em] uppercase text-navy m-0">Presentation of Your Team</h3>
+                    <h3 class="text-[.62rem] font-bold tracking-[.2em] uppercase text-navy m-0">Presentation of Your
+                        Team</h3>
                 </div>
 
                 <div class="border border-navy/10 rounded-md overflow-hidden bg-white">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <!-- CV Upload -->
                         <div class="border-b md:border-b-0 md:border-r border-navy/10 p-4 md:p-5">
-                            <label for="teamCv" class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                            <label for="teamCv"
+                                class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
                                 Team Members' CV
                             </label>
-                            <span class="text-[.58rem] text-navy/30 block mb-3">Upload PDFs · Max 10 files · 100 MB each</span>
+                            <span class="text-[.58rem] text-navy/30 block mb-3">Upload PDFs · Max 10 files · 100 MB
+                                each</span>
                             <input type="file" id="teamCv" name="teamCv[]" multiple accept=".pdf"
                                 class="w-full text-[.78rem] text-dark/60 file:mr-3 file:px-3 file:py-1.5 file:rounded-sm file:border file:border-navy/15 file:text-[.6rem] file:font-bold file:tracking-[.1em] file:uppercase file:text-navy file:bg-off file:cursor-pointer hover:file:bg-navy hover:file:text-white transition-colors">
+                            <!-- File preview list -->
+                            <ul id="teamCvList" class="mt-3 space-y-2.5 list-none p-0 m-0 hidden"></ul>
                         </div>
                         <!-- Video Link -->
                         <div class="p-4 md:p-5">
-                            <label for="videoPresentationLink" class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                            <label for="videoPresentationLink"
+                                class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
                                 Video Presentation Link <span class="text-red-400">*</span>
                             </label>
-                            <span class="text-[.58rem] text-navy/30 block mb-3">1-minute pitch · YouTube or Google Drive</span>
+                            <span class="text-[.58rem] text-navy/30 block mb-3">1-minute pitch · YouTube or Google
+                                Drive</span>
                             <input type="url" id="videoPresentationLink" name="videoPresentationLink" maxlength="500"
                                 data-v="required|url"
                                 class="v-field w-full bg-off/50 border border-navy/10 rounded-sm px-3 py-2 text-[.85rem] text-dark font-normal outline-none transition-colors duration-200 focus:border-gold placeholder:text-dark/25"
-                                placeholder="https://youtu.be/..."
-                                value="<?= old('videoPresentationLink') ?>" required>
-                            <span class="v-msg text-[.62rem] text-red-500 block mt-1 hidden" data-for="videoPresentationLink"><?= $errs['videoPresentationLink'] ?? '' ?></span>
+                                placeholder="https://youtu.be/..." value="<?= old('videoPresentationLink') ?>" required>
+                            <span class="v-msg text-[.62rem] text-red-500 block mt-1 hidden"
+                                data-for="videoPresentationLink"><?= $errs['videoPresentationLink'] ?? '' ?></span>
                         </div>
                     </div>
                 </div>
@@ -170,29 +187,43 @@
                     <!-- Description row -->
                     <div class="border-b border-navy/10 p-4 md:p-5 bg-navy/[.02]">
                         <p class="text-[.78rem] text-dark/70 leading-[1.75] m-0">
-                            A <strong class="font-semibold text-dark/85">Lean Canvas</strong> is a one-page diagram designed for entrepreneurs to use when developing, evaluating, and validating a scalable startup business idea.
+                            A <strong class="font-semibold text-dark/85">Lean Canvas</strong> is a one-page diagram
+                            designed for entrepreneurs to use when developing, evaluating, and validating a scalable
+                            startup business idea.
                         </p>
                         <p class="text-[.75rem] text-dark/55 leading-[1.7] mt-2 mb-0">
                             Download the template first, fill out all the fields, and upload it below.
-                            To download, go to <strong class="font-semibold">File</strong> → <strong class="font-semibold">Download</strong> → <strong class="font-semibold">Microsoft Word (.docx)</strong>.
+                            To download, go to <strong class="font-semibold">File</strong> → <strong
+                                class="font-semibold">Download</strong> → <strong class="font-semibold">Microsoft Word
+                                (.docx)</strong>.
                         </p>
                         <a href="https://docs.google.com/document/d/1Dj1d7mKuE7QSOLzP8Xwn5GujfhcEeEzt/edit"
-                           target="_blank" rel="noopener"
-                           class="inline-flex items-center gap-1.5 mt-3 text-[.6rem] font-bold tracking-[.12em] uppercase text-navy no-underline border border-navy/20 px-4 py-2 rounded-sm transition-all duration-200 hover:bg-navy hover:text-white hover:border-navy">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            target="_blank" rel="noopener"
+                            class="inline-flex items-center gap-1.5 mt-3 text-[.6rem] font-bold tracking-[.12em] uppercase text-navy no-underline border border-navy/20 px-4 py-2 rounded-sm transition-all duration-200 hover:bg-navy hover:text-white hover:border-navy">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
                             Download Lean Canvas Template
                         </a>
                     </div>
 
                     <!-- Upload row -->
                     <div class="p-4 md:p-5">
-                        <label for="leanCanvas" class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1">
+                        <label for="leanCanvas"
+                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1">
                             Your Startup's Lean Canvas <span class="text-red-400">*</span>
                         </label>
-                        <span class="text-[.58rem] text-navy/30 block mb-3">Must be in .docx or PDF &middot; 1 file &middot; Max 10 MB</span>
-                        <input type="file" id="leanCanvas" name="leanCanvas" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                        <span class="text-[.58rem] text-navy/30 block mb-3">Must be in .docx or PDF &middot; 1 file
+                            &middot; Max 10 MB</span>
+                        <input type="file" id="leanCanvas" name="leanCanvas"
+                            accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                             class="w-full text-[.78rem] text-dark/60 file:mr-3 file:px-3 file:py-1.5 file:rounded-sm file:border file:border-navy/15 file:text-[.6rem] file:font-bold file:tracking-[.1em] file:uppercase file:text-navy file:bg-off file:cursor-pointer hover:file:bg-navy hover:file:text-white transition-colors">
-                        <span class="v-msg text-[.62rem] text-red-500 block mt-1.5 hidden" id="leanCanvasErr"><?= $errs['leanCanvas'] ?? '' ?></span>
+                        <!-- File preview -->
+                        <div id="leanCanvasPreview" class="mt-3 hidden"></div>
+                        <span class="v-msg text-[.62rem] text-red-500 block mt-1.5 hidden"
+                            id="leanCanvasErr"><?= $errs['leanCanvas'] ?? '' ?></span>
                     </div>
                 </div>
             </div>
@@ -202,17 +233,19 @@
                  ═══════════════════════════════════════════════════════ -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2">
                 <div>
-                    <button type="button" id="btnPreview" class="font-body text-[.62rem] font-bold tracking-[.14em] uppercase text-white bg-navy px-8 py-3.5 rounded-sm border-none cursor-pointer transition-all duration-200 hover:bg-dark">
+                    <button type="button" id="btnPreview"
+                        class="font-body text-[.62rem] font-bold tracking-[.14em] uppercase text-white bg-navy px-8 py-3.5 rounded-sm border-none cursor-pointer transition-all duration-200 hover:bg-dark">
                         Review &amp; Submit →
                     </button>
                 </div>
-                <p class="text-[.68rem] text-dark/35 max-w-[320px]">We'll review your application and reach out within 5–7 business days.</p>
+                <p class="text-[.68rem] text-dark/35 max-w-[320px]">We'll review your application and reach out within
+                    5–7 business days.</p>
             </div>
         </form>
 
         <div class="mt-8 text-center">
             <a href="<?= site_url('incubatees/apply') ?>"
-               class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-dark/35 no-underline hover:text-gold transition-colors duration-200">
+                class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-dark/35 no-underline hover:text-gold transition-colors duration-200">
                 ← Back to Be an Incubatee
             </a>
         </div>
@@ -220,20 +253,25 @@
 </section>
 
 <!-- ═══ PREVIEW MODAL ═══ -->
-<div id="previewModal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+<div id="previewModal"
+    class="fixed inset-0 z-[9999] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
     <!-- Backdrop -->
     <div id="previewBackdrop" class="absolute inset-0 bg-dark/60 backdrop-blur-sm"></div>
 
     <!-- Modal body -->
-    <div class="relative w-full max-w-[680px] max-h-[85vh] overflow-y-auto bg-white rounded-lg shadow-2xl border border-navy/10 transform scale-95 transition-transform duration-300" id="previewBody">
+    <div class="relative w-full max-w-[680px] max-h-[85vh] overflow-y-auto bg-white rounded-lg shadow-2xl border border-navy/10 transform scale-95 transition-transform duration-300"
+        id="previewBody">
         <!-- Header -->
         <div class="sticky top-0 bg-white z-10 px-7 py-5 border-b border-navy/10 flex items-center justify-between">
             <div>
                 <h3 class="font-display text-[1.25rem] text-dark m-0">Review Your Application</h3>
                 <p class="text-[.68rem] text-dark/40 mt-0.5">Please confirm the details below before submitting.</p>
             </div>
-            <button id="btnClosePreview" class="w-8 h-8 rounded-full bg-off flex items-center justify-center text-dark/40 hover:text-dark hover:bg-navy/10 transition-colors cursor-pointer border-none">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            <button id="btnClosePreview"
+                class="w-8 h-8 rounded-full bg-off flex items-center justify-center text-dark/40 hover:text-dark hover:bg-navy/10 transition-colors cursor-pointer border-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
             </button>
         </div>
 
@@ -243,19 +281,23 @@
             <div>
                 <div class="flex items-center gap-2 mb-3">
                     <span class="block w-3 h-[2px] bg-gold"></span>
-                    <span class="text-[.52rem] font-bold tracking-[.2em] uppercase text-navy/50">Applicant Information</span>
+                    <span class="text-[.52rem] font-bold tracking-[.2em] uppercase text-navy/50">Applicant
+                        Information</span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>
-                        <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Full Name</span>
+                        <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Full
+                            Name</span>
                         <span class="text-[.85rem] text-dark" id="pv_applicantName">—</span>
                     </div>
                     <div>
-                        <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Email</span>
+                        <span
+                            class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Email</span>
                         <span class="text-[.85rem] text-dark" id="pv_applicantEmail">—</span>
                     </div>
                     <div>
-                        <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Contact</span>
+                        <span
+                            class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Contact</span>
                         <span class="text-[.85rem] text-dark" id="pv_contactNumber">—</span>
                     </div>
                 </div>
@@ -271,21 +313,31 @@
                 </div>
                 <div class="space-y-3">
                     <div>
-                        <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Startup Name</span>
+                        <span
+                            class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Startup
+                            Name</span>
                         <span class="text-[.85rem] text-dark" id="pv_startupName">—</span>
                     </div>
                     <div>
-                        <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Description</span>
-                        <p class="text-[.82rem] text-dark/70 leading-[1.7] whitespace-pre-line m-0" id="pv_startupDescription">—</p>
+                        <span
+                            class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Description</span>
+                        <p class="text-[.82rem] text-dark/70 leading-[1.7] whitespace-pre-line m-0"
+                            id="pv_startupDescription">—</p>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Main Risk</span>
-                            <p class="text-[.82rem] text-dark/70 leading-[1.7] whitespace-pre-line m-0" id="pv_mainRisk">—</p>
+                            <span
+                                class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Main
+                                Risk</span>
+                            <p class="text-[.82rem] text-dark/70 leading-[1.7] whitespace-pre-line m-0"
+                                id="pv_mainRisk">—</p>
                         </div>
                         <div>
-                            <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Short-term Goals</span>
-                            <p class="text-[.82rem] text-dark/70 leading-[1.7] whitespace-pre-line m-0" id="pv_shortTermGoals">—</p>
+                            <span
+                                class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Short-term
+                                Goals</span>
+                            <p class="text-[.82rem] text-dark/70 leading-[1.7] whitespace-pre-line m-0"
+                                id="pv_shortTermGoals">—</p>
                         </div>
                     </div>
                 </div>
@@ -297,19 +349,25 @@
             <div>
                 <div class="flex items-center gap-2 mb-3">
                     <span class="block w-3 h-[2px] bg-gold"></span>
-                    <span class="text-[.52rem] font-bold tracking-[.2em] uppercase text-navy/50">Team Presentation</span>
+                    <span class="text-[.52rem] font-bold tracking-[.2em] uppercase text-navy/50">Team
+                        Presentation</span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">CV Files</span>
+                        <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">CV
+                            Files</span>
                         <span class="text-[.82rem] text-dark/70" id="pv_teamCv">None uploaded</span>
                     </div>
                     <div>
-                        <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Video Link</span>
-                        <a href="#" target="_blank" class="text-[.82rem] text-gold hover:text-gold-dk no-underline break-all" id="pv_videoPresentationLink">—</a>
+                        <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Video
+                            Link</span>
+                        <a href="#" target="_blank"
+                            class="text-[.82rem] text-gold hover:text-gold-dk no-underline break-all"
+                            id="pv_videoPresentationLink">—</a>
                     </div>
                     <div class="sm:col-span-2">
-                        <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Lean Canvas</span>
+                        <span class="text-[.5rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-0.5">Lean
+                            Canvas</span>
                         <span class="text-[.82rem] text-dark/70" id="pv_leanCanvas">No file uploaded</span>
                     </div>
                 </div>
@@ -317,18 +375,21 @@
         </div>
 
         <!-- Footer -->
-        <div class="sticky bottom-0 bg-white z-10 px-7 py-5 border-t border-navy/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <button id="btnBackEdit" class="font-body text-[.58rem] font-bold tracking-[.12em] uppercase text-dark/50 bg-transparent px-5 py-2.5 rounded-sm border border-dark/15 cursor-pointer transition-all duration-200 hover:border-dark/30 hover:text-dark">
+        <div
+            class="sticky bottom-0 bg-white z-10 px-7 py-5 border-t border-navy/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <button id="btnBackEdit"
+                class="font-body text-[.58rem] font-bold tracking-[.12em] uppercase text-dark/50 bg-transparent px-5 py-2.5 rounded-sm border border-dark/15 cursor-pointer transition-all duration-200 hover:border-dark/30 hover:text-dark">
                 ← Edit Application
             </button>
-            <button id="btnConfirmSubmit" class="font-body text-[.62rem] font-bold tracking-[.14em] uppercase text-white bg-navy px-8 py-3.5 rounded-sm border-none cursor-pointer transition-all duration-200 hover:bg-dark">
+            <button id="btnConfirmSubmit"
+                class="font-body text-[.62rem] font-bold tracking-[.14em] uppercase text-white bg-navy px-8 py-3.5 rounded-sm border-none cursor-pointer transition-all duration-200 hover:bg-dark">
                 Confirm &amp; Submit
             </button>
         </div>
     </div>
 </div>
 
-<script src="<?= base_url('js/apply_form.js') ?>"></script>
+<script src="<?= base_url('js/applyForm.js') ?>"></script>
 
 <!-- ═══ (validation + modal logic lives in public/js/apply_form.js) ═══ -->
 <!--

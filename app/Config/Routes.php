@@ -29,13 +29,21 @@ $routes->get('/incubatees', 'Incubatees::index');
 $routes->get('/incubatees/apply', 'Incubatees::apply');
 $routes->get('/incubatees/apply/form', 'Incubatees::applyForm');
 $routes->post('/incubatees/apply/form', 'Incubatees::applyFormStore');
-$routes->get('/incubatees/apply/form/check-email', 'Incubatees::checkEmail');
 $routes->get('/incubatees/apply/form/thank-you', 'Incubatees::applyFormThankYou');
 $routes->get('/news', 'News::index');
 $routes->get('/news/(:segment)', 'News::show/$1');
 $routes->get('/organization', 'Organization::index');
 $routes->get('/contact', 'Contact::index');
 $routes->post('/contact/send', 'Contact::send');
+
+/*
+ * ────────────────────────────────────────────────────────────────────────────
+ * Uploaded File Serving (writable/uploads → /uploads/...)
+ * Only handles application files stored in writable/uploads/applications/.
+ * Post images live in public/uploads/posts/ and are served directly.
+ * ────────────────────────────────────────────────────────────────────────────
+ */
+$routes->get('uploads/applications/(.+)', 'Uploads::serve/$1');
 
 /*
  * ────────────────────────────────────────────────────────────────────────────
@@ -62,4 +70,9 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('posts/(:num)/edit', 'Admin\PostsAdmin::edit/$1');
     $routes->put('posts/(:num)', 'Admin\PostsAdmin::update/$1');
     $routes->delete('posts/(:num)', 'Admin\PostsAdmin::delete/$1');
+
+    // Incubatee Applications
+    $routes->get('applications', 'Admin\ApplicationsAdmin::index');
+    $routes->get('applications/(:num)', 'Admin\ApplicationsAdmin::show/$1');
+    $routes->put('applications/(:num)/status', 'Admin\ApplicationsAdmin::updateStatus/$1');
 });

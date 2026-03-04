@@ -3,9 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\AdminModel;
-use CodeIgniter\Controller;
 
-class Auth extends Controller
+class Auth extends BaseController
 {
     /**
      * Display the login form.

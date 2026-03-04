@@ -2,8 +2,7 @@
 
 namespace App\Controllers\Admin;
 
-use CodeIgniter\Controller;
-use App\Models\PostModel;
+use App\Controllers\BaseController;
 use App\Libraries\ImageUpload;
 
 /**
@@ -11,15 +10,8 @@ use App\Libraries\ImageUpload;
  *
  * Routes: admin/posts, admin/posts/create, admin/posts/(:num)/edit, etc.
  */
-class PostsAdmin extends Controller
+class PostsAdmin extends BaseController
 {
-    protected PostModel $postModel;
-
-    public function __construct()
-    {
-        helper(['form', 'url', 'text', 'toast']);
-        $this->postModel = new PostModel();
-    }
 
     // ──────────────────────────────────────────────
     // LIST
@@ -81,16 +73,22 @@ class PostsAdmin extends Controller
         }
 
         // Handle image upload
-        $file = $this->request->getFile('image');
-        if ($file !== null && $file->isValid()) {
-            $uploader = new ImageUpload();
-            $path = $uploader->upload($file, 'posts');
-            if ($path !== null) {
-                $data['imagePath'] = $path;
-            } else {
-                setToast('error', $uploader->getError());
-                return redirect()->back()->withInput();
+        try {
+            $file = $this->request->getFile('image');
+            if ($file !== null && $file->isValid() && ! $file->hasMoved()) {
+                $uploader = new ImageUpload();
+                $path = $uploader->upload($file, 'posts');
+                if ($path !== null) {
+                    $data['imagePath'] = $path;
+                } else {
+                    setToast('error', 'Image upload failed: ' . $uploader->getError());
+                    return redirect()->back()->withInput();
+                }
             }
+        } catch (\Throwable $e) {
+            log_message('error', 'Post image upload error: ' . $e->getMessage());
+            setToast('error', 'Image upload error: ' . $e->getMessage());
+            return redirect()->back()->withInput();
         }
 
         if (! $this->postModel->insert($data)) {
@@ -161,20 +159,26 @@ class PostsAdmin extends Controller
         }
 
         // Handle image upload (optional on edit)
-        $file = $this->request->getFile('image');
-        if ($file !== null && $file->isValid()) {
-            $uploader = new ImageUpload();
-            $path = $uploader->upload($file, 'posts');
-            if ($path !== null) {
-                // Delete old image
-                if (! empty($post['imagePath'])) {
-                    $uploader->delete($post['imagePath']);
+        try {
+            $file = $this->request->getFile('image');
+            if ($file !== null && $file->isValid() && ! $file->hasMoved()) {
+                $uploader = new ImageUpload();
+                $path = $uploader->upload($file, 'posts');
+                if ($path !== null) {
+                    // Delete old image
+                    if (! empty($post['imagePath'])) {
+                        $uploader->delete($post['imagePath']);
+                    }
+                    $data['imagePath'] = $path;
+                } else {
+                    setToast('error', 'Image upload failed: ' . $uploader->getError());
+                    return redirect()->back()->withInput();
                 }
-                $data['imagePath'] = $path;
-            } else {
-                setToast('error', $uploader->getError());
-                return redirect()->back()->withInput();
             }
+        } catch (\Throwable $e) {
+            log_message('error', 'Post image update error: ' . $e->getMessage());
+            setToast('error', 'Image upload error: ' . $e->getMessage());
+            return redirect()->back()->withInput();
         }
 
         // Enforce single featured post — clear others before update

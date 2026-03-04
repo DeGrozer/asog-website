@@ -37,7 +37,7 @@ class IncubateeApplicationModel extends Model
         'startupDescription'       => 'required|min_length[10]|max_length[2000]',
         'mainRisk'                 => 'max_length[1000]',
         'shortTermGoals'           => 'max_length[1000]',
-        'teamCvPath'               => 'max_length[255]',
+        'teamCvPath'               => 'permit_empty',
         'leanCanvasPath'           => 'max_length[500]',
         'videoPresentationLink'    => 'required|valid_url|max_length[500]',
         'applicantName'            => 'required|regex_match[/^[A-Za-z\s,\.]+$/]|max_length[255]',
@@ -81,6 +81,14 @@ class IncubateeApplicationModel extends Model
 
     // ─── Query Scopes ─────────────────────────────────────
 
+    /**
+     * Return every application, newest first.
+     */
+    public function getAll(): array
+    {
+        return $this->orderBy('createdAt', 'DESC')->findAll();
+    }
+
     public function getPending(int $limit = 0)
     {
         $builder = $this->where('applicationStatus', 'pending')
@@ -93,5 +101,22 @@ class IncubateeApplicationModel extends Model
     {
         return $this->where('applicantEmail', $email)
                     ->first();
+    }
+
+    /**
+     * Set the applicationStatus of a given record.
+     *
+     * @param  int    $id     Primary-key ID
+     * @param  string $status One of: pending, reviewed, accepted, rejected
+     * @return bool
+     */
+    public function updateStatus(int $id, string $status): bool
+    {
+        $allowed = ['pending', 'reviewed', 'accepted', 'rejected'];
+        if (! in_array($status, $allowed, true)) {
+            return false;
+        }
+
+        return $this->update($id, ['applicationStatus' => $status]);
     }
 }
