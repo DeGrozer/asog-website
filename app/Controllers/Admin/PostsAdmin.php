@@ -75,11 +75,27 @@ class PostsAdmin extends BaseController
         // Handle image upload
         try {
             $file = $this->request->getFile('image');
-            if ($file !== null && $file->isValid() && ! $file->hasMoved()) {
+
+            if ($file !== null && $file->getError() !== UPLOAD_ERR_NO_FILE) {
+                // A file was submitted — check if PHP accepted it
+                if (! $file->isValid()) {
+                    $phpError = $file->getErrorString();
+                    log_message('error', 'Image upload PHP error: ' . $phpError . ' (code ' . $file->getError() . ')');
+                    setToast('error', 'Image upload failed: ' . $phpError);
+                    return redirect()->back()->withInput();
+                }
+
+                if ($file->hasMoved()) {
+                    log_message('error', 'Image file was already moved.');
+                    setToast('error', 'Image upload error: file was already processed.');
+                    return redirect()->back()->withInput();
+                }
+
                 $uploader = new ImageUpload();
                 $path = $uploader->upload($file, 'posts');
                 if ($path !== null) {
                     $data['imagePath'] = $path;
+                    log_message('info', 'Post image uploaded: ' . $path);
                 } else {
                     setToast('error', 'Image upload failed: ' . $uploader->getError());
                     return redirect()->back()->withInput();
@@ -161,7 +177,22 @@ class PostsAdmin extends BaseController
         // Handle image upload (optional on edit)
         try {
             $file = $this->request->getFile('image');
-            if ($file !== null && $file->isValid() && ! $file->hasMoved()) {
+
+            if ($file !== null && $file->getError() !== UPLOAD_ERR_NO_FILE) {
+                // A file was submitted — check if PHP accepted it
+                if (! $file->isValid()) {
+                    $phpError = $file->getErrorString();
+                    log_message('error', 'Image upload PHP error: ' . $phpError . ' (code ' . $file->getError() . ')');
+                    setToast('error', 'Image upload failed: ' . $phpError);
+                    return redirect()->back()->withInput();
+                }
+
+                if ($file->hasMoved()) {
+                    log_message('error', 'Image file was already moved.');
+                    setToast('error', 'Image upload error: file was already processed.');
+                    return redirect()->back()->withInput();
+                }
+
                 $uploader = new ImageUpload();
                 $path = $uploader->upload($file, 'posts');
                 if ($path !== null) {
@@ -170,6 +201,7 @@ class PostsAdmin extends BaseController
                         $uploader->delete($post['imagePath']);
                     }
                     $data['imagePath'] = $path;
+                    log_message('info', 'Post image updated: ' . $path);
                 } else {
                     setToast('error', 'Image upload failed: ' . $uploader->getError());
                     return redirect()->back()->withInput();

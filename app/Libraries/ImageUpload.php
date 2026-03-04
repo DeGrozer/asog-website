@@ -17,8 +17,8 @@ class ImageUpload
     /** Base upload directory inside `public/uploads/`. */
     protected string $basePath;
 
-    /** Maximum file size in KB. */
-    protected int $maxSize = 2048; // 2 MB
+    /** Maximum file size in bytes. */
+    protected int $maxSize = 104857600; // 100 MB (100 * 1024 * 1024)
 
     /** Allowed MIME types. */
     protected array $allowedTypes = [
@@ -47,30 +47,68 @@ class ImageUpload
     {
         if ($file === null || ! $file->isValid() || $file->hasMoved()) {
             $this->error = 'No valid file was uploaded.';
+            log_message('error', '[ImageUpload] ' . $this->error);
             return null;
         }
 
         // Validate MIME
         if (! in_array($file->getMimeType(), $this->allowedTypes, true)) {
-            $this->error = 'Invalid file type. Allowed: JPG, PNG, GIF, WEBP.';
+            $this->error = 'Invalid file type (' . $file->getMimeType() . '). Allowed: JPG, PNG, GIF, WEBP.';
+            log_message('error', '[ImageUpload] ' . $this->error);
             return null;
         }
 
-        // Validate size
-        if ($file->getSizeByUnit('kb') > $this->maxSize) {
-            $this->error = 'File exceeds the maximum size of ' . ($this->maxSize / 1024) . ' MB.';
+        // Validate size (compare raw bytes to avoid number_format string bug)
+        $fileSizeBytes = $file->getSize();
+        if ($fileSizeBytes > $this->maxSize) {
+            $maxMB = round($this->maxSize / 1048576);
+            $fileMB = round($fileSizeBytes / 1048576, 1);
+            $this->error = "File ({$fileMB} MB) exceeds the maximum size of {$maxMB} MB.";
+            log_message('error', '[ImageUpload] ' . $this->error);
             return null;
         }
 
         $destination = $this->basePath . $subfolder;
 
+        // Ensure destination directory exists and is writable
+        if (! is_dir($destination)) {
+            if (! mkdir($destination, 0755, true)) {
+                $this->error = 'Could not create upload directory: ' . $destination;
+                log_message('error', '[ImageUpload] ' . $this->error);
+                return null;
+            }
+        }
+
+        if (! is_writable($destination)) {
+            $this->error = 'Upload directory is not writable: ' . $destination;
+            log_message('error', '[ImageUpload] ' . $this->error);
+            return null;
+        }
+
         // Generate unique filename
         $newName = $file->getRandomName();
 
-        $file->move($destination, $newName);
+        try {
+            $file->move($destination, $newName);
+        } catch (\Throwable $e) {
+            $this->error = 'Failed to move uploaded file: ' . $e->getMessage();
+            log_message('error', '[ImageUpload] ' . $this->error);
+            return null;
+        }
+
+        // Verify the file was actually written
+        $finalPath = $destination . DIRECTORY_SEPARATOR . $newName;
+        if (! is_file($finalPath)) {
+            $this->error = 'File was moved but not found at destination.';
+            log_message('error', '[ImageUpload] ' . $this->error . ' Expected: ' . $finalPath);
+            return null;
+        }
+
+        $relativePath = 'uploads/' . $subfolder . '/' . $newName;
+        log_message('info', '[ImageUpload] Success: ' . $relativePath . ' (' . filesize($finalPath) . ' bytes)');
 
         // Return path relative to the public accessor
-        return 'uploads/' . $subfolder . '/' . $newName;
+        return $relativePath;
     }
 
     /**

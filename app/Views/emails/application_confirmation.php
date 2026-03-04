@@ -40,9 +40,9 @@
                 <tr>
                     <td style="padding:0">
                         <table width="100%" cellpadding="0" cellspacing="0">
-                            <?= $this->include('emails/_row', ['label' => 'Full Name', 'value' => $applicantName]) ?>
-                            <?= $this->include('emails/_row', ['label' => 'Email Address', 'value' => $applicantEmail]) ?>
-                            <?= $this->include('emails/_row', ['label' => 'Contact Number', 'value' => $contactNumber]) ?>
+                            <?= view('emails/_row', ['label' => 'Full Name', 'value' => $applicantName]) ?>
+                            <?= view('emails/_row', ['label' => 'Email Address', 'value' => $applicantEmail]) ?>
+                            <?= view('emails/_row', ['label' => 'Contact Number', 'value' => $contactNumber]) ?>
                         </table>
                     </td>
                 </tr>
@@ -57,16 +57,16 @@
                 <tr>
                     <td style="padding:0">
                         <table width="100%" cellpadding="0" cellspacing="0">
-                            <?= $this->include('emails/_row', ['label' => 'Startup Name', 'value' => $startupName]) ?>
-                            <?= $this->include('emails/_row', ['label' => 'Description', 'value' => $startupDescription]) ?>
+                            <?= view('emails/_row', ['label' => 'Startup Name', 'value' => $startupName]) ?>
+                            <?= view('emails/_row', ['label' => 'Description', 'value' => $startupDescription]) ?>
                             <?php if (! empty($mainRisk)): ?>
-                                <?= $this->include('emails/_row', ['label' => 'Main Risk', 'value' => $mainRisk]) ?>
+                                <?= view('emails/_row', ['label' => 'Main Risk', 'value' => $mainRisk]) ?>
                             <?php endif; ?>
                             <?php if (! empty($shortTermGoals)): ?>
-                                <?= $this->include('emails/_row', ['label' => 'Short-term Goals', 'value' => $shortTermGoals]) ?>
+                                <?= view('emails/_row', ['label' => 'Short-term Goals', 'value' => $shortTermGoals]) ?>
                             <?php endif; ?>
                             <?php if (! empty($videoPresentationLink)): ?>
-                                <?= $this->include('emails/_row', ['label' => 'Video Presentation', 'value' => '<a href="' . esc($videoPresentationLink) . '" style="color:#03558C;text-decoration:none">' . esc($videoPresentationLink) . '</a>']) ?>
+                                <?= view('emails/_row', ['label' => 'Video Presentation', 'value' => '<a href="' . esc($videoPresentationLink) . '" style="color:#03558C;text-decoration:none">' . esc($videoPresentationLink) . '</a>']) ?>
                             <?php endif; ?>
                         </table>
                     </td>

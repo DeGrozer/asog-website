@@ -146,8 +146,8 @@ class Incubatees extends BaseController
 
         // Skip silently if SMTP is not configured
         $config = new \Config\Email();
-        if (empty($config->SMTPHost) && $config->protocol === 'smtp') {
-            log_message('info', 'Confirmation email skipped — SMTP not configured.');
+        if (empty($config->SMTPUser) || $config->SMTPUser === 'your-email@gmail.com') {
+            log_message('info', 'Confirmation email skipped — SMTP credentials not configured in .env');
             return;
         }
 
@@ -162,6 +162,7 @@ class Incubatees extends BaseController
             'videoPresentationLink' => $data['videoPresentationLink'] ?? '',
         ]);
 
+        $email->setFrom($config->fromEmail, $config->fromName);
         $email->setTo($data['applicantEmail']);
         $email->setSubject('ASOG-TBI — Application Received');
         $email->setMessage($body);
@@ -169,6 +170,8 @@ class Incubatees extends BaseController
 
         if (! $email->send(false)) {
             log_message('error', 'Confirmation email failed: ' . $email->printDebugger(['headers']));
+        } else {
+            log_message('info', 'Confirmation email sent to: ' . $data['applicantEmail']);
         }
     }
 
