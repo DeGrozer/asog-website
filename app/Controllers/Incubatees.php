@@ -6,7 +6,18 @@ class Incubatees extends BaseController
 {
     public function index()
     {
-        return redirect()->to(site_url('incubatees/apply'));
+        $data = [
+            'title'        => 'Incubatees - ASOG-TBI',
+            'heroSubtitle' => 'Our Startups',
+            'heroTitle'    => 'Incubatees',
+            'heroDesc'     => 'Meet the startups and MSMEs building the future of food value chain management through engineering and AI.',
+            'incubatees'   => $this->incubateeModel->getPublished(),
+        ];
+
+        return view('templates/header', $data)
+            . view('templates/page_hero', $data)
+            . view('incubatees/index', $data)
+            . view('templates/footer');
     }
 
     public function apply(): string

@@ -12,11 +12,12 @@ class Landing extends BaseController
         $postModel = new PostModel();
 
         $data = [
-            'title'        => 'ASOG-TBI - Home',
-            'isLanding'    => true,
-            'heroSlides'   => $postModel->getFeaturedSlides(5),
-            'featuredPost' => $postModel->getFeatured(),
-            'latestPosts'  => $postModel->getPublished(3),
+            'title'              => 'ASOG-TBI - Home',
+            'isLanding'          => true,
+            'heroSlides'         => $postModel->getFeaturedSlides(5),
+            'featuredPost'       => $postModel->getFeatured(),
+            'latestPosts'        => $postModel->getPublished(3),
+            'featuredIncubatee'  => $this->incubateeModel->getFeatured(),
         ];
 
         return view('templates/header', $data)

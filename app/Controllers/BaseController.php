@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 
 // Models
 use App\Models\PostModel;
+use App\Models\IncubateeModel;
 use App\Models\IncubateeApplicationModel;
 use App\Models\ContactMessageModel;
 use App\Models\AdminModel;
@@ -31,6 +32,7 @@ abstract class BaseController extends Controller
 {
     // Preload Models
     protected $postModel;
+    protected $incubateeModel;
     protected $applicationModel;
     protected $contactModel;
     protected $adminModel;
@@ -44,6 +46,7 @@ abstract class BaseController extends Controller
 
         // Instantiate models
         $this->postModel        = new PostModel();
+        $this->incubateeModel   = new IncubateeModel();
         $this->applicationModel = new IncubateeApplicationModel();
         $this->contactModel     = new ContactMessageModel();
         $this->adminModel       = new AdminModel();

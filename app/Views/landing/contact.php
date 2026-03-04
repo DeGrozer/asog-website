@@ -6,10 +6,10 @@
     $contactEmail = 'asogtbi@cspc.edu.ph';
     $contactAddr  = 'Camarines Sur Polytechnic Colleges, Nabua, Camarines Sur';
     $contactPhone = '';
-    $fbUrl        = '#';  // TODO: paste real Facebook URL
-    $igUrl        = '#';  // TODO: paste real Instagram URL
-    $xUrl         = '#';  // TODO: paste real X (Twitter) URL
-    $threadsUrl   = '#';  // TODO: paste real Threads URL
+    $fbUrl        = 'https://www.facebook.com/asogtbi';
+    $igUrl        = 'https://www.instagram.com/asogtbi';
+    $xUrl         = 'https://x.com/asogtbi';
+    $threadsUrl   = 'https://www.threads.com/@asogtbi';
 ?>
 <section id="contact" class="relative overflow-hidden bg-off py-16 md:py-24 px-6 md:px-10 lg:px-14">
     <div class="ai-grid"></div>

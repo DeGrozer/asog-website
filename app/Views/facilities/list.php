@@ -156,34 +156,44 @@
 
 <!-- ── Usage Policy ── -->
 <section id="usage-policy" class="scroll-mt-28 bg-white py-20 md:py-28">
-    <div class="max-w-[900px] mx-auto px-6 md:px-10">
-        <div class="rounded-lg border border-gold/[.2] bg-off/50 p-8 md:p-12">
-            <h3 class="font-display text-[1.5rem] text-dark mb-6">Facility Usage Policy</h3>
-            <div class="prose-content text-[.9rem] font-normal leading-[1.85] text-dark/60 space-y-4">
-                <p><strong class="text-dark/75">ASOG TBI incubatees receive priority access to these facilities as part
-                        of their incubation support package.</strong> Usage terms include:</p>
-                <ul class="space-y-3 list-none pl-0">
-                    <li class="flex gap-3 items-start"><span
-                            class="text-gold text-lg leading-none mt-1">•</span><span><strong
-                                class="text-dark/75">Co-Lab &amp; Innovators' Suite:</strong> Flexible workspace access
-                            during business hours, with extended hours available for active teams. Access levels depend
-                            on stage of incubation.</span></li>
-                    <li class="flex gap-3 items-start"><span
-                            class="text-gold text-lg leading-none mt-1">•</span><span><strong
-                                class="text-dark/75">AIRCoDe Lab:</strong> Scheduled access for AI and data science
-                            projects. Technical training and consultation provided by lab staff.</span></li>
-                    <li class="flex gap-3 items-start"><span
-                            class="text-gold text-lg leading-none mt-1">•</span><span><strong
-                                class="text-dark/75">FabLab:</strong> Equipment training required before use. Priority
-                            booking for incubatees. Technical support available during operating hours.</span></li>
-                    <li class="flex gap-3 items-start"><span
-                            class="text-gold text-lg leading-none mt-1">•</span><span><strong class="text-dark/75">SSF
-                                &amp; Processing Labs:</strong> Scheduled access for food product development. Safety
-                            compliance and training required.</span></li>
-                </ul>
-                <p class="pt-4 border-t border-dark/[.08] text-[.82rem] text-dark/50"><em>For detailed facility booking,
-                        equipment specifications, and usage terms, contact the ASOG TBI Management Office.</em></p>
+    <div class="max-w-[1100px] mx-auto px-6 md:px-10">
+
+        <!-- Header row -->
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 md:mb-12">
+            <div>
+                <span class="text-[.54rem] font-semibold tracking-[.2em] uppercase text-gold block mb-2">For Incubatees</span>
+                <h3 class="font-display text-[1.6rem] md:text-[1.9rem] leading-[1.15] text-dark">How to access our facilities</h3>
             </div>
+            <a href="<?= site_url('contact') ?>" class="text-[.62rem] font-semibold tracking-[.12em] uppercase text-navy/40 no-underline border-b border-navy/[.12] pb-0.5 transition-colors hover:text-gold hover:border-gold shrink-0">Contact the Office →</a>
+        </div>
+
+        <!-- Grid of 4 facility access cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-dark/[.06] rounded-sm overflow-hidden">
+
+            <div class="bg-white p-7 md:p-9">
+                <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/60 block mb-2">01</span>
+                <h4 class="text-[.88rem] font-semibold text-dark mb-2">Co-Lab &amp; Innovators' Suite</h4>
+                <p class="text-[.8rem] font-light leading-[1.7] text-dark/40 mb-0">Open during business hours with extended access for active teams. Walk in or book ahead — depends on your incubation stage.</p>
+            </div>
+
+            <div class="bg-white p-7 md:p-9">
+                <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/60 block mb-2">02</span>
+                <h4 class="text-[.88rem] font-semibold text-dark mb-2">AIRCoDe Lab</h4>
+                <p class="text-[.8rem] font-light leading-[1.7] text-dark/40 mb-0">By schedule only. Lab staff handle onboarding, training, and technical consults for AI and data science work.</p>
+            </div>
+
+            <div class="bg-white p-7 md:p-9">
+                <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/60 block mb-2">03</span>
+                <h4 class="text-[.88rem] font-semibold text-dark mb-2">Fabrication Lab</h4>
+                <p class="text-[.8rem] font-light leading-[1.7] text-dark/40 mb-0">Equipment training is required first. Incubatees get priority booking, and technicians are on-site during hours.</p>
+            </div>
+
+            <div class="bg-white p-7 md:p-9">
+                <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/60 block mb-2">04</span>
+                <h4 class="text-[.88rem] font-semibold text-dark mb-2">SSF &amp; Processing Labs</h4>
+                <p class="text-[.8rem] font-light leading-[1.7] text-dark/40 mb-0">Scheduled access for food product work. You'll need to complete safety compliance and a short orientation first.</p>
+            </div>
+
         </div>
     </div>
 </section>
