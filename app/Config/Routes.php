@@ -82,4 +82,12 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('messages/(:num)', 'Admin\MessagesAdmin::show/$1');
     $routes->put('messages/(:num)/read', 'Admin\MessagesAdmin::toggleRead/$1');
     $routes->delete('messages/(:num)', 'Admin\MessagesAdmin::delete/$1');
+
+    // Incubatees Management
+    $routes->get('incubatees', 'Admin\IncubateesAdmin::index');
+    $routes->get('incubatees/create', 'Admin\IncubateesAdmin::create');
+    $routes->post('incubatees', 'Admin\IncubateesAdmin::store');
+    $routes->get('incubatees/(:num)/edit', 'Admin\IncubateesAdmin::edit/$1');
+    $routes->put('incubatees/(:num)', 'Admin\IncubateesAdmin::update/$1');
+    $routes->delete('incubatees/(:num)', 'Admin\IncubateesAdmin::delete/$1');
 });

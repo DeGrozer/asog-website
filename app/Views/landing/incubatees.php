@@ -1,92 +1,187 @@
 <!--
      ╔══════════════════════════════════════════════════════════════════════╗
-     ║  SECTION: FEATURED INCUBATEE                                         ║
-     ║  Dark bg · spotlight card with visual + content                      ║
-     ╚══════════════════════════════════════════════════════════════════════╝ 
+     ║  SECTION: INCUBATEES — Expanding Flexbox Panels                      ║
+     ║  Dark bg · featured panel starts expanded · click to switch          ║
+     ╚══════════════════════════════════════════════════════════════════════╝
 -->
 <?php
-$fi = $featuredIncubatee ?? null;
+$fi   = $featuredIncubatee ?? null;
+$all  = $incubatees ?? [];
+if (empty($all)) return;
+$fid  = $fi['id'] ?? $all[0]['id'];
 ?>
-<section id="incubatees" class="relative overflow-hidden bg-navy py-16 md:py-24 px-6 md:px-10 lg:px-14">
-    <div class="max-w-[1200px] mx-auto relative z-[2]">
-        <!-- Header row -->
-        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-4 mb-10 md:mb-12 reveal">
-            <div>
-                <div class="flex items-center gap-2 mb-3">
-                    <span class="block w-[18px] h-[1.5px] bg-gold"></span>
-                    <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-gold">Spotlight</span>
-                </div>
-                <h2 class="font-display text-2xl md:text-[2rem] text-off leading-none">Featured Incubatee</h2>
-            </div>
-            <a href="<?= site_url('incubatees') ?>"
-                class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-white/[.28] no-underline border-b border-white/[.12] pb-0.5 transition-colors duration-200 hover:text-gold hover:border-gold shrink-0">
-                See All Incubatees</a>
+<style>
+/* ── Section ─────────────────────────────────────────────── */
+.fi{background:#ffffff;padding:4.5rem 0 0;position:relative;overflow:hidden}
+.fi-head{max-width:1100px;margin:0 auto 2.5rem;padding:0 1.5rem}
+@media(min-width:768px){.fi-head{padding:0 2.5rem;margin-bottom:3rem}}
+@media(min-width:1024px){.fi-head{padding:0 3.5rem}}
+
+/* ── Panels container ────────────────────────────────────── */
+.fi-panels{display:flex;height:460px;border-top:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.06)}
+
+/* ── Single panel ────────────────────────────────────────── */
+.fi-p{
+    flex:1;min-width:0;position:relative;overflow:hidden;cursor:pointer;
+    border-right:1px solid rgba(0,0,0,.06);
+    transition:flex .65s cubic-bezier(.4,0,.2,1),background .4s;
+    background:transparent}
+.fi-p:last-child{border-right:none}
+.fi-p:hover:not(.is-act){background:rgba(248,175,33,.04)}
+.fi-p.is-act{flex:5;cursor:default;background:rgba(248,175,33,.04)}
+
+/* Gold top-accent on active */
+.fi-p::after{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:#F8AF21;transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.fi-p.is-act::after{transform:scaleX(1)}
+
+/* ── Collapsed content ───────────────────────────────────── */
+.fi-c{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+    padding:0 .5rem 2.2rem;gap:1.2rem;
+    transition:opacity .25s}
+.fi-p.is-act .fi-c{opacity:0;pointer-events:none}
+
+.fi-c-num{
+    font-family:'DM Serif Display',serif;font-size:.75rem;color:rgba(248,175,33,.4);
+    letter-spacing:.04em}
+.fi-c-name{
+    writing-mode:vertical-rl;text-orientation:mixed;
+    font-size:.52rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+    color:rgba(2,13,24,.3);white-space:nowrap;max-height:220px;overflow:hidden}
+
+/* ── Expanded content ────────────────────────────────────── */
+.fi-e{
+    position:absolute;inset:0;
+    display:flex;align-items:center;
+    opacity:0;pointer-events:none;
+    transition:opacity .4s .2s}
+.fi-p.is-act .fi-e{opacity:1;pointer-events:auto;position:relative}
+
+.fi-e-in{padding:2.8rem 2.2rem;max-width:540px}
+@media(min-width:768px){.fi-e-in{padding:3rem 3.5rem}}
+
+.fi-e-label{
+    display:inline-flex;align-items:center;gap:7px;margin-bottom:1.4rem}
+.fi-e-rule{width:22px;height:1.5px;background:#F8AF21;border-radius:1px}
+.fi-e-tag{font-size:.48rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#e8a900}
+
+.fi-e-name{
+    font-family:'DM Serif Display',serif;font-size:1.55rem;line-height:1.15;
+    color:#020d18;margin-bottom:.4rem}
+@media(min-width:768px){.fi-e-name{font-size:1.75rem}}
+
+.fi-e-meta{font-size:.68rem;color:rgba(2,13,24,.5);margin-bottom:1.5rem}
+.fi-e-meta span{color:rgba(248,175,33,.5);margin:0 .4rem}
+
+.fi-e-desc{
+    font-size:.82rem;font-weight:400;line-height:1.9;color:rgba(2,13,24,.55);
+    margin-bottom:1.8rem;max-width:440px}
+
+.fi-e-links{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+.fi-e-links a{text-decoration:none;transition:gap .2s,color .2s}
+.fi-e-a1{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#e8a900}
+.fi-e-a1:hover{gap:12px;color:#F8AF21}
+.fi-e-a2{font-size:.52rem;font-weight:500;color:rgba(2,13,24,.35)}
+.fi-e-a2:hover{color:rgba(2,13,24,.6)}
+
+/* ── Mobile: vertical accordion ──────────────────────────── */
+@media(max-width:767px){
+    .fi-panels{flex-direction:column;height:auto}
+    .fi-p{
+        flex:none!important;height:54px;
+        border-right:none;border-bottom:1px solid rgba(0,0,0,.06);
+        transition:height .5s cubic-bezier(.4,0,.2,1),background .3s}
+    .fi-p.is-act{height:340px}
+    .fi-c{
+        flex-direction:row;justify-content:flex-start;align-items:center;
+        padding:0 1.4rem;gap:.8rem}
+    .fi-c-name{writing-mode:horizontal-tb;max-height:none;font-size:.58rem;color:rgba(2,13,24,.35)}
+    .fi-c-num{font-size:.65rem}
+    .fi-e-in{padding:1.6rem 1.4rem}
+    .fi-e-name{font-size:1.3rem}
+}
+</style>
+
+<section id="incubatees" class="fi">
+
+    <!-- Section header -->
+    <div class="fi-head reveal">
+        <div class="flex items-center gap-2 mb-3">
+            <span style="width:18px;height:1.5px;background:#F8AF21;border-radius:1px;display:block"></span>
+            <span style="font-size:.52rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#e8a900">Incubatees</span>
         </div>
-
-        <!-- Card -->
-        <div
-            class="rounded-lg reveal reveal-d1 border border-sky/30 bg-sky/5 hover:bg-sky/10 overflow-hidden transition-colors duration-300">
-            <div class="grid grid-cols-1 md:grid-cols-[1fr_1.2fr]">
-                <!-- Left visual -->
-                <div
-                    class="relative min-h-[280px] md:min-h-[400px] flex items-center justify-center bg-[#0a1628] overflow-hidden">
-                    <div class="absolute inset-0 opacity-[.025]"
-                        style="background-image:linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);background-size:40px 40px">
-                    </div>
-                    <div class="relative z-[1] text-center">
-                        <?php if ($fi && ! empty($fi['logoPath'])): ?>
-                        <div
-                            class="w-24 h-24 md:w-28 md:h-28 mx-auto rounded-lg border border-white/[.07] bg-white/[.04] flex items-center justify-center mb-4 overflow-hidden">
-                            <img src="<?= base_url(esc($fi['logoPath'])) ?>" alt="<?= esc($fi['companyName']) ?>"
-                                class="w-full h-full object-contain p-2">
-                        </div>
-                        <?php else: ?>
-                        <div
-                            class="w-20 h-20 md:w-24 md:h-24 mx-auto rounded-lg border border-white/[.07] bg-white/[.02] flex items-center justify-center mb-4">
-                            <span
-                                class="font-display text-[1.8rem] md:text-[2.2rem] leading-none text-gold/70 select-none">
-                                <?= $fi ? strtoupper(substr($fi['companyName'], 0, 1)) : 'S' ?>
-                            </span>
-                        </div>
-                        <?php endif; ?>
-                        <span class="font-display text-lg md:text-[1.2rem] text-white/50">
-                            <?= $fi ? esc($fi['companyName']) : 'Startup Name' ?>
-                        </span>
-                    </div>
-                    <span
-                        class="absolute top-4 left-4 md:top-5 md:left-5 text-[.5rem] font-bold tracking-[.13em] uppercase text-dark bg-gold px-2.5 py-1 rounded-sm z-[2]">Featured</span>
-                    <?php if ($fi && ! empty($fi['cohort'])): ?>
-                    <span
-                        class="absolute bottom-4 left-4 md:bottom-5 md:left-5 text-[.5rem] font-semibold tracking-[.12em] uppercase text-white/20 z-[2]">
-                        <?= esc($fi['cohort']) ?>
-                    </span>
-                    <?php else: ?>
-                    <span
-                        class="absolute bottom-4 left-4 md:bottom-5 md:left-5 text-[.5rem] font-semibold tracking-[.12em] uppercase text-white/20 z-[2]">Cohort
-                        1 · 2024</span>
-                    <?php endif; ?>
-                </div>
-
-                <!-- Right content -->
-                <div
-                    class="p-6 md:p-11 flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/[.05]">
-                    <h3 class="font-display text-xl md:text-[2rem] leading-[1.1] text-off mb-4">
-                        <?= $fi ? esc($fi['companyName']) : 'Startup Name' ?>
-                    </h3>
-                    <?php if ($fi && ! empty($fi['founderName'])): ?>
-                    <p class="text-[.72rem] font-medium text-white/25 mb-3">Founded by <?= esc($fi['founderName']) ?>
-                    </p>
-                    <?php endif; ?>
-                    <p class="text-[.82rem] md:text-[.85rem] font-light leading-[1.85] text-white/40 mb-7">
-                        <?= $fi ? esc($fi['shortDescription']) : 'An innovative startup incubated at ASOG-TBI, working on cutting-edge solutions to real-world problems.' ?>
-                    </p>
-                    <a href="<?= site_url('incubatees') ?>"
-                        class="group text-[.65rem] font-bold tracking-[.13em] uppercase text-gold no-underline inline-flex items-center gap-1.5 transition-all duration-200 hover:gap-3">
-                        View All Incubatees <span
-                            class="transition-transform duration-200 group-hover:translate-x-1">→</span>
-                    </a>
-                </div>
-            </div>
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+            <h2 class="font-display" style="font-size:1.55rem;line-height:1.1;margin:0;color:#020d18">Featured <em class="italic" style="color:#F8AF21">Incubatee</em></h2>
+            <a href="<?= site_url('incubatees') ?>"
+               class="no-underline transition-colors duration-200 hover:text-gold"
+               style="font-size:.54rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(2,13,24,.4)">
+                See all →</a>
         </div>
     </div>
+
+    <!-- Expanding panels -->
+    <div class="fi-panels reveal reveal-d1">
+        <?php foreach ($all as $i => $inc):
+            $isActive = ($inc['id'] == $fid);
+            $num = str_pad($i + 1, 2, '0', STR_PAD_LEFT);
+        ?>
+        <div class="fi-p<?= $isActive ? ' is-act' : '' ?>" data-fi-panel>
+
+            <!-- Collapsed: number + vertical name -->
+            <div class="fi-c">
+                <span class="fi-c-name"><?= esc($inc['companyName']) ?></span>
+                <span class="fi-c-num"><?= $num ?></span>
+            </div>
+
+            <!-- Expanded: full content -->
+            <div class="fi-e">
+                <div class="fi-e-in">
+                    <div class="fi-e-label">
+                        <span class="fi-e-rule"></span>
+                        <span class="fi-e-tag"><?= $isActive ? "Today's Feature" : esc($inc['cohort'] ?? 'Incubatee') ?></span>
+                    </div>
+
+                    <h3 class="fi-e-name"><?= esc($inc['companyName']) ?></h3>
+
+                    <p class="fi-e-meta">
+                        <?php if (! empty($inc['founderName'])): ?>
+                            by <?= esc($inc['founderName']) ?>
+                        <?php endif; ?>
+                        <?php if (! empty($inc['founderName']) && ! empty($inc['cohort'])): ?>
+                            <span>·</span>
+                        <?php endif; ?>
+                        <?php if (! empty($inc['cohort'])): ?>
+                            <?= esc($inc['cohort']) ?>
+                        <?php endif; ?>
+                    </p>
+
+                    <p class="fi-e-desc"><?= esc($inc['shortDescription']) ?></p>
+
+                    <div class="fi-e-links">
+                        <a href="<?= site_url('incubatees') ?>" class="fi-e-a1">
+                            View all incubatees <span>→</span>
+                        </a>
+                        <?php if (! empty($inc['websiteUrl'])): ?>
+                            <a href="<?= esc($inc['websiteUrl']) ?>" target="_blank" rel="noopener" class="fi-e-a2">
+                                Website ↗</a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
 </section>
+
+<script>
+document.querySelectorAll('[data-fi-panel]').forEach(function(p){
+    p.addEventListener('click',function(){
+        if(p.classList.contains('is-act'))return;
+        document.querySelectorAll('[data-fi-panel]').forEach(function(x){x.classList.remove('is-act')});
+        p.classList.add('is-act');
+    });
+});
+</script>

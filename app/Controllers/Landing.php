@@ -18,6 +18,7 @@ class Landing extends BaseController
             'featuredPost'       => $postModel->getFeatured(),
             'latestPosts'        => $postModel->getPublished(3),
             'featuredIncubatee'  => $this->incubateeModel->getFeatured(),
+            'incubatees'         => $this->incubateeModel->getPublished(),
         ];
 
         return view('templates/header', $data)
