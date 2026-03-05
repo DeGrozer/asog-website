@@ -10,7 +10,7 @@
 
 $isEdit  = isset($incubatee);
 $formUrl = $isEdit
-    ? site_url('admin/incubatees/' . $incubatee['id'])
+    ? site_url('admin/incubatees/' . $incubatee['id'] . '/update')
     : site_url('admin/incubatees');
 ?>
 
@@ -54,9 +54,6 @@ $formUrl = $isEdit
 
 <form action="<?= $formUrl ?>" method="POST" enctype="multipart/form-data" id="incubateeForm">
     <?= csrf_field() ?>
-    <?php if ($isEdit): ?>
-        <input type="hidden" name="_method" value="PUT"/>
-    <?php endif; ?>
 
     <div class="form-card">
         <div class="form-grid">
@@ -64,18 +61,18 @@ $formUrl = $isEdit
             <!-- Company Name -->
             <div class="field">
                 <label for="companyName">Company Name</label>
-                <input type="text" id="companyName" name="companyName" value="<?= esc($isEdit ? $incubatee['companyName'] : old('companyName')) ?>" required placeholder="Startup or company name">
+                <input type="text" id="companyName" name="companyName" value="<?= esc(old('companyName', $isEdit ? $incubatee['companyName'] : '')) ?>" required placeholder="Startup or company name">
             </div>
 
             <!-- Founder + Cohort -->
             <div class="form-row">
                 <div class="field">
                     <label for="founderName">Founder / Team</label>
-                    <input type="text" id="founderName" name="founderName" value="<?= esc($isEdit ? $incubatee['founderName'] : old('founderName')) ?>" placeholder="e.g. Maria Cruz & Team">
+                    <input type="text" id="founderName" name="founderName" value="<?= esc(old('founderName', $isEdit ? $incubatee['founderName'] : '')) ?>" placeholder="e.g. Maria Cruz & Team">
                 </div>
                 <div class="field">
                     <label for="cohort">Cohort</label>
-                    <input type="text" id="cohort" name="cohort" value="<?= esc($isEdit ? $incubatee['cohort'] : old('cohort')) ?>" placeholder="e.g. Cohort 1 · 2024">
+                    <input type="text" id="cohort" name="cohort" value="<?= esc(old('cohort', $isEdit ? $incubatee['cohort'] : '')) ?>" placeholder="e.g. Cohort 1 · 2024">
                 </div>
             </div>
 
@@ -83,26 +80,26 @@ $formUrl = $isEdit
             <div class="form-row">
                 <div class="field">
                     <label for="websiteUrl">Website URL</label>
-                    <input type="url" id="websiteUrl" name="websiteUrl" value="<?= esc($isEdit ? $incubatee['websiteUrl'] : old('websiteUrl')) ?>" placeholder="https://example.com">
+                    <input type="url" id="websiteUrl" name="websiteUrl" value="<?= esc(old('websiteUrl', $isEdit ? $incubatee['websiteUrl'] : '')) ?>" placeholder="https://example.com">
                 </div>
                 <div class="field">
                     <label for="sortOrder">Sort Order</label>
-                    <input type="number" id="sortOrder" name="sortOrder" value="<?= esc($isEdit ? $incubatee['sortOrder'] : (old('sortOrder') ?: '0')) ?>" min="0" placeholder="0">
+                    <input type="number" id="sortOrder" name="sortOrder" value="<?= esc(old('sortOrder', $isEdit ? $incubatee['sortOrder'] : 0)) ?>" min="0" placeholder="0">
                 </div>
             </div>
 
             <!-- Short description -->
             <div class="field">
                 <label for="shortDescription">Short Description</label>
-                <textarea id="shortDescription" name="shortDescription" rows="2" placeholder="One-liner shown on cards (max ~160 chars)"><?= esc($isEdit ? $incubatee['shortDescription'] : old('shortDescription')) ?></textarea>
+                <textarea id="shortDescription" name="shortDescription" rows="2" placeholder="One-liner shown on cards (max ~160 chars)"><?= esc(old('shortDescription', $isEdit ? $incubatee['shortDescription'] : '')) ?></textarea>
             </div>
 
             <!-- Content (Quill) -->
             <div class="field">
                 <label>Full Description</label>
                 <div class="editor-wrap">
-                    <div class="quill-editor"><?= $isEdit ? $incubatee['content'] : old('content') ?></div>
-                    <input type="hidden" name="content" class="quill-content" value="<?= esc($isEdit ? $incubatee['content'] : old('content')) ?>">
+                    <div class="quill-editor"><?= old('content', $isEdit ? $incubatee['content'] : '') ?></div>
+                    <input type="hidden" name="content" class="quill-content" value="<?= esc(old('content', $isEdit ? $incubatee['content'] : '')) ?>">
                 </div>
             </div>
 
@@ -126,7 +123,7 @@ $formUrl = $isEdit
             <!-- Toggle -->
             <div class="switch-row">
                 <label class="switch">
-                    <input type="checkbox" name="isPublished" value="1" <?= ($isEdit && $incubatee['isPublished']) ? 'checked' : '' ?>>
+                    <input type="checkbox" name="isPublished" value="1" <?= old('isPublished', $isEdit ? $incubatee['isPublished'] : 0) ? 'checked' : '' ?>>
                     <span class="track"></span>
                     Publish
                 </label>

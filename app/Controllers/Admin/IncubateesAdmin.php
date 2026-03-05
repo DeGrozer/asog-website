@@ -49,13 +49,19 @@ class IncubateesAdmin extends BaseController
     // ──────────────────────────────────────────────
     public function store()
     {
+        $content = trim($this->request->getPost('content') ?? '');
+        // Quill sends <p><br></p> when editor is empty — treat as null
+        if (in_array($content, ['', '<p><br></p>', '<p></p>'], true)) {
+            $content = null;
+        }
+
         $data = [
-            'companyName'      => $this->request->getPost('companyName'),
-            'founderName'      => $this->request->getPost('founderName'),
-            'shortDescription' => $this->request->getPost('shortDescription'),
-            'content'          => $this->request->getPost('content'),
-            'websiteUrl'       => $this->request->getPost('websiteUrl'),
-            'cohort'           => $this->request->getPost('cohort'),
+            'companyName'      => trim($this->request->getPost('companyName') ?? ''),
+            'founderName'      => trim($this->request->getPost('founderName') ?? '') ?: null,
+            'shortDescription' => trim($this->request->getPost('shortDescription') ?? '') ?: null,
+            'content'          => $content,
+            'websiteUrl'       => trim($this->request->getPost('websiteUrl') ?? '') ?: null,
+            'cohort'           => trim($this->request->getPost('cohort') ?? '') ?: null,
             'sortOrder'        => (int) ($this->request->getPost('sortOrder') ?: 0),
             'isPublished'      => $this->request->getPost('isPublished') ? 1 : 0,
         ];
@@ -137,19 +143,25 @@ class IncubateesAdmin extends BaseController
             return redirect()->to(site_url('admin/incubatees'));
         }
 
+        $content = trim($this->request->getPost('content') ?? '');
+        // Quill sends <p><br></p> when editor is empty — treat as null
+        if (in_array($content, ['', '<p><br></p>', '<p></p>'], true)) {
+            $content = null;
+        }
+
         $data = [
-            'companyName'      => $this->request->getPost('companyName'),
-            'founderName'      => $this->request->getPost('founderName'),
-            'shortDescription' => $this->request->getPost('shortDescription'),
-            'content'          => $this->request->getPost('content'),
-            'websiteUrl'       => $this->request->getPost('websiteUrl'),
-            'cohort'           => $this->request->getPost('cohort'),
+            'companyName'      => trim($this->request->getPost('companyName') ?? ''),
+            'founderName'      => trim($this->request->getPost('founderName') ?? '') ?: null,
+            'shortDescription' => trim($this->request->getPost('shortDescription') ?? '') ?: null,
+            'content'          => $content,
+            'websiteUrl'       => trim($this->request->getPost('websiteUrl') ?? '') ?: null,
+            'cohort'           => trim($this->request->getPost('cohort') ?? '') ?: null,
             'sortOrder'        => (int) ($this->request->getPost('sortOrder') ?: 0),
             'isPublished'      => $this->request->getPost('isPublished') ? 1 : 0,
         ];
 
         // Regenerate slug only if name changed
-        if ($data['companyName'] !== $incubatee['companyName']) {
+        if ($data['companyName'] !== ($incubatee['companyName'] ?? '')) {
             $data['slug'] = $this->incubateeModel->generateSlug($data['companyName'], $id);
         }
 
@@ -187,8 +199,13 @@ class IncubateesAdmin extends BaseController
             return redirect()->back()->withInput();
         }
 
-        if (! $this->incubateeModel->update($id, $data)) {
-            setToast('error', 'Validation failed: ' . implode(', ', $this->incubateeModel->errors()));
+        // Use a clean DB builder for the update to avoid any residual
+        // query-builder state from find() or generateSlug().
+        $db = \Config\Database::connect();
+        $db->table('incubatees')->where('id', $id)->update($data);
+
+        if ($db->affectedRows() === 0) {
+            setToast('error', 'Update failed — no rows were changed.');
             return redirect()->back()->withInput();
         }
 

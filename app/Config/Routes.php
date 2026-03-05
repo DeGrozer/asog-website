@@ -88,6 +88,6 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('incubatees/create', 'Admin\IncubateesAdmin::create');
     $routes->post('incubatees', 'Admin\IncubateesAdmin::store');
     $routes->get('incubatees/(:num)/edit', 'Admin\IncubateesAdmin::edit/$1');
-    $routes->put('incubatees/(:num)', 'Admin\IncubateesAdmin::update/$1');
-    $routes->delete('incubatees/(:num)', 'Admin\IncubateesAdmin::delete/$1');
+    $routes->post('incubatees/(:num)/update', 'Admin\IncubateesAdmin::update/$1');
+    $routes->post('incubatees/(:num)/delete', 'Admin\IncubateesAdmin::delete/$1');
 });

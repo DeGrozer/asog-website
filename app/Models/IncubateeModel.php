@@ -99,11 +99,13 @@ class IncubateeModel extends Model
         $i    = 1;
 
         while (true) {
-            $builder = $this->where('slug', $slug);
+            // Use an independent builder so we don't pollute the model's
+            // internal query state (which would break a subsequent update()).
+            $builder = $this->db->table($this->table)->where('slug', $slug);
             if ($excludeId !== null) {
                 $builder->where('id !=', $excludeId);
             }
-            if ($builder->countAllResults(false) === 0) {
+            if ($builder->countAllResults() === 0) {
                 break;
             }
             $slug = $base . '-' . $i++;

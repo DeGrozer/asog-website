@@ -143,13 +143,15 @@ class PostModel extends Model
     public function generateSlug(string $title, ?int $excludeId = null): string
     {
         $slug = url_title($title, '-', true);
-        $existing = $this->where('slug', $slug);
+        // Use an independent builder so we don't pollute the model's
+        // internal query state (which would break a subsequent update()).
+        $builder = $this->db->table($this->table)->where('slug', $slug);
 
         if ($excludeId !== null) {
-            $existing->where('id !=', $excludeId);
+            $builder->where('id !=', $excludeId);
         }
 
-        if ($existing->countAllResults() > 0) {
+        if ($builder->countAllResults() > 0) {
             $slug .= '-' . time();
         }
 
