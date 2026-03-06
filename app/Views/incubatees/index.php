@@ -53,18 +53,18 @@ $sealUrl       = base_url('assets/img/ASOG%20TBI/PNG/Logo-white.png');
     <script>
     window.__ibData = <?= json_encode(array_map(function($inc){
         return [
-            'companyName'      => $inc['companyName'] ?? '',
-            'founderName'      => $inc['founderName'] ?? '',
-            'shortDescription' => $inc['shortDescription'] ?? '',
+            'companyName'      => html_entity_decode($inc['companyName'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'founderName'      => html_entity_decode($inc['founderName'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'shortDescription' => html_entity_decode($inc['shortDescription'] ?? '', ENT_QUOTES, 'UTF-8'),
             'content'          => $inc['content'] ?? '',
             'logoPath'         => ! empty($inc['logoPath']) ? base_url($inc['logoPath']) : '',
             'logoWhitePath'    => ! empty($inc['logoWhitePath']) ? base_url($inc['logoWhitePath']) : '',
-            'websiteUrl'       => $inc['websiteUrl'] ?? '',
-            'cohort'           => $inc['cohort'] ?? '',
+            'websiteUrl'       => html_entity_decode($inc['websiteUrl'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'facebookUrl'      => html_entity_decode($inc['facebookUrl'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'cohort'           => html_entity_decode($inc['cohort'] ?? '', ENT_QUOTES, 'UTF-8'),
             'teamMembers'      => ! empty($inc['teamMembers']) ? json_decode($inc['teamMembers'], true) : [],
         ];
     }, $incubatees), JSON_HEX_TAG | JSON_HEX_APOS) ?>;
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="<?= base_url('assets/js/incubatees.js') ?>"></script>
 <?php endif; ?>

@@ -354,7 +354,7 @@ $formUrl = $isEdit
                 </div>
             </div>
 
-            <!-- Website + Sort order -->
+            <!-- Website + Facebook -->
             <div class="form-row">
                 <div class="field">
                     <label for="websiteUrl">Website URL</label>
@@ -363,11 +363,22 @@ $formUrl = $isEdit
                         placeholder="https://example.com">
                 </div>
                 <div class="field">
+                    <label for="facebookUrl">Facebook Page URL</label>
+                    <input type="url" id="facebookUrl" name="facebookUrl"
+                        value="<?= esc(old('facebookUrl', $isEdit ? ($incubatee['facebookUrl'] ?? '') : '')) ?>"
+                        placeholder="https://facebook.com/yourpage">
+                </div>
+            </div>
+
+            <!-- Sort order -->
+            <div class="form-row">
+                <div class="field">
                     <label for="sortOrder">Sort Order</label>
                     <input type="number" id="sortOrder" name="sortOrder"
                         value="<?= esc(old('sortOrder', $isEdit ? $incubatee['sortOrder'] : 0)) ?>" min="0"
                         placeholder="0">
                 </div>
+                <div class="field"></div>
             </div>
 
             <!-- Short description -->

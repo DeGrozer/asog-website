@@ -1,384 +1,380 @@
 <!--
      ╔══════════════════════════════════════════════════════════════════════╗
-     ║  SECTION: INCUBATEES — Expanding Flexbox Panels                      ║
-     ║  Dark bg · featured panel starts expanded · click to switch          ║
+     ║  SECTION: FEATURED INCUBATEE — Flippable Card + Description        ║
+     ║  Off-white bg · daily rotation · card on left, text on right       ║
      ╚══════════════════════════════════════════════════════════════════════╝
 -->
 <?php
-$fi   = $featuredIncubatee ?? null;
-$all  = $incubatees ?? [];
+$fi  = $featuredIncubatee ?? null;
+$all = $incubatees ?? [];
 if (empty($all)) return;
-$fid  = $fi['id'] ?? $all[0]['id'];
+if (! $fi) $fi = $all[0];
+
+$sealUrl  = base_url('assets/img/ASOG%20TBI/PNG/Logo-white.png');
+$logoSrc  = ! empty($fi['logoPath']) ? base_url(esc($fi['logoPath'])) : '';
+$whiteSrc = ! empty($fi['logoWhitePath']) ? base_url(esc($fi['logoWhitePath'])) : '';
+$hasWhite = ! empty($whiteSrc);
+$team     = [];
+if (! empty($fi['teamMembers'])) {
+    $decoded = is_string($fi['teamMembers']) ? json_decode($fi['teamMembers'], true) : $fi['teamMembers'];
+    if (is_array($decoded)) $team = array_filter($decoded, fn($m) => !empty($m['name']));
+}
 ?>
 <style>
-/* ── Section ─────────────────────────────────────────────── */
-.fi {
-    background: #ffffff;
-    padding: 4.5rem 0 0;
-    position: relative;
-    overflow: hidden
+/* ── Featured Incubatee section ──────────────────────────── */
+.fic { background: #F8F6F2; position: relative; overflow: hidden }
+
+.fic-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: center
+}
+@media(min-width:900px) {
+    .fic-grid { grid-template-columns: auto 1fr; gap: 4rem }
 }
 
-.fi-head {
-    max-width: 1100px;
-    margin: 0 auto 2.5rem;
-    padding: 0 1.5rem
+/* ── Card container ──────────────────────────────────────── */
+.fic-card {
+    width: 260px; height: 380px;
+    perspective: 1000px;
+    margin: 0 auto;
+    cursor: pointer
 }
-
 @media(min-width:768px) {
-    .fi-head {
-        padding: 0 2.5rem;
-        margin-bottom: 3rem
-    }
+    .fic-card { width: 290px; height: 420px }
 }
 
-@media(min-width:1024px) {
-    .fi-head {
-        padding: 0 3.5rem
-    }
+.fic-inner {
+    position: relative; width: 100%; height: 100%;
+    transform-style: preserve-3d;
+    will-change: transform
 }
 
-/* ── Panels container ────────────────────────────────────── */
-.fi-panels {
-    display: flex;
-    height: 460px;
-    border-top: 1px solid rgba(0, 0, 0, .06);
-    border-bottom: 1px solid rgba(0, 0, 0, .06)
-}
-
-/* ── Single panel ────────────────────────────────────────── */
-.fi-p {
-    flex: 1;
-    min-width: 0;
-    position: relative;
+.fic-face {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 14px;
     overflow: hidden;
-    cursor: pointer;
-    border-right: 1px solid rgba(0, 0, 0, .06);
-    transition: flex .65s cubic-bezier(.4, 0, .2, 1), background .4s;
-    background: transparent
+    border: 2px solid rgba(248,175,33,.22)
 }
 
-.fi-p:last-child {
-    border-right: none
+/* ── Card Front — navy + logo ────────────────────────────── */
+.fic-front {
+    background: linear-gradient(168deg, #03558C 0%, #022e4e 60%, #020d18 100%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 2
+}
+.fic-card:hover .fic-face {
+    border-color: rgba(248,175,33,.4);
+    box-shadow: 0 12px 44px rgba(248,175,33,.08), 0 4px 18px rgba(2,13,24,.12)
 }
 
-.fi-p:hover:not(.is-act) {
-    background: rgba(248, 175, 33, .04)
+.fic-frame {
+    position: absolute; inset: 6px;
+    border: 1px solid rgba(248,175,33,.1);
+    border-radius: 10px; pointer-events: none; z-index: 3
 }
 
-.fi-p.is-act {
-    flex: 5;
-    cursor: default;
-    background: rgba(248, 175, 33, .04)
+.fic-dm {
+    position: absolute; width: 5px; height: 5px;
+    background: rgba(248,175,33,.22);
+    transform: rotate(45deg); pointer-events: none; z-index: 4
+}
+.fic-dm.tl { top: 11px; left: 11px }
+.fic-dm.tr { top: 11px; right: 11px }
+.fic-dm.bl { bottom: 11px; left: 11px }
+.fic-dm.br { bottom: 11px; right: 11px }
+
+.fic-dots {
+    position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    background-image:
+        linear-gradient(rgba(248,175,33,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(248,175,33,.03) 1px, transparent 1px);
+    background-size: 18px 18px
 }
 
-/* Gold top-accent on active */
-.fi-p::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2.5px;
-    background: #F8AF21;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform .5s cubic-bezier(.4, 0, .2, 1)
+.fic-logo {
+    position: relative; z-index: 5;
+    max-width: 160px; max-height: 160px;
+    object-fit: contain; opacity: .6;
+    transition: opacity .3s
 }
-
-.fi-p.is-act::after {
-    transform: scaleX(1)
+.fic-logo.is-filtered {
+    filter: brightness(0) invert(1)
 }
+.fic-card:hover .fic-logo { opacity: .75 }
 
-/* ── Collapsed content ───────────────────────────────────── */
-.fi-c {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 0 .5rem 2.2rem;
-    gap: 1.2rem;
-    transition: opacity .25s
-}
-
-.fi-p.is-act .fi-c {
-    opacity: 0;
-    pointer-events: none
-}
-
-.fi-c-num {
+.fic-init {
     font-family: 'DM Serif Display', serif;
-    font-size: .75rem;
-    color: rgba(248, 175, 33, .4);
-    letter-spacing: .04em
+    font-size: 3.2rem; color: rgba(248,175,33,.35);
+    position: relative; z-index: 5
 }
 
-.fi-c-name {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    font-size: .52rem;
-    font-weight: 600;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    color: rgba(2, 13, 24, .3);
-    white-space: nowrap;
-    max-height: 220px;
-    overflow: hidden
+.fic-flip-hint {
+    position: absolute; bottom: 16px; left: 50%;
+    transform: translateX(-50%); z-index: 6;
+    font-size: .42rem; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(248,175,33,.28);
+    transition: color .3s
+}
+.fic-card:hover .fic-flip-hint { color: rgba(248,175,33,.5) }
+
+/* ── Card Back — navy + info ─────────────────────────────── */
+.fic-back {
+    background: #03355a;
+    transform: rotateY(180deg);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 1.5rem
 }
 
-/* ── Expanded content ────────────────────────────────────── */
-.fi-e {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .4s .2s
+.fic-seal {
+    width: 55%; max-width: 90px;
+    opacity: .45; margin-bottom: .5rem
 }
-
-.fi-p.is-act .fi-e {
-    opacity: 1;
-    pointer-events: auto;
-    position: relative
+.fic-back-divider {
+    width: 28px; height: 1px;
+    background: rgba(248,175,33,.2);
+    margin: .5rem 0 .5rem
 }
-
-.fi-e-in {
-    padding: 2.8rem 2.2rem;
-    max-width: 540px
-}
-
-@media(min-width:768px) {
-    .fi-e-in {
-        padding: 3rem 3.5rem
-    }
-}
-
-.fi-e-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    margin-bottom: 1.4rem
-}
-
-.fi-e-rule {
-    width: 22px;
-    height: 1.5px;
-    background: #F8AF21;
-    border-radius: 1px
-}
-
-.fi-e-tag {
-    font-size: .48rem;
-    font-weight: 700;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: #e8a900
-}
-
-.fi-e-name {
+.fic-back-name {
     font-family: 'DM Serif Display', serif;
-    font-size: 1.55rem;
-    line-height: 1.15;
-    color: #020d18;
+    font-size: .72rem; line-height: 1.25;
+    color: rgba(255,255,255,.9);
+    text-align: center; width: 82%;
     margin-bottom: .4rem
 }
-
-@media(min-width:768px) {
-    .fi-e-name {
-        font-size: 1.75rem
-    }
+.fic-back-cohort {
+    font-size: .3rem; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(248,175,33,.65)
+}
+.fic-back-team {
+    margin-top: 1.2rem; text-align: center;
+    padding: 0 .5rem
+}
+.fic-back-team-label {
+    font-size: .32rem; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(248,175,33,.35);
+    margin-bottom: .4rem
+}
+.fic-back-member {
+    font-size: .48rem; line-height: 1.6;
+    color: rgba(255,255,255,.55)
+}
+.fic-back-member span {
+    display: block; font-size: .32rem;
+    color: rgba(255,255,255,.25);
+    letter-spacing: .06em
 }
 
-.fi-e-meta {
-    font-size: .68rem;
-    color: rgba(2, 13, 24, .5);
-    margin-bottom: 1.5rem
-}
+/* ── Description side ────────────────────────────────────── */
+.fic-desc { max-width: 520px }
 
-.fi-e-meta span {
-    color: rgba(248, 175, 33, .5);
-    margin: 0 .4rem
+.fic-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-bottom: 1.4rem
 }
-
-.fi-e-desc {
-    font-size: .82rem;
-    font-weight: 400;
-    line-height: 1.9;
-    color: rgba(2, 13, 24, .55);
-    margin-bottom: 1.8rem;
-    max-width: 440px
+.fic-rule {
+    width: 22px; height: 1.5px;
+    background: #F8AF21; border-radius: 1px
 }
-
-.fi-e-links {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-    flex-wrap: wrap
-}
-
-.fi-e-links a {
-    text-decoration: none;
-    transition: gap .2s, color .2s
-}
-
-.fi-e-a1 {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: .56rem;
-    font-weight: 700;
-    letter-spacing: .14em;
-    text-transform: uppercase;
+.fic-tag {
+    font-size: .48rem; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
     color: #e8a900
 }
 
-.fi-e-a1:hover {
-    gap: 12px;
-    color: #F8AF21
+.fic-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem; line-height: 1.15;
+    color: #020d18; margin-bottom: .4rem
+}
+@media(min-width:768px) { .fic-name { font-size: 1.9rem } }
+
+.fic-meta {
+    font-size: .72rem; color: rgba(2,13,24,.45);
+    margin-bottom: 1.5rem
+}
+.fic-meta span { color: rgba(248,175,33,.5); margin: 0 .4rem }
+
+.fic-text {
+    font-size: .84rem; font-weight: 400;
+    line-height: 1.9; color: rgba(2,13,24,.5);
+    margin-bottom: 2rem; max-width: 440px
 }
 
-.fi-e-a2 {
-    font-size: .52rem;
-    font-weight: 500;
-    color: rgba(2, 13, 24, .35)
+.fic-links {
+    display: flex; align-items: center;
+    gap: 1.2rem; flex-wrap: wrap
 }
+.fic-links a { text-decoration: none; transition: gap .2s, color .2s }
 
-.fi-e-a2:hover {
-    color: rgba(2, 13, 24, .6)
+.fic-link-primary {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: .56rem; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: #e8a900
 }
+.fic-link-primary:hover { gap: 12px; color: #F8AF21 }
 
-/* ── Mobile: vertical accordion ──────────────────────────── */
-@media(max-width:767px) {
-    .fi-panels {
-        flex-direction: column;
-        height: auto
-    }
+.fic-link-secondary {
+    font-size: .52rem; font-weight: 500;
+    color: rgba(2,13,24,.35)
+}
+.fic-link-secondary:hover { color: rgba(2,13,24,.6) }
 
-    .fi-p {
-        flex: none !important;
-        height: 54px;
-        border-right: none;
-        border-bottom: 1px solid rgba(0, 0, 0, .06);
-        transition: height .5s cubic-bezier(.4, 0, .2, 1), background .3s
-    }
-
-    .fi-p.is-act {
-        height: 340px
-    }
-
-    .fi-c {
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        padding: 0 1.4rem;
-        gap: .8rem
-    }
-
-    .fi-c-name {
-        writing-mode: horizontal-tb;
-        max-height: none;
-        font-size: .58rem;
-        color: rgba(2, 13, 24, .35)
-    }
-
-    .fi-c-num {
-        font-size: .65rem
-    }
-
-    .fi-e-in {
-        padding: 1.6rem 1.4rem
-    }
-
-    .fi-e-name {
-        font-size: 1.3rem
-    }
+/* ── Mobile center the text ──────────────────────────────── */
+@media(max-width:899px) {
+    .fic-desc { text-align: center; margin: 0 auto }
+    .fic-text { margin-left: auto; margin-right: auto }
+    .fic-links { justify-content: center }
 }
 </style>
 
-<section id="incubatees" class="fi">
+<section id="incubatees" class="fic py-16 md:py-24 px-6 md:px-10 lg:px-14">
+    <div class="max-w-[1100px] mx-auto">
 
-    <!-- Section header -->
-    <div class="fi-head reveal">
-        <div class="flex items-center gap-2 mb-3">
-            <span style="width:18px;height:1.5px;background:#F8AF21;border-radius:1px;display:block"></span>
-            <span
-                style="font-size:.52rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#e8a900">Incubatees</span>
-        </div>
-        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
-            <h2 class="font-display" style="font-size:1.55rem;line-height:1.1;margin:0;color:#020d18">Featured <em
-                    class="italic" style="color:#F8AF21">Incubatee</em></h2>
-            <a href="<?= site_url('incubatees') ?>" class="no-underline transition-colors duration-200 hover:text-gold"
-                style="font-size:.54rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(2,13,24,.4)">
-                See all →</a>
-        </div>
-    </div>
-
-    <!-- Expanding panels -->
-    <div class="fi-panels reveal reveal-d1">
-        <?php foreach ($all as $i => $inc):
-            $isActive = ($inc['id'] == $fid);
-            $num = str_pad($i + 1, 2, '0', STR_PAD_LEFT);
-        ?>
-        <div class="fi-p<?= $isActive ? ' is-act' : '' ?>" data-fi-panel>
-
-            <!-- Collapsed: number + vertical name -->
-            <div class="fi-c">
-                <span class="fi-c-name"><?= esc($inc['companyName']) ?></span>
-                <span class="fi-c-num"><?= $num ?></span>
+        <!-- Section header -->
+        <div class="mb-10 md:mb-14 reveal" style="max-width:1100px">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="fic-rule"></span>
+                <span class="fic-tag">Incubatees</span>
             </div>
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+                <h2 class="font-display" style="font-size:1.55rem;line-height:1.1;margin:0;color:#020d18">
+                    Featured <em class="italic" style="color:#F8AF21">Incubatee</em>
+                </h2>
+                <a href="<?= site_url('incubatees') ?>" class="fic-link-primary" style="margin-bottom:2px">
+                    View All Incubatees <span>→</span>
+                </a>
+            </div>
+        </div>
 
-            <!-- Expanded: full content -->
-            <div class="fi-e">
-                <div class="fi-e-in">
-                    <div class="fi-e-label">
-                        <span class="fi-e-rule"></span>
-                        <span
-                            class="fi-e-tag"><?= $isActive ? "Today's Feature" : esc($inc['cohort'] ?? 'Incubatee') ?></span>
+        <!-- Grid: card + description -->
+        <div class="fic-grid reveal reveal-d1">
+
+            <!-- Left: Flippable card -->
+            <div class="fic-card" id="ficCard">
+                <div class="fic-inner" id="ficInner">
+
+                    <!-- Front -->
+                    <div class="fic-face fic-front">
+                        <div class="fic-frame"></div>
+                        <div class="fic-dm tl"></div><div class="fic-dm tr"></div>
+                        <div class="fic-dm bl"></div><div class="fic-dm br"></div>
+                        <div class="fic-dots"></div>
+
+                        <?php if ($logoSrc): ?>
+                            <img class="fic-logo<?= $hasWhite ? '' : ' is-filtered' ?>"
+                                 src="<?= $hasWhite ? $whiteSrc : $logoSrc ?>"
+                                 alt="<?= esc(html_entity_decode($fi['companyName'], ENT_QUOTES, 'UTF-8')) ?>">
+                        <?php else: ?>
+                            <span class="fic-init"><?= strtoupper(substr(html_entity_decode($fi['companyName'], ENT_QUOTES, 'UTF-8'), 0, 1)) ?></span>
+                        <?php endif; ?>
+
+                        <span class="fic-flip-hint">Click to flip</span>
                     </div>
 
-                    <h3 class="fi-e-name"><?= esc($inc['companyName']) ?></h3>
+                    <!-- Back -->
+                    <div class="fic-face fic-back">
+                        <div class="fic-frame"></div>
+                        <div class="fic-dm tl"></div><div class="fic-dm tr"></div>
+                        <div class="fic-dm bl"></div><div class="fic-dm br"></div>
+                        <div class="fic-dots"></div>
 
-                    <p class="fi-e-meta">
-                        <?php if (! empty($inc['founderName'])): ?>
-                        by <?= esc($inc['founderName']) ?>
-                        <?php endif; ?>
-                        <?php if (! empty($inc['founderName']) && ! empty($inc['cohort'])): ?>
-                        <span>·</span>
-                        <?php endif; ?>
-                        <?php if (! empty($inc['cohort'])): ?>
-                        <?= esc($inc['cohort']) ?>
-                        <?php endif; ?>
-                    </p>
+                        <img class="fic-seal" src="<?= $sealUrl ?>" alt="ASOG TBI">
+                        <div class="fic-back-divider"></div>
+                        <p class="fic-back-name"><?= esc(html_entity_decode($fi['companyName'], ENT_QUOTES, 'UTF-8')) ?></p>
+                        <span class="fic-back-cohort"><?= esc($fi['cohort'] ?? '') ?></span>
 
-                    <p class="fi-e-desc"><?= esc($inc['shortDescription']) ?></p>
-
-                    <div class="fi-e-links">
-                        <a href="<?= site_url('incubatees') ?>" class="fi-e-a1">
-                            View all incubatees <span>→</span>
-                        </a>
-                        <?php if (! empty($inc['websiteUrl'])): ?>
-                        <a href="<?= esc($inc['websiteUrl']) ?>" target="_blank" rel="noopener" class="fi-e-a2">
-                            Website ↗</a>
+                        <?php if (! empty($team)): ?>
+                        <div class="fic-back-team">
+                            <div class="fic-back-team-label">Team</div>
+                            <?php foreach (array_slice($team, 0, 4) as $m): ?>
+                            <div class="fic-back-member">
+                                <?= esc(html_entity_decode($m['name'], ENT_QUOTES, 'UTF-8')) ?>
+                                <?php if (! empty($m['role'])): ?><span><?= esc(html_entity_decode($m['role'], ENT_QUOTES, 'UTF-8')) ?></span><?php endif; ?>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
                         <?php endif; ?>
                     </div>
                 </div>
             </div>
+
+            <!-- Right: Description -->
+            <div class="fic-desc">
+                <div class="fic-label">
+                    <span class="fic-rule"></span>
+                    <span class="fic-tag">Today's Feature</span>
+                </div>
+
+                <h3 class="fic-name"><?= esc(html_entity_decode($fi['companyName'], ENT_QUOTES, 'UTF-8')) ?></h3>
+
+                <p class="fic-meta">
+                    <?php if (! empty($fi['founderName'])): ?>
+                        by <?= esc(html_entity_decode($fi['founderName'], ENT_QUOTES, 'UTF-8')) ?>
+                    <?php endif; ?>
+                    <?php if (! empty($fi['founderName']) && ! empty($fi['cohort'])): ?>
+                        <span>·</span>
+                    <?php endif; ?>
+                    <?php if (! empty($fi['cohort'])): ?>
+                        <?= esc($fi['cohort']) ?>
+                    <?php endif; ?>
+                </p>
+
+                <p class="fic-text"><?= esc(html_entity_decode($fi['shortDescription'], ENT_QUOTES, 'UTF-8')) ?></p>
+
+                <div class="fic-links">
+                    <?php if (! empty($fi['websiteUrl'])): ?>
+                    <a href="<?= html_entity_decode($fi['websiteUrl'], ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener" class="fic-link-primary">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-2px;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+                        Website <span>↗</span>
+                    </a>
+                    <?php endif; ?>
+                    <?php if (! empty($fi['facebookUrl'])): ?>
+                    <a href="<?= html_entity_decode($fi['facebookUrl'], ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener" class="fic-link-primary">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:inline;vertical-align:-2px;margin-right:3px"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        Facebook <span>↗</span>
+                    </a>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
-        <?php endforeach; ?>
     </div>
 </section>
 
 <script>
-document.querySelectorAll('[data-fi-panel]').forEach(function(p) {
-    p.addEventListener('click', function() {
-        if (p.classList.contains('is-act')) return;
-        document.querySelectorAll('[data-fi-panel]').forEach(function(x) {
-            x.classList.remove('is-act')
+/* ── Featured Incubatee — card flip ──────────────────────── */
+(function(){
+    var card  = document.getElementById('ficCard');
+    var inner = document.getElementById('ficInner');
+    if (!card || !inner) return;
+
+    var flipped = false;
+
+    card.addEventListener('click', function(){
+        flipped = !flipped;
+        gsap.to(inner, {
+            rotateY: flipped ? -180 : 0,
+            duration: .65,
+            ease: 'power2.inOut'
         });
-        p.classList.add('is-act');
     });
-});
+
+    /* Subtle idle floating animation */
+    gsap.to(inner, {
+        y: -6,
+        duration: 2.4,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1
+    });
+})();
 </script>

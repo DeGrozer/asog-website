@@ -27,6 +27,7 @@ class IncubateeModel extends Model
         'logoPath',
         'logoWhitePath',
         'websiteUrl',
+        'facebookUrl',
         'cohort',
         'teamMembers',
         'sortOrder',

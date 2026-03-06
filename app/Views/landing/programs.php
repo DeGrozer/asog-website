@@ -1,10 +1,12 @@
 <!-- ╔══════════════════════════════════════════════════════════════════════╗
      ║  SECTION: PROGRAMS & SERVICES                                      ║
-     ║  Dark bg · 3-column cards                                          ║
+     ║  Dark bg · 8-card paged GSAP slider                                ║
      ╚══════════════════════════════════════════════════════════════════════╝ -->
-<section id="programs" class="relative overflow-hidden bg-navy py-16 md:py-24 px-6 md:px-10 lg:px-14">
+<section id="programs" class="relative bg-navy py-16 md:py-24 px-6 md:px-10 lg:px-14">
     <div class="max-w-[1200px] mx-auto relative z-[2]">
-        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-4 mb-10 md:mb-14 reveal">
+
+        <!-- Header row: heading left, "View All" right -->
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 md:mb-14 reveal">
             <div>
                 <div class="flex items-center gap-2 mb-3">
                     <span class="block w-[18px] h-[1.5px] bg-gold"></span>
@@ -18,25 +20,136 @@
                 All Programs →</a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/[.06] rounded-sm overflow-hidden reveal-group">
-            <div class="rc group block bg-navy p-8 md:p-10">
-                <span class="block text-[.5rem] font-semibold tracking-[.22em] uppercase text-gold/70 mb-4">01</span>
-                <h3 class="font-display text-[1.15rem] text-off mb-3">Incubation Program</h3>
-                <p class="text-[.8rem] font-light leading-[1.8] text-white/30">End-to-end startup support — from
-                    co-working spaces and prototyping labs to seed funding guidance.</p>
-            </div>
-            <div class="rc group block bg-navy p-8 md:p-10">
-                <span class="block text-[.5rem] font-semibold tracking-[.22em] uppercase text-gold/70 mb-4">02</span>
-                <h3 class="font-display text-[1.15rem] text-off mb-3">Mentorship &amp; Training</h3>
-                <p class="text-[.8rem] font-light leading-[1.8] text-white/30">Industry experts and academic mentors
-                    deliver hands-on workshops and tailored training for founders.</p>
-            </div>
-            <div class="rc group block bg-navy p-8 md:p-10">
-                <span class="block text-[.5rem] font-semibold tracking-[.22em] uppercase text-gold/70 mb-4">03</span>
-                <h3 class="font-display text-[1.15rem] text-off mb-3">IP Support</h3>
-                <p class="text-[.8rem] font-light leading-[1.8] text-white/30">Navigate patents, trademarks, and IP
-                    strategy with our dedicated Intellectual Property Management Unit.</p>
+        <?php
+        $programs = [
+            ['Mentorship from experts in AI, engineering, &amp; business', 'End-to-end startup support &mdash; from co-working spaces and prototyping labs to seed funding guidance.'],
+            ['Startup Bootcamps &amp; Training', 'Industry experts and academic mentors deliver hands-on workshops and tailored training for founders.'],
+            ['Prototyping &amp; product development', 'Navigate patents, trademarks, and IP strategy with our dedicated Intellectual Property Management Unit.'],
+            ['IP assistance (patents, trademarks, etc.)', 'Bridge the gap between academic research and market-ready innovations with our tech transfer partnerships.'],
+            ['Market validation support', 'Connect with industry partners, pilot customers, and distribution channels to accelerate go-to-market strategies.'],
+            ['Access to funding networks', 'Leverage prototyping labs and technical expertise to refine your MVP and iterate toward product-market fit.'],
+            ['Free co-working space', 'Access seed capital opportunities, investor matchmaking, and grant writing support for early-stage ventures.'],
+            ['Pitching opportunities &amp; networking', 'Join pitch nights, demo days, and founder meetups that build lasting connections across the startup ecosystem.'],
+        ];
+        $total = count($programs);
+        ?>
+
+        <!-- Card track -->
+        <div class="overflow-hidden reveal-group">
+            <div id="progSlider" class="flex">
+                <?php foreach ($programs as $i => $prog): ?>
+                <div class="prog-card shrink-0 box-border py-2" data-ix="<?= $i ?>">
+                    <div class="h-full px-6 md:px-7<?= $i > 0 ? ' border-l border-white/[.08]' : '' ?>">
+                        <span class="block text-[.5rem] font-semibold tracking-[.22em] uppercase text-gold/70 mb-4"><?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?></span>
+                        <h3 class="font-display text-[1.05rem] text-off mb-3 leading-snug"><?= $prog[0] ?></h3>
+                        <p class="text-[.78rem] font-light leading-[1.8] text-white/30"><?= $prog[1] ?></p>
+                    </div>
+                </div>
+                <?php endforeach; ?>
             </div>
         </div>
+
+        <!-- Bottom nav: arrows + page indicator, centered -->
+        <div class="flex items-center justify-center gap-3 mt-8 reveal">
+            <button id="progPrev" aria-label="Previous"
+                class="w-9 h-9 rounded-full border border-white/[.12] bg-transparent flex items-center justify-center text-white/25 cursor-pointer opacity-30 pointer-events-none"
+                style="transition:border-color .25s,color .25s,background .25s,opacity .25s">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <span id="progPage"
+                class="text-[.52rem] font-semibold tracking-[.12em] text-white/25 min-w-[2.5rem] text-center"
+                style="font-variant-numeric:tabular-nums">1 / 2</span>
+            <button id="progNext" aria-label="Next"
+                class="w-9 h-9 rounded-full border border-white/[.12] bg-transparent flex items-center justify-center text-white/25 cursor-pointer"
+                style="transition:border-color .25s,color .25s,background .25s,opacity .25s">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
     </div>
+
+    <script>
+    (function(){
+        var slider  = document.getElementById('progSlider');
+        var track   = slider ? slider.parentElement : null;
+        var prev    = document.getElementById('progPrev');
+        var next    = document.getElementById('progNext');
+        var pgLabel = document.getElementById('progPage');
+        var cards   = document.querySelectorAll('.prog-card');
+        if (!slider || !track || !prev || !next || !cards.length) return;
+
+        var total = <?= $total ?>;
+        var page  = 0;
+
+        function getPerPage(){
+            if (window.innerWidth < 640)  return 1;
+            if (window.innerWidth < 1024) return 2;
+            return 4;
+        }
+
+        function totalPages(){
+            return Math.ceil(total / getPerPage());
+        }
+
+        function layout(){
+            var trackW = track.offsetWidth;
+            var pp     = getPerPage();
+            var cardW  = trackW / pp;
+
+            slider.style.width = (cardW * total) + 'px';
+            cards.forEach(function(c){ c.style.width = cardW + 'px'; });
+        }
+
+        function goToPage(p){
+            var pp   = getPerPage();
+            var maxP = totalPages() - 1;
+            if (p < 0) p = 0;
+            if (p > maxP) p = maxP;
+            page = p;
+
+            var trackW = track.offsetWidth;
+            var cardW  = trackW / pp;
+            var px     = -(page * pp * cardW);
+
+            gsap.to(slider, { x: px, duration: .7, ease: 'power3.inOut' });
+
+            pgLabel.textContent = (page + 1) + ' / ' + (maxP + 1);
+
+            prev.style.opacity       = page <= 0    ? '.3' : '1';
+            prev.style.pointerEvents = page <= 0    ? 'none' : 'auto';
+            next.style.opacity       = page >= maxP ? '.3' : '1';
+            next.style.pointerEvents = page >= maxP ? 'none' : 'auto';
+        }
+
+        [prev, next].forEach(function(btn){
+            btn.addEventListener('mouseenter', function(){
+                if (btn.style.pointerEvents !== 'none'){
+                    btn.style.borderColor = 'rgba(248,175,33,.4)';
+                    btn.style.color       = '#F8AF21';
+                    btn.style.background  = 'rgba(248,175,33,.08)';
+                }
+            });
+            btn.addEventListener('mouseleave', function(){
+                btn.style.borderColor = 'rgba(255,255,255,.12)';
+                btn.style.color       = 'rgba(255,255,255,.25)';
+                btn.style.background  = 'transparent';
+            });
+        });
+
+        next.addEventListener('click', function(){ goToPage(page + 1); });
+        prev.addEventListener('click', function(){ goToPage(page - 1); });
+
+        layout();
+        goToPage(0);
+
+        var rt;
+        window.addEventListener('resize', function(){
+            clearTimeout(rt);
+            rt = setTimeout(function(){ layout(); goToPage(page); }, 150);
+        });
+    })();
+    </script>
 </section>

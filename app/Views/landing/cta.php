@@ -1,6 +1,6 @@
 <!-- ╔══════════════════════════════════════════════════════════════════════╗
-     ║  SECTION: CTA / BE AN INCUBATEE                                    ║
-     ║  Dark bg · centered call-to-action                                 ║
+     ║  SECTION: CTA / BE AN INCUBATEE                                      ║
+     ║  Dark bg · centered call-to-action                                   ║
      ╚══════════════════════════════════════════════════════════════════════╝ -->
 <?php
     $ctaTitle       = 'Ready to Build your <em class="italic text-gold">business</em> with us?';
@@ -12,11 +12,18 @@
 ?>
 <section id="cta"
     class="relative overflow-hidden bg-[#0A3A52] py-20 md:py-28 px-6 md:px-10 lg:px-14 flex flex-col items-center text-center">
-    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[.06] to-transparent"></div>
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[.06] to-transparent">
+    </div>
     <div class="reveal">
-        <div class="text-[.55rem] md:text-[.58rem] font-semibold tracking-[.22em] uppercase text-white/[.30] mb-5 relative z-[2]">Join the Ecosystem</div>
-        <h2 class="font-display text-[clamp(1.8rem,3.5vw,3rem)] leading-[1.1] text-off max-w-[620px] mb-4 relative z-[2]"><?= $ctaTitle ?></h2>
-        <p class="text-[.85rem] md:text-[.95rem] font-light leading-[1.75] text-white/[.40] max-w-[480px] mx-auto mb-10 md:mb-12 relative z-[2]"><?= esc($ctaDesc) ?></p>
+        <div
+            class="text-[.55rem] md:text-[.58rem] font-semibold tracking-[.22em] uppercase text-white/[.30] mb-5 relative z-[2]">
+            Join the Ecosystem</div>
+        <h2
+            class="font-display text-[clamp(1.8rem,3.5vw,3rem)] leading-[1.1] text-off max-w-[620px] mb-4 relative z-[2]">
+            <?= $ctaTitle ?></h2>
+        <p
+            class="text-[.85rem] md:text-[.95rem] font-light leading-[1.75] text-white/[.40] max-w-[480px] mx-auto mb-10 md:mb-12 relative z-[2]">
+            <?= esc($ctaDesc) ?></p>
     </div>
     <div class="flex flex-col sm:flex-row gap-4 flex-wrap justify-center relative z-[2] reveal reveal-d1">
         <a href="<?= esc($ctaBtnUrl) ?>"

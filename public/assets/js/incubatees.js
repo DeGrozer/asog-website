@@ -27,12 +27,13 @@
     var bbName = $('bbName'),
         bbTeam = $('bbTeam');
 
-    var pCohort  = $('pCohort'),
-        pName    = $('pName'),
-        pFounder = $('pFounder'),
-        pShort   = $('pShort'),
-        pContent = $('pContent'),
-        pWeb     = $('pWeb');
+    var pCohort    = $('pCohort'),
+        pName      = $('pName'),
+        pFounder   = $('pFounder'),
+        pShort     = $('pShort'),
+        pContent   = $('pContent'),
+        pWebsite   = $('pWebsite'),
+        pFacebook  = $('pFacebook');
 
     var cards      = document.querySelectorAll('.ib-card');
     var isOpen     = false;
@@ -120,8 +121,10 @@
         pFounder.textContent = d.founderName ? 'by ' + d.founderName : '';
         pShort.textContent   = d.shortDescription;
         pContent.innerHTML   = d.content || '';
-        if (d.websiteUrl) { pWeb.href = d.websiteUrl; pWeb.style.display = 'inline-flex'; }
-        else               { pWeb.style.display = 'none'; }
+        if (d.websiteUrl)  { pWebsite.href = d.websiteUrl;   pWebsite.style.display = 'inline-flex'; }
+        else               { pWebsite.style.display = 'none'; }
+        if (d.facebookUrl) { pFacebook.href = d.facebookUrl; pFacebook.style.display = 'inline-flex'; }
+        else               { pFacebook.style.display = 'none'; }
 
         /* Animate in */
         stack.classList.add('has-active');

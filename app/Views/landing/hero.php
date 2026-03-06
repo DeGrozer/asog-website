@@ -14,7 +14,7 @@ $dotCount   = $hasSlides ? count($heroSlides) : 3;
     <?php if ($hasSlides): ?>
     <?php foreach ($heroSlides as $i => $s): ?>
     <div class="slide <?= $i === 0 ? 'active' : '' ?>"
-        style="background-image:url('<?= base_url(esc($s['imagePath'])) ?>');background-size:cover;background-position:center top;">
+        style="background-image:url('<?= base_url(esc($s['imagePath'])) ?>');background-size:cover;background-position:center 30%;">
     </div>
     <?php endforeach; ?>
     <?php else: ?>

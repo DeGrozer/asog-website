@@ -10,6 +10,7 @@
     </title>
     <!-- ================== CSS/JS  ===================== -->
     <link href="<?= base_url('style.css') ?>" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="<?= base_url('assets/js/header.js') ?>" defer></script>
 
     <!-- ================== GOOGLE FONTS  ===================== -->
@@ -78,10 +79,10 @@
 
             <!-- CENTER LOGO -->
             <a href="<?= base_url() ?>" id="navLogo" class="flex no-underline">
-                <img src="<?= base_url('assets/img/ASOG TBI/PNG/ASOG-TBI_seal_white.png') ?>" alt="ASOG TBI"
-                    id="navImg" class="w-[80px] h-[80px]" />
-                <img src="<?= base_url('assets/img/ASOG TBI/PNG/ASOG-TBI_full-colored_landscape.png') ?>"
-                    alt="ASOG TBI" id="navImgLandscape" class="object-contain" />
+                <img src="<?= base_url('assets/img/ASOG TBI/PNG/ASOG-TBI_seal_white.png') ?>" alt="ASOG TBI" id="navImg"
+                    class="w-[80px] h-[80px]" />
+                <img src="<?= base_url('assets/img/ASOG TBI/PNG/ASOG-TBI_full-colored_landscape.png') ?>" alt="ASOG TBI"
+                    id="navImgLandscape" class="object-contain" />
             </a>
 
             <!-- desktop right links -->
@@ -101,10 +102,6 @@
                     <a href="<?= $navContact ?>"
                         class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">Contact
                         Us</a>
-                    <div class="dd-menu dd-right">
-                        <a href="<?= $navContact ?>" class="dd-item">Contact Details</a>
-                        <a href="<?= $navContact ?>" class="dd-item">Map</a>
-                    </div>
                 </div>
                 <!-- CTA Button -->
                 <a href="<?= $navCta ?>" data-order="6"
