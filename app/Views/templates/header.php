@@ -10,7 +10,7 @@
     </title>
     <!-- ================== CSS/JS  ===================== -->
     <link href="<?= base_url('style.css') ?>" rel="stylesheet">
-    <script src="<?= base_url('asset/js/header.js') ?>" defer></script>
+    <script src="<?= base_url('assets/js/header.js') ?>" defer></script>
 
     <!-- ================== GOOGLE FONTS  ===================== -->
     <link
@@ -78,9 +78,9 @@
 
             <!-- CENTER LOGO -->
             <a href="<?= base_url() ?>" id="navLogo" class="flex no-underline">
-                <img src="<?= base_url('asset/js/img/ASOG TBI/PNG/ASOG-TBI_seal_white.png') ?>" alt="ASOG TBI"
+                <img src="<?= base_url('assets/img/ASOG TBI/PNG/ASOG-TBI_seal_white.png') ?>" alt="ASOG TBI"
                     id="navImg" class="w-[80px] h-[80px]" />
-                <img src="<?= base_url('asset/js/img/ASOG TBI/PNG/ASOG-TBI_full-colored_landscape.png') ?>"
+                <img src="<?= base_url('assets/img/ASOG TBI/PNG/ASOG-TBI_full-colored_landscape.png') ?>"
                     alt="ASOG TBI" id="navImgLandscape" class="object-contain" />
             </a>
 

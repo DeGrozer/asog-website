@@ -98,4 +98,4 @@ $dotCount   = $hasSlides ? count($heroSlides) : 3;
     </div><!-- /content -->
 </section>
 
-<script src="<?= base_url('js/hero.js') ?>" defer></script>
+<script src="<?= base_url('assets/js/hero.js') ?>" defer></script>

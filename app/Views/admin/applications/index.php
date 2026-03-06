@@ -217,4 +217,4 @@
 </div>
 
 <?= jsBaseUrl() ?>
-<script src="<?= site_url('js/adminApplications.js') ?>"></script>
+<script src="<?= site_url('assets/js/adminApplications.js') ?>"></script>

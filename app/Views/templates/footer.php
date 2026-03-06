@@ -12,7 +12,7 @@
 
         <!-- ── TOP: Logo + email + socials in one row ──────────── -->
         <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pt-12 md:pt-16 pb-8 md:pb-10 border-b border-white/[.06]">
-            <img src="<?= base_url('asset/js/img/ASOG TBI/PNG/asog logo variations_full-colored_landscape-light.png') ?>" alt="ASOG TBI"
+            <img src="<?= base_url('assets/img/ASOG TBI/PNG/asog logo variations_full-colored_landscape-light.png') ?>" alt="ASOG TBI"
                 class="h-[40px] md:h-[48px] object-contain" />
             <div class="flex items-center gap-6">
                 <a href="mailto:asog.tbi@cspc.edu.ph" class="text-[.74rem] font-light text-white/35 no-underline transition-colors hover:text-gold">asog.tbi@cspc.edu.ph</a>
@@ -93,14 +93,14 @@
 
 <!-- Hero slideshow (landing page only) -->
 <?php if (! empty($isLanding)): ?>
-<script src="<?= base_url('js/hero.js') ?>" defer></script>
+<script src="<?= base_url('assets/js/hero.js') ?>" defer></script>
 <?php endif; ?>
 
 <!-- Scroll-reveal animation observer -->
-<script src="<?= base_url('js/scroll-reveal.js') ?>" defer></script>
+<script src="<?= base_url('assets/js/scroll-reveal.js') ?>" defer></script>
 
 <!-- TOC scroll-spy (loaded only if sidebar exists on page) -->
-<script src="<?= base_url('js/toc.js') ?>" defer></script>
+<script src="<?= base_url('assets/js/toc.js') ?>" defer></script>
 
 </body>
 </html>

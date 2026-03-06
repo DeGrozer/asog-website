@@ -55,6 +55,17 @@ class IncubateesAdmin extends BaseController
             $content = null;
         }
 
+        // Build team members JSON from repeater inputs
+        $tmNames = $this->request->getPost('tm_name') ?? [];
+        $tmRoles = $this->request->getPost('tm_role') ?? [];
+        $teamMembers = [];
+        foreach ($tmNames as $i => $name) {
+            $name = trim($name);
+            if ($name !== '') {
+                $teamMembers[] = ['name' => $name, 'role' => trim($tmRoles[$i] ?? '')];
+            }
+        }
+
         $data = [
             'companyName'      => trim($this->request->getPost('companyName') ?? ''),
             'founderName'      => trim($this->request->getPost('founderName') ?? '') ?: null,
@@ -62,6 +73,7 @@ class IncubateesAdmin extends BaseController
             'content'          => $content,
             'websiteUrl'       => trim($this->request->getPost('websiteUrl') ?? '') ?: null,
             'cohort'           => trim($this->request->getPost('cohort') ?? '') ?: null,
+            'teamMembers'      => ! empty($teamMembers) ? json_encode($teamMembers) : null,
             'sortOrder'        => (int) ($this->request->getPost('sortOrder') ?: 0),
             'isPublished'      => $this->request->getPost('isPublished') ? 1 : 0,
         ];
@@ -96,6 +108,36 @@ class IncubateesAdmin extends BaseController
         } catch (\Throwable $e) {
             log_message('error', 'Incubatee logo upload error: ' . $e->getMessage());
             setToast('error', 'Logo upload error: ' . $e->getMessage());
+            return redirect()->back()->withInput();
+        }
+
+        // Handle white logo upload
+        try {
+            $whiteFile = $this->request->getFile('logoWhite');
+
+            if ($whiteFile !== null && $whiteFile->getError() !== UPLOAD_ERR_NO_FILE) {
+                if (! $whiteFile->isValid()) {
+                    setToast('error', 'White logo upload failed: ' . $whiteFile->getErrorString());
+                    return redirect()->back()->withInput();
+                }
+
+                if ($whiteFile->hasMoved()) {
+                    setToast('error', 'White logo upload error: file was already processed.');
+                    return redirect()->back()->withInput();
+                }
+
+                $uploader = new ImageUpload();
+                $whitePath = $uploader->upload($whiteFile, 'incubatees');
+                if ($whitePath !== null) {
+                    $data['logoWhitePath'] = $whitePath;
+                } else {
+                    setToast('error', 'White logo upload failed: ' . $uploader->getError());
+                    return redirect()->back()->withInput();
+                }
+            }
+        } catch (\Throwable $e) {
+            log_message('error', 'Incubatee white logo upload error: ' . $e->getMessage());
+            setToast('error', 'White logo upload error: ' . $e->getMessage());
             return redirect()->back()->withInput();
         }
 
@@ -149,6 +191,17 @@ class IncubateesAdmin extends BaseController
             $content = null;
         }
 
+        // Build team members JSON from repeater inputs
+        $tmNames = $this->request->getPost('tm_name') ?? [];
+        $tmRoles = $this->request->getPost('tm_role') ?? [];
+        $teamMembers = [];
+        foreach ($tmNames as $i => $name) {
+            $name = trim($name);
+            if ($name !== '') {
+                $teamMembers[] = ['name' => $name, 'role' => trim($tmRoles[$i] ?? '')];
+            }
+        }
+
         $data = [
             'companyName'      => trim($this->request->getPost('companyName') ?? ''),
             'founderName'      => trim($this->request->getPost('founderName') ?? '') ?: null,
@@ -156,6 +209,7 @@ class IncubateesAdmin extends BaseController
             'content'          => $content,
             'websiteUrl'       => trim($this->request->getPost('websiteUrl') ?? '') ?: null,
             'cohort'           => trim($this->request->getPost('cohort') ?? '') ?: null,
+            'teamMembers'      => ! empty($teamMembers) ? json_encode($teamMembers) : null,
             'sortOrder'        => (int) ($this->request->getPost('sortOrder') ?: 0),
             'isPublished'      => $this->request->getPost('isPublished') ? 1 : 0,
         ];
@@ -199,6 +253,40 @@ class IncubateesAdmin extends BaseController
             return redirect()->back()->withInput();
         }
 
+        // Handle white logo upload (optional on edit)
+        try {
+            $whiteFile = $this->request->getFile('logoWhite');
+
+            if ($whiteFile !== null && $whiteFile->getError() !== UPLOAD_ERR_NO_FILE) {
+                if (! $whiteFile->isValid()) {
+                    setToast('error', 'White logo upload failed: ' . $whiteFile->getErrorString());
+                    return redirect()->back()->withInput();
+                }
+
+                if ($whiteFile->hasMoved()) {
+                    setToast('error', 'White logo upload error: file was already processed.');
+                    return redirect()->back()->withInput();
+                }
+
+                $uploader = new ImageUpload();
+                $whitePath = $uploader->upload($whiteFile, 'incubatees');
+                if ($whitePath !== null) {
+                    // Delete old white logo
+                    if (! empty($incubatee['logoWhitePath'])) {
+                        $uploader->delete($incubatee['logoWhitePath']);
+                    }
+                    $data['logoWhitePath'] = $whitePath;
+                } else {
+                    setToast('error', 'White logo upload failed: ' . $uploader->getError());
+                    return redirect()->back()->withInput();
+                }
+            }
+        } catch (\Throwable $e) {
+            log_message('error', 'Incubatee white logo update error: ' . $e->getMessage());
+            setToast('error', 'White logo upload error: ' . $e->getMessage());
+            return redirect()->back()->withInput();
+        }
+
         // Use a clean DB builder for the update to avoid any residual
         // query-builder state from find() or generateSlug().
         $db = \Config\Database::connect();
@@ -225,9 +313,13 @@ class IncubateesAdmin extends BaseController
             return redirect()->to(site_url('admin/incubatees'));
         }
 
-        // Delete logo file
+        // Delete logo files
+        $uploader = new ImageUpload();
         if (! empty($incubatee['logoPath'])) {
-            (new ImageUpload())->delete($incubatee['logoPath']);
+            $uploader->delete($incubatee['logoPath']);
+        }
+        if (! empty($incubatee['logoWhitePath'])) {
+            $uploader->delete($incubatee['logoWhitePath']);
         }
 
         $this->incubateeModel->delete($id);

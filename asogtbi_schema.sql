@@ -86,6 +86,7 @@ CREATE TABLE `incubatees` (
     `logoPath`         VARCHAR(500)  NULL,
     `websiteUrl`       VARCHAR(500)  NULL,
     `cohort`           VARCHAR(50)   NULL,
+    `teamMembers`      TEXT          NULL,
     `sortOrder`        INT UNSIGNED  NOT NULL DEFAULT 0,
     `isPublished`      TINYINT(1)    NOT NULL DEFAULT 0,
     `createdAt`        DATETIME      NULL,

@@ -80,6 +80,7 @@ CREATE TABLE `incubatees` (
   `logoPath` varchar(500) DEFAULT NULL,
   `websiteUrl` varchar(500) DEFAULT NULL,
   `cohort` varchar(50) DEFAULT NULL,
+  `teamMembers` text DEFAULT NULL,
   `sortOrder` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `isPublished` tinyint(1) NOT NULL DEFAULT 0,
   `createdAt` datetime DEFAULT NULL,

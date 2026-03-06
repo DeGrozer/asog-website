@@ -1,0 +1,447 @@
+/* ==========================================================================
+   INCUBATEES SHOWCASE — Visual Theme
+   Structure → Tailwind utility classes in markup
+   Visuals  → this file
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. SECTION & HEADER
+   -------------------------------------------------------------------------- */
+.ib-s  { background: #F8F6F2 }
+.ib-w  { max-width: 1200px }
+
+.ib-rule {
+    width: 18px; height: 1.5px;
+    background: #F8AF21; border-radius: 1px;
+}
+.ib-tag {
+    font-size: .52rem; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: #e8a900;
+}
+.ib-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.55rem; line-height: 1.1; color: #020d18;
+}
+@media (min-width: 768px) { .ib-title { font-size: 2rem } }
+.ib-title em { color: #F8AF21; font-style: italic }
+
+.ib-sub {
+    font-size: .8rem; font-weight: 300;
+    line-height: 1.8; color: rgba(2,13,24,.4);
+    max-width: 460px;
+}
+
+/* --------------------------------------------------------------------------
+   2. CARD GRID
+   -------------------------------------------------------------------------- */
+.ib-stack { min-height: 320px; padding: 10px 0 20px }
+
+.ib-card {
+    width: 230px; height: 335px;
+    perspective: 900px; z-index: 1;
+    transition: filter .3s;
+}
+@media (min-width: 768px) { .ib-card { width: 250px; height: 360px } }
+
+.ib-stack.has-active .ib-card:not(.is-picked) {
+    filter: brightness(.82) saturate(.5);
+    pointer-events: none;
+}
+.ib-inner { transform-style: preserve-3d; will-change: transform }
+
+.ib-front, .ib-back,
+.ib-big-front, .ib-big-back {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   3. SMALL CARD — FRONT
+   -------------------------------------------------------------------------- */
+.ib-front {
+    background: linear-gradient(178deg, #fff, #f6f4ef);
+    border: 2px solid rgba(248,175,33,.2);
+    box-shadow: 0 2px 14px rgba(2,13,24,.05);
+    z-index: 2;
+}
+.ib-card:hover .ib-front {
+    border-color: rgba(248,175,33,.35);
+    box-shadow: 0 8px 36px rgba(248,175,33,.07), 0 4px 18px rgba(2,13,24,.07);
+}
+
+.ib-frame      { border: 1px solid rgba(248,175,33,.1); border-radius: 8px; z-index: 3 }
+.ib-front .ib-frame { inset: 5px }
+
+.ib-diamond {
+    width: 5px; height: 5px;
+    background: rgba(248,175,33,.2);
+    transform: rotate(45deg); z-index: 4;
+}
+.ib-front .ib-diamond.tl { top: 10px; left: 10px }
+.ib-front .ib-diamond.tr { top: 10px; right: 10px }
+.ib-front .ib-diamond.bl { bottom: 10px; left: 10px }
+.ib-front .ib-diamond.br { bottom: 10px; right: 10px }
+
+.ib-portrait { padding: 1rem; z-index: 2 }
+
+.ib-logo-sm img {
+    max-width: 140px; max-height: 140px;
+    object-fit: contain;
+}
+.ib-init {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem; color: rgba(248,175,33,.55);
+    line-height: 1;
+}
+
+/* --------------------------------------------------------------------------
+   4. SMALL CARD — BACK
+   -------------------------------------------------------------------------- */
+.ib-back {
+    background: #03355a;
+    border: 2px solid rgba(248,175,33,.22);
+    transform: rotateY(180deg);
+}
+.ib-card:hover .ib-back { border-color: rgba(248,175,33,.35) }
+
+.ib-back .ib-frame { inset: 5px; border-color: rgba(248,175,33,.12) }
+
+.ib-frame-inner {
+    inset: 13px;
+    border: 1px solid rgba(248,175,33,.05);
+    border-radius: 4px; z-index: 2;
+}
+
+.ib-back .ib-diamond { background: rgba(248,175,33,.22) }
+.ib-back .ib-diamond.tl { top: 10px; left: 10px }
+.ib-back .ib-diamond.tr { top: 10px; right: 10px }
+.ib-back .ib-diamond.bl { bottom: 10px; left: 10px }
+.ib-back .ib-diamond.br { bottom: 10px; right: 10px }
+
+.ib-dots {
+    z-index: 1;
+    background-image:
+        linear-gradient(rgba(248,175,33,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(248,175,33,.03) 1px, transparent 1px);
+    background-size: 18px 18px;
+}
+
+.ib-seal {
+    width: 55%; max-width: 85px;
+    opacity: .5; z-index: 2;
+    margin-top: auto; padding-top: .8rem;
+    transition: opacity .3s;
+}
+.ib-card:hover .ib-seal { opacity: .6 }
+
+.ib-back-divider {
+    width: 28px; height: 1px;
+    background: rgba(248,175,33,.2);
+    margin: .5rem 0 .4rem; z-index: 3;
+}
+.ib-back-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: .62rem; line-height: 1.2;
+    color: rgba(255,255,255,.9); z-index: 3;
+    text-align: center; width: 80%;
+}
+.ib-back-cohort {
+    font-size: .26rem; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(248,175,33,.65); z-index: 3;
+    margin-bottom: auto; padding-bottom: .6rem;
+}
+
+/* --------------------------------------------------------------------------
+   5. OVERLAY
+   -------------------------------------------------------------------------- */
+.ib-overlay {
+    z-index: 999;
+    visibility: hidden; opacity: 0;
+    transition: visibility 0s .4s, opacity 0s .4s;
+}
+.ib-overlay.is-open {
+    visibility: visible; opacity: 1;
+    transition: visibility 0s, opacity 0s;
+}
+
+.ib-backdrop {
+    background: rgba(2,13,24,.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    opacity: 0; transition: opacity .35s;
+}
+.ib-overlay.is-open .ib-backdrop { opacity: 1 }
+
+.ib-modal {
+    z-index: 2; padding-right: 480px;
+    pointer-events: none;
+}
+@media (max-width: 900px) { .ib-modal { padding-right: 0 } }
+.ib-overlay.is-open .ib-modal { pointer-events: auto }
+
+/* --------------------------------------------------------------------------
+   6. BIG CARD — CONTAINER
+   -------------------------------------------------------------------------- */
+.ib-big-card {
+    width: calc(78vh * .667); height: 78vh;
+    max-width: calc(100vw - 520px);
+    perspective: 1200px;
+    opacity: 0; transform: scale(.7) translateY(30px);
+}
+@media (min-width: 768px) {
+    .ib-big-card { width: calc(80vh * .667); height: 80vh }
+}
+@media (max-width: 900px) {
+    .ib-big-card { width: 65vw; height: calc(65vw * 1.5); max-width: none; max-height: 90vh }
+}
+
+.ib-big-inner {
+    transform-style: preserve-3d;
+    box-shadow: 0 30px 90px rgba(2,13,24,.2);
+    border-radius: 1.2rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. BIG CARD — FRONT (NAVY)
+   -------------------------------------------------------------------------- */
+.ib-big-front {
+    background: #03355a;
+    border: 2.5px solid rgba(248,175,33,.24);
+    gap: 1.2rem; padding: 2.5rem 1.5rem;
+    z-index: 2;
+}
+.ib-big-front .ib-frame {
+    inset: 7px; border-radius: 10px;
+    border-color: rgba(248,175,33,.14);
+}
+.ib-big-front .ib-frame-inner {
+    inset: 17px;
+    border: 1px solid rgba(248,176,33,.19);
+    border-radius: 6px; z-index: 2;
+}
+.ib-big-front .ib-diamond { width: 7px; height: 7px; background: rgba(248,175,33,.25) }
+.ib-big-front .ib-diamond.tl { top: 14px; left: 14px }
+.ib-big-front .ib-diamond.tr { top: 14px; right: 14px }
+.ib-big-front .ib-diamond.bl { bottom: 14px; left: 14px }
+.ib-big-front .ib-diamond.br { bottom: 14px; right: 14px }
+
+.ib-big-front .ib-dots {
+    background-image:
+        linear-gradient(rgba(248,175,33,.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(248,175,33,.028) 1px, transparent 1px);
+    background-size: 22px 22px;
+}
+
+.ib-bf-num {
+    top: 18px; left: 20px; z-index: 6;
+    font-family: 'DM Serif Display', serif;
+    font-size: .65rem; color: rgba(248,175,33,.5);
+}
+.ib-bf-portrait { z-index: 2 }
+
+.ib-bf-logo img {
+    width: 12vh; height: 12vh;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: .55; transition: opacity .3s;
+}
+.ib-bf-logo:hover img { opacity: .7 }
+.ib-bf-logo img.is-white { filter: none }
+
+.ib-bf-divider {
+    width: 36px; height: 1.5px; border-radius: 1px;
+    background: rgba(248,175,33,.22);
+    margin: 0 auto .5rem; z-index: 3;
+}
+.ib-bf-nameplate {
+    width: calc(100% - 36px); margin: 0 18px;
+    padding-bottom: .3rem; z-index: 2;
+}
+.ib-bf-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem; line-height: 1.18;
+    color: #fff; margin-bottom: .2rem;
+}
+.ib-bf-founder {
+    font-size: .82rem; font-weight: 300;
+    color: rgba(255,255,255,.5); margin-bottom: .15rem;
+}
+.ib-bf-cohort {
+    font-size: .5rem; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(248,175,33,.65);
+}
+
+/* --------------------------------------------------------------------------
+   8. BIG CARD — BACK (TEAM / WHITE)
+   -------------------------------------------------------------------------- */
+.ib-big-back {
+    background: linear-gradient(178deg, #fff, #f6f4ef);
+    border: 2.5px solid rgba(248,175,33,.22);
+    transform: rotateY(-180deg);
+    padding: 2.5rem 1.5rem;
+}
+.ib-big-back .ib-frame { inset: 7px; border-radius: 10px }
+.ib-big-back .ib-frame-inner {
+    inset: 17px;
+    border: 1px solid rgba(3,85,140,.04);
+    border-radius: 6px; z-index: 2;
+}
+.ib-big-back .ib-diamond { width: 7px; height: 7px; background: rgba(248,175,33,.22) }
+.ib-big-back .ib-diamond.tl { top: 14px; left: 14px }
+.ib-big-back .ib-diamond.tr { top: 14px; right: 14px }
+.ib-big-back .ib-diamond.bl { bottom: 14px; left: 14px }
+.ib-big-back .ib-diamond.br { bottom: 14px; right: 14px }
+
+.ib-bb-label {
+    font-size: .42rem; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: rgba(248,175,33,.6); margin-bottom: .3rem;
+}
+.ib-bb-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem; line-height: 1.2;
+    color: #020d18; z-index: 3;
+}
+.ib-bb-divider {
+    width: 28px; height: 1.5px; border-radius: 1px;
+    background: rgba(248,175,33,.2);
+    margin: .5rem auto .6rem; z-index: 3;
+}
+
+.ib-bb-team {
+    gap: .55rem; padding: 0 1.5rem;
+    z-index: 3; max-height: 50%;
+}
+.ib-bb-team-label {
+    font-size: .36rem; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(2,13,24,.22); margin-bottom: .1rem;
+}
+.ib-bb-member { gap: .05rem }
+.ib-bb-member-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem; color: #020d18; line-height: 1.2;
+}
+.ib-bb-member-role {
+    font-size: .55rem; font-weight: 600;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: rgba(2,13,24,.3);
+}
+.ib-bb-no-team {
+    font-size: .65rem; font-weight: 300;
+    color: rgba(2,13,24,.25); font-style: italic;
+    padding: 1rem 0;
+}
+
+/* --------------------------------------------------------------------------
+   9. DETAIL PANEL
+   -------------------------------------------------------------------------- */
+.ib-panel {
+    z-index: 1001; max-width: 480px;
+    background: #fff;
+    transform: translateX(100%);
+    box-shadow: -8px 0 40px rgba(0,0,0,.1);
+}
+.ib-close {
+    top: 16px; right: 16px; z-index: 5;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(2,13,24,.06);
+    background: rgba(248,246,242,.92);
+    backdrop-filter: blur(6px);
+    color: rgba(2,13,24,.3); transition: all .15s;
+}
+.ib-close:hover { color: #020d18; border-color: rgba(2,13,24,.18) }
+
+.ib-p-head {
+    padding: 2rem 3.5rem 1.3rem 2rem;
+    border-bottom: 1px solid rgba(2,13,24,.04);
+}
+.ib-p-about-label {
+    font-size: .42rem; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: rgba(248,175,33,.55); margin-bottom: .6rem;
+}
+.ib-p-cohort {
+    font-size: .44rem; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(248,175,33,.55); margin-bottom: 3px;
+}
+.ib-p-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem; line-height: 1.15;
+    color: #020d18; margin-bottom: 3px;
+}
+.ib-p-founder { font-size: .7rem; color: rgba(2,13,24,.28) }
+
+.ib-p-body { padding: 1.4rem 2rem }
+.ib-p-short {
+    font-size: .82rem; font-weight: 300;
+    line-height: 1.85; color: rgba(2,13,24,.5);
+    margin-bottom: 1.2rem;
+}
+.ib-p-content {
+    font-size: .78rem; font-weight: 300;
+    line-height: 1.9; color: rgba(2,13,24,.38);
+}
+.ib-p-content p { margin-bottom: .8rem }
+.ib-p-content p:last-child { margin-bottom: 0 }
+
+.ib-p-foot {
+    padding: 1rem 2rem 1.4rem;
+    border-top: 1px solid rgba(2,13,24,.04);
+    gap: 1rem;
+}
+.ib-p-link {
+    gap: 6px; font-size: .52rem; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: #e8a900; text-decoration: none;
+    transition: gap .2s, color .2s;
+}
+.ib-p-link:hover { gap: 12px; color: #F8AF21 }
+
+.ib-p-web {
+    font-size: .5rem; font-weight: 500;
+    color: rgba(2,13,24,.3); text-decoration: none;
+    transition: color .2s;
+}
+.ib-p-web:hover { color: rgba(2,13,24,.55) }
+
+/* --------------------------------------------------------------------------
+   10. FOOTER
+   -------------------------------------------------------------------------- */
+.ib-count { font-size: .76rem; font-weight: 300; color: rgba(2,13,24,.28) }
+
+.ib-apply {
+    font-size: .52rem; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: rgba(248,175,33,.5); text-decoration: none;
+    border-bottom: 1px solid rgba(248,175,33,.15);
+    padding-bottom: 2px;
+    transition: color .2s, border-color .2s;
+}
+.ib-apply:hover { color: #F8AF21; border-color: rgba(248,175,33,.35) }
+
+/* --------------------------------------------------------------------------
+   11. EMPTY STATE
+   -------------------------------------------------------------------------- */
+.ib-empty {
+    border: 1px solid rgba(2,13,24,.06);
+    background: #fff; padding: 3.5rem 2rem;
+}
+.ib-empty-icon {
+    width: 56px; height: 56px;
+    border: 1px solid rgba(2,13,24,.06);
+    background: #F8F6F2;
+}
+.ib-empty h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem; color: #020d18; margin-bottom: .5rem;
+}
+.ib-empty p {
+    font-size: .82rem; font-weight: 300;
+    line-height: 1.8; color: rgba(2,13,24,.4);
+    max-width: 380px; margin: 0 auto 1.5rem;
+}

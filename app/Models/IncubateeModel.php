@@ -25,8 +25,10 @@ class IncubateeModel extends Model
         'shortDescription',
         'content',
         'logoPath',
+        'logoWhitePath',
         'websiteUrl',
         'cohort',
+        'teamMembers',
         'sortOrder',
         'isPublished',
     ];
