@@ -91,6 +91,7 @@
             <div class="reveal reveal-d2">
                 <form action="<?= site_url('contact/send') ?>" method="post" class="space-y-5">
                     <?= csrf_field() ?>
+                    <?= service('honeypot')->display() ?>
                     <div>
                         <label
                             class="text-[.54rem] font-bold tracking-[.50em] uppercase text-dark/60 block mb-2">Name</label>

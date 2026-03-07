@@ -53,7 +53,7 @@ class Email extends BaseConfig
     /**
      * SMTP Timeout (in seconds)
      */
-    public int $SMTPTimeout = 5;
+    public int $SMTPTimeout = 20; //interval ng timeout sa seconds
 
     /**
      * Enable persistent SMTP connections

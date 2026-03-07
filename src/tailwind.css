@@ -13,6 +13,17 @@
 }
 
 @layer components {
+  /* ═══ HONEYPOT SPAM TRAP (hidden from users, visible to bots) ═══ */
+  #hpc {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
   /* ═══ NAVBAR & NAVIGATION ═══ */
   #navbar {
     @apply transition-all duration-500;

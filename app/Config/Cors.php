@@ -16,7 +16,7 @@ class Cors extends BaseConfig
      *
      * @var array{
      *      allowedOrigins: list<string>,
-     *      allowedOriginsPatterns: list<string>,
+     *      allowedOriginsPatterns: list<string>, //ilalagay yung hostinger link []
      *      supportsCredentials: bool,
      *      allowedHeaders: list<string>,
      *      exposedHeaders: list<string>,
@@ -34,7 +34,7 @@ class Cors extends BaseConfig
          *   - ['http://localhost:8080']
          *   - ['https://www.example.com']
          */
-        'allowedOrigins' => [],
+        'allowedOrigins' => [],  //ilalagay yung hostinger link [] with \
 
         /**
          * Origin regex patterns for the `Access-Control-Allow-Origin` header.
@@ -57,7 +57,7 @@ class Cors extends BaseConfig
          *
          * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials
          */
-        'supportsCredentials' => false,
+        'supportsCredentials' => false, //papalitan to true kapag naglagay na ng hostinger link sa allowedOrigins
 
         /**
          * Set headers to allow.

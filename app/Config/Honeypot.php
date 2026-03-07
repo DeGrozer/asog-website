@@ -14,29 +14,27 @@ class Honeypot extends BaseConfig
     /**
      * Honeypot Label Content
      */
-    public string $label = 'Fill This Field';
+    public string $label = 'Website URL';
 
     /**
      * Honeypot Field Name
      */
-    public string $name = 'honeypot';
+    public string $name = 'website_url';
 
     /**
      * Honeypot HTML Template
+     * autocomplete="off" prevents browsers from auto-filling
+     * tabindex="-1" prevents keyboard users from reaching it
      */
-    public string $template = '<label>{label}</label><input type="text" name="{name}" value="">';
+    public string $template = '<label>{label}</label><input type="text" name="{name}" value="" autocomplete="off" tabindex="-1">';
 
     /**
-     * Honeypot container
-     *
-     * If you enabled CSP, you can remove `style="display:none"`.
+     * Honeypot container — CSP-safe (no inline style, hidden via CSS)
      */
-    public string $container = '<div style="display:none">{template}</div>';
+    public string $container = '<div id="{id}">{template}</div>';
 
     /**
      * The id attribute for Honeypot container tag
-     *
-     * Used when CSP is enabled.
      */
     public string $containerId = 'hpc';
 }
