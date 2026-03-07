@@ -13,9 +13,11 @@ use App\Libraries\ImageUpload;
 class PostsAdmin extends BaseController
 {
 
-    // ──────────────────────────────────────────────
-    // LIST
-    // ──────────────────────────────────────────────
+    /**
+     * Controller for blog post management in the admin panel.
+     * Handles listing, creating, editing, updating, and deleting posts.
+     * Also manages image uploads and post slugs.
+     */
     public function index()
     {
         $data = [
@@ -29,9 +31,7 @@ class PostsAdmin extends BaseController
              . view('admin/layout/footer');
     }
 
-    // ──────────────────────────────────────────────
-    // CREATE FORM
-    // ──────────────────────────────────────────────
+
     public function create()
     {
         $data = [
@@ -44,9 +44,6 @@ class PostsAdmin extends BaseController
              . view('admin/layout/footer');
     }
 
-    // ──────────────────────────────────────────────
-    // STORE
-    // ──────────────────────────────────────────────
     public function store()
     {
         $data = [
@@ -77,16 +74,15 @@ class PostsAdmin extends BaseController
             $file = $this->request->getFile('image');
 
             if ($file !== null && $file->getError() !== UPLOAD_ERR_NO_FILE) {
+                
                 // A file was submitted — check if PHP accepted it
                 if (! $file->isValid()) {
                     $phpError = $file->getErrorString();
-                    log_message('error', 'Image upload PHP error: ' . $phpError . ' (code ' . $file->getError() . ')');
                     setToast('error', 'Image upload failed: ' . $phpError);
                     return redirect()->back()->withInput();
                 }
 
                 if ($file->hasMoved()) {
-                    log_message('error', 'Image file was already moved.');
                     setToast('error', 'Image upload error: file was already processed.');
                     return redirect()->back()->withInput();
                 }
@@ -95,14 +91,13 @@ class PostsAdmin extends BaseController
                 $path = $uploader->upload($file, 'posts');
                 if ($path !== null) {
                     $data['imagePath'] = $path;
-                    log_message('info', 'Post image uploaded: ' . $path);
+
                 } else {
                     setToast('error', 'Image upload failed: ' . $uploader->getError());
                     return redirect()->back()->withInput();
                 }
             }
         } catch (\Throwable $e) {
-            log_message('error', 'Post image upload error: ' . $e->getMessage());
             setToast('error', 'Image upload error: ' . $e->getMessage());
             return redirect()->back()->withInput();
         }
@@ -116,9 +111,6 @@ class PostsAdmin extends BaseController
         return redirect()->to(site_url('admin/posts'));
     }
 
-    // ──────────────────────────────────────────────
-    // EDIT FORM
-    // ──────────────────────────────────────────────
     public function edit(int $id)
     {
         $post = $this->postModel->find($id);
@@ -139,9 +131,7 @@ class PostsAdmin extends BaseController
              . view('admin/layout/footer');
     }
 
-    // ──────────────────────────────────────────────
-    // UPDATE
-    // ──────────────────────────────────────────────
+
     public function update(int $id)
     {
         $post = $this->postModel->find($id);
@@ -179,16 +169,15 @@ class PostsAdmin extends BaseController
             $file = $this->request->getFile('image');
 
             if ($file !== null && $file->getError() !== UPLOAD_ERR_NO_FILE) {
+                
                 // A file was submitted — check if PHP accepted it
                 if (! $file->isValid()) {
                     $phpError = $file->getErrorString();
-                    log_message('error', 'Image upload PHP error: ' . $phpError . ' (code ' . $file->getError() . ')');
                     setToast('error', 'Image upload failed: ' . $phpError);
                     return redirect()->back()->withInput();
                 }
 
                 if ($file->hasMoved()) {
-                    log_message('error', 'Image file was already moved.');
                     setToast('error', 'Image upload error: file was already processed.');
                     return redirect()->back()->withInput();
                 }
@@ -196,25 +185,22 @@ class PostsAdmin extends BaseController
                 $uploader = new ImageUpload();
                 $path = $uploader->upload($file, 'posts');
                 if ($path !== null) {
+                    
                     // Delete old image
                     if (! empty($post['imagePath'])) {
                         $uploader->delete($post['imagePath']);
                     }
                     $data['imagePath'] = $path;
-                    log_message('info', 'Post image updated: ' . $path);
+
                 } else {
                     setToast('error', 'Image upload failed: ' . $uploader->getError());
                     return redirect()->back()->withInput();
                 }
             }
         } catch (\Throwable $e) {
-            log_message('error', 'Post image update error: ' . $e->getMessage());
             setToast('error', 'Image upload error: ' . $e->getMessage());
             return redirect()->back()->withInput();
         }
-
-        // Enforce single featured post — clear others before update
-        // REMOVED: multiple featured posts are now allowed (up to 5 show in hero)
 
         if (! $this->postModel->update($id, $data)) {
             setToast('error', 'Validation failed: ' . implode(', ', $this->postModel->errors()));
@@ -225,9 +211,9 @@ class PostsAdmin extends BaseController
         return redirect()->to(site_url('admin/posts'));
     }
 
-    // ──────────────────────────────────────────────
-    // DELETE
-    // ──────────────────────────────────────────────
+    /**
+     * Delete a post
+     */
     public function delete(int $id)
     {
         $post = $this->postModel->find($id);

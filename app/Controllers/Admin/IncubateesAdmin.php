@@ -13,9 +13,11 @@ use App\Libraries\ImageUpload;
 class IncubateesAdmin extends BaseController
 {
 
-    // ──────────────────────────────────────────────
-    // LIST
-    // ──────────────────────────────────────────────
+
+    /**  
+     *This controller manages the incubatees is being displayed and show. It allows admins na mag-create, edit, and delete ng incubatee entries. 
+     * The index method retrieves all incubatees and passes them to the view for listing.
+    **/
     public function index()
     {
         $data = [
@@ -29,9 +31,6 @@ class IncubateesAdmin extends BaseController
              . view('admin/layout/footer');
     }
 
-    // ──────────────────────────────────────────────
-    // CREATE FORM
-    // ──────────────────────────────────────────────
     public function create()
     {
         $data = [
@@ -44,12 +43,21 @@ class IncubateesAdmin extends BaseController
              . view('admin/layout/footer');
     }
 
-    // ──────────────────────────────────────────────
-    // STORE
-    // ──────────────────────────────────────────────
+    /**  
+     *STORE — Handle form submission for creating a new incubatee. 
+     * This method processes the form data, handles logo uploads, and saves the new incubatee to the database. 
+     * It also includes error handling for validation and file uploads.
+     * I used quill editor for the content field, which sends <p><br></p> when empty, so I treat that as null. 
+     * For team members, I build a JSON array from the repeater inputs (tm_name and tm_role) and store it in the teamMembers field. 
+     * Slug is generated from the company name, and I ensure it’s unique by checking against existing incubatees. 
+     * Logo uploads are handled with the ImageUpload library, and I provide feedback via toast messages for success or any errors that occur during the process.   
+    **/
+
+
     public function store()
     {
         $content = trim($this->request->getPost('content') ?? '');
+        
         // Quill sends <p><br></p> when editor is empty — treat as null
         if (in_array($content, ['', '<p><br></p>', '<p></p>'], true)) {
             $content = null;
@@ -79,7 +87,7 @@ class IncubateesAdmin extends BaseController
             'isPublished'      => $this->request->getPost('isPublished') ? 1 : 0,
         ];
 
-        // Generate slug
+        // This one generates a slug. A slug is a URL-friendly version of the company name, typically lowercase with words separated by hyphens. 
         $data['slug'] = $this->incubateeModel->generateSlug($data['companyName']);
 
         // Handle logo upload
@@ -151,9 +159,10 @@ class IncubateesAdmin extends BaseController
         return redirect()->to(site_url('admin/incubatees'));
     }
 
-    // ──────────────────────────────────────────────
-    // EDIT FORM
-    // ──────────────────────────────────────────────
+    /**
+     * EDIT — Show form for editing an existing incubatee.
+     * This method retrieves the incubatee by ID and passes it to the form view for editing. If the incubatee is not found, it redirects back with an error message.  
+     */
     public function edit(int $id)
     {
         $incubatee = $this->incubateeModel->find($id);
@@ -174,9 +183,10 @@ class IncubateesAdmin extends BaseController
              . view('admin/layout/footer');
     }
 
-    // ──────────────────────────────────────────────
-    // UPDATE
-    // ──────────────────────────────────────────────
+    /**
+     * UPDATE — Handle form submission for updating an existing incubatee.
+     * This method processes the form data, handles logo uploads, and updates the incubatee in the database. It includes error handling for validation and file uploads, and it also manages the deletion of old logo files if new ones are uploaded.   
+     */
     public function update(int $id)
     {
         $incubatee = $this->incubateeModel->find($id);

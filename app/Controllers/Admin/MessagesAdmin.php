@@ -11,9 +11,12 @@ use App\Controllers\BaseController;
  */
 class MessagesAdmin extends BaseController
 {
-    // ──────────────────────────────────────────────
-    // LIST
-    // ──────────────────────────────────────────────
+    /**  
+     *This controller manages the contact messages sent through the website's contact form. 
+     * It allows admins to view, mark as read/unread, and delete messages. 
+     * The index method retrieves all messages and passes them to the view for listing, along with counts of total, unread, and read messages.
+    **/
+     
     public function index()
     {
         $messages = $this->contactModel->getAll();
@@ -34,9 +37,11 @@ class MessagesAdmin extends BaseController
              . view('admin/layout/footer');
     }
 
-    // ──────────────────────────────────────────────
-    // SHOW (JSON — consumed by the detail modal)
-    // ──────────────────────────────────────────────
+    /**
+     * This method retrieves a specific message by ID and returns it as JSON.
+     * When a message is viewed, it is automatically marked as read if it was previously unread.
+     * If the message is not found, it returns a 404 error response. 
+     */
     public function show(int $id)
     {
         $msg = $this->contactModel->find($id);
@@ -53,10 +58,11 @@ class MessagesAdmin extends BaseController
 
         return $this->response->setJSON($msg);
     }
+    /**
+     * This method toggles the read/unread status of a message. It retrieves the message by ID, checks its current read status, and updates it to the opposite state. The response includes the new read status and a message indicating whether it was marked as read or unread. If the message is not found, it returns a 404 error response.
+     * This allows admins to easily manage the read status of messages directly from the message list without needing to view each message individually.
+     */
 
-    // ──────────────────────────────────────────────
-    // MARK READ / UNREAD (PUT)
-    // ──────────────────────────────────────────────
     public function toggleRead(int $id)
     {
         $msg = $this->contactModel->find($id);
@@ -75,9 +81,13 @@ class MessagesAdmin extends BaseController
         ]);
     }
 
-    // ──────────────────────────────────────────────
-    // DELETE
-    // ──────────────────────────────────────────────
+    /** 
+     * DELETE — This method deletes a message by ID. It first checks if the message exists, and if it does, it deletes it from the database. 
+     * The response indicates whether the deletion was successful. If the message is not found, it returns a 404 error response.
+     * This allows admins to remove messages that are no longer needed or relevant, helping to keep the message list organized and manageable.
+     * Note: Deletion is permanent, so it should be used with caution. Consider adding a confirmation step in the UI before calling this method to prevent accidental deletions.
+    */
+
     public function delete(int $id)
     {
         $msg = $this->contactModel->find($id);

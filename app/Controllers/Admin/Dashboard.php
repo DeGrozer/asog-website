@@ -6,6 +6,11 @@ use App\Controllers\BaseController;
 
 class Dashboard extends BaseController
 {
+    /**  
+     *This controller acts as the admin dashboard na nag poprovide ng overview sa key metrics and recent activity. 
+     * The index method gathers data on posts, applications, and contact messages to display on the dashboard view.
+    **/
+     
     public function index()
     {
         $allPosts = $this->postModel->findAll();

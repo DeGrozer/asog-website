@@ -12,9 +12,13 @@ use App\Controllers\BaseController;
 class ApplicationsAdmin extends BaseController
 {
 
-    // ──────────────────────────────────────────────
-    // LIST
-    // ──────────────────────────────────────────────
+    /**  
+     *LIST OF THE APPLICATIONS NA RECEIVED BY THE TBI     
+     * The index method retrieves all applications from the database and prepares data for the view, 
+     * including counts of total, pending, accepted, and rejected applications. 
+     * It then renders the admin layout with the applications index view.
+    **/
+
     public function index()
     {
         $applications = $this->applicationModel->getAll();
@@ -36,9 +40,12 @@ class ApplicationsAdmin extends BaseController
              . view('admin/layout/footer');
     }
 
-    // ──────────────────────────────────────────────
-    // SHOW (JSON — consumed by the review modal)
-    // ──────────────────────────────────────────────
+    /**  
+     *LIST OF THE APPLICATIONS NA RECEIVED BY THE TBI     
+     * SHOW (JSON — consumed by the review modal). 
+     * This method retrieves a specific application by ID and returns it as JSON.
+    **/
+
     public function show(int $id)
     {
         $app = $this->applicationModel->find($id);
@@ -50,9 +57,12 @@ class ApplicationsAdmin extends BaseController
         return $this->response->setJSON($app);
     }
 
-    // ──────────────────────────────────────────────
-    // UPDATE STATUS (accept / reject / change via PUT)
-    // ──────────────────────────────────────────────
+    /**  
+    *UPDATE STATUS (accept / reject / change via PUT METHOD). 
+    *This method updates the status of an application based on the provided ID and new status value. 
+    *It validates the application exists and the status value is valid before updating and returning a success
+    **/
+
     public function updateStatus(int $id)
     {
         $app = $this->applicationModel->find($id);
