@@ -11,25 +11,20 @@ use App\Controllers\BaseController;
  */
 class MessagesAdmin extends BaseController
 {
-    /**  
-     *This controller manages the contact messages sent through the website's contact form. 
-     * It allows admins to view, mark as read/unread, and delete messages. 
-     * The index method retrieves all messages and passes them to the view for listing, along with counts of total, unread, and read messages.
-    **/
+    /**
+     * List all contact messages.
+     *
+     * Retrieves all messages and prepares total, unread, and read counts
+     * for the admin list view.
+     */
      
     public function index()
     {
-        $messages = $this->contactModel->getAll();
-
         $data = [
             'pageTitle'  => 'Messages',
             'activePage' => 'messages',
-            'messages'   => $messages,
-            'counts'     => [
-                'total'  => count($messages),
-                'unread' => count(array_filter($messages, fn($m) => $m['isRead'] == 0)),
-                'read'   => count(array_filter($messages, fn($m) => $m['isRead'] == 1)),
-            ],
+            'messages'   => $this->contactModel->getAll(),
+            'counts'     => $this->contactModel->getCounts(),
         ];
 
         return view('admin/layout/header', $data)
@@ -81,12 +76,12 @@ class MessagesAdmin extends BaseController
         ]);
     }
 
-    /** 
-     * DELETE — This method deletes a message by ID. It first checks if the message exists, and if it does, it deletes it from the database. 
-     * The response indicates whether the deletion was successful. If the message is not found, it returns a 404 error response.
-     * This allows admins to remove messages that are no longer needed or relevant, helping to keep the message list organized and manageable.
-     * Note: Deletion is permanent, so it should be used with caution. Consider adding a confirmation step in the UI before calling this method to prevent accidental deletions.
-    */
+    /**
+     * Delete a message.
+     *
+     * Removes a message by ID and returns a JSON response.
+     * Returns 404 when the message does not exist.
+     */
 
     public function delete(int $id)
     {

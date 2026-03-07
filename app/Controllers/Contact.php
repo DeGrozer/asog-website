@@ -28,6 +28,7 @@ class Contact extends BaseController
      * 2. Persist to `contact_messages` table
      * 3. Send email notification to admin (best-effort)
      */
+    
     public function send()
     {
         $data = [
@@ -36,20 +37,17 @@ class Contact extends BaseController
             'message' => $this->request->getPost('message'),
         ];
 
-        // Let the model handle validation
         if (! $this->contactModel->validate($data)) {
             setToast('error', 'Please fill in all fields correctly.');
             return redirect()->back()->withInput();
         }
 
-        // ── Persist to database ───────────────────────────────
         if (! $this->contactModel->insert($data)) {
             log_message('error', 'Contact message DB insert failed.');
             setToast('error', 'Something went wrong. Please try again.');
             return redirect()->back()->withInput();
         }
 
-        // ── Send email notification to admin (best-effort) ───
         $this->notifyAdmin($data);
 
         setToast('success', 'Your message has been sent! We\'ll get back to you soon.');

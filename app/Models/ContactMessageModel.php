@@ -4,9 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-/**
+/**  
  * ContactMessageModel — persists contact-form submissions.
- */
+**/
 class ContactMessageModel extends Model
 {
     protected $table            = 'contact_messages';
@@ -49,19 +49,31 @@ class ContactMessageModel extends Model
         ],
     ];
 
-    // ─── Query helpers ────────────────────────────────────
+    // ─── Query Helpers ────────────────────────────────────
 
-    /**
+    /**  
+     * Return summary counts by read status.
+    **/
+    public function getCounts(): array
+    {
+        $total  = $this->countAllResults(false);
+        $unread = $this->where('isRead', 0)->countAllResults(false);
+        $read   = $this->where('isRead', 1)->countAllResults(false);
+
+        return compact('total', 'unread', 'read');
+    }
+
+    /**  
      * All messages, newest first.
-     */
+    **/
     public function getAll(): array
     {
         return $this->orderBy('createdAt', 'DESC')->findAll();
     }
 
-    /**
+    /**  
      * Unread messages, newest first.
-     */
+    **/
     public function getUnread(): array
     {
         return $this->where('isRead', 0)
@@ -69,17 +81,17 @@ class ContactMessageModel extends Model
                     ->findAll();
     }
 
-    /**
+    /**  
      * Count of unread messages (for badge on dashboard).
-     */
+    **/
     public function countUnread(): int
     {
         return $this->where('isRead', 0)->countAllResults();
     }
 
-    /**
+    /**  
      * Mark a message as read.
-     */
+    **/
     public function markRead(int $id): bool
     {
         return $this->update($id, ['isRead' => 1]);

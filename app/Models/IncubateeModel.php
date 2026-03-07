@@ -4,9 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-/**
+/**  
  * IncubateeModel — manages the `incubatees` showcase table.
- */
+**/
 class IncubateeModel extends Model
 {
     protected $table            = 'incubatees';
@@ -36,9 +36,9 @@ class IncubateeModel extends Model
 
     // ─── Query Helpers ───────────────────────────────────────
 
-    /**
+    /**  
      * All published incubatees, ordered by sortOrder then newest.
-     */
+    **/
     public function getPublished(): array
     {
         return $this->where('isPublished', 1)
@@ -47,11 +47,11 @@ class IncubateeModel extends Model
                     ->findAll();
     }
 
-    /**
+    /**  
      * Daily-rotating featured incubatee.
      * Uses the current day-of-year modulo the number of published incubatees
      * so a different one is highlighted each day.
-     */
+    **/
     public function getFeatured(): ?array
     {
         $published = $this->where('isPublished', 1)
@@ -68,9 +68,9 @@ class IncubateeModel extends Model
         return $published[$index];
     }
 
-    /**
+    /**  
      * Find by slug.
-     */
+    **/
     public function getBySlug(string $slug): ?array
     {
         return $this->where('slug', $slug)
@@ -78,9 +78,9 @@ class IncubateeModel extends Model
                     ->first();
     }
 
-    /**
+    /**  
      * Grouped by cohort for display.
-     */
+    **/
     public function getPublishedGroupedByCohort(): array
     {
         $all = $this->getPublished();
@@ -92,9 +92,9 @@ class IncubateeModel extends Model
         return $grouped;
     }
 
-    /**
+    /**  
      * Generate a unique slug from the company name.
-     */
+    **/
     public function generateSlug(string $companyName, ?int $excludeId = null): string
     {
         $base = url_title($companyName, '-', true);

@@ -9,9 +9,9 @@ class Auth extends BaseController
     /**
      * Display the login form.
      */
+    
     public function login()
     {
-        // If already logged in, redirect to admin dashboard
         if (session()->has('admin_id')) {
             return redirect()->to('/admin');
         }
@@ -22,6 +22,7 @@ class Auth extends BaseController
     /**
      * Authenticate the admin user against the database.
      */
+    
     public function authenticate()
     {
         $email    = $this->request->getPost('email');
@@ -43,13 +44,13 @@ class Auth extends BaseController
             return redirect()->to('/admin');
         }
 
-        // Login failed
         return redirect()->back()->with('error', 'Invalid email or password.');
     }
 
     /**
      * Logout the admin user.
      */
+    
     public function logout()
     {
         session()->destroy();

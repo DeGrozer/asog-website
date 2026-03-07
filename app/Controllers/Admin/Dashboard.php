@@ -6,37 +6,31 @@ use App\Controllers\BaseController;
 
 class Dashboard extends BaseController
 {
-    /**  
-     *This controller acts as the admin dashboard na nag poprovide ng overview sa key metrics and recent activity. 
-     * The index method gathers data on posts, applications, and contact messages to display on the dashboard view.
-    **/
+    /**
+     * Render the admin dashboard overview.
+     *
+     * Aggregates post, application, and message metrics for display.
+     */
      
     public function index()
     {
-        $allPosts = $this->postModel->findAll();
-        $published = array_filter($allPosts, fn($p) => $p['isPublished'] == 1);
-        $drafts    = array_filter($allPosts, fn($p) => $p['isPublished'] == 0);
-        $featured  = array_filter($allPosts, fn($p) => $p['isFeatured'] == 1);
-
-        $allApps     = $this->applicationModel->getAll();
-        $pendingApps = array_filter($allApps, fn($a) => $a['applicationStatus'] === 'pending');
-
-        $unreadMessages = $this->contactModel->countUnread();
+        $postCounts = $this->postModel->getCounts();
+        $appCounts  = $this->applicationModel->getCounts();
 
         $data = [
             'pageTitle'       => 'Dashboard',
             'activePage'      => 'dashboard',
-            'totalPosts'      => count($allPosts),
-            'publishedPosts'  => count($published),
-            'draftPosts'      => count($drafts),
-            'featuredPosts'   => count($featured),
+            'totalPosts'      => $postCounts['total'],
+            'publishedPosts'  => $postCounts['published'],
+            'draftPosts'      => $postCounts['drafts'],
+            'featuredPosts'   => $postCounts['featured'],
             'recentPosts'     => $this->postModel->orderBy('createdAt', 'DESC')->findAll(5),
-            'totalApps'       => count($allApps),
-            'pendingApps'     => count($pendingApps),
-            'acceptedApps'    => count(array_filter($allApps, fn($a) => $a['applicationStatus'] === 'accepted')),
-            'rejectedApps'    => count(array_filter($allApps, fn($a) => $a['applicationStatus'] === 'rejected')),
-            'recentApps'      => array_slice($allApps, 0, 5),
-            'unreadMessages'  => $unreadMessages,
+            'totalApps'       => $appCounts['total'],
+            'pendingApps'     => $appCounts['pending'],
+            'acceptedApps'    => $appCounts['accepted'],
+            'rejectedApps'    => $appCounts['rejected'],
+            'recentApps'      => $this->applicationModel->getAll(5),
+            'unreadMessages'  => $this->contactModel->countUnread(),
         ];
 
         return view('admin/layout/header', $data)

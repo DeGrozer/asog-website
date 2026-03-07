@@ -4,11 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-/**
- * PostModel — handles all CRUD operations for the `posts` table.
- *
- * Column naming follows camelCase convention.
- */
+/**  
+ * PostModel — handles CRUD operations for the `posts` table.
+**/
 class PostModel extends Model
 {
     protected $table         = 'posts';
@@ -32,9 +30,7 @@ class PostModel extends Model
 
     protected $returnType = 'array';
 
-    // ──────────────────────────────────────────────────────────────
-    // Validation
-    // ──────────────────────────────────────────────────────────────
+    // ─── Validation ───────────────────────────────────────────
     protected $validationRules = [
         'title'            => 'required|min_length[3]|max_length[255]',
         'shortDescription' => 'permit_empty|max_length[500]',
@@ -52,13 +48,24 @@ class PostModel extends Model
         ],
     ];
 
-    // ──────────────────────────────────────────────────────────────
-    // Scopes / Query helpers
-    // ──────────────────────────────────────────────────────────────
+    // ─── Query Helpers ────────────────────────────────────────
 
-    /**
+    /**  
+     * Return summary counts for the dashboard.
+    **/
+    public function getCounts(): array
+    {
+        $total     = $this->countAllResults(false);
+        $published = $this->where('isPublished', 1)->countAllResults(false);
+        $drafts    = $this->where('isPublished', 0)->countAllResults(false);
+        $featured  = $this->where('isFeatured', 1)->countAllResults(false);
+
+        return compact('total', 'published', 'drafts', 'featured');
+    }
+
+    /**  
      * Return only published posts, newest first.
-     */
+    **/
     public function getPublished(int $limit = 0)
     {
         $builder = $this->where('isPublished', 1)
@@ -67,9 +74,9 @@ class PostModel extends Model
         return $limit > 0 ? $builder->findAll($limit) : $builder->findAll();
     }
 
-    /**
+    /**  
      * Return published posts filtered by category.
-     */
+    **/
     public function getByCategory(string $category, int $limit = 0)
     {
         $builder = $this->where('isPublished', 1)
@@ -79,9 +86,9 @@ class PostModel extends Model
         return $limit > 0 ? $builder->findAll($limit) : $builder->findAll();
     }
 
-    /**
+    /**  
      * Return the single featured post (latest if multiple are flagged).
-     */
+    **/
     public function getFeatured(): ?array
     {
         return $this->where('isPublished', 1)
@@ -90,10 +97,10 @@ class PostModel extends Model
                     ->first();
     }
 
-    /**
+    /**  
      * Return up to $limit published+featured posts that have a cover image.
      * Used by the landing-page hero slideshow.
-     */
+    **/
     public function getFeaturedSlides(int $limit = 5): array
     {
         return $this->where('isPublished', 1)
@@ -104,9 +111,9 @@ class PostModel extends Model
                     ->findAll($limit);
     }
 
-    /**
+    /**  
      * Return the latest published posts for the hero slideshow.
-     */
+    **/
     public function getHeroSlides(int $limit = 5): array
     {
         return $this->where('isPublished', 1)
@@ -114,9 +121,9 @@ class PostModel extends Model
                     ->findAll($limit);
     }
 
-    /**
+    /**  
      * Find a post by its slug.
-     */
+    **/
     public function getBySlug(string $slug): ?array
     {
         return $this->where('slug', $slug)
@@ -124,10 +131,10 @@ class PostModel extends Model
                     ->first();
     }
 
-    /**
+    /**  
      * Clear the featured flag on ALL posts (so only one can be featured).
      * Optionally exclude a specific post ID.
-     */
+    **/
     public function clearFeatured(?int $excludeId = null): void
     {
         $builder = $this->builder();
@@ -137,9 +144,9 @@ class PostModel extends Model
         $builder->set('isFeatured', 0)->update();
     }
 
-    /**
+    /**  
      * Generate a URL-safe slug from the title, ensuring uniqueness.
-     */
+    **/
     public function generateSlug(string $title, ?int $excludeId = null): string
     {
         $slug = url_title($title, '-', true);

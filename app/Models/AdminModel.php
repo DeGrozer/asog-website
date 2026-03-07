@@ -4,12 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-/**
+/**  
  * AdminModel — handles authentication and admin user management.
- *
- * Passwords are hashed with bcrypt via password_hash() / password_verify().
- * Column naming follows camelCase convention.
- */
+**/
 class AdminModel extends Model
 {
     protected $table         = 'admins';
@@ -29,9 +26,7 @@ class AdminModel extends Model
 
     protected $returnType = 'array';
 
-    // ──────────────────────────────────────────────────────────────
-    // Validation
-    // ──────────────────────────────────────────────────────────────
+    // ─── Validation ───────────────────────────────────────────
     protected $validationRules = [
         'fullName' => 'required|min_length[2]|max_length[150]',
         'email'    => 'required|valid_email|max_length[255]',
@@ -52,9 +47,7 @@ class AdminModel extends Model
         ],
     ];
 
-    // ──────────────────────────────────────────────────────────────
-    // Callbacks — auto-hash password before insert/update
-    // ──────────────────────────────────────────────────────────────
+    // ─── Callbacks ────────────────────────────────────────────
     protected $beforeInsert = ['hashPassword'];
     protected $beforeUpdate = ['hashPassword'];
 
@@ -70,15 +63,12 @@ class AdminModel extends Model
         return $data;
     }
 
-    // ──────────────────────────────────────────────────────────────
-    // Auth helpers
-    // ──────────────────────────────────────────────────────────────
+    // ─── Auth Helpers ─────────────────────────────────────────
 
-    /**
+    /**  
      * Attempt login with email + plain-text password.
-     *
      * Returns the admin row on success, null on failure.
-     */
+    **/
     public function attempt(string $email, string $password): ?array
     {
         $admin = $this->where('email', $email)
@@ -101,9 +91,9 @@ class AdminModel extends Model
         return $admin;
     }
 
-    /**
+    /**  
      * Find an admin by email.
-     */
+    **/
     public function findByEmail(string $email): ?array
     {
         return $this->where('email', $email)->first();

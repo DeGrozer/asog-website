@@ -9,6 +9,7 @@ namespace App\Controllers;
  * Post images live in `public/uploads/posts/` and are served directly
  * by the web server — they do NOT go through this controller.
  */
+
 class Uploads extends BaseController
 {
     public function serve(string ...$segments)
@@ -20,9 +21,9 @@ class Uploads extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        // Guess MIME from extension using CI's Mimes config
-        $ext  = strtolower(pathinfo($fullPath, PATHINFO_EXTENSION));
-        $mime = \Config\Mimes::guessTypeFromExtension($ext) ?? 'application/octet-stream';
+        // Detect MIME from file content using CI's File class
+        $file = new \CodeIgniter\Files\File($fullPath);
+        $mime = $file->getMimeType() ?: 'application/octet-stream';
 
         return $this->response
             ->setHeader('Content-Type', $mime)

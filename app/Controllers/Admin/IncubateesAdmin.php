@@ -14,10 +14,11 @@ class IncubateesAdmin extends BaseController
 {
 
 
-    /**  
-     *This controller manages the incubatees is being displayed and show. It allows admins na mag-create, edit, and delete ng incubatee entries. 
-     * The index method retrieves all incubatees and passes them to the view for listing.
-    **/
+    /**
+     * List all incubatees in the admin panel.
+     *
+     * Retrieves incubatee records for the admin list view.
+     */
     public function index()
     {
         $data = [
@@ -43,15 +44,12 @@ class IncubateesAdmin extends BaseController
              . view('admin/layout/footer');
     }
 
-    /**  
-     *STORE — Handle form submission for creating a new incubatee. 
-     * This method processes the form data, handles logo uploads, and saves the new incubatee to the database. 
-     * It also includes error handling for validation and file uploads.
-     * I used quill editor for the content field, which sends <p><br></p> when empty, so I treat that as null. 
-     * For team members, I build a JSON array from the repeater inputs (tm_name and tm_role) and store it in the teamMembers field. 
-     * Slug is generated from the company name, and I ensure it’s unique by checking against existing incubatees. 
-     * Logo uploads are handled with the ImageUpload library, and I provide feedback via toast messages for success or any errors that occur during the process.   
-    **/
+    /**
+     * Store a new incubatee.
+     *
+     * Validates and transforms request data, handles logo uploads,
+     * and inserts a new incubatee record.
+     */
 
 
     public function store()

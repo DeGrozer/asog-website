@@ -7,14 +7,14 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
-// Models
+// Eto yung models
 use App\Models\PostModel;
 use App\Models\IncubateeModel;
 use App\Models\IncubateeApplicationModel;
 use App\Models\ContactMessageModel;
 use App\Models\AdminModel;
 
-// Libraries
+// yung libraries
 use App\Libraries\ImageUpload;
 
 /**

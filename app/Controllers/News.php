@@ -2,15 +2,11 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
-use App\Models\PostModel;
-
 class News extends BaseController
 {
     public function index(): string
     {
-        $postModel  = new PostModel();
-        $allPosts   = $postModel->getPublished();
+        $allPosts   = $this->postModel->getPublished();
         $latestPost = ! empty($allPosts) ? array_shift($allPosts) : null;
 
         $data = [
@@ -34,8 +30,7 @@ class News extends BaseController
      */
     public function show(string $slug): string
     {
-        $postModel = new PostModel();
-        $post = $postModel->getBySlug($slug);
+        $post = $this->postModel->getBySlug($slug);
 
         if (! $post) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Post not found.');
@@ -44,7 +39,7 @@ class News extends BaseController
         $data = [
             'title'       => esc($post['title']) . ' - ASOG-TBI',
             'post'        => $post,
-            'latestPosts' => $postModel->getPublished(3),
+            'latestPosts' => $this->postModel->getPublished(3),
         ];
 
         return view('templates/header', $data)

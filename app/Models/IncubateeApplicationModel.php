@@ -4,9 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-/**
+/**  
  * IncubateeApplicationModel — manages incubatee applications.
- */
+**/
 class IncubateeApplicationModel extends Model
 {
     protected $table            = 'incubatee_applications';
@@ -79,16 +79,34 @@ class IncubateeApplicationModel extends Model
         ],
     ];
 
-    // ─── Query Scopes ─────────────────────────────────────
+    // ─── Query Helpers ────────────────────────────────────
 
-    /**
-     * Return every application, newest first.
-     */
-    public function getAll(): array
+    /**  
+     * Return summary counts by status.
+    **/
+    public function getCounts(): array
     {
-        return $this->orderBy('createdAt', 'DESC')->findAll();
+        $total    = $this->countAllResults(false);
+        $pending  = $this->where('applicationStatus', 'pending')->countAllResults(false);
+        $accepted = $this->where('applicationStatus', 'accepted')->countAllResults(false);
+        $rejected = $this->where('applicationStatus', 'rejected')->countAllResults(false);
+
+        return compact('total', 'pending', 'accepted', 'rejected');
     }
 
+    /**  
+     * Return every application, newest first.
+    **/
+    public function getAll(int $limit = 0): array
+    {
+        $builder = $this->orderBy('createdAt', 'DESC');
+
+        return $limit > 0 ? $builder->findAll($limit) : $builder->findAll();
+    }
+
+    /**  
+     * Return pending applications, newest first.
+    **/
     public function getPending(int $limit = 0)
     {
         $builder = $this->where('applicationStatus', 'pending')
@@ -97,19 +115,21 @@ class IncubateeApplicationModel extends Model
         return $limit > 0 ? $builder->findAll($limit) : $builder->findAll();
     }
 
+    /**  
+     * Find an application by the applicant's email.
+    **/
     public function getByEmail(string $email)
     {
         return $this->where('applicantEmail', $email)
                     ->first();
     }
 
-    /**
+    /**  
      * Set the applicationStatus of a given record.
-     *
      * @param  int    $id     Primary-key ID
      * @param  string $status One of: pending, reviewed, accepted, rejected
      * @return bool
-     */
+    **/
     public function updateStatus(int $id, string $status): bool
     {
         $allowed = ['pending', 'reviewed', 'accepted', 'rejected'];
