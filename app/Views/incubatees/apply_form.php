@@ -15,7 +15,7 @@
         <form action="<?= site_url('incubatees/apply/form') ?>" method="post" enctype="multipart/form-data"
             data-check-url="<?= site_url('incubatees/apply/form/check-email') ?>">
             <?= csrf_field() ?>
-            <?= service('honeypot')->display() ?>
+            <?= service('honeypot')->getContainer() ?>
 
             <!-- ═══════════════════════════════════════════════════════
                  SECTION: YOUR INFORMATION
