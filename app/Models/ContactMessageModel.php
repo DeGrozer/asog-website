@@ -56,9 +56,9 @@ class ContactMessageModel extends Model
     **/
     public function getCounts(): array
     {
-        $total  = $this->countAllResults(false);
-        $unread = $this->where('isRead', 0)->countAllResults(false);
-        $read   = $this->where('isRead', 1)->countAllResults(false);
+        $total  = $this->countAllResults();
+        $unread = $this->where('isRead', 0)->countAllResults();
+        $read   = $this->where('isRead', 1)->countAllResults();
 
         return compact('total', 'unread', 'read');
     }

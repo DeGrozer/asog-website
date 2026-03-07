@@ -14,10 +14,11 @@
 .tag-draft{background:#f1f5f9;color:#64748b}
 .tag-feat{background:#fef3c7;color:#92400e}
 .tag-cat{background:#edf5fc;color:#03558C}
-.acts{display:flex;gap:.4rem}
-.acts a{font-size:.72rem;color:#03558C;text-decoration:none}
-.acts a:hover{text-decoration:underline}
-.acts .del{color:#be123c}
+.acts{display:flex;align-items:center;gap:.5rem}
+.acts a,.acts .del{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:.25rem;color:#64748b;background:none;border:none;cursor:pointer;transition:color .15s,background .15s}
+.acts a:hover{color:#03558C;background:#edf5fc}
+.acts .del{color:#94a3b8}
+.acts .del:hover{color:#be123c;background:#fef2f2}
 .empty-row{text-align:center;padding:2rem;color:#94a3b8;font-size:.82rem}
 .empty-row a{color:#03558C;text-decoration:underline}
 .pagination{display:flex;align-items:center;gap:.25rem;margin-top:1rem;font-size:.78rem}

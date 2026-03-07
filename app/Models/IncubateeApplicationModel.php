@@ -86,10 +86,10 @@ class IncubateeApplicationModel extends Model
     **/
     public function getCounts(): array
     {
-        $total    = $this->countAllResults(false);
-        $pending  = $this->where('applicationStatus', 'pending')->countAllResults(false);
-        $accepted = $this->where('applicationStatus', 'accepted')->countAllResults(false);
-        $rejected = $this->where('applicationStatus', 'rejected')->countAllResults(false);
+        $total    = $this->countAllResults();
+        $pending  = $this->where('applicationStatus', 'pending')->countAllResults();
+        $accepted = $this->where('applicationStatus', 'accepted')->countAllResults();
+        $rejected = $this->where('applicationStatus', 'rejected')->countAllResults();
 
         return compact('total', 'pending', 'accepted', 'rejected');
     }

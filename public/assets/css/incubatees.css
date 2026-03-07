@@ -298,7 +298,7 @@
 .ib-bb-label {
     font-size: .42rem; font-weight: 700;
     letter-spacing: .22em; text-transform: uppercase;
-    color: rgba(248,175,33,.6); margin-bottom: .3rem;
+    color: #03558C; margin-bottom: .3rem;
 }
 .ib-bb-name {
     font-family: 'DM Serif Display', serif;
@@ -318,7 +318,7 @@
 .ib-bb-team-label {
     font-size: .36rem; font-weight: 700;
     letter-spacing: .2em; text-transform: uppercase;
-    color: rgba(2,13,24,.22); margin-bottom: .1rem;
+    color: rgba(2,13,24,.45); margin-bottom: .1rem;
 }
 .ib-bb-member { gap: .05rem }
 .ib-bb-member-name {
@@ -328,7 +328,7 @@
 .ib-bb-member-role {
     font-size: .55rem; font-weight: 600;
     letter-spacing: .12em; text-transform: uppercase;
-    color: rgba(2,13,24,.3);
+    color: rgba(2,13,24,.45);
 }
 .ib-bb-no-team {
     font-size: .65rem; font-weight: 300;
@@ -362,29 +362,29 @@
 .ib-p-about-label {
     font-size: .42rem; font-weight: 700;
     letter-spacing: .22em; text-transform: uppercase;
-    color: rgba(248,175,33,.55); margin-bottom: .6rem;
+    color: #03558C; margin-bottom: .6rem;
 }
 .ib-p-cohort {
     font-size: .44rem; font-weight: 700;
     letter-spacing: .2em; text-transform: uppercase;
-    color: rgba(248,175,33,.55); margin-bottom: 3px;
+    color: #e8a900; margin-bottom: 3px;
 }
 .ib-p-name {
     font-family: 'DM Serif Display', serif;
     font-size: 1.5rem; line-height: 1.15;
     color: #020d18; margin-bottom: 3px;
 }
-.ib-p-founder { font-size: .7rem; color: rgba(2,13,24,.28) }
+.ib-p-founder { font-size: .7rem; color: rgba(2,13,24,.45) }
 
 .ib-p-body { padding: 1.4rem 2rem }
 .ib-p-short {
     font-size: .82rem; font-weight: 300;
-    line-height: 1.85; color: rgba(2,13,24,.5);
+    line-height: 1.85; color: rgba(2,13,24,.7);
     margin-bottom: 1.2rem;
 }
 .ib-p-content {
     font-size: .78rem; font-weight: 300;
-    line-height: 1.9; color: rgba(2,13,24,.38);
+    line-height: 1.9; color: rgba(2,13,24,.55);
 }
 .ib-p-content p { margin-bottom: .8rem }
 .ib-p-content p:last-child { margin-bottom: 0 }
@@ -408,6 +408,33 @@
     transition: color .2s;
 }
 .ib-p-web:hover { color: rgba(2,13,24,.55) }
+
+/* ── Click-to-reveal content ────────────── */
+.ib-p-content-wrap {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease;
+}
+.ib-p-content-wrap.is-open {
+    max-height: 2000px;
+}
+.ib-p-reveal {
+    display: inline-block;
+    margin-top: .5rem;
+    padding: .35rem .75rem;
+    font-size: .6rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: #03558C;
+    background: #edf5fc;
+    border: 1px solid rgba(3,85,140,.12);
+    border-radius: .25rem;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+}
+.ib-p-reveal:hover {
+    background: #03558C;
+    color: #fff;
+}
 
 /* --------------------------------------------------------------------------
    10. FOOTER

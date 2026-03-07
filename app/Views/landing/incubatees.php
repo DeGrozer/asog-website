@@ -160,16 +160,16 @@ if (! empty($fi['teamMembers'])) {
 .fic-back-team-label {
     font-size: .32rem; font-weight: 700;
     letter-spacing: .18em; text-transform: uppercase;
-    color: rgba(248,175,33,.35);
+    color: rgba(248,175,33,.7);
     margin-bottom: .4rem
 }
 .fic-back-member {
     font-size: .48rem; line-height: 1.6;
-    color: rgba(255,255,255,.55)
+    color: rgba(255,255,255,.75)
 }
 .fic-back-member span {
     display: block; font-size: .32rem;
-    color: rgba(255,255,255,.25);
+    color: rgba(255,255,255,.4);
     letter-spacing: .06em
 }
 
@@ -350,31 +350,4 @@ if (! empty($fi['teamMembers'])) {
     </div>
 </section>
 
-<script>
-/* ── Featured Incubatee — card flip ──────────────────────── */
-(function(){
-    var card  = document.getElementById('ficCard');
-    var inner = document.getElementById('ficInner');
-    if (!card || !inner) return;
-
-    var flipped = false;
-
-    card.addEventListener('click', function(){
-        flipped = !flipped;
-        gsap.to(inner, {
-            rotateY: flipped ? -180 : 0,
-            duration: .65,
-            ease: 'power2.inOut'
-        });
-    });
-
-    /* Subtle idle floating animation */
-    gsap.to(inner, {
-        y: -6,
-        duration: 2.4,
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1
-    });
-})();
-</script>
+<script src="<?= base_url('assets/js/featuredIncubatee.js') ?>" defer></script>

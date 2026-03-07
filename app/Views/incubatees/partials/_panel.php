@@ -17,7 +17,10 @@
 
     <div class="ib-p-body flex-1 overflow-y-auto">
         <p id="pShort" class="ib-p-short"></p>
-        <div id="pContent" class="ib-p-content"></div>
+        <div id="pContentWrap" class="ib-p-content-wrap">
+            <div id="pContent" class="ib-p-content"></div>
+        </div>
+        <button id="pReveal" class="ib-p-reveal" type="button">Read more ↓</button>
     </div>
 
     <div class="ib-p-foot flex items-center flex-wrap" style="gap:1rem">

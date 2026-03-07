@@ -55,10 +55,10 @@ class PostModel extends Model
     **/
     public function getCounts(): array
     {
-        $total     = $this->countAllResults(false);
-        $published = $this->where('isPublished', 1)->countAllResults(false);
-        $drafts    = $this->where('isPublished', 0)->countAllResults(false);
-        $featured  = $this->where('isFeatured', 1)->countAllResults(false);
+        $total     = $this->countAllResults();
+        $published = $this->where('isPublished', 1)->countAllResults();
+        $drafts    = $this->where('isPublished', 0)->countAllResults();
+        $featured  = $this->where('isFeatured', 1)->countAllResults();
 
         return compact('total', 'published', 'drafts', 'featured');
     }
