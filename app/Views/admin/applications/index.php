@@ -1,160 +1,73 @@
-<style>
-    /* ── Stats row ─────────────────────────── */
-    .grid-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem;margin-bottom:1.8rem}
-    .stat{background:#fff;border:1px solid #eceae6;border-radius:.4rem;padding:1.1rem 1.2rem}
-    .stat .n{font-family:'DM Serif Display',serif;font-size:1.6rem;color:#03558C;line-height:1}
-    .stat .t{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8;margin-top:.3rem}
-
-    /* ── Table ──────────────────────────────── */
-    .tbl-wrap{background:#fff;border:1px solid #eceae6;border-radius:.4rem;overflow-x:auto}
-    .tbl{width:100%;border-collapse:collapse;font-size:.78rem}
-    .tbl th{text-align:left;font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#94a3b8;padding:.65rem 1rem;border-bottom:1px solid #eceae6}
-    .tbl td{padding:.6rem 1rem;border-bottom:1px solid #f4f3f0;color:#1e293b;vertical-align:middle}
-    .tbl tr:last-child td{border-bottom:none}
-    .tbl tr:hover td{background:#fafaf9}
-    .tbl .mono{font-size:.72rem;color:#64748b}
-
-    /* ── Status tags ───────────────────────── */
-    .tag{font-size:.52rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:.18rem .45rem;border-radius:.15rem;white-space:nowrap}
-    .tag-pending{background:#f0f4ff;color:#3730a3}
-    .tag-accepted{background:#ecfdf5;color:#065f46}
-    .tag-rejected{background:#fef2f2;color:#991b1b}
-    .tag-reviewed{background:#f0f4ff;color:#3730a3}
-
-    /* ── Review button in table ─────────────── */
-    .btn-review{display:inline-flex;align-items:center;gap:.3rem;font-size:.62rem;font-weight:600;padding:.35rem .65rem;border-radius:.25rem;border:1px solid #e4e2dd;background:#fff;color:#64748b;cursor:pointer;transition:all .15s}
-    .btn-review:hover{border-color:#03558C;color:#03558C}
-    .btn-review svg{width:13px;height:13px}
-
-    /* ── Empty state ────────────────────────── */
-    .empty{text-align:center;padding:2.5rem 1.5rem;color:#94a3b8;font-size:.82rem}
-
-    /* ── Modal backdrop ─────────────────────── */
-    .modal-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,.4);backdrop-filter:blur(3px);z-index:900;justify-content:center;align-items:flex-start;padding:2.5rem 1rem}
-    .modal-bg.open{display:flex}
-
-    /* ── Modal card ─────────────────────────── */
-    .modal{background:#fff;border-radius:.55rem;width:100%;max-width:640px;max-height:82vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.18);animation:modalIn .22s ease}
-    @keyframes modalIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-
-    .modal-head{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.4rem;border-bottom:1px solid #eceae6;flex-shrink:0}
-    .modal-head h2{font-family:'DM Serif Display',serif;font-size:.95rem;font-weight:400;color:#1e293b}
-    .modal-close{background:none;border:none;cursor:pointer;color:#94a3b8;padding:.25rem;border-radius:.2rem;transition:all .15s}
-    .modal-close:hover{color:#1e293b;background:#f4f3f0}
-    .modal-close svg{width:18px;height:18px}
-
-    /* ── Scrollable body with custom scrollbar ── */
-    .modal-scroll{flex:1;overflow-y:auto;min-height:0}
-    .modal-scroll::-webkit-scrollbar{width:5px}
-    .modal-scroll::-webkit-scrollbar-track{background:transparent}
-    .modal-scroll::-webkit-scrollbar-thumb{background:#ddd8d0;border-radius:99px}
-    .modal-scroll::-webkit-scrollbar-thumb:hover{background:#c5c0b8}
-
-    .modal-body{padding:1.2rem 1.4rem}
-    .modal-body .field{margin-bottom:.9rem}
-    .modal-body .field-label{font-size:.52rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#94a3b8;margin-bottom:.2rem}
-    .modal-body .field-value{font-size:.8rem;color:#1e293b;line-height:1.6}
-    .modal-body .field-value a{color:#03558C;text-decoration:none;font-weight:500}
-    .modal-body .field-value a:hover{text-decoration:underline}
-
-    /* ── Two-column field grid ──────────────── */
-    .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.4rem}
-
-    /* ── File cards for CVs ─────────────────── */
-    .file-cards{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.25rem}
-    .file-card{display:inline-flex;align-items:center;gap:.4rem;background:#f8f7f5;border:1px solid #eceae6;border-radius:.3rem;padding:.35rem .6rem;font-size:.7rem;color:#1e293b;text-decoration:none;transition:all .15s;cursor:pointer}
-    .file-card:hover{border-color:#03558C;background:#edf5fc;color:#03558C}
-    .file-card svg{width:14px;height:14px;flex-shrink:0;opacity:.5}
-    .file-card:hover svg{opacity:.85}
-    .file-card span{font-weight:500}
-
-    /* ── Divider ────────────────────────────── */
-    .modal-divider{height:1px;background:#f1efeb;margin:.3rem 0 .9rem}
-
-    .modal-foot{display:flex;justify-content:flex-end;gap:.5rem;padding:.9rem 1.4rem;border-top:1px solid #eceae6;flex-shrink:0}
-    .modal-foot .btn-accept{display:inline-flex;align-items:center;gap:.3rem;font-size:.65rem;font-weight:600;padding:.45rem .9rem;border-radius:.25rem;border:none;cursor:pointer;background:#065f46;color:#fff;transition:background .15s}
-    .modal-foot .btn-accept:hover{background:#047857}
-    .modal-foot .btn-reject{display:inline-flex;align-items:center;gap:.3rem;font-size:.65rem;font-weight:600;padding:.45rem .9rem;border-radius:.25rem;border:none;cursor:pointer;background:#fff;color:#991b1b;border:1px solid #fecaca;transition:all .15s}
-    .modal-foot .btn-reject:hover{background:#fef2f2}
-    .modal-foot .btn-accept svg,.modal-foot .btn-reject svg{width:14px;height:14px}
-    .modal-foot .btn-change{display:inline-flex;align-items:center;gap:.3rem;font-size:.62rem;font-weight:600;padding:.4rem .75rem;border-radius:.25rem;border:1px solid #e4e2dd;background:#fff;color:#64748b;cursor:pointer;transition:all .15s}
-    .modal-foot .btn-change:hover{border-color:#03558C;color:#03558C}
-    .modal-foot .btn-change svg{width:13px;height:13px}
-    .modal-foot .status-select{font-family:'DM Sans',sans-serif;font-size:.68rem;padding:.4rem .6rem;border:1px solid #e4e2dd;border-radius:.25rem;color:#1e293b;background:#fff;outline:none;cursor:pointer}
-    .modal-foot .status-select:focus{border-color:#03558C}
-
-    /* ── Universal Confirm Dialog ──────────── */
-    .confirm-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,.45);backdrop-filter:blur(2px);z-index:950;justify-content:center;align-items:center}
-    .confirm-bg.open{display:flex}
-    .confirm-box{background:#fff;border-radius:.5rem;width:340px;box-shadow:0 16px 48px rgba(0,0,0,.18);animation:modalIn .18s ease;overflow:hidden}
-    .confirm-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto .6rem}
-    .confirm-icon.green{background:#ecfdf5;color:#065f46}
-    .confirm-icon.red{background:#fef2f2;color:#991b1b}
-    .confirm-icon svg{width:20px;height:20px}
-    .confirm-body{padding:1.4rem 1.4rem .8rem;text-align:center}
-    .confirm-body h3{font-size:.85rem;font-weight:600;color:#1e293b;margin:0 0 .3rem}
-    .confirm-body p{font-size:.74rem;color:#64748b;margin:0;line-height:1.5}
-    .confirm-actions{display:flex;border-top:1px solid #eceae6}
-    .confirm-actions button{flex:1;padding:.7rem;font-size:.72rem;font-weight:600;border:none;cursor:pointer;transition:background .12s;font-family:inherit}
-    .confirm-actions .c-cancel{background:#fff;color:#64748b;border-right:1px solid #eceae6}
-    .confirm-actions .c-cancel:hover{background:#f4f3f0}
-    .confirm-actions .c-ok{color:#fff}
-    .confirm-actions .c-ok.green{background:#065f46}
-    .confirm-actions .c-ok.green:hover{background:#047857}
-    .confirm-actions .c-ok.red{background:#991b1b}
-    .confirm-actions .c-ok.red:hover{background:#7f1d1d}
-</style>
+<link rel="stylesheet" href="<?= base_url('assets/css/adminApplications.css') ?>">
 
 <!-- Stats -->
 <div class="grid-stats">
-    <div class="stat"><div class="n"><?= $counts['total'] ?></div><div class="t">Total</div></div>
-    <div class="stat"><div class="n"><?= $counts['pending'] ?></div><div class="t">Under Review</div></div>
-    <div class="stat"><div class="n"><?= $counts['accepted'] ?></div><div class="t">Accepted</div></div>
-    <div class="stat"><div class="n"><?= $counts['rejected'] ?></div><div class="t">Rejected</div></div>
+    <div class="stat">
+        <div class="n"><?= $counts['total'] ?></div>
+        <div class="t">Total</div>
+    </div>
+    <div class="stat">
+        <div class="n"><?= $counts['pending'] ?></div>
+        <div class="t">Under Review</div>
+    </div>
+    <div class="stat">
+        <div class="n"><?= $counts['accepted'] ?></div>
+        <div class="t">Accepted</div>
+    </div>
+    <div class="stat">
+        <div class="n"><?= $counts['rejected'] ?></div>
+        <div class="t">Rejected</div>
+    </div>
 </div>
 
 <!-- Table -->
 <?php if (empty($applications)): ?>
-    <div class="tbl-wrap"><div class="empty">No applications yet.</div></div>
+<div class="tbl-wrap">
+    <div class="empty">No applications yet.</div>
+</div>
 <?php else: ?>
-    <div class="tbl-wrap">
-        <table class="tbl">
-            <thead>
-                <tr>
-                    <th>Applicant</th>
-                    <th>Startup</th>
-                    <th>Email</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($applications as $app): ?>
-                    <tr data-id="<?= esc($app['id']) ?>">
-                        <td><?= esc($app['applicantName']) ?></td>
-                        <td><?= esc($app['startupName']) ?></td>
-                        <td class="mono"><?= esc($app['applicantEmail']) ?></td>
-                        <td class="mono"><?= date('M j, Y', strtotime($app['createdAt'])) ?></td>
-                        <td>
-                            <?php
+<div class="tbl-wrap">
+    <table class="tbl">
+        <thead>
+            <tr>
+                <th>Applicant</th>
+                <th>Startup</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($applications as $app): ?>
+            <tr data-id="<?= esc($app['id']) ?>">
+                <td><?= esc($app['applicantName']) ?></td>
+                <td><?= esc($app['startupName']) ?></td>
+                <td class="mono"><?= esc($app['applicantEmail']) ?></td>
+                <td class="mono"><?= date('M j, Y', strtotime($app['createdAt'])) ?></td>
+                <td>
+                    <?php
                                 $statusLabels = ['pending' => 'Under Review', 'accepted' => 'Accepted', 'rejected' => 'Rejected', 'reviewed' => 'Reviewed'];
                             ?>
-                            <span class="tag tag-<?= esc($app['applicationStatus']) ?>">
-                                <?= esc($statusLabels[$app['applicationStatus']] ?? ucfirst($app['applicationStatus'])) ?>
-                            </span>
-                        </td>
-                        <td>
-                            <button class="btn-review" data-id="<?= esc($app['id']) ?>">
-                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                                Review
-                            </button>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+                    <span class="tag tag-<?= esc($app['applicationStatus']) ?>">
+                        <?= esc($statusLabels[$app['applicationStatus']] ?? ucfirst($app['applicationStatus'])) ?>
+                    </span>
+                </td>
+                <td>
+                    <button class="btn-review" data-id="<?= esc($app['id']) ?>">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        Review
+                    </button>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 <?php endif; ?>
 
 <!-- Review Modal -->
@@ -163,7 +76,9 @@
         <div class="modal-head">
             <h2 id="modalTitle">Application Review</h2>
             <button class="modal-close" id="modalClose">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
             </button>
         </div>
         <div class="modal-scroll">
@@ -174,16 +89,23 @@
         <div class="modal-foot" id="modalFoot">
             <!-- Shown for under review -->
             <button class="btn-reject" id="btnReject" style="display:none">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
                 Reject
             </button>
             <button class="btn-accept" id="btnAccept" style="display:none">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
                 Accept
             </button>
             <!-- Shown for accepted/rejected -->
             <button class="btn-change" id="btnChange" style="display:none">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
                 Change Status
             </button>
             <select class="status-select" id="statusSelect" style="display:none">
@@ -192,7 +114,9 @@
                 <option value="rejected">Rejected</option>
             </select>
             <button class="btn-accept" id="btnSaveStatus" style="display:none">
-                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
                 Save
             </button>
         </div>

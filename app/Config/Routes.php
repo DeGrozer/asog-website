@@ -68,6 +68,7 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('posts', 'Admin\PostsAdmin::index');
     $routes->get('posts/create', 'Admin\PostsAdmin::create');
     $routes->post('posts', 'Admin\PostsAdmin::store');
+    $routes->post('posts/upload-image', 'Admin\PostsAdmin::uploadImage');
     $routes->get('posts/(:num)/edit', 'Admin\PostsAdmin::edit/$1');
     $routes->put('posts/(:num)', 'Admin\PostsAdmin::update/$1');
     $routes->delete('posts/(:num)', 'Admin\PostsAdmin::delete/$1');

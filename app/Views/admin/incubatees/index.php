@@ -73,7 +73,7 @@
                             <a href="<?= site_url('admin/incubatees/' . $inc['id'] . '/edit') ?>">Edit</a>
                             <form action="<?= site_url('admin/incubatees/' . $inc['id'] . '/delete') ?>" method="POST" onsubmit="return confirm('Delete this incubatee?')">
                                 <?= csrf_field() ?>
-                                <button type="submit" class="del" style="background:none;border:none;cursor:pointer;font:inherit;color:inherit">Delete</button>
+                                <button type="submit" class="del" style="background:none;border:none;cursor:pointer;font:inherit">Delete</button>
                             </form>
                         </div>
                     </td>

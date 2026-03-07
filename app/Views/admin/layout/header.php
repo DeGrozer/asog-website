@@ -15,7 +15,7 @@
         .shell{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
 
         /* Sidebar */
-        .side{background:#fff;border-right:1px solid #e4e2dd;display:flex;flex-direction:column}
+        .side{background:#fff;border-right:1px solid #e4e2dd;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
         .side-brand{padding:1.4rem 1.3rem}
         .side-brand h2{font-family:'DM Serif Display',serif;font-size:.95rem;font-weight:400;color:#03558C}
         .side-brand span{font-size:.55rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#94a3b8;display:block;margin-top:.15rem}

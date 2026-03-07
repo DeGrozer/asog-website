@@ -31,6 +31,34 @@ class PostsAdmin extends BaseController
              . view('admin/layout/footer');
     }
 
+    /**
+     * Handle inline image upload from the Quill editor.
+     *
+     * Accepts a single image file via AJAX POST, saves it to
+     * public/uploads/posts/, and returns the URL as JSON.
+     **/
+    public function uploadImage()
+    {
+        $file = $this->request->getFile('image');
+
+        if ($file === null || ! $file->isValid()) {
+            return $this->response->setStatusCode(400)
+                ->setJSON(['error' => 'No valid image uploaded.']);
+        }
+
+        $uploader = new ImageUpload();
+        $path = $uploader->upload($file, 'posts');
+
+        if ($path === null) {
+            return $this->response->setStatusCode(400)
+                ->setJSON(['error' => $uploader->getError()]);
+        }
+
+        return $this->response->setJSON([
+            'url' => site_url($path),
+        ]);
+    }
+
 
     public function create()
     {
