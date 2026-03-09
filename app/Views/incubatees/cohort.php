@@ -1,0 +1,100 @@
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  COHORT PAGE — Dedicated incubatee showcase per cohort        ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<?php
+$incubatees    = $incubatees ?? [];
+$hasIncubatees = ! empty($incubatees);
+$count         = count($incubatees);
+$cohortLabel   = $cohortLabel ?? 'Cohort';
+$sealUrl       = base_url('assets/img/ASOG%20TBI/PNG/Logo-white.png');
+?>
+
+<link rel="stylesheet" href="<?= base_url('assets/css/incubatees.css') ?>">
+
+<!-- Section -->
+<section class="ib-s relative min-h-screen py-20 pb-16">
+    <div class="ib-w mx-auto px-6 md:px-10 lg:px-14">
+
+        <!-- Header -->
+        <div class="flex items-center gap-2 mb-3">
+            <span class="ib-rule block"></span>
+            <span class="ib-tag"><?= esc($cohortLabel) ?></span>
+        </div>
+        <div class="mb-12">
+            <h2 class="ib-title m-0 mb-2"><?= esc($cohortLabel) ?> <em>Startups</em></h2>
+            <p class="ib-sub m-0">The startups and MSMEs accepted into <?= esc($cohortLabel) ?> of the ASOG-TBI incubation program.</p>
+        </div>
+
+        <?php if ($hasIncubatees): ?>
+            <?= view('incubatees/partials/_cards', ['incubatees' => $incubatees, 'sealUrl' => $sealUrl]) ?>
+        <?php else: ?>
+            <!-- Empty state -->
+            <div class="text-center py-16">
+                <!-- 3D illustration — journey / take-off symbolism -->
+                <div class="mb-8">
+                    <img src="https://illustrations.popsy.co/amber/man-riding-a-rocket.svg" 
+                         alt="Ready for takeoff" 
+                         class="w-52 h-52 mx-auto opacity-80"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display:none" class="inline-block">
+                        <svg class="w-20 h-20 text-navy/15 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-6.914 0" />
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="font-display text-2xl text-dark mb-3"><?= esc($cohortLabel) ?> Coming Soon</h3>
+                <p class="text-dark/55 text-[.88rem] max-w-lg mx-auto leading-relaxed mb-2">
+                    Incubatees for <?= esc($cohortLabel) ?> will be announced soon. 
+                    Interested in joining? Apply to the ASOG-TBI incubation program.
+                </p>
+                <p class="text-dark/35 text-[.75rem] max-w-md mx-auto leading-relaxed">
+                    The journey of a thousand startups begins with a single application.
+                </p>
+                <a href="<?= site_url('incubatees/apply') ?>" 
+                    class="inline-block mt-8 text-[.7rem] font-bold tracking-[.14em] uppercase text-white bg-navy px-8 py-3.5 rounded-sm no-underline transition-colors hover:bg-navy/85">
+                    Apply Now
+                </a>
+            </div>
+        <?php endif; ?>
+
+        <!-- Footer -->
+        <div class="flex flex-col gap-2.5 items-start mt-10 sm:flex-row sm:items-center sm:justify-between">
+            <p class="ib-count">
+                <?php if ($hasIncubatees): ?>
+                    <?= $count ?> incubatee<?= $count !== 1 ? 's' : '' ?> in <?= esc($cohortLabel) ?>
+                <?php else: ?>
+                    Interested in joining ASOG-TBI?
+                <?php endif; ?>
+            </p>
+            <div class="flex gap-4">
+                <a href="<?= site_url('incubatees') ?>" class="text-[.56rem] font-bold tracking-[.14em] uppercase text-navy/50 no-underline border-b border-navy/15 pb-0.5 transition-colors hover:text-gold hover:border-gold">All Incubatees →</a>
+                <a href="<?= site_url('incubatees/apply') ?>" class="ib-apply">Become an Incubatee</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<?php if ($hasIncubatees): ?>
+    <?= view('incubatees/partials/_overlay', ['sealUrl' => $sealUrl]) ?>
+    <?= view('incubatees/partials/_panel') ?>
+
+    <!-- Data + Scripts -->
+    <script>
+    window.__ibData = <?= json_encode(array_map(function($inc){
+        return [
+            'companyName'      => html_entity_decode($inc['companyName'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'founderName'      => html_entity_decode($inc['founderName'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'shortDescription' => html_entity_decode($inc['shortDescription'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'content'          => $inc['content'] ?? '',
+            'logoPath'         => ! empty($inc['logoPath']) ? base_url($inc['logoPath']) : '',
+            'logoWhitePath'    => ! empty($inc['logoWhitePath']) ? base_url($inc['logoWhitePath']) : '',
+            'websiteUrl'       => html_entity_decode($inc['websiteUrl'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'facebookUrl'      => html_entity_decode($inc['facebookUrl'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'cohort'           => html_entity_decode($inc['cohort'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'teamMembers'      => ! empty($inc['teamMembers']) ? json_decode($inc['teamMembers'], true) : [],
+        ];
+    }, $incubatees), JSON_HEX_TAG | JSON_HEX_APOS) ?>;
+    </script>
+    <script src="<?= base_url('assets/js/incubatees.js') ?>"></script>
+<?php endif; ?>

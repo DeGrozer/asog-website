@@ -26,6 +26,7 @@ $routes->get('/programs', 'Programs::index');
 $routes->get('/services', 'Programs::services');
 $routes->get('/facilities', 'Facilities::index');
 $routes->get('/incubatees', 'Incubatees::index');
+$routes->get('/incubatees/cohort-2', 'Incubatees::cohort2');
 $routes->get('/incubatees/apply', 'Incubatees::apply');
 $routes->get('/incubatees/apply/form', 'Incubatees::applyForm');
 $routes->post('/incubatees/apply/form', 'Incubatees::applyFormStore');

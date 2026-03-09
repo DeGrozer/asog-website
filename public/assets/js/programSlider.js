@@ -53,15 +53,13 @@
     [prev, next].forEach(function(btn){
         btn.addEventListener('mouseenter', function(){
             if (btn.style.pointerEvents !== 'none'){
-                btn.style.borderColor = 'rgba(248,175,33,.4)';
-                btn.style.color       = '#F8AF21';
-                btn.style.background  = 'rgba(248,175,33,.08)';
+                btn.style.borderColor = 'rgba(248,175,33,.35)';
+                btn.style.color       = 'rgba(248,175,33,.9)';
             }
         });
         btn.addEventListener('mouseleave', function(){
-            btn.style.borderColor = 'rgba(255,255,255,.12)';
-            btn.style.color       = 'rgba(255,255,255,.25)';
-            btn.style.background  = 'transparent';
+            btn.style.borderColor = 'rgba(255,255,255,.10)';
+            btn.style.color       = 'rgba(255,255,255,.50)';
         });
     });
 

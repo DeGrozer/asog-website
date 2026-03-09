@@ -17,6 +17,52 @@
             <?= csrf_field() ?>
 
             <!-- ═══════════════════════════════════════════════════════
+                 WELCOME INTRO
+                 ═══════════════════════════════════════════════════════ -->
+            <div class="mb-10">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="block w-[18px] h-[2px] bg-gold"></span>
+                    <span class="text-[.52rem] font-bold tracking-[.2em] uppercase text-gold">ASOG TBI</span>
+                </div>
+                <h2 class="font-display text-[1.4rem] md:text-[1.7rem] text-dark leading-snug mb-2">Startup Application Form</h2>
+                <p class="text-[.92rem] font-medium text-dark/85 mb-3">Welcome, Future Innovator!</p>
+                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[640px] mb-3">
+                    Thank you for your interest in joining the ASOG Technology Business Incubator (TBI). We're excited to support passionate startups like yours in turning bold ideas into real-world solutions — especially those rooted in AI, engineering, and food value chain innovation.
+                </p>
+                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[640px]">
+                    Please fill out this form carefully so we can get to know your team, your idea, and how we can best support your startup journey. We're looking forward to discovering the next big thing — and it might just be you!
+                </p>
+            </div>
+
+            <!-- ═══════════════════════════════════════════════════════
+                 PRIVACY & DATA AGREEMENT
+                 ═══════════════════════════════════════════════════════ -->
+            <div class="mb-10 bg-white border border-navy/10 rounded-md p-5 md:p-7">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="block w-[18px] h-[2px] bg-gold"></span>
+                    <h3 class="text-[.62rem] font-bold tracking-[.2em] uppercase text-navy m-0">Privacy &amp; Data Agreement</h3>
+                </div>
+                <p class="text-[.78rem] font-light leading-[1.8] text-dark/70 mb-4">
+                    By submitting this application, you agree that ASOG Technology Business Incubator (ASOG-TBI) 
+                    may collect, process, and store the personal information you provide for the purpose of evaluating 
+                    your application to the incubation program. Your data will be handled in accordance with the 
+                    Data Privacy Act of 2012 (RA 10173) and will not be shared with third parties without your consent.
+                </p>
+                <label class="flex items-start gap-3 cursor-pointer select-none group">
+                    <input type="checkbox" id="privacyAgreement" name="privacyAgreement" value="1" required
+                        class="v-field mt-0.5 w-4 h-4 shrink-0 accent-gold cursor-pointer" data-v="required">
+                    <span class="text-[.78rem] text-dark/80 leading-[1.7] group-hover:text-dark/90 transition-colors">
+                        I have read and agree to the <strong class="text-navy font-semibold">Privacy Policy</strong> and 
+                        <strong class="text-navy font-semibold">Data Collection Agreement</strong>. I consent to ASOG-TBI 
+                        collecting and processing my personal data for application evaluation purposes. 
+                        <span class="text-red-400">*</span>
+                    </span>
+                </label>
+                <span class="v-msg text-[.62rem] text-red-500 block mt-2 hidden"
+                    data-for="privacyAgreement">You must agree to the privacy policy to proceed.</span>
+            </div>
+
+            <!-- ═══════════════════════════════════════════════════════
                  SECTION: YOUR INFORMATION
                  ═══════════════════════════════════════════════════════ -->
             <div class="mb-10">
@@ -232,10 +278,15 @@
                  SUBMIT
                  ═══════════════════════════════════════════════════════ -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2">
-                <div>
+                <div class="flex items-center gap-3">
                     <button type="button" id="btnPreview"
                         class="font-body text-[.62rem] font-bold tracking-[.14em] uppercase text-white bg-navy px-8 py-3.5 rounded-sm border-none cursor-pointer transition-all duration-200 hover:bg-dark">
                         Review &amp; Submit →
+                    </button>
+                    <button type="button" data-open-guidelines
+                        class="font-body text-[.6rem] font-bold tracking-[.13em] uppercase text-navy/50 bg-transparent px-4 py-3.5 rounded-sm border border-navy/15 cursor-pointer transition-all duration-200 hover:text-navy hover:border-navy/30">
+                        <svg class="w-3.5 h-3.5 inline -mt-0.5 mr-1" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" /></svg>
+                        Guidelines
                     </button>
                 </div>
                 <p class="text-[.68rem] text-dark/35 max-w-[320px]">We'll review your application and reach out within
@@ -572,3 +623,6 @@
   });
 })();
 -->
+
+<!-- ═══ GUIDELINES MODAL (reusable) ═══ -->
+<?= view('incubatees/partials/_guidelines_modal') ?>

@@ -35,6 +35,25 @@ class Incubatees extends BaseController
             . view('templates/footer');
     }
 
+    public function cohort2(): string
+    {
+        $incubatees = $this->incubateeModel->getPublishedByCohort('Cohort 2');
+
+        $data = [
+            'title'        => 'Cohort 2 - ASOG-TBI',
+            'heroSubtitle' => 'Incubation Program',
+            'heroTitle'    => 'Cohort 2',
+            'heroDesc'     => 'The next wave of startups and MSMEs joining the ASOG-TBI incubation program.',
+            'incubatees'   => $incubatees,
+            'cohortLabel'  => 'Cohort 2',
+        ];
+
+        return view('templates/header', $data)
+            . view('templates/page_hero', $data)
+            . view('incubatees/cohort', $data)
+            . view('templates/footer');
+    }
+
     public function applyForm(): string
     {
         $data = [

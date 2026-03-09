@@ -79,6 +79,18 @@ class IncubateeModel extends Model
     }
 
     /**  
+     * All published incubatees filtered by cohort.
+    **/
+    public function getPublishedByCohort(string $cohort): array
+    {
+        return $this->where('isPublished', 1)
+                    ->where('cohort', $cohort)
+                    ->orderBy('sortOrder', 'ASC')
+                    ->orderBy('createdAt', 'DESC')
+                    ->findAll();
+    }
+
+    /**  
      * Grouped by cohort for display.
     **/
     public function getPublishedGroupedByCohort(): array

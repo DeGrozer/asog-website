@@ -1,15 +1,10 @@
 <!-- ╔══════════════════════════════════════════════════════════════════════╗
      ║  SECTION: NEWS & INSIGHTS                                          ║
-     ║  Light bg · Dynamic 3-column news cards from database              ║
+     ║  Featured + editorial list · gold hover accents                     ║
      ╚══════════════════════════════════════════════════════════════════════╝ -->
 <section id="news" class="relative overflow-hidden bg-off py-16 md:py-24 px-6 md:px-10 lg:px-14">
-    <div class="ai-grid"></div>
-    <div class="ai-grid-fade"></div>
-    <div class="ai-cross hidden lg:block" style="top:24%;left:34%"></div>
-    <div class="ai-cross hidden lg:block" style="bottom:16%;right:20%"></div>
-
     <div class="max-w-[1200px] mx-auto relative z-[2]">
-        <!-- Header row -->
+        <!-- Header -->
         <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-4 mb-10 md:mb-12 reveal">
             <div>
                 <div class="flex items-center gap-2 mb-3">
@@ -20,70 +15,114 @@
                         class="italic text-gold">Insights</em></h2>
             </div>
             <a href="<?= site_url('news') ?>"
-                class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-dark/30 no-underline border-b border-dark/[.15] pb-0.5 transition-colors duration-200 hover:text-gold hover:border-gold shrink-0">View
-                All News</a>
+                class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-dark/[.28] no-underline border-b border-dark/[.12] pb-0.5 transition-colors duration-200 hover:text-gold hover:border-gold shrink-0">View
+                All News →</a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal-group">
-            <?php if (! empty($latestPosts)): ?>
-                <?php foreach ($latestPosts as $post): ?>
-                    <a href="<?= site_url('news/' . $post['slug']) ?>"
-                        class="rc group rounded-lg border border-dark/[.06] overflow-hidden no-underline block bg-white shadow-sm shadow-dark/[.04] transition-all duration-300 hover:shadow-md hover:shadow-dark/[.08]">
-                        <div class="h-[180px] bg-[#e9e6e1] flex items-center justify-center overflow-hidden">
-                            <?php if (! empty($post['imagePath'])): ?>
-                                <img src="<?= site_url($post['imagePath']) ?>" alt="<?= esc($post['title']) ?>"
-                                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
-                            <?php else: ?>
-                                <span class="text-[.6rem] font-semibold tracking-[.2em] uppercase text-dark/15">Image</span>
-                            <?php endif; ?>
+        <?php if (! empty($latestPosts)): ?>
+            <?php $featured = $latestPosts[0]; $rest = array_slice($latestPosts, 1); ?>
+
+            <div class="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-8 lg:gap-12 reveal-group">
+                <!-- Featured (first post) -->
+                <a href="<?= site_url('news/' . $featured['slug']) ?>"
+                    class="rc group block no-underline">
+                    <div class="aspect-[16/10] bg-[#e5e2dc] overflow-hidden">
+                        <?php if (! empty($featured['imagePath'])): ?>
+                            <img src="<?= site_url($featured['imagePath']) ?>" alt="<?= esc($featured['title']) ?>"
+                                 class="w-full h-full object-cover"/>
+                        <?php else: ?>
+                            <span class="flex items-center justify-center w-full h-full text-[.55rem] font-semibold tracking-[.2em] uppercase text-dark/12">Image</span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="pt-5 pb-5 border-b-2 border-dark/[.06] transition-colors duration-300 group-hover:border-dark/20">
+                        <span class="text-[.46rem] font-bold tracking-[.2em] uppercase text-navy/40 mb-2.5 block">
+                            <?= $featured['publishedAt'] ? date('F j, Y', strtotime($featured['publishedAt'])) : esc(ucfirst($featured['category'])) ?>
+                        </span>
+                        <h3 class="font-display text-[1.2rem] md:text-[1.35rem] text-dark leading-snug mb-2"><?= esc($featured['title']) ?></h3>
+                        <?php if (! empty($featured['shortDescription'])): ?>
+                            <p class="text-[.8rem] font-light leading-[1.75] text-dark/55 group-hover:text-dark/75 transition-colors duration-200"><?= esc(character_limiter($featured['shortDescription'], 150)) ?></p>
+                        <?php endif; ?>
+                    </div>
+                </a>
+
+                <!-- Remaining posts — editorial list -->
+                <div class="flex flex-col">
+                    <?php if (! empty($rest)): ?>
+                        <?php foreach ($rest as $i => $post): ?>
+                            <a href="<?= site_url('news/' . $post['slug']) ?>"
+                                class="rc group flex gap-5 no-underline py-5 border-b border-dark/[.06] last:border-b-0">
+                                <div class="flex-1 min-w-0 border-l-2 border-dark/[.04] group-hover:border-dark/20 pl-4 transition-colors duration-200">
+                                    <span class="text-[.44rem] font-bold tracking-[.2em] uppercase text-navy/35 mb-1.5 block">
+                                        <?= $post['publishedAt'] ? date('M j, Y', strtotime($post['publishedAt'])) : esc(ucfirst($post['category'])) ?>
+                                    </span>
+                                    <h3 class="font-display text-[.95rem] text-dark leading-snug mb-1"><?= esc($post['title']) ?></h3>
+                                    <?php if (! empty($post['shortDescription'])): ?>
+                                        <p class="text-[.74rem] font-light leading-[1.65] text-dark/50 line-clamp-2 group-hover:text-dark/70 transition-colors duration-200"><?= esc(character_limiter($post['shortDescription'], 90)) ?></p>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="w-[100px] h-[78px] shrink-0 bg-[#e5e2dc] overflow-hidden">
+                                    <?php if (! empty($post['imagePath'])): ?>
+                                        <img src="<?= site_url($post['imagePath']) ?>" alt="<?= esc($post['title']) ?>"
+                                             class="w-full h-full object-cover"/>
+                                    <?php else: ?>
+                                        <span class="flex items-center justify-center w-full h-full text-[.45rem] font-semibold tracking-[.15em] uppercase text-dark/10">IMG</span>
+                                    <?php endif; ?>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+        <?php else: ?>
+            <!-- Fallback — no posts yet -->
+            <div class="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-8 lg:gap-12 reveal-group">
+                <!-- Featured placeholder -->
+                <div class="rc">
+                    <div class="aspect-[16/10] bg-[#e5e2dc] flex items-center justify-center">
+                        <span class="text-[.55rem] font-semibold tracking-[.2em] uppercase text-dark/12">Image</span>
+                    </div>
+                    <div class="pt-5 pb-5 border-b-2 border-dark/[.06]">
+                        <span class="text-[.46rem] font-bold tracking-[.2em] uppercase text-navy/40 mb-2.5 block">Coming Soon</span>
+                        <h3 class="font-display text-[1.2rem] md:text-[1.35rem] text-dark leading-snug mb-2">Stay Tuned for Updates</h3>
+                        <p class="text-[.8rem] font-light leading-[1.75] text-dark/55">News articles and insights will appear here once published through the admin panel.</p>
+                    </div>
+                </div>
+
+                <!-- List placeholders -->
+                <div class="flex flex-col">
+                    <div class="rc flex gap-5 py-5 border-b border-dark/[.06]">
+                        <div class="flex-1 min-w-0 border-l-2 border-dark/[.04] pl-4">
+                            <span class="text-[.44rem] font-bold tracking-[.2em] uppercase text-navy/35 mb-1.5 block">Events</span>
+                            <h3 class="font-display text-[.95rem] text-dark leading-snug mb-1">Upcoming Events</h3>
+                            <p class="text-[.74rem] font-light leading-[1.65] text-dark/50">Watch this space for workshops, seminars, and incubation updates.</p>
                         </div>
-                        <div class="p-5 md:p-6">
-                            <span class="text-[.5rem] font-semibold tracking-[.16em] uppercase text-gold mb-2 block">
-                                <?= $post['publishedAt'] ? date('F Y', strtotime($post['publishedAt'])) : esc(ucfirst($post['category'])) ?>
-                            </span>
-                            <h3 class="font-display text-[1.05rem] text-dark mb-2 leading-snug"><?= esc($post['title']) ?></h3>
-                            <?php if (! empty($post['shortDescription'])): ?>
-                                <p class="text-[.78rem] font-light leading-[1.7] text-dark/40"><?= esc(character_limiter($post['shortDescription'], 100)) ?></p>
-                            <?php endif; ?>
+                        <div class="w-[100px] h-[78px] shrink-0 bg-[#e5e2dc] flex items-center justify-center">
+                            <span class="text-[.45rem] font-semibold tracking-[.15em] uppercase text-dark/10">IMG</span>
                         </div>
-                    </a>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <!-- Fallback static cards when no posts exist -->
-                <a href="#"
-                    class="rc group rounded-lg border border-dark/[.06] overflow-hidden no-underline block bg-white shadow-sm shadow-dark/[.04] transition-all duration-300 hover:shadow-md hover:shadow-dark/[.08]">
-                    <div class="h-[180px] bg-[#e9e6e1] flex items-center justify-center">
-                        <span class="text-[.6rem] font-semibold tracking-[.2em] uppercase text-dark/15">Image</span>
                     </div>
-                    <div class="p-5 md:p-6">
-                        <span class="text-[.5rem] font-semibold tracking-[.16em] uppercase text-gold mb-2 block">Coming Soon</span>
-                        <h3 class="font-display text-[1.05rem] text-dark mb-2 leading-snug">Stay Tuned for Updates</h3>
-                        <p class="text-[.78rem] font-light leading-[1.7] text-dark/40">News articles and insights will appear here once published through the admin panel.</p>
+                    <div class="rc flex gap-5 py-5 border-b border-dark/[.06]">
+                        <div class="flex-1 min-w-0 border-l-2 border-dark/[.04] pl-4">
+                            <span class="text-[.44rem] font-bold tracking-[.2em] uppercase text-navy/35 mb-1.5 block">Features</span>
+                            <h3 class="font-display text-[.95rem] text-dark leading-snug mb-1">Feature Stories</h3>
+                            <p class="text-[.74rem] font-light leading-[1.65] text-dark/50">In-depth stories about our incubatees and the Bicol innovation ecosystem.</p>
+                        </div>
+                        <div class="w-[100px] h-[78px] shrink-0 bg-[#e5e2dc] flex items-center justify-center">
+                            <span class="text-[.45rem] font-semibold tracking-[.15em] uppercase text-dark/10">IMG</span>
+                        </div>
                     </div>
-                </a>
-                <a href="#"
-                    class="rc group rounded-lg border border-dark/[.06] overflow-hidden no-underline block bg-white shadow-sm shadow-dark/[.04] transition-all duration-300 hover:shadow-md hover:shadow-dark/[.08]">
-                    <div class="h-[180px] bg-[#e9e6e1] flex items-center justify-center">
-                        <span class="text-[.6rem] font-semibold tracking-[.2em] uppercase text-dark/15">Image</span>
+                    <div class="rc flex gap-5 py-5">
+                        <div class="flex-1 min-w-0 border-l-2 border-dark/[.04] pl-4">
+                            <span class="text-[.44rem] font-bold tracking-[.2em] uppercase text-navy/35 mb-1.5 block">Community</span>
+                            <h3 class="font-display text-[.95rem] text-dark leading-snug mb-1">Community Highlights</h3>
+                            <p class="text-[.74rem] font-light leading-[1.65] text-dark/50">Milestones from founders, mentors, and partners across the ecosystem.</p>
+                        </div>
+                        <div class="w-[100px] h-[78px] shrink-0 bg-[#e5e2dc] flex items-center justify-center">
+                            <span class="text-[.45rem] font-semibold tracking-[.15em] uppercase text-dark/10">IMG</span>
+                        </div>
                     </div>
-                    <div class="p-5 md:p-6">
-                        <span class="text-[.5rem] font-semibold tracking-[.16em] uppercase text-gold mb-2 block">Events</span>
-                        <h3 class="font-display text-[1.05rem] text-dark mb-2 leading-snug">Upcoming Events</h3>
-                        <p class="text-[.78rem] font-light leading-[1.7] text-dark/40">Watch this space for upcoming workshops, seminars, and incubation program updates.</p>
-                    </div>
-                </a>
-                <a href="#"
-                    class="rc group rounded-lg border border-dark/[.06] overflow-hidden no-underline block bg-white shadow-sm shadow-dark/[.04] transition-all duration-300 hover:shadow-md hover:shadow-dark/[.08]">
-                    <div class="h-[180px] bg-[#e9e6e1] flex items-center justify-center">
-                        <span class="text-[.6rem] font-semibold tracking-[.2em] uppercase text-dark/15">Image</span>
-                    </div>
-                    <div class="p-5 md:p-6">
-                        <span class="text-[.5rem] font-semibold tracking-[.16em] uppercase text-gold mb-2 block">Features</span>
-                        <h3 class="font-display text-[1.05rem] text-dark mb-2 leading-snug">Feature Stories</h3>
-                        <p class="text-[.78rem] font-light leading-[1.7] text-dark/40">In-depth stories about our incubatees, partners, and the innovation ecosystem in Bicol.</p>
-                    </div>
-                </a>
-            <?php endif; ?>
-        </div>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </section>

@@ -33,6 +33,7 @@
     $navOrg        = site_url('organization');
     $navContact    = site_url('contact');
     $navCta        = site_url('incubatees/apply');
+    $navCohort2    = site_url('incubatees/cohort-2');
     ?>
     <a class="sr-only focus:not-sr-only" href="#main">Skip to content</a>
 
@@ -72,7 +73,7 @@
                         class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">Incubatees</a>
                     <div class="dd-menu dd-right">
                         <a href="<?= $navIncubatees ?>" class="dd-item">Cohort 1</a>
-                        <a href="<?= $navContact ?>" class="dd-item">Apply for Cohort 2</a>
+                        <a href="<?= $navCohort2 ?>" class="dd-item">Cohort 2</a>
                     </div>
                 </div>
             </div>
@@ -128,7 +129,7 @@
                         class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold">Incubatees</a>
                     <div class="dd-menu dd-right">
                         <a href="<?= $navIncubatees ?>" class="dd-item">Cohort 1</a>
-                        <a href="<?= $navContact ?>" class="dd-item">Apply for Cohort 2</a>
+                        <a href="<?= $navCohort2 ?>" class="dd-item">Cohort 2</a>
                     </div>
                 </div>
             </div>
@@ -172,6 +173,9 @@
                 Facilities</a>
             <a href="<?= $navIncubatees ?>"
                 class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Incubatees</a>
+            <a href="<?= $navCohort2 ?>"
+                class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold">↳
+                Cohort 2</a>
             <a href="<?= $navNews ?>"
                 class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">News
                 &amp; Insights</a>

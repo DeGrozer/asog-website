@@ -21,7 +21,7 @@
                 <span class="block w-[18px] h-[1.5px] bg-navy"></span>
                 <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-navy">Who We Are</span>
             </div>
-            <h2 class="font-display text-3xl md:text-[2.1rem] leading-[1.12] text-dark">
+            <h2 class="font-display text-3xl md:text-[2.1rem] leading-[1.12] text-navy">
                 Built for <em class="italic text-gold">Bicol's</em> Future
             </h2>
         </div>
@@ -33,7 +33,7 @@
         <!-- Right body -->
 
         <div class="reveal reveal-d2">
-            <div class="text-sm md:text-base font-light leading-[2.0] text-dark mb-5 text-justify">
+            <div class="text-sm md:text-base font-light leading-[2.0] mb-5 text-justify" style="color:#020d18;">
                 <p>The ASOG Technology Business Incubator (TBI) is an initiative of Camarines Sur Polytechnic
                     Colleges (CSPC), by DOST-PCIEERD, aimed at fostering Engineering and AI-based innovations for
                     food value chain management.

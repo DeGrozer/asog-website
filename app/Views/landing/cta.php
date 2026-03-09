@@ -11,7 +11,8 @@
     $ctaSecUrl      = site_url('programs');
 ?>
 <section id="cta"
-    class="relative overflow-hidden bg-[#0A3A52] py-20 md:py-28 px-6 md:px-10 lg:px-14 flex flex-col items-center text-center">
+    class="relative overflow-hidden py-20 md:py-28 px-6 md:px-10 lg:px-14 flex flex-col items-center text-center"
+    style="background-image:linear-gradient(rgba(3,33,52,.84),rgba(3,33,52,.84)),url('<?= base_url('uploads/posts/1772856135_45ef28e234fa37500144.jpg') ?>');background-size:cover;background-position:center;">
     <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[.06] to-transparent">
     </div>
     <div class="reveal">
@@ -27,7 +28,7 @@
     </div>
     <div class="flex flex-col sm:flex-row gap-4 flex-wrap justify-center relative z-[2] reveal reveal-d1">
         <a href="<?= esc($ctaBtnUrl) ?>"
-            class="font-body text-[.72rem] font-bold tracking-[.14em] uppercase text-dark bg-gold px-8 md:px-10 py-4 rounded-sm no-underline transition-all duration-200 hover:bg-gold-dk hover:-translate-y-0.5 text-center"><?= esc($ctaBtnText) ?></a>
+            class="font-body text-[.72rem] font-medium tracking-[.14em] uppercase text-white bg-sky border border-sky px-8 md:px-10 py-4 rounded-sm no-underline transition-all duration-200 hover:bg-sky/80 hover:-translate-y-0.5 text-center"><?= esc($ctaBtnText) ?></a>
         <a href="<?= esc($ctaSecUrl) ?>"
             class="font-body text-[.72rem] font-medium tracking-[.14em] uppercase text-white/[.60] border border-white/[.15] px-8 md:px-10 py-4 rounded-sm no-underline transition-colors duration-200 hover:border-sky hover:text-sky text-center"><?= esc($ctaSecText) ?></a>
     </div>

@@ -21,7 +21,7 @@
             </div>
             <div class="hidden lg:block bg-navy/15"></div>
             <div>
-                <p class="text-[.88rem] font-light leading-[1.95] text-dark/55">
+                <p class="text-[.88rem] font-light leading-[1.95] text-dark/80">
                     ASOG-TBI provides a complete support system — from lab access and technical mentorship to business strategy, IP guidance, and investor connections — so you can focus on building.
                 </p>
             </div>
@@ -34,12 +34,12 @@
                 <div class="py-8 md:py-10 md:pr-12 md:border-r border-dark/[.07]">
                     <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/70 mb-2 block">01</span>
                     <h3 class="font-display text-[1.2rem] text-dark mb-2">Mentorship &amp; Training</h3>
-                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/45">Industry mentors, technical advisors, and structured workshops through the ALTITUDE incubation program.</p>
+                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/70">Industry mentors, technical advisors, and structured workshops through the ALTITUDE incubation program.</p>
                 </div>
                 <div class="py-8 md:py-10 md:pl-12">
                     <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/70 mb-2 block">02</span>
                     <h3 class="font-display text-[1.2rem] text-dark mb-2">Facilities &amp; Equipment</h3>
-                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/45">Fully equipped labs, co-working spaces, and access to prototyping, testing, and R&D infrastructure.</p>
+                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/70">Fully equipped labs, co-working spaces, and access to prototyping, testing, and R&D infrastructure.</p>
                 </div>
             </div>
             <!-- Row 2 -->
@@ -47,12 +47,12 @@
                 <div class="py-8 md:py-10 md:pr-12 md:border-r border-dark/[.07]">
                     <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/70 mb-2 block">03</span>
                     <h3 class="font-display text-[1.2rem] text-dark mb-2">Network &amp; Partnerships</h3>
-                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/45">Government agencies, investors, industry partners, and a growing founder community across the Bicol Region.</p>
+                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/70">Government agencies, investors, industry partners, and a growing founder community across the Bicol Region.</p>
                 </div>
                 <div class="py-8 md:py-10 md:pl-12">
                     <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/70 mb-2 block">04</span>
                     <h3 class="font-display text-[1.2rem] text-dark mb-2">Business Development</h3>
-                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/45">Hands-on support in market validation, business modelling, pitch preparation, and investor readiness.</p>
+                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/70">Hands-on support in market validation, business modelling, pitch preparation, and investor readiness.</p>
                 </div>
             </div>
             <!-- Row 3 -->
@@ -60,12 +60,12 @@
                 <div class="py-8 md:py-10 md:pr-12 md:border-r border-dark/[.07]">
                     <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/70 mb-2 block">05</span>
                     <h3 class="font-display text-[1.2rem] text-dark mb-2">R&D &amp; IP Support</h3>
-                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/45">Research infrastructure for product development plus guidance on intellectual property protection.</p>
+                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/70">Research infrastructure for product development plus guidance on intellectual property protection.</p>
                 </div>
                 <div class="py-8 md:py-10 md:pl-12">
                     <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/70 mb-2 block">06</span>
                     <h3 class="font-display text-[1.2rem] text-dark mb-2">Funding Access</h3>
-                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/45">Connections to grant programs, seed funding, and pitch events with angel investors and venture capitalists.</p>
+                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/70">Connections to grant programs, seed funding, and pitch events with angel investors and venture capitalists.</p>
                 </div>
             </div>
         </div>
@@ -83,40 +83,40 @@
                     <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-gold">Eligibility</span>
                 </div>
                 <h2 class="font-display text-2xl md:text-[2rem] text-off leading-[1.15] mb-5">Who Can Apply</h2>
-                <p class="text-[.85rem] font-light leading-[1.85] text-white/40">We welcome innovators working on engineering and AI-based solutions for food value chain management.</p>
+                <p class="text-[.85rem] font-light leading-[1.85] text-white/70">We welcome innovators working on engineering and AI-based solutions for food value chain management.</p>
             </div>
 
             <!-- Right -->
             <div class="space-y-6">
                 <div class="flex gap-5 items-start">
-                    <span class="shrink-0 font-display text-[1.4rem] text-gold/30 leading-none mt-0.5">01</span>
+                    <span class="shrink-0 font-display text-[1.4rem] text-gold/50 leading-none mt-0.5">01</span>
                     <div>
                         <h4 class="text-[.88rem] font-semibold text-off mb-1">Startups &amp; MSMEs</h4>
-                        <p class="text-[.8rem] font-light leading-[1.75] text-white/35">Building scalable, tech-driven solutions for the food value chain.</p>
+                        <p class="text-[.8rem] font-light leading-[1.75] text-white/65">Building scalable, tech-driven solutions for the food value chain.</p>
                     </div>
                 </div>
-                <div class="h-px bg-white/[.06]"></div>
+                <div class="h-px bg-white/[.08]"></div>
                 <div class="flex gap-5 items-start">
-                    <span class="shrink-0 font-display text-[1.4rem] text-gold/30 leading-none mt-0.5">02</span>
+                    <span class="shrink-0 font-display text-[1.4rem] text-gold/50 leading-none mt-0.5">02</span>
                     <div>
                         <h4 class="text-[.88rem] font-semibold text-off mb-1">Student &amp; Faculty Innovation Teams</h4>
-                        <p class="text-[.8rem] font-light leading-[1.75] text-white/35">University-led teams working on AI, engineering, or applied R&D.</p>
+                        <p class="text-[.8rem] font-light leading-[1.75] text-white/65">University-led teams working on AI, engineering, or applied R&D.</p>
                     </div>
                 </div>
-                <div class="h-px bg-white/[.06]"></div>
+                <div class="h-px bg-white/[.08]"></div>
                 <div class="flex gap-5 items-start">
-                    <span class="shrink-0 font-display text-[1.4rem] text-gold/30 leading-none mt-0.5">03</span>
+                    <span class="shrink-0 font-display text-[1.4rem] text-gold/50 leading-none mt-0.5">03</span>
                     <div>
                         <h4 class="text-[.88rem] font-semibold text-off mb-1">Researchers with Prototypes</h4>
-                        <p class="text-[.8rem] font-light leading-[1.75] text-white/35">Ready for validation, testing, and commercialisation pathways.</p>
+                        <p class="text-[.8rem] font-light leading-[1.75] text-white/65">Ready for validation, testing, and commercialisation pathways.</p>
                     </div>
                 </div>
-                <div class="h-px bg-white/[.06]"></div>
+                <div class="h-px bg-white/[.08]"></div>
                 <div class="flex gap-5 items-start">
-                    <span class="shrink-0 font-display text-[1.4rem] text-gold/30 leading-none mt-0.5">04</span>
+                    <span class="shrink-0 font-display text-[1.4rem] text-gold/50 leading-none mt-0.5">04</span>
                     <div>
                         <h4 class="text-[.88rem] font-semibold text-off mb-1">Early-Stage Founders</h4>
-                        <p class="text-[.8rem] font-light leading-[1.75] text-white/35">Seeking mentorship, market access, and structured incubation support.</p>
+                        <p class="text-[.8rem] font-light leading-[1.75] text-white/65">Seeking mentorship, market access, and structured incubation support.</p>
                     </div>
                 </div>
             </div>
@@ -139,35 +139,45 @@
                 <span class="absolute -left-[calc(2rem+5px)] md:-left-[calc(2.5rem+5px)] top-1 w-2 h-2 rounded-full bg-gold"></span>
                 <span class="text-[.5rem] font-bold tracking-[.2em] uppercase text-gold block mb-1">Step 1</span>
                 <h4 class="font-display text-[1.15rem] text-dark mb-2">Submit Your Application</h4>
-                <p class="text-[.82rem] font-light leading-[1.85] text-dark/50 max-w-[540px]">Fill out the online form with your team profile, solution overview, and current development stage.</p>
+                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[540px]">Fill out the online form with your team profile, solution overview, and current development stage.</p>
             </div>
             <div class="relative">
                 <span class="absolute -left-[calc(2rem+5px)] md:-left-[calc(2.5rem+5px)] top-1 w-2 h-2 rounded-full bg-gold"></span>
                 <span class="text-[.5rem] font-bold tracking-[.2em] uppercase text-gold block mb-1">Step 2</span>
                 <h4 class="font-display text-[1.15rem] text-dark mb-2">Screening &amp; Pitch</h4>
-                <p class="text-[.82rem] font-light leading-[1.85] text-dark/50 max-w-[540px]">Shortlisted teams are invited for a pitch session and interview with the ASOG-TBI evaluation panel.</p>
+                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[540px]">Shortlisted teams are invited for a pitch session and interview with the ASOG-TBI evaluation panel.</p>
             </div>
             <div class="relative">
                 <span class="absolute -left-[calc(2rem+5px)] md:-left-[calc(2.5rem+5px)] top-1 w-2 h-2 rounded-full bg-gold"></span>
                 <span class="text-[.5rem] font-bold tracking-[.2em] uppercase text-gold block mb-1">Step 3</span>
                 <h4 class="font-display text-[1.15rem] text-dark mb-2">Acceptance &amp; Onboarding</h4>
-                <p class="text-[.82rem] font-light leading-[1.85] text-dark/50 max-w-[540px]">Approved incubatees join the ALTITUDE program with facility access and a dedicated mentor.</p>
+                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[540px]">Approved incubatees join the ALTITUDE program with facility access and a dedicated mentor.</p>
             </div>
             <div class="relative">
                 <span class="absolute -left-[calc(2rem+5px)] md:-left-[calc(2.5rem+5px)] top-1 w-2 h-2 rounded-full bg-gold"></span>
                 <span class="text-[.5rem] font-bold tracking-[.2em] uppercase text-gold block mb-1">Step 4</span>
                 <h4 class="font-display text-[1.15rem] text-dark mb-2">Incubate &amp; Launch</h4>
-                <p class="text-[.82rem] font-light leading-[1.85] text-dark/50 max-w-[540px]">Six months of hands-on support, culminating in demo day, investor pitching, and market launch.</p>
+                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[540px]">Six months of hands-on support, culminating in demo day, investor pitching, and market launch.</p>
             </div>
         </div>
 
         <!-- Apply CTA — inline below process -->
         <div class="mt-14 md:mt-18 pt-10 border-t border-dark/[.08]">
-            <p class="text-[.88rem] font-light leading-[1.85] text-dark/50 mb-6 max-w-[540px]">Ready to get started? Fill out our application form and the ASOG TBI team will reach out to schedule your screening and next steps.</p>
-            <a href="<?= site_url('incubatees/apply/form') ?>"
-               class="inline-block font-body text-[.65rem] font-bold tracking-[.14em] uppercase text-dark bg-gold px-8 py-3.5 rounded-sm no-underline transition-colors duration-200 hover:bg-gold-dk">
-                Apply Now
-            </a>
+            <p class="text-[.88rem] font-light leading-[1.85] text-dark/70 mb-6 max-w-[540px]">Ready to get started? Fill out our application form and the ASOG TBI team will reach out to schedule your screening and next steps.</p>
+            <div class="flex items-center gap-3 flex-wrap">
+                <a href="<?= site_url('incubatees/apply/form') ?>"
+                   class="inline-block font-body text-[.65rem] font-bold tracking-[.14em] uppercase text-dark bg-gold px-8 py-3.5 rounded-sm no-underline transition-colors duration-200 hover:bg-gold-dk">
+                    Apply Now
+                </a>
+                <button type="button" data-open-guidelines
+                    class="font-body text-[.6rem] font-bold tracking-[.13em] uppercase text-dark/45 bg-transparent px-5 py-3.5 rounded-sm border border-dark/15 cursor-pointer transition-all duration-200 hover:text-dark hover:border-dark/30">
+                    <svg class="w-3.5 h-3.5 inline -mt-0.5 mr-1" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" /></svg>
+                    View Guidelines
+                </button>
+            </div>
         </div>
     </div>
 </section>
+
+<!-- ═══ GUIDELINES MODAL (reusable) ═══ -->
+<?= view('incubatees/partials/_guidelines_modal') ?>

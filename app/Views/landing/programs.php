@@ -16,7 +16,7 @@
                         class="italic text-gold">Services</em></h2>
             </div>
             <a href="<?= site_url('programs') ?>"
-                class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-white/[.28] no-underline border-b border-white/[.12] pb-0.5 transition-colors duration-200 hover:text-gold hover:border-gold shrink-0">View
+                class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-white/[.55] no-underline border-b border-white/[.24] pb-0.5 transition-colors duration-200 hover:text-gold hover:border-gold shrink-0">View
                 All Programs →</a>
         </div>
 
@@ -42,29 +42,31 @@
                     <div class="h-full px-6 md:px-7<?= $i > 0 ? ' border-l border-white/[.08]' : '' ?>">
                         <span class="block text-[.5rem] font-semibold tracking-[.22em] uppercase text-gold/70 mb-4"><?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?></span>
                         <h3 class="font-display text-[1.05rem] text-off mb-3 leading-snug"><?= $prog[0] ?></h3>
-                        <p class="text-[.78rem] font-light leading-[1.8] text-white/30"><?= $prog[1] ?></p>
+                        <p class="text-[.78rem] font-light leading-[1.8] text-white/60"><?= $prog[1] ?></p>
                     </div>
                 </div>
                 <?php endforeach; ?>
             </div>
         </div>
 
-        <!-- Bottom nav: arrows + page indicator, centered -->
-        <div class="flex items-center justify-center gap-3 mt-8 reveal">
+        <!-- Bottom nav: arrows + page indicator -->
+        <div class="flex items-center justify-center gap-5 mt-14 md:mt-16 reveal">
             <button id="progPrev" aria-label="Previous"
-                class="w-9 h-9 rounded-full border border-white/[.12] bg-transparent flex items-center justify-center text-white/25 cursor-pointer opacity-30 pointer-events-none"
-                style="transition:border-color .25s,color .25s,background .25s,opacity .25s">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                class="group/btn relative w-12 h-12 bg-white/[.04] border border-white/[.10] flex items-center justify-center text-white/50 cursor-pointer opacity-30 pointer-events-none overflow-hidden"
+                style="transition:border-color .3s,color .3s,background .3s,opacity .3s;clip-path:polygon(12% 0%,100% 0%,100% 100%,0% 100%,0% 12%)">
+                <span class="absolute inset-0 bg-gold/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></span>
+                <svg class="relative z-[1]" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
                 </svg>
             </button>
             <span id="progPage"
-                class="text-[.52rem] font-semibold tracking-[.12em] text-white/25 min-w-[2.5rem] text-center"
+                class="text-[.56rem] font-semibold tracking-[.18em] text-white/40 min-w-[3rem] text-center select-none"
                 style="font-variant-numeric:tabular-nums">1 / 2</span>
             <button id="progNext" aria-label="Next"
-                class="w-9 h-9 rounded-full border border-white/[.12] bg-transparent flex items-center justify-center text-white/25 cursor-pointer"
-                style="transition:border-color .25s,color .25s,background .25s,opacity .25s">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                class="group/btn relative w-12 h-12 bg-white/[.04] border border-white/[.10] flex items-center justify-center text-white/50 cursor-pointer overflow-hidden"
+                style="transition:border-color .3s,color .3s,background .3s,opacity .3s;clip-path:polygon(0% 0%,88% 0%,100% 12%,100% 100%,0% 100%)">
+                <span class="absolute inset-0 bg-gold/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></span>
+                <svg class="relative z-[1]" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                 </svg>
             </button>

@@ -142,12 +142,12 @@
 }
 .ib-back-name {
     font-family: 'DM Serif Display', serif;
-    font-size: .62rem; line-height: 1.2;
+    font-size: 1rem; line-height: 1.2;
     color: rgba(255,255,255,.9); z-index: 3;
     text-align: center; width: 80%;
 }
 .ib-back-cohort {
-    font-size: .26rem; font-weight: 700;
+    font-size: .44rem; font-weight: 700;
     letter-spacing: .2em; text-transform: uppercase;
     color: rgba(248,175,33,.65); z-index: 3;
     margin-bottom: auto; padding-bottom: .6rem;
@@ -299,6 +299,7 @@
     font-size: .42rem; font-weight: 700;
     letter-spacing: .22em; text-transform: uppercase;
     color: #03558C; margin-bottom: .3rem;
+    text-shadow: 0 1px 0 rgba(255,255,255,.4);
 }
 .ib-bb-name {
     font-family: 'DM Serif Display', serif;
@@ -316,9 +317,9 @@
     z-index: 3; max-height: 50%;
 }
 .ib-bb-team-label {
-    font-size: .36rem; font-weight: 700;
+    font-size: .4rem; font-weight: 700;
     letter-spacing: .2em; text-transform: uppercase;
-    color: rgba(2,13,24,.45); margin-bottom: .1rem;
+    color: rgba(2,13,24,.62); margin-bottom: .1rem;
 }
 .ib-bb-member { gap: .05rem }
 .ib-bb-member-name {
@@ -363,11 +364,12 @@
     font-size: .42rem; font-weight: 700;
     letter-spacing: .22em; text-transform: uppercase;
     color: #03558C; margin-bottom: .6rem;
+    text-shadow: 0 1px 0 rgba(255,255,255,.28);
 }
 .ib-p-cohort {
     font-size: .44rem; font-weight: 700;
     letter-spacing: .2em; text-transform: uppercase;
-    color: #e8a900; margin-bottom: 3px;
+    color: #c48800; margin-bottom: 3px;
 }
 .ib-p-name {
     font-family: 'DM Serif Display', serif;
@@ -439,17 +441,17 @@
 /* --------------------------------------------------------------------------
    10. FOOTER
    -------------------------------------------------------------------------- */
-.ib-count { font-size: .76rem; font-weight: 300; color: rgba(2,13,24,.28) }
+.ib-count { font-size: .82rem; font-weight: 400; color: rgba(2,13,24,.5) }
 
 .ib-apply {
-    font-size: .52rem; font-weight: 600;
+    font-size: .56rem; font-weight: 700;
     letter-spacing: .14em; text-transform: uppercase;
-    color: rgba(248,175,33,.5); text-decoration: none;
-    border-bottom: 1px solid rgba(248,175,33,.15);
+    color: #e8a900; text-decoration: none;
+    border-bottom: 1px solid rgba(248,175,33,.3);
     padding-bottom: 2px;
     transition: color .2s, border-color .2s;
 }
-.ib-apply:hover { color: #F8AF21; border-color: rgba(248,175,33,.35) }
+.ib-apply:hover { color: #F8AF21; border-color: rgba(248,175,33,.5) }
 
 /* --------------------------------------------------------------------------
    11. EMPTY STATE

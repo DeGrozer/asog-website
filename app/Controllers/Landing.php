@@ -16,7 +16,7 @@ class Landing extends BaseController
             'isLanding'          => true,
             'heroSlides'         => $postModel->getFeaturedSlides(5),
             'featuredPost'       => $postModel->getFeatured(),
-            'latestPosts'        => $postModel->getPublished(3),
+            'latestPosts'        => $postModel->getPublished(4),
             'featuredIncubatee'  => $this->incubateeModel->getFeatured(),
             'incubatees'         => $this->incubateeModel->getPublished(),
         ];

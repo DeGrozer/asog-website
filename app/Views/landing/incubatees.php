@@ -238,22 +238,21 @@ if (! empty($fi['teamMembers'])) {
 </style>
 
 <section id="incubatees" class="fic py-16 md:py-24 px-6 md:px-10 lg:px-14">
-    <div class="max-w-[1100px] mx-auto">
+    <div class="max-w-[1200px] mx-auto">
 
-        <!-- Section header -->
-        <div class="mb-10 md:mb-14 reveal" style="max-width:1100px">
-            <div class="flex items-center gap-2 mb-3">
-                <span class="fic-rule"></span>
-                <span class="fic-tag">Incubatees</span>
+        <!-- Section header — aligned with Programs & Services pattern -->
+        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-4 mb-10 md:mb-14 reveal">
+            <div>
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="block w-[18px] h-[1.5px] bg-navy"></span>
+                    <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-navy">Incubatees</span>
+                </div>
+                <h2 class="font-display text-3xl md:text-[2.1rem] leading-[1.12] text-dark">Featured <em
+                        class="italic text-gold">Incubatee</em></h2>
             </div>
-            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
-                <h2 class="font-display" style="font-size:1.55rem;line-height:1.1;margin:0;color:#020d18">
-                    Featured <em class="italic" style="color:#F8AF21">Incubatee</em>
-                </h2>
-                <a href="<?= site_url('incubatees') ?>" class="fic-link-primary" style="margin-bottom:2px">
-                    View All Incubatees <span>→</span>
-                </a>
-            </div>
+            <a href="<?= site_url('incubatees') ?>"
+                class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-dark/[.28] no-underline border-b border-dark/[.12] pb-0.5 transition-colors duration-200 hover:text-gold hover:border-gold shrink-0">View
+                All Incubatees →</a>
         </div>
 
         <!-- Grid: card + description -->
