@@ -91,6 +91,23 @@ class IncubateeModel extends Model
     }
 
     /**  
+     * Distinct cohort values from published incubatees, sorted naturally.
+     * Returns e.g. ['Cohort 1', 'Cohort 2', 'Cohort 3']
+    **/
+    public function getDistinctCohorts(): array
+    {
+        $rows = $this->select('cohort')
+                     ->where('isPublished', 1)
+                     ->where('cohort IS NOT NULL')
+                     ->where('cohort !=', '')
+                     ->groupBy('cohort')
+                     ->orderBy('cohort', 'ASC')
+                     ->findAll();
+
+        return array_column($rows, 'cohort');
+    }
+
+    /**  
      * Grouped by cohort for display.
     **/
     public function getPublishedGroupedByCohort(): array

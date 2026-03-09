@@ -32,8 +32,6 @@
         pFounder     = $('pFounder'),
         pShort       = $('pShort'),
         pContent     = $('pContent'),
-        pContentWrap = $('pContentWrap'),
-        pReveal      = $('pReveal'),
         pWebsite     = $('pWebsite'),
         pFacebook    = $('pFacebook');
 
@@ -124,15 +122,6 @@
         pShort.textContent   = d.shortDescription;
         pContent.innerHTML   = d.content || '';
 
-        /* Reset click-to-reveal */
-        pContentWrap.classList.remove('is-open');
-        if (d.content && d.content.trim()) {
-            pReveal.style.display = '';
-            pReveal.textContent = 'Read more ↓';
-        } else {
-            pReveal.style.display = 'none';
-        }
-
         if (d.websiteUrl)  { pWebsite.href = d.websiteUrl;   pWebsite.style.display = 'inline-flex'; }
         else               { pWebsite.style.display = 'none'; }
         if (d.facebookUrl) { pFacebook.href = d.facebookUrl; pFacebook.style.display = 'inline-flex'; }
@@ -192,11 +181,5 @@
     backdrop.addEventListener('click', closeOverlay);
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && isOpen) closeOverlay();
-    });
-
-    /* ── Click-to-reveal content ── */
-    pReveal.addEventListener('click', function () {
-        var isExpanded = pContentWrap.classList.toggle('is-open');
-        pReveal.textContent = isExpanded ? 'Show less ↑' : 'Read more ↓';
     });
 })();

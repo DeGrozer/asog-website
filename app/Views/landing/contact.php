@@ -32,20 +32,20 @@
                         <span
                             class="text-[.54rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-1.5">Email</span>
                         <a href="mailto:<?= esc($contactEmail) ?>"
-                            class="text-[.9rem] font-medium no-underline hover:text-gold transition-colors duration-200" style="color:#020d18;"><?= esc($contactEmail) ?></a>
+                            class="text-[.9rem] font-normal no-underline hover:text-gold transition-colors duration-200" style="color:#020d18;"><?= esc($contactEmail) ?></a>
                     </div>
                     <?php if (! empty($contactPhone)): ?>
                     <div>
                         <span
                             class="text-[.54rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-1.5">Phone</span>
                         <a href="tel:<?= esc($contactPhone) ?>"
-                            class="text-[.9rem] font-medium no-underline hover:text-gold transition-colors duration-200" style="color:#020d18;"><?= esc($contactPhone) ?></a>
+                            class="text-[.9rem] font-normal no-underline hover:text-gold transition-colors duration-200" style="color:#020d18;"><?= esc($contactPhone) ?></a>
                     </div>
                     <?php endif; ?>
                     <div>
                         <span
                             class="text-[.54rem] font-bold tracking-[.16em] uppercase text-dark/30 block mb-1.5">Location</span>
-                        <span class="text-[.9rem] font-medium" style="color:#020d18;"><?= esc($contactAddr) ?></span>
+                        <span class="text-[.9rem] font-normal" style="color:#020d18;"><?= esc($contactAddr) ?></span>
                     </div>
                     <div>
                         <span

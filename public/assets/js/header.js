@@ -1,5 +1,8 @@
 /* ═══ NAVBAR SCROLL TOGGLE (desktop) ═══ */
 const navbar = document.getElementById('navbar');
+let lastScrollY = window.scrollY;
+let ticking = false;
+const SCROLL_THRESHOLD = 60;
 
 // Detect if the section behind the navbar has a light background
 function isLightBackground() {
@@ -22,11 +25,10 @@ function isLightBackground() {
         const r = el.getBoundingClientRect();
         if (r.top <= navBottom && r.bottom >= navBottom) {
             const bg  = window.getComputedStyle(el).backgroundColor;
-            // Parse both rgb() and rgba() — extract r,g,b,a separately
             const m   = bg.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?\)/);
             if (m) {
                 const alpha = m[4] !== undefined ? parseFloat(m[4]) : 1;
-                if (alpha < 0.15) continue;           // skip near-transparent elements
+                if (alpha < 0.15) continue;
                 const depth = getDepth(el);
                 if (depth > bestZ) {
                     bestZ = depth;
@@ -46,11 +48,34 @@ function getDepth(el) {
 }
 
 function updateNavbar() {
-    navbar.classList.toggle('scrolled', window.scrollY > 60);
+    const currentY = window.scrollY;
+    const delta = currentY - lastScrollY;
+
+    if (currentY <= SCROLL_THRESHOLD) {
+        // At the very top — centered logo, full navbar
+        navbar.classList.remove('scrolled', 'nav-hidden');
+    } else if (delta < -3) {
+        // Scrolling UP — show compact horizontal navbar
+        navbar.classList.add('scrolled');
+        navbar.classList.remove('nav-hidden');
+    } else if (delta > 3) {
+        // Scrolling DOWN — hide the navbar
+        navbar.classList.add('nav-hidden');
+    }
+
     navbar.classList.toggle('on-light', isLightBackground());
+    lastScrollY = currentY;
 }
 
-window.addEventListener('scroll', updateNavbar, { passive: true });
+window.addEventListener('scroll', function () {
+    if (!ticking) {
+        requestAnimationFrame(function () {
+            updateNavbar();
+            ticking = false;
+        });
+        ticking = true;
+    }
+}, { passive: true });
 updateNavbar();
 
 /* ═══ MOBILE MENU TOGGLE ═══ */

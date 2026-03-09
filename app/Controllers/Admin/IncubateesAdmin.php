@@ -25,6 +25,7 @@ class IncubateesAdmin extends BaseController
             'pageTitle'   => 'Incubatees',
             'activePage'  => 'incubatees',
             'incubatees'  => $this->incubateeModel->orderBy('sortOrder', 'ASC')->orderBy('createdAt', 'DESC')->findAll(),
+            'cohorts'     => $this->cohortModel->getAllSorted(),
         ];
 
         return view('admin/layout/header', $data)
@@ -35,8 +36,9 @@ class IncubateesAdmin extends BaseController
     public function create()
     {
         $data = [
-            'pageTitle'  => 'New Incubatee',
-            'activePage' => 'incubatees',
+            'pageTitle'       => 'New Incubatee',
+            'activePage'      => 'incubatees',
+            'existingCohorts' => $this->cohortModel->getActiveNames(),
         ];
 
         return view('admin/layout/header', $data)
@@ -171,9 +173,10 @@ class IncubateesAdmin extends BaseController
         }
 
         $data = [
-            'pageTitle'  => 'Edit Incubatee',
-            'activePage' => 'incubatees',
-            'incubatee'  => $incubatee,
+            'pageTitle'       => 'Edit Incubatee',
+            'activePage'      => 'incubatees',
+            'incubatee'       => $incubatee,
+            'existingCohorts' => $this->cohortModel->getActiveNames(),
         ];
 
         return view('admin/layout/header', $data)
@@ -336,5 +339,40 @@ class IncubateesAdmin extends BaseController
 
         setToast('success', 'Incubatee deleted.');
         return redirect()->to(site_url('admin/incubatees'));
+    }
+
+    // ──────────────────────────────────────────────
+    // COHORT MANAGEMENT (AJAX)
+    // ──────────────────────────────────────────────
+
+    public function addCohort()
+    {
+        $number = $this->cohortModel->nextNumber();
+        $name   = 'Cohort ' . $number;
+
+        if (! $this->cohortModel->insert(['name' => $name, 'number' => $number])) {
+            return $this->response->setJSON(['ok' => false, 'error' => implode(', ', $this->cohortModel->errors())]);
+        }
+
+        $cohort = $this->cohortModel->find($this->cohortModel->getInsertID());
+        return $this->response->setJSON(['ok' => true, 'cohort' => $cohort]);
+    }
+
+    public function deleteCohort(int $id)
+    {
+        $cohort = $this->cohortModel->find($id);
+
+        if (! $cohort) {
+            return $this->response->setJSON(['ok' => false, 'error' => 'Cohort not found.']);
+        }
+
+        // Check if any incubatees use this cohort
+        $count = $this->incubateeModel->where('cohort', $cohort['name'])->countAllResults();
+        if ($count > 0) {
+            return $this->response->setJSON(['ok' => false, 'error' => $cohort['name'] . ' has ' . $count . ' incubatee(s). Remove them first.']);
+        }
+
+        $this->cohortModel->delete($id);
+        return $this->response->setJSON(['ok' => true]);
     }
 }

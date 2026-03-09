@@ -67,7 +67,7 @@ $sealUrl       = base_url('assets/img/ASOG%20TBI/PNG/Logo-white.png');
                 <?php endif; ?>
             </p>
             <div class="flex gap-4">
-                <a href="<?= site_url('incubatees') ?>" class="text-[.56rem] font-bold tracking-[.14em] uppercase text-navy/50 no-underline border-b border-navy/15 pb-0.5 transition-colors hover:text-gold hover:border-gold">All Incubatees →</a>
+                <a href="<?= site_url('incubatees') ?>" class="text-[.56rem] font-bold tracking-[.14em] uppercase text-navy/50 no-underline border-b border-navy/15 pb-0.5 transition-colors hover:text-gold hover:border-gold">All Cohorts →</a>
                 <a href="<?= site_url('incubatees/apply') ?>" class="ib-apply">Become an Incubatee</a>
             </div>
         </div>

@@ -6,12 +6,14 @@ class Incubatees extends BaseController
 {
     public function index()
     {
+        $cohorts = $this->cohortModel->getActiveNames();
+
         $data = [
             'title'        => 'Incubatees - ASOG-TBI',
             'heroSubtitle' => 'Our Startups',
             'heroTitle'    => 'Incubatees',
             'heroDesc'     => 'Meet the startups and MSMEs building the future of food value chain management through engineering and AI.',
-            'incubatees'   => $this->incubateeModel->getPublished(),
+            'cohorts'      => $cohorts,
         ];
 
         return view('templates/header', $data)
@@ -35,17 +37,23 @@ class Incubatees extends BaseController
             . view('templates/footer');
     }
 
-    public function cohort2(): string
+    public function cohort(int $num): string
     {
-        $incubatees = $this->incubateeModel->getPublishedByCohort('Cohort 2');
+        $cohortLabel = 'Cohort ' . $num;
+
+        // Cohort 1 shows all published incubatees
+        $incubatees = ($num === 1)
+            ? $this->incubateeModel->getPublished()
+            : $this->incubateeModel->getPublishedByCohort($cohortLabel);
 
         $data = [
-            'title'        => 'Cohort 2 - ASOG-TBI',
+            'title'        => $cohortLabel . ' - ASOG-TBI',
             'heroSubtitle' => 'Incubation Program',
-            'heroTitle'    => 'Cohort 2',
-            'heroDesc'     => 'The next wave of startups and MSMEs joining the ASOG-TBI incubation program.',
+            'heroTitle'    => $cohortLabel,
+            'heroDesc'     => 'The startups and MSMEs in ' . $cohortLabel . ' of the ASOG-TBI incubation program.',
             'incubatees'   => $incubatees,
-            'cohortLabel'  => 'Cohort 2',
+            'cohortLabel'  => $cohortLabel,
+            'cohortNum'    => $num,
         ];
 
         return view('templates/header', $data)

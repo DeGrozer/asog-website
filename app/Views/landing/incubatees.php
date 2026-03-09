@@ -143,13 +143,13 @@ if (! empty($fi['teamMembers'])) {
 }
 .fic-back-name {
     font-family: 'DM Serif Display', serif;
-    font-size: .72rem; line-height: 1.25;
+    font-size: 1.05rem; line-height: 1.25;
     color: rgba(255,255,255,.9);
     text-align: center; width: 82%;
     margin-bottom: .4rem
 }
 .fic-back-cohort {
-    font-size: .3rem; font-weight: 700;
+    font-size: .44rem; font-weight: 700;
     letter-spacing: .2em; text-transform: uppercase;
     color: rgba(248,175,33,.65)
 }
@@ -158,17 +158,17 @@ if (! empty($fi['teamMembers'])) {
     padding: 0 .5rem
 }
 .fic-back-team-label {
-    font-size: .32rem; font-weight: 700;
+    font-size: .38rem; font-weight: 700;
     letter-spacing: .18em; text-transform: uppercase;
     color: rgba(248,175,33,.7);
     margin-bottom: .4rem
 }
 .fic-back-member {
-    font-size: .48rem; line-height: 1.6;
+    font-size: .52rem; line-height: 1.6;
     color: rgba(255,255,255,.75)
 }
 .fic-back-member span {
-    display: block; font-size: .32rem;
+    display: block; font-size: .36rem;
     color: rgba(255,255,255,.4);
     letter-spacing: .06em
 }
@@ -290,7 +290,7 @@ if (! empty($fi['teamMembers'])) {
                         <img class="fic-seal" src="<?= $sealUrl ?>" alt="ASOG TBI">
                         <div class="fic-back-divider"></div>
                         <p class="fic-back-name"><?= esc(html_entity_decode($fi['companyName'], ENT_QUOTES, 'UTF-8')) ?></p>
-                        <span class="fic-back-cohort"><?= esc($fi['cohort'] ?? '') ?></span>
+                        <span class="fic-back-cohort"><?= esc(preg_replace('/\s*[·•|\-–—]\s*\d{4}/', '', $fi['cohort'] ?? '')) ?></span>
 
                         <?php if (! empty($team)): ?>
                         <div class="fic-back-team">

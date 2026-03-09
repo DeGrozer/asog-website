@@ -26,7 +26,7 @@ $routes->get('/programs', 'Programs::index');
 $routes->get('/services', 'Programs::services');
 $routes->get('/facilities', 'Facilities::index');
 $routes->get('/incubatees', 'Incubatees::index');
-$routes->get('/incubatees/cohort-2', 'Incubatees::cohort2');
+$routes->get('/incubatees/cohort-(:num)', 'Incubatees::cohort/$1');
 $routes->get('/incubatees/apply', 'Incubatees::apply');
 $routes->get('/incubatees/apply/form', 'Incubatees::applyForm');
 $routes->post('/incubatees/apply/form', 'Incubatees::applyFormStore');
@@ -92,4 +92,8 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('incubatees/(:num)/edit', 'Admin\IncubateesAdmin::edit/$1');
     $routes->post('incubatees/(:num)/update', 'Admin\IncubateesAdmin::update/$1');
     $routes->post('incubatees/(:num)/delete', 'Admin\IncubateesAdmin::delete/$1');
+
+    // Cohort Management (AJAX)
+    $routes->post('cohorts/add', 'Admin\IncubateesAdmin::addCohort');
+    $routes->post('cohorts/(:num)/delete', 'Admin\IncubateesAdmin::deleteCohort/$1');
 });

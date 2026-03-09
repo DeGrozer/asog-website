@@ -34,7 +34,7 @@
                 <img class="ib-seal relative" src="<?= $sealUrl ?>" alt="ASOG TBI">
                 <div class="ib-back-divider relative shrink-0"></div>
                 <p class="ib-back-name relative shrink-0"><?= esc($inc['companyName']) ?></p>
-                <span class="ib-back-cohort relative shrink-0"><?= esc($inc['cohort'] ?? '') ?></span>
+                <span class="ib-back-cohort relative shrink-0"><?= esc(preg_replace('/\s*[·•|\-–—]\s*\d{4}/', '', $inc['cohort'] ?? '')) ?></span>
             </div>
 
         </div>

@@ -347,10 +347,26 @@ $formUrl = $isEdit
                         placeholder="e.g. Maria Cruz & Team">
                 </div>
                 <div class="field">
-                    <label for="cohort">Cohort</label>
-                    <input type="text" id="cohort" name="cohort"
-                        value="<?= esc(old('cohort', $isEdit ? $incubatee['cohort'] : '')) ?>"
-                        placeholder="e.g. Cohort 1 · 2024">
+                    <label for="cohortSelect">Cohort</label>
+                    <?php
+                        $cohorts = $existingCohorts ?? [];
+                        $currentCohort = old('cohort', $isEdit ? $incubatee['cohort'] : '');
+                    ?>
+                    <div style="display:flex;gap:.4rem;align-items:start">
+                        <div style="flex:1">
+                            <select id="cohortSelect" onchange="onCohortChange(this)">
+                                <option value="">— Select Cohort —</option>
+                                <?php foreach ($cohorts as $c): ?>
+                                    <option value="<?= esc($c) ?>" <?= $currentCohort === $c ? 'selected' : '' ?>><?= esc($c) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <button type="button" onclick="openCohortModal()" style="margin-top:2px;background:#03558C;color:#fff;border:none;border-radius:.3rem;padding:.48rem .7rem;cursor:pointer;font-size:.68rem;font-weight:600;display:inline-flex;align-items:center;gap:.3rem;white-space:nowrap;transition:background .15s" onmouseover="this.style.background='#024a7a'" onmouseout="this.style.background='#03558C'">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                            Add
+                        </button>
+                    </div>
+                    <input type="hidden" id="cohortHidden" name="cohort" value="<?= esc($currentCohort) ?>">
                 </div>
             </div>
 
@@ -488,4 +504,196 @@ $formUrl = $isEdit
     </div>
 </form>
 
+<!-- Cohort Manager Modal -->
+<style>
+.cfm-overlay{position:fixed;inset:0;z-index:900;background:rgba(2,13,24,.45);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
+.cfm-overlay.open{display:flex;opacity:1}
+.cfm-modal{background:#fff;border-radius:.55rem;box-shadow:0 20px 60px rgba(0,0,0,.18);width:90%;max-width:480px;max-height:80vh;display:flex;flex-direction:column;transform:translateY(12px);transition:transform .25s ease}
+.cfm-overlay.open .cfm-modal{transform:translateY(0)}
+.cfm-head{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.3rem;border-bottom:1px solid #eceae6}
+.cfm-head h3{font-size:.85rem;font-weight:700;color:#1e293b;margin:0}
+.cfm-close{background:none;border:none;cursor:pointer;color:#94a3b8;font-size:1.3rem;line-height:1;padding:.2rem;transition:color .15s}
+.cfm-close:hover{color:#1e293b}
+.cfm-body{padding:.8rem 1.3rem;overflow-y:auto;flex:1}
+.cfm-foot{padding:.75rem 1.3rem;border-top:1px solid #eceae6;display:flex;justify-content:space-between;align-items:center}
+.cfm-list{list-style:none;margin:0;padding:0}
+.cfm-item{display:flex;align-items:center;justify-content:space-between;padding:.55rem .5rem;border-bottom:1px solid #f4f3f0;font-size:.78rem;color:#1e293b;transition:background .1s}
+.cfm-item:last-child{border-bottom:none}
+.cfm-item:hover{background:#fafaf9}
+.cfm-item-name{font-weight:600;color:#03558C}
+.cfm-item-info{font-size:.62rem;color:#94a3b8;margin-left:.5rem}
+.cfm-item-tag{font-size:.5rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.12rem .35rem;border-radius:.15rem;margin-left:.5rem}
+.cfm-tag-active{background:#ecfdf5;color:#065f46}
+.cfm-tag-soon{background:#fef3c7;color:#92400e}
+.cfm-item-del{background:none;border:none;cursor:pointer;color:#be123c70;padding:.15rem .25rem;transition:color .15s}
+.cfm-item-del:hover{color:#be123c}
+.cfm-item-del:disabled{opacity:.25;cursor:not-allowed}
+.cfm-add-btn{display:inline-flex;align-items:center;gap:.3rem;background:#03558C;color:#fff;font-size:.66rem;font-weight:600;padding:.42rem .8rem;border-radius:.25rem;border:none;cursor:pointer;transition:background .15s}
+.cfm-add-btn:hover{background:#024a7a}
+.cfm-add-btn:disabled{background:#94a3b8;cursor:wait}
+.cfm-empty{text-align:center;padding:1.2rem 0;color:#94a3b8;font-size:.78rem}
+</style>
+
+<div class="cfm-overlay" id="cfmOverlay" onclick="if(event.target===this)closeCohortModal()">
+    <div class="cfm-modal">
+        <div class="cfm-head">
+            <h3>Manage Cohorts</h3>
+            <button type="button" class="cfm-close" onclick="closeCohortModal()">×</button>
+        </div>
+        <div class="cfm-body">
+            <ul class="cfm-list" id="cfmList">
+                <?php
+                    $allCohorts = model('CohortModel')->getAllSorted();
+                ?>
+                <?php foreach ($allCohorts as $ch): ?>
+                <?php $cnt = count(model('IncubateeModel')->where('cohort', $ch['name'])->where('isPublished', 1)->findAll()); ?>
+                <li class="cfm-item" data-id="<?= $ch['id'] ?>" data-name="<?= esc($ch['name']) ?>">
+                    <div style="display:flex;align-items:center">
+                        <span class="cfm-item-name"><?= esc($ch['name']) ?></span>
+                        <span class="cfm-item-info"><?= $cnt ?> startup<?= $cnt !== 1 ? 's' : '' ?></span>
+                        <?php if ($cnt > 0): ?>
+                            <span class="cfm-item-tag cfm-tag-active">Active</span>
+                        <?php else: ?>
+                            <span class="cfm-item-tag cfm-tag-soon">Coming Soon</span>
+                        <?php endif; ?>
+                    </div>
+                    <button type="button" class="cfm-item-del" onclick="cfmDelete(<?= $ch['id'] ?>,'<?= esc($ch['name'], 'js') ?>')" <?= $cnt > 0 ? 'disabled title="Has incubatees — cannot delete"' : 'title="Delete"' ?>>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    </button>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+            <?php if (empty($allCohorts)): ?>
+            <div class="cfm-empty" id="cfmEmpty">No cohorts yet. Add one below.</div>
+            <?php endif; ?>
+        </div>
+        <div class="cfm-foot">
+            <span style="font-size:.65rem;color:#94a3b8" id="cfmTotal"><?= count($allCohorts) ?> cohort<?= count($allCohorts) !== 1 ? 's' : '' ?></span>
+            <button type="button" class="cfm-add-btn" id="cfmAddBtn" onclick="cfmAdd()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                Add Cohort
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+/* ── Cohort select → hidden field sync ── */
+function onCohortChange(sel) {
+    document.getElementById('cohortHidden').value = sel.value;
+}
+// Init: sync hidden field with current select value
+(function(){
+    var sel = document.getElementById('cohortSelect');
+    var hid = document.getElementById('cohortHidden');
+    if (sel.value) hid.value = sel.value;
+})();
+
+/* ── Modal open / close ── */
+function openCohortModal() {
+    document.getElementById('cfmOverlay').classList.add('open');
+}
+function closeCohortModal() {
+    document.getElementById('cfmOverlay').classList.remove('open');
+}
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeCohortModal();
+});
+
+var cfmCount = <?= count($allCohorts) ?>;
+
+/* ── Add cohort via AJAX ── */
+function cfmAdd() {
+    var btn = document.getElementById('cfmAddBtn');
+    btn.disabled = true;
+    btn.textContent = 'Adding…';
+    fetch('<?= site_url('admin/cohorts/add') ?>', {
+        method: 'POST',
+        headers: {'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/json'},
+        body: JSON.stringify({})
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        if (data.ok) {
+            var c = data.cohort;
+            // Remove empty state
+            var empty = document.getElementById('cfmEmpty');
+            if (empty) empty.remove();
+            // Add to modal list
+            var li = document.createElement('li');
+            li.className = 'cfm-item';
+            li.dataset.id = c.id;
+            li.dataset.name = c.name;
+            li.innerHTML =
+                '<div style="display:flex;align-items:center">' +
+                    '<span class="cfm-item-name">' + c.name + '</span>' +
+                    '<span class="cfm-item-info">0 startups</span>' +
+                    '<span class="cfm-item-tag cfm-tag-soon">Coming Soon</span>' +
+                '</div>' +
+                '<button type="button" class="cfm-item-del" title="Delete" onclick="cfmDelete(' + c.id + ',\'' + c.name + '\')">' +
+                    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>' +
+                '</button>';
+            document.getElementById('cfmList').appendChild(li);
+            // Add to dropdown & select it
+            var sel = document.getElementById('cohortSelect');
+            var opt = document.createElement('option');
+            opt.value = c.name;
+            opt.textContent = c.name;
+            opt.selected = true;
+            sel.appendChild(opt);
+            document.getElementById('cohortHidden').value = c.name;
+            // Update count
+            cfmCount++;
+            document.getElementById('cfmTotal').textContent = cfmCount + ' cohort' + (cfmCount !== 1 ? 's' : '');
+        } else {
+            alert(data.error || 'Failed to add cohort');
+        }
+    })
+    .catch(function() { alert('Network error'); })
+    .finally(function() {
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg> Add Cohort';
+    });
+}
+
+/* ── Delete cohort via AJAX ── */
+function cfmDelete(id, name) {
+    if (!confirm('Delete ' + name + '?')) return;
+    fetch('<?= site_url('admin/cohorts/') ?>' + id + '/delete', {
+        method: 'POST',
+        headers: {'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/json'},
+        body: JSON.stringify({})
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        if (data.ok) {
+            // Remove from modal list
+            var li = document.querySelector('#cfmList .cfm-item[data-id="' + id + '"]');
+            if (li) li.remove();
+            // Remove from dropdown
+            var sel = document.getElementById('cohortSelect');
+            for (var i = 0; i < sel.options.length; i++) {
+                if (sel.options[i].value === name) { sel.remove(i); break; }
+            }
+            // If deleted cohort was selected, reset
+            if (document.getElementById('cohortHidden').value === name) {
+                sel.value = '';
+                document.getElementById('cohortHidden').value = '';
+            }
+            cfmCount--;
+            document.getElementById('cfmTotal').textContent = cfmCount + ' cohort' + (cfmCount !== 1 ? 's' : '');
+            if (cfmCount === 0) {
+                var emptyDiv = document.createElement('div');
+                emptyDiv.className = 'cfm-empty';
+                emptyDiv.id = 'cfmEmpty';
+                emptyDiv.textContent = 'No cohorts yet. Add one below.';
+                document.querySelector('.cfm-body').appendChild(emptyDiv);
+            }
+        } else {
+            alert(data.error || 'Failed to delete');
+        }
+    })
+    .catch(function() { alert('Network error'); });
+}
+</script>
 <script src="<?= base_url('assets/js/adminIncubateeForm.js') ?>"></script>

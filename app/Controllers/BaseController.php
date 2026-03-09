@@ -13,6 +13,7 @@ use App\Models\IncubateeModel;
 use App\Models\IncubateeApplicationModel;
 use App\Models\ContactMessageModel;
 use App\Models\AdminModel;
+use App\Models\CohortModel;
 
 // yung libraries
 use App\Libraries\ImageUpload;
@@ -36,6 +37,7 @@ abstract class BaseController extends Controller
     protected $applicationModel;
     protected $contactModel;
     protected $adminModel;
+    protected $cohortModel;
 
     /**
      * @return void
@@ -50,5 +52,12 @@ abstract class BaseController extends Controller
         $this->applicationModel = new IncubateeApplicationModel();
         $this->contactModel     = new ContactMessageModel();
         $this->adminModel       = new AdminModel();
+        $this->cohortModel      = new CohortModel();
+
+        // Share cohort list globally so header nav can render dynamic dropdowns
+        $renderer = \Config\Services::renderer();
+        $renderer->setData([
+            'navCohorts' => $this->cohortModel->getActiveNames(),
+        ]);
     }
 }
