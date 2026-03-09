@@ -12,7 +12,7 @@
 ?>
 <section id="cta"
     class="relative overflow-hidden py-20 md:py-28 px-6 md:px-10 lg:px-14 flex flex-col items-center text-center"
-    style="background-image:linear-gradient(rgba(3,33,52,.84),rgba(3,33,52,.84)),url('<?= base_url('uploads/posts/1772856135_45ef28e234fa37500144.jpg') ?>');background-size:cover;background-position:center;">
+    style="background-image:linear-gradient(rgba(3,33,52,.84),rgba(3,33,52,.84)),url('<?= base_url('uploads/posts/1772089807_985ff302b74f785a6af6.png') ?>');background-size:cover;background-position:center;">
     <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[.06] to-transparent">
     </div>
     <div class="reveal">

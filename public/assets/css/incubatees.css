@@ -142,12 +142,12 @@
 }
 .ib-back-name {
     font-family: 'DM Serif Display', serif;
-    font-size: 1rem; line-height: 1.2;
+    font-size: 1.2rem; line-height: 1.2;
     color: rgba(255,255,255,.9); z-index: 3;
     text-align: center; width: 80%;
 }
 .ib-back-cohort {
-    font-size: .44rem; font-weight: 700;
+    font-size: .55rem; font-weight: 700;
     letter-spacing: .2em; text-transform: uppercase;
     color: rgba(248,175,33,.65); z-index: 3;
     margin-bottom: auto; padding-bottom: .6rem;
