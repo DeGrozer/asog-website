@@ -13,6 +13,32 @@
   --font-body: "DM Sans", sans-serif;
 }
 
+/* ═══ CUSTOM SCROLLBAR ═══ */
+/* Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #0a1a28;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(3,85,140,.55);
+  border-radius: 6px;
+  border: 2px solid #0a1a28;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F8AF21;
+}
+::-webkit-scrollbar-corner {
+  background: #0a1a28;
+}
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: rgba(3,85,140,.55) #0a1a28;
+}
+
 @layer components {
   /* ═══ HONEYPOT SPAM TRAP (hidden from users, visible to bots) ═══ */
   #hpc {
@@ -342,56 +368,118 @@
       display: none !important;
     }
 
+    /* ── Initial mobile: TRANSPARENT, no bg, no blur ── */
+    #navbar {
+      background: transparent !important;
+      backdrop-filter: none !important;
+    }
+
     #navIn {
       position: relative;
-      justify-content: space-between !important;
-      height: 64px;
+      justify-content: center !important;
+      height: auto !important;
+      padding: .75rem !important;
     }
 
     #navLogo {
-      position: absolute !important;
-      left: 50% !important;
-      transform: translateX(-50%) !important;
-      flex-direction: row !important;
-      align-items: center !important;
-    }
-
-    /* Default mobile: show seal, hide landscape */
-    #navImg {
-      width: 44px !important;
-      height: 44px !important;
-      opacity: 1 !important;
-      display: flex !important;
-    }
-
-    #navImgLandscape {
-      display: none !important;
-    }
-
-    /* Scrolled mobile: hide seal, show landscape */
-    #navbar.scrolled #navIn {
-      padding: 0 1rem;
-      height: 56px;
-    }
-
-    #navbar.scrolled #navLogo {
+      position: relative !important;
       left: auto !important;
-      flex-direction: row !important;
+      transform: none !important;
+      translate: none !important;
+      flex-direction: column !important;
       align-items: center !important;
+      gap: 0 !important;
+      padding: .25rem 0 !important;
+      transition: all .3s ease;
     }
 
+    /* Circle seal: visible and centered */
+    #navImg {
+      display: block !important;
+      width: 48px !important;
+      height: 48px !important;
+      opacity: 1 !important;
+      overflow: visible !important;
+      transition: all .3s ease;
+    }
+
+    /* Landscape logo: HIDDEN on initial load */
+    #navImgLandscape {
+      display: block !important;
+      width: 0 !important;
+      height: 0 !important;
+      max-height: 0 !important;
+      opacity: 0 !important;
+      overflow: hidden !important;
+      transition: all .3s ease;
+    }
+
+    /* Hamburger: HIDDEN on initial load */
+    #menuBtn {
+      position: absolute !important;
+      right: .75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: 0 !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transition: opacity .3s ease;
+    }
+
+    /* ── SCROLLED: bg + burger + landscape logo left ── */
+    #navbar.scrolled {
+      background: rgba(3,85,140,.60) !important;
+      backdrop-filter: blur(32px) !important;
+    }
+    #navbar.scrolled #navIn {
+      justify-content: flex-start !important;
+      height: 56px !important;
+      padding: 0 !important;
+    }
+    #navbar.scrolled #navLogo {
+      position: relative !important;
+      left: auto !important;
+      transform: none !important;
+      translate: none !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 0 !important;
+      padding: 0 !important;
+      margin-left: 0 !important;
+    }
     #navbar.scrolled #navImg {
       display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      opacity: 0 !important;
     }
-
     #navbar.scrolled #navImgLandscape {
-      display: flex !important;
+      display: block !important;
       width: 140px !important;
       height: auto !important;
       max-height: 38px !important;
       opacity: 1 !important;
+      overflow: visible !important;
       object-fit: contain;
       filter: brightness(0) invert(1);
+    }
+    /* Hamburger: VISIBLE when scrolled */
+    #navbar.scrolled #menuBtn {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
+    /* on-light: only apply bg when scrolled */
+    #navbar.on-light.scrolled {
+      background: rgba(255,255,255,.70) !important;
+      backdrop-filter: blur(32px) !important;
+    }
+    #navbar.on-light #navImgLandscape {
+      filter: none !important;
+    }
+    /* on-light: tint seal dark when over light bg (unscrolled) */
+    #navbar.on-light #navImg {
+      filter: brightness(0) saturate(100%) invert(25%) sepia(90%) saturate(1500%) hue-rotate(190deg) brightness(85%);
     }
   }
 

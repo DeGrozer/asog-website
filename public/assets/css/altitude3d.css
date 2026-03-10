@@ -1,0 +1,338 @@
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║  ALTITUDE 3D INTERACTIVE — Card + Wilderness-Zoom + 3D Overlay    ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
+/* ─── 1.  HORIZONTAL EXPLORE STRIP ─── */
+.alt3d-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid rgba(26,48,64,.08);
+  border-radius: 10px;
+  padding: 20px 28px;
+  transition: border-color .25s, box-shadow .25s;
+  box-shadow: 0 1px 4px rgba(0,0,0,.03);
+}
+.alt3d-card:hover {
+  border-color: rgba(248,175,33,.3);
+  box-shadow: 0 4px 16px rgba(0,0,0,.05);
+}
+.alt3d-card:active { transform: scale(.995); }
+
+/* Left: text */
+.alt3d-card-left {
+  flex: 1; min-width: 0;
+}
+.alt3d-card-tag {
+  display: inline-block;
+  font-size: .5rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(26,48,64,.28);
+  border: 1px solid rgba(26,48,64,.1);
+  border-radius: 3px;
+  padding: 2px 7px;
+  margin-bottom: 8px;
+}
+.alt3d-card-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.15rem;
+  font-weight: 400; color: #1a2a2a;
+  line-height: 1.2; margin-bottom: 4px;
+}
+.alt3d-card-sub {
+  font-size: .78rem; font-weight: 400;
+  line-height: 1.55; color: rgba(26,48,64,.38);
+  margin: 0;
+}
+
+/* Right: mountain sketch + CTA */
+.alt3d-card-right {
+  flex-shrink: 0;
+  display: flex; flex-direction: column;
+  align-items: flex-end; gap: 8px;
+}
+.alt3d-card-mtn {
+  width: 140px; height: auto;
+  opacity: .7;
+  transition: opacity .25s;
+}
+.alt3d-card:hover .alt3d-card-mtn { opacity: 1; }
+
+.alt3d-card-cta {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: .54rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(248,175,33,.7);
+  transition: color .2s, gap .2s;
+}
+.alt3d-card:hover .alt3d-card-cta { color: #F8AF21; gap: 8px; }
+.alt3d-card-cta svg { transition: transform .2s; }
+.alt3d-card:hover .alt3d-card-cta svg { transform: translate(2px,-2px); }
+
+/* Mobile: stack vertically */
+@media (max-width: 540px) {
+  .alt3d-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 20px;
+    gap: 14px;
+  }
+  .alt3d-card-right {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .alt3d-card-mtn { width: 100px; }
+}
+
+
+/* ─── 2.  WILDERNESS ZOOM TRANSITION ─── */
+.alt3d-zoom-overlay {
+  position: fixed; inset: 0; z-index: 9998;
+  background: #1a3040;
+  pointer-events: none;
+  opacity: 0;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.alt3d-zoom-overlay.active { pointer-events: auto; }
+
+.alt3d-zoom-mountains {
+  position: absolute; inset: 0;
+  overflow: hidden;
+}
+.alt3d-zoom-mountains svg {
+  position: absolute; bottom: 0; width: 100%; height: 100%;
+}
+/* Parallax mountain layers */
+.alt3d-mtn-far  { fill: rgba(255,255,255,.03); }
+.alt3d-mtn-mid  { fill: rgba(255,255,255,.05); }
+.alt3d-mtn-near { fill: rgba(255,255,255,.08); }
+
+/* Snowflake particles during zoom */
+.alt3d-particle {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: rgba(255,255,255,.15);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Loading text in zoom */
+.alt3d-zoom-text {
+  position: relative; z-index: 2;
+  text-align: center; color: #eef6fa;
+  opacity: 0;
+}
+.alt3d-zoom-text .zt-eyebrow {
+  font-size: .48rem; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.25);
+  margin-bottom: 8px;
+}
+.alt3d-zoom-text .zt-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 400; line-height: 1.1;
+}
+
+
+/* ─── 3.  FULLSCREEN 3D OVERLAY ─── */
+.alt3d-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #c4dff0;
+  opacity: 0; pointer-events: none;
+  overflow: hidden;
+}
+.alt3d-overlay.active {
+  pointer-events: auto;
+}
+
+.alt3d-overlay canvas {
+  display: block; width: 100%; height: 100%;
+  cursor: grab;
+}
+.alt3d-overlay canvas:active { cursor: grabbing; }
+
+/* Title bar */
+.alt3d-title {
+  position: fixed; top: 24px; left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none; z-index: 20;
+  transition: opacity .4s;
+}
+.alt3d-overlay.zoomed .alt3d-title { opacity: 0; }
+
+.alt3d-title .at-eyebrow {
+  font-size: .46rem; letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(248,175,33,.7);
+  margin-bottom: 5px;
+}
+.alt3d-title h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.1rem, 2.4vw, 1.9rem);
+  font-weight: 400; color: #1a3040; line-height: 1;
+}
+.alt3d-title .at-sub {
+  margin-top: 5px; font-size: .48rem;
+  letter-spacing: .12em;
+  color: rgba(26,48,64,.22);
+}
+
+/* Close button */
+.alt3d-close {
+  position: fixed; top: 20px; right: 24px; z-index: 60;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.85);
+  border: 1px solid rgba(0,0,0,.06);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,.06);
+  transition: all .2s;
+  backdrop-filter: blur(8px);
+}
+.alt3d-close:hover {
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(0,0,0,.1);
+  transform: scale(1.06);
+}
+.alt3d-close svg { width: 16px; height: 16px; color: #1a3040; }
+
+/* Info card */
+.alt3d-info {
+  position: fixed; right: 32px; top: 50%;
+  width: 340px; background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 44px rgba(0,0,0,.07), 0 1px 3px rgba(0,0,0,.03);
+  padding: 28px 26px 22px;
+  z-index: 50;
+  opacity: 0; pointer-events: none;
+  transform: translateY(-50%) translateX(46px);
+}
+.alt3d-info.vis { pointer-events: auto; }
+
+.alt3d-info .ci-num {
+  font-size: .52rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: #F8AF21; margin-bottom: 5px;
+}
+.alt3d-info .ci-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.4rem; color: #1a2a2a;
+  line-height: 1.15; margin-bottom: 3px;
+}
+.alt3d-info .ci-phase {
+  font-size: .6rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: #5a9ab5; margin-bottom: 12px;
+}
+.alt3d-info .ci-dur {
+  display: inline-block; font-size: .48rem;
+  font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase;
+  background: #eef6fa; color: rgba(26,48,64,.4);
+  padding: 4px 11px; border-radius: 4px;
+  margin-bottom: 12px;
+}
+.alt3d-info .ci-desc {
+  font-size: .82rem; font-weight: 300;
+  line-height: 1.85; color: rgba(26,26,26,.5);
+  margin-bottom: 18px;
+}
+.alt3d-info .ci-nav {
+  display: flex; gap: 7px; align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0,0,0,.05);
+}
+.alt3d-info .ci-nav button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: .52rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  border: none; cursor: pointer;
+  padding: 7px 14px; border-radius: 5px;
+  transition: all .2s;
+}
+.alt3d-info .ci-btn-main {
+  background: #1a3040; color: #eef6fa;
+}
+.alt3d-info .ci-btn-main:hover { background: #2a4050; }
+.alt3d-info .ci-btn-main:disabled {
+  background: #ddd; color: #aaa; cursor: not-allowed;
+}
+.alt3d-info .ci-btn-close {
+  background: transparent; color: rgba(26,26,26,.3);
+  margin-left: auto;
+}
+.alt3d-info .ci-btn-close:hover { color: rgba(26,26,26,.6); }
+
+/* Flag labels */
+.alt3d-labels { position: fixed; inset: 0; pointer-events: none; z-index: 15; }
+.alt3d-flag-label {
+  position: absolute; white-space: nowrap;
+  transition: opacity .3s;
+}
+.alt3d-flag-label span {
+  font-size: .46rem; font-weight: 700;
+  letter-spacing: .15em; text-transform: uppercase;
+  color: #e8524a; background: #fff;
+  padding: 2px 8px; border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  cursor: pointer; pointer-events: auto;
+}
+.alt3d-flag-label span:hover { color: #F8AF21; }
+
+/* Progress dots */
+.alt3d-dots {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 9px; z-index: 20;
+}
+.alt3d-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(26,48,64,.12);
+  border: none; cursor: pointer;
+  transition: all .3s; padding: 0;
+}
+.alt3d-dot.active { background: #F8AF21; transform: scale(1.3); }
+.alt3d-dot:hover { background: rgba(248,175,33,.5); }
+
+/* Hint text */
+.alt3d-hint {
+  position: fixed; bottom: 48px; left: 50%;
+  transform: translateX(-50%);
+  font-size: .46rem; letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(26,48,64,.16);
+  pointer-events: none; z-index: 20;
+  transition: opacity .4s;
+}
+.alt3d-overlay.zoomed .alt3d-hint { opacity: 0; }
+
+
+/* ─── 4. MOBILE ─── */
+@media (max-width: 768px) {
+  .alt3d-card { padding: 32px 24px; min-height: 180px; }
+  .alt3d-card-desc { font-size: .82rem; }
+
+  .alt3d-info {
+    right: 50%; top: auto; bottom: 16px;
+    width: 92vw;
+    transform: translateX(50%) translateY(28px);
+    border-radius: 12px;
+  }
+  .alt3d-info.vis {
+    transform: translateX(50%) translateY(0);
+  }
+
+  .alt3d-close {
+    top: 14px; right: 14px;
+    width: 36px; height: 36px;
+  }
+}

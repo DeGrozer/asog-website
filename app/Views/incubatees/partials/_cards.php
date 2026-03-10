@@ -35,6 +35,11 @@
                 <div class="ib-back-divider relative shrink-0"></div>
                 <p class="ib-back-name relative shrink-0"><?= esc($inc['companyName']) ?></p>
                 <span class="ib-back-cohort relative shrink-0"><?= esc(preg_replace('/\s*[·•|\-–—]\s*\d{4}/', '', $inc['cohort'] ?? '')) ?></span>
+                <!-- Mobile: See More button on back face -->
+                <button class="ib-see-more relative shrink-0" data-ix="<?= $i ?>">
+                    See More
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </button>
             </div>
 
         </div>

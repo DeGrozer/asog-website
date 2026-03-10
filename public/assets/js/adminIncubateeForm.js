@@ -1,4 +1,4 @@
-(function() {
+put it(function() {
     /* ── Logo Upload Zone ── */
     var zone = document.getElementById('uploadZone');
     var input = document.getElementById('logoInput');

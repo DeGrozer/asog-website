@@ -36,9 +36,30 @@
         pFacebook    = $('pFacebook');
 
     var cards      = document.querySelectorAll('.ib-card');
+    var seeMoreBtns = document.querySelectorAll('.ib-see-more');
     var isOpen     = false;
     var isFlipped  = false;
     var activeCard = null;
+    var isMobileView = function () { return window.innerWidth <= 768; };
+    var mobileFlippedCard = null;  // track which small card is flipped on mobile
+
+    /* ── Mobile preview card refs ── */
+    var mobPreview   = document.getElementById('ibMobilePreview');
+    var mobBackdrop  = document.getElementById('ibMobPreviewBackdrop');
+    var mobWrap      = document.getElementById('ibMobPreviewWrap');
+    var mobClose     = document.getElementById('ibMobPreviewClose');
+    var mpInner      = document.getElementById('mpInner');
+    var mpLogo       = document.getElementById('mpLogo');
+    var mpNum        = document.getElementById('mpNum');
+    var mpName       = document.getElementById('mpName');
+    var mpFounder    = document.getElementById('mpFounder');
+    var mpCohort     = document.getElementById('mpCohort');
+    var mpBackName   = document.getElementById('mpBackName');
+    var mpBackTeam   = document.getElementById('mpBackTeam');
+    var mpHint       = document.getElementById('mpHint');
+    var mpReadMore   = document.getElementById('mpReadMore');
+    var previewIdx   = null;
+    var mpFlipped    = false;
 
     /* ── Entrance animation ── */
     gsap.from('.ib-card', {
@@ -73,7 +94,119 @@
         });
 
         card.addEventListener('click', function () {
-            openCard(card, parseInt(card.dataset.ix));
+            if (isMobileView()) {
+                showMobilePreview(card, parseInt(card.dataset.ix));
+            } else {
+                openCard(card, parseInt(card.dataset.ix));
+            }
+        });
+    });
+
+    /* ── Mobile: show preview popup (mini version of desktop big card) ── */
+    function showMobilePreview(card, idx) {
+        if (isOpen) return;
+        if (!mobPreview) return;
+        previewIdx = idx;
+        activeCard = card;
+        mpFlipped = false;
+        var d   = data[idx];
+        var num = String(idx + 1).padStart(2, '0');
+
+        /* ── Populate FRONT (navy) — same as desktop bfXxx ── */
+        mpNum.textContent     = num;
+        mpName.textContent    = d.companyName;
+        mpFounder.textContent = d.founderName ? 'by ' + d.founderName : '';
+        mpCohort.textContent  = d.cohort;
+        mpLogo.innerHTML = d.logoWhitePath
+            ? '<img src="' + d.logoWhitePath + '" alt="' + d.companyName + '" class="is-white">'
+            : d.logoPath
+            ? '<img src="' + d.logoPath + '" alt="' + d.companyName + '">'
+            : '<span class="ib-init" style="font-size:1.8rem;color:rgba(255,255,255,.5)">' + d.companyName.charAt(0).toUpperCase() + '</span>';
+
+        /* ── Populate BACK (team) — same as desktop bbXxx ── */
+        mpBackName.textContent = d.companyName;
+        var html = '';
+        if (d.teamMembers && d.teamMembers.length) {
+            html += '<span class="ib-bb-team-label">Members</span>';
+            d.teamMembers.forEach(function (m) {
+                html += '<div class="ib-bb-member flex flex-col items-center">';
+                html += '<span class="ib-bb-member-name">' + m.name + '</span>';
+                if (m.role) html += '<span class="ib-bb-member-role">' + m.role + '</span>';
+                html += '</div>';
+            });
+        } else {
+            html = '<p class="ib-bb-no-team">Team info coming soon</p>';
+        }
+        mpBackTeam.innerHTML = html;
+
+        /* Reset flip state */
+        if (mpInner) mpInner.classList.remove('is-flipped');
+        if (mpHint) { mpHint.textContent = 'Tap card to flip'; mpHint.classList.remove('hidden'); }
+
+        /* Show */
+        mobPreview.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobilePreview() {
+        if (!mobPreview) return;
+        mobPreview.classList.remove('is-open');
+        document.body.style.overflow = '';
+        previewIdx = null;
+        activeCard = null;
+        mpFlipped = false;
+        if (mpInner) mpInner.classList.remove('is-flipped');
+    }
+
+    /* ── Tap the mini card to flip it ── */
+    if (mpInner) {
+        mpInner.addEventListener('click', function (e) {
+            e.stopPropagation();
+            mpFlipped = !mpFlipped;
+            mpInner.classList.toggle('is-flipped', mpFlipped);
+            if (mpHint) {
+                mpHint.textContent = mpFlipped ? 'Tap card to flip back' : 'Tap card to flip';
+            }
+        });
+    }
+
+    /* ── Mobile preview: Read More → full detail panel ── */
+    if (mpReadMore) {
+        mpReadMore.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var idx  = previewIdx;
+            var card = activeCard;
+            if (idx === null || !card) return;
+            closeMobilePreview();
+            /* Delay so the preview closes visually first */
+            setTimeout(function () {
+                openCard(card, idx);
+            }, 200);
+        });
+    }
+
+    /* ── Mobile preview: close triggers ── */
+    if (mobClose) {
+        mobClose.addEventListener('click', function (e) { e.stopPropagation(); closeMobilePreview(); });
+    }
+    if (mobBackdrop) {
+        mobBackdrop.addEventListener('click', function (e) { e.stopPropagation(); closeMobilePreview(); });
+    }
+    if (mobWrap) {
+        mobWrap.addEventListener('click', function (e) { e.stopPropagation(); });
+    }
+
+    /* ── Mobile "See More" buttons on card back ── */
+    seeMoreBtns.forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var ix = parseInt(btn.dataset.ix);
+            var card = document.querySelector('.ib-card[data-ix="' + ix + '"]');
+            // Unflip the card first, then open modal
+            if (card) card.classList.remove('mob-flipped');
+            mobileFlippedCard = null;
+            openCard(card, ix);
         });
     });
 
@@ -135,10 +268,17 @@
         overlay.classList.add('is-open');
         document.body.style.overflow = 'hidden';
 
-        gsap.set(bigInner, { rotateY: 0 });
-        gsap.set(bigCard,  { opacity: 0, scale: .7, y: 30 });
-        gsap.to(bigCard,   { opacity: 1, scale: 1, y: 0, duration: .5, delay: .1, ease: 'back.out(1.4)' });
-        gsap.to(panel,     { x: 0, duration: .45, delay: .2, ease: 'power3.out' });
+        if (isMobileView()) {
+            /* Mobile: slide panel up from bottom, skip big card */
+            gsap.set(panel, { x: 0, y: '100%' });
+            gsap.to(panel, { y: 0, duration: .4, ease: 'power3.out' });
+        } else {
+            /* Desktop: big card + side panel */
+            gsap.set(bigInner, { rotateY: 0 });
+            gsap.set(bigCard,  { opacity: 0, scale: .7, y: 30 });
+            gsap.to(bigCard,   { opacity: 1, scale: 1, y: 0, duration: .5, delay: .1, ease: 'back.out(1.4)' });
+            gsap.to(panel,     { x: 0, duration: .45, delay: .2, ease: 'power3.out' });
+        }
     }
 
     /* ── Close overlay ── */
@@ -153,19 +293,40 @@
     }
 
     function doClose() {
-        gsap.to(panel,   { x: '100%', duration: .3, ease: 'power2.in' });
-        gsap.to(bigCard, {
-            opacity: 0, scale: .8, y: 20, duration: .3, ease: 'power2.in',
-            onComplete: function () {
-                overlay.classList.remove('is-open');
-                stack.classList.remove('has-active');
-                if (activeCard) activeCard.classList.remove('is-picked');
-                activeCard = null;
-                isOpen = false;
-                document.body.style.overflow = '';
-                gsap.set(panel, { x: '100%' });
-            }
-        });
+        if (isMobileView()) {
+            /* Mobile: slide panel down to bottom */
+            gsap.to(panel, {
+                x: 0, y: '100%', duration: .3, ease: 'power2.in',
+                onComplete: function () {
+                    overlay.classList.remove('is-open');
+                    stack.classList.remove('has-active');
+                    if (activeCard) activeCard.classList.remove('is-picked');
+                    if (mobileFlippedCard) {
+                        mobileFlippedCard.classList.remove('mob-flipped');
+                        mobileFlippedCard = null;
+                    }
+                    activeCard = null;
+                    isOpen = false;
+                    document.body.style.overflow = '';
+                    /* Reset to CSS default (offscreen right) */
+                    panel.style.transform = '';
+                }
+            });
+        } else {
+            gsap.to(panel,   { x: '100%', duration: .3, ease: 'power2.in' });
+            gsap.to(bigCard, {
+                opacity: 0, scale: .8, y: 20, duration: .3, ease: 'power2.in',
+                onComplete: function () {
+                    overlay.classList.remove('is-open');
+                    stack.classList.remove('has-active');
+                    if (activeCard) activeCard.classList.remove('is-picked');
+                    activeCard = null;
+                    isOpen = false;
+                    document.body.style.overflow = '';
+                    gsap.set(panel, { x: '100%' });
+                }
+            });
+        }
     }
 
     /* ── Flip (counter-clockwise) ── */
@@ -180,6 +341,12 @@
     panel.addEventListener('click', function (e) { e.stopPropagation(); });
     backdrop.addEventListener('click', closeOverlay);
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && isOpen) closeOverlay();
+        if (e.key === 'Escape') {
+            if (mobPreview && mobPreview.classList.contains('is-open')) {
+                closeMobilePreview();
+            } else if (isOpen) {
+                closeOverlay();
+            }
+        }
     });
 })();

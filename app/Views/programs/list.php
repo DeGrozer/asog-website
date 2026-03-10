@@ -17,7 +17,7 @@
                             ['id' => 'basecamp', 'label' => 'Basecamp'],
                             ['id' => 'ascent', 'label' => 'Ascent'],
                             ['id' => 'summit-launch', 'label' => 'Summit Launch'],
-                            ['id' => 'founder-story', 'label' => 'Founder Story'],
+                            ['id' => 'altitude-3d', 'label' => '3D Journey'],
                         ]],
                     ];
                 ?>
@@ -33,6 +33,29 @@
                 <section class="relative py-20 md:py-32">
 
                     <div id="altitude-program" class="scroll-mt-28"></div>
+
+                    <!-- ── 3D Explore Strip ── -->
+                    <div id="altitude-3d" class="scroll-mt-28 mb-14">
+                        <div id="altitudeExploreCard" class="alt3d-card" role="button" tabindex="0" aria-label="Open interactive 3D view">
+                            <div class="alt3d-card-left">
+                                <span class="alt3d-card-tag">Interactive</span>
+                                <h3 class="alt3d-card-title">The Journey to Summit</h3>
+                                <p class="alt3d-card-sub">See the four stages of ALTITUDE as a 3D mountain trail you can explore.</p>
+                            </div>
+                            <div class="alt3d-card-right">
+                                <svg class="alt3d-card-mtn" viewBox="0 0 320 120" fill="none">
+                                    <path d="M0 120 L45 55 L80 78 L130 22 L180 65 L220 35 L270 58 L320 15 L320 120Z" fill="rgba(26,48,64,.06)"/>
+                                    <path d="M0 120 L60 70 L110 88 L160 42 L210 75 L260 48 L310 68 L320 60 L320 120Z" fill="rgba(26,48,64,.04)"/>
+                                    <circle cx="290" cy="25" r="3" fill="rgba(248,175,33,.5)"/>
+                                    <line x1="290" y1="28" x2="290" y2="42" stroke="rgba(26,48,64,.12)" stroke-width="1"/>
+                                </svg>
+                                <span class="alt3d-card-cta">
+                                    Explore
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="max-w-[760px] mx-auto relative z-[2]">
                         <!-- Hero text -->
@@ -152,98 +175,6 @@
                                     the climb.</p>
                             </div>
 
-                            <div class="h-px bg-dark/[.08] my-12"></div>
-
-                            <!-- Founder Story -->
-                            <div>
-                                <h2 id="founder-story"
-                                    class="font-display text-[1.8rem] leading-[1.18] text-dark mb-6 scroll-mt-28">An
-                                    Absolute Turning Point</h2>
-                                <p class="text-[.88rem] text-dark/50 italic mb-6">One engineering student entered ASOG
-                                    TBI with a simple idea. What followed was a founder story shaped by purpose,
-                                    science, and the right ecosystem.</p>
-
-                                <p class="mb-4">Before he became a startup founder, Abbe Gerald Rivero was focused on
-                                    the goals most third-year engineering students quietly carry: keep the grades up,
-                                    stay active in leadership roles, and work toward licensure.</p>
-
-                                <p class="mb-4">He describes himself simply as "Ab," a BS Electronics Engineering
-                                    student with a deep curiosity for technology and a habit of chasing opportunities
-                                    wherever they appear. He joined skill-building programs, attended networking events,
-                                    and kept looking for ways to grow. In many ways, he was already building a founder's
-                                    mindset long before he ever called himself one.</p>
-
-                                <p class="mb-4"><strong class="text-dark/75">Then came a problem that refused to stay
-                                        small.</strong></p>
-
-                                <p class="mb-4">For Abbe, it started with a detail most consumers never think about: how
-                                    meat quality is measured, and what gets compromised in the process.</p>
-
-                                <p class="mb-4">Traditional pH testing often requires physically piercing the product.
-                                    The inspection itself can damage the meat, raise contamination risk, and weaken food
-                                    safety safeguards. "The current process requires physically compromising the
-                                    product," he said. "That inefficiency and risk were things I felt we had the
-                                    technology to fix."</p>
-
-                                <p class="mb-4">His team's answer is a tool that does something deceptively simple. It
-                                    measures meat pH without touching the meat at all.</p>
-
-                                <p class="mb-4">The concept uses spectroscopy, which reads spectral signatures and links
-                                    them to chemical conditions inside the product. Abbe's startup aims to detect pH
-                                    levels through light-based scanning, helping processors and inspectors assess
-                                    quality while keeping the product intact.</p>
-
-                                <p class="mb-4">Abbe explains the mission in a way that brings the technology back to
-                                    its most human purpose. "Ultimately, this is for all the consumers out there," he
-                                    said. "Most people can't see the chemical changes happening in their food." Spoilage
-                                    signs can be subtle, and inspection lapses can be invisible. But the consequences
-                                    can be serious, from unsafe products entering the market to food-borne illnesses
-                                    that could have been prevented.</p>
-
-                                <p class="mb-4">Even before incubation, Abbe was already drawn to innovation-centered
-                                    competitions. He joined hackathons and pitching events that trained him to think
-                                    beyond grades and requirements. "It shifted my mindset to that of a real-world
-                                    problem solver," he said. "Creating solutions for problems that people didn't even
-                                    realize could be fixed."</p>
-
-                                <p class="mb-4">That mindset eventually led him to apply to the ASOG Technology Business
-                                    Incubator, where he found something he did not expect: a real startup ecosystem.</p>
-
-                                <p class="mb-4">He applied because he believed the incubator could bring his team's
-                                    concept closer to reality. ASOG TBI gave the idea structure through mentorship,
-                                    guidance, and access to the right networks. "It is a dream for any founder to see
-                                    their concepts come to reality," Abbe said. "ASOG TBI provides the support,
-                                    resources, and networks to make that happen."</p>
-
-                                <p class="mb-4">The experience rewrote his sense of what could happen next.</p>
-
-                                <p class="mb-4">"Everything changed," he said. Before the program, his plan was
-                                    straightforward: graduate, become a licensed engineer, and work in the industry.
-                                    Entering the incubator introduced him to a different kind of future, one he never
-                                    expected to explore as a student. "I honestly never expected to be part of a startup
-                                    ecosystem," he shared.</p>
-
-                                <p class="mb-4">The program also demanded a different kind of growth. Abbe describes
-                                    himself now as a more holistic founder, shaped by constant feedback from mentors,
-                                    experts, and fellow innovators. "It has taught me to value criticism and use it as a
-                                    tool to refine our product further."</p>
-
-                                <p class="mb-4">For the year ahead, his definition of success is grounded and specific.
-                                    The goal is to complete their prototype with mentor guidance and build a proof of
-                                    concept strong enough to scale.</p>
-
-                                <p class="mb-4">If the startup succeeds, Abbe believes its impact will be quiet but
-                                    essential, strengthening public health in ways most people may never notice. Beyond
-                                    the technology, he hopes his journey can encourage other aspiring founders who are
-                                    still unsure whether their ideas deserve a chance. "I want to share my story as a
-                                    'template' for success; one that others can take, customize, and use to build their
-                                    own path."</p>
-
-                                <p class="mb-4">For him, the biggest change has not been a single win or milestone, but
-                                    the new direction that opened once he stepped into the ecosystem. "Entering this
-                                    program created a completely new timeline for my life." ■</p>
-                            </div>
-
                         </div>
                     </div>
 
@@ -252,3 +183,74 @@
         </div><!-- end grid -->
     </div><!-- end max-w container -->
 </div><!-- end TOC wrapper -->
+
+<!-- ╔══════════════════════════════════════════════════════════════════════╗
+     ║  ALTITUDE 3D — Wilderness Zoom Overlay + Fullscreen 3D Scene      ║
+     ╚══════════════════════════════════════════════════════════════════════╝ -->
+<link rel="stylesheet" href="<?= base_url('assets/css/altitude3d.css') ?>">
+
+<!-- Phase 1: Wilderness Zoom Transition Overlay -->
+<div id="alt3dZoomOverlay" class="alt3d-zoom-overlay">
+    <div class="alt3d-zoom-mountains">
+        <svg viewBox="0 0 1440 800" preserveAspectRatio="none">
+            <path id="alt3dMtnFar"  class="alt3d-mtn-far"  d="M0 800 L200 400 L360 520 L540 280 L720 450 L900 200 L1100 380 L1300 180 L1440 350 L1440 800Z"/>
+            <path id="alt3dMtnMid"  class="alt3d-mtn-mid"  d="M0 800 L140 480 L300 560 L480 320 L660 500 L840 260 L1020 420 L1200 220 L1380 380 L1440 440 L1440 800Z"/>
+            <path id="alt3dMtnNear" class="alt3d-mtn-near" d="M0 800 L100 560 L260 620 L400 440 L560 580 L720 380 L880 520 L1060 340 L1240 480 L1440 520 L1440 800Z"/>
+        </svg>
+    </div>
+    <div id="alt3dZoomText" class="alt3d-zoom-text" style="opacity:0; transform:translateY(20px);">
+        <p class="zt-eyebrow">ASOG-TBI · The ALTITUDE Program</p>
+        <h2 class="zt-title">The Journey to Summit</h2>
+    </div>
+</div>
+
+<!-- Phase 2: Fullscreen 3D Scene Overlay -->
+<div id="alt3dOverlay" class="alt3d-overlay">
+    <canvas id="alt3dCanvas"></canvas>
+
+    <!-- Close button -->
+    <button id="alt3dClose" class="alt3d-close" aria-label="Close 3D view">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+        </svg>
+    </button>
+
+    <!-- Title -->
+    <div class="alt3d-title">
+        <p class="at-eyebrow">ASOG-TBI · The ALTITUDE Program</p>
+        <h1>The Journey to Summit</h1>
+        <p class="at-sub">Click a flag to explore each stage</p>
+    </div>
+
+    <!-- Flag labels container -->
+    <div id="alt3dLabels" class="alt3d-labels"></div>
+
+    <!-- Info card -->
+    <div id="alt3dInfo" class="alt3d-info">
+        <div class="ci-num"  id="ciNum"></div>
+        <div class="ci-name" id="ciName"></div>
+        <div class="ci-phase" id="ciPhase"></div>
+        <div class="ci-dur"  id="ciDur"></div>
+        <div class="ci-desc" id="ciDesc"></div>
+        <div class="ci-nav">
+            <button class="ci-btn-main" id="ciBtnPrev">&larr; Prev</button>
+            <button class="ci-btn-main" id="ciBtnNext">Next &rarr;</button>
+            <button class="ci-btn-close" id="ciBtnOverview">&times; Overview</button>
+        </div>
+    </div>
+
+    <!-- Progress dots -->
+    <div id="alt3dDots" class="alt3d-dots">
+        <button class="alt3d-dot" data-i="0"></button>
+        <button class="alt3d-dot" data-i="1"></button>
+        <button class="alt3d-dot" data-i="2"></button>
+        <button class="alt3d-dot" data-i="3"></button>
+    </div>
+
+    <!-- Hint -->
+    <p id="alt3dHint" class="alt3d-hint">Click a flag to explore · Drag to orbit</p>
+</div>
+
+<!-- Three.js + Altitude 3D Module -->
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module" src="<?= base_url('assets/js/altitude3d.js') ?>"></script>

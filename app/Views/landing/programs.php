@@ -50,23 +50,27 @@
         </div>
 
         <!-- Bottom nav: arrows + page indicator -->
-        <div class="flex items-center justify-center gap-5 mt-14 md:mt-16 reveal">
+        <div class="flex items-center justify-center gap-4 mt-14 md:mt-16 reveal">
             <button id="progPrev" aria-label="Previous"
-                class="group/btn relative w-12 h-12 bg-white/[.04] border border-white/[.10] flex items-center justify-center text-white/50 cursor-pointer opacity-30 pointer-events-none overflow-hidden"
-                style="transition:border-color .3s,color .3s,background .3s,opacity .3s;clip-path:polygon(12% 0%,100% 0%,100% 100%,0% 100%,0% 12%)">
-                <span class="absolute inset-0 bg-gold/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></span>
-                <svg class="relative z-[1]" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                class="group/btn relative w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/[.15] flex items-center justify-center text-white/40 cursor-pointer opacity-30 pointer-events-none overflow-hidden"
+                style="transition:border-color .3s,color .3s,background .3s,opacity .3s,transform .2s">
+                <span class="absolute inset-0 rounded-full bg-gold/0 group-hover/btn:bg-gold/[.12] transition-all duration-300"></span>
+                <svg class="relative z-[1] transition-transform duration-200 group-hover/btn:-translate-x-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
                 </svg>
             </button>
-            <span id="progPage"
-                class="text-[.56rem] font-semibold tracking-[.18em] text-white/40 min-w-[3rem] text-center select-none"
-                style="font-variant-numeric:tabular-nums">1 / 2</span>
+            <div class="flex items-center gap-2">
+                <span class="block w-3 h-[1px] bg-gold/30"></span>
+                <span id="progPage"
+                    class="text-[.58rem] font-semibold tracking-[.2em] text-white/45 min-w-[2.5rem] text-center select-none"
+                    style="font-variant-numeric:tabular-nums">1 / 2</span>
+                <span class="block w-3 h-[1px] bg-gold/30"></span>
+            </div>
             <button id="progNext" aria-label="Next"
-                class="group/btn relative w-12 h-12 bg-white/[.04] border border-white/[.10] flex items-center justify-center text-white/50 cursor-pointer overflow-hidden"
-                style="transition:border-color .3s,color .3s,background .3s,opacity .3s;clip-path:polygon(0% 0%,88% 0%,100% 12%,100% 100%,0% 100%)">
-                <span class="absolute inset-0 bg-gold/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></span>
-                <svg class="relative z-[1]" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                class="group/btn relative w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/[.15] flex items-center justify-center text-white/40 cursor-pointer overflow-hidden"
+                style="transition:border-color .3s,color .3s,background .3s,opacity .3s,transform .2s">
+                <span class="absolute inset-0 rounded-full bg-gold/0 group-hover/btn:bg-gold/[.12] transition-all duration-300"></span>
+                <svg class="relative z-[1] transition-transform duration-200 group-hover/btn:translate-x-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                 </svg>
             </button>

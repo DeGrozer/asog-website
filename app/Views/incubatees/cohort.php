@@ -79,6 +79,73 @@ $sealUrl       = base_url('assets/img/ASOG%20TBI/PNG/Logo-white.png');
     <?= view('incubatees/partials/_overlay', ['sealUrl' => $sealUrl]) ?>
     <?= view('incubatees/partials/_panel') ?>
 
+    <!-- Mobile Preview Modal -->
+    <div id="ibMobilePreview" class="ib-mob-preview">
+        <div class="ib-mob-preview-backdrop" id="ibMobPreviewBackdrop"></div>
+        <div class="ib-mob-preview-wrap" id="ibMobPreviewWrap">
+            <!-- Close button -->
+            <button class="ib-mob-preview-close" id="ibMobPreviewClose">
+                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <!-- Mini flipping card (exact same structure as desktop big card) -->
+            <div class="ib-mob-preview-card">
+                <div class="ib-mob-preview-inner" id="mpInner">
+
+                    <!-- Front — navy (same as ib-big-front) -->
+                    <div class="ib-big-front absolute inset-0 rounded-2xl overflow-hidden flex flex-col items-center justify-center">
+                        <div class="ib-frame absolute pointer-events-none"></div>
+                        <div class="ib-frame-inner absolute pointer-events-none"></div>
+                        <div class="ib-diamond absolute pointer-events-none tl"></div>
+                        <div class="ib-diamond absolute pointer-events-none tr"></div>
+                        <div class="ib-diamond absolute pointer-events-none bl"></div>
+                        <div class="ib-diamond absolute pointer-events-none br"></div>
+                        <div class="ib-dots absolute inset-0 pointer-events-none"></div>
+                        <span id="mpNum" class="ib-bf-num absolute"></span>
+                        <div class="ib-bf-portrait flex items-center justify-center relative">
+                            <div id="mpLogo" class="ib-bf-logo flex items-center justify-center"></div>
+                        </div>
+                        <div class="ib-bf-divider shrink-0 relative"></div>
+                        <div class="ib-bf-nameplate text-center relative">
+                            <h3 id="mpName" class="ib-bf-name"></h3>
+                            <p id="mpFounder" class="ib-bf-founder"></p>
+                            <span id="mpCohort" class="ib-bf-cohort block"></span>
+                        </div>
+                        <span class="ib-mob-flip-cue">Tap to flip ↻</span>
+                    </div>
+
+                    <!-- Back — white / team (same as ib-big-back) -->
+                    <div class="ib-big-back absolute inset-0 rounded-2xl overflow-hidden flex flex-col items-center justify-center text-center">
+                        <div class="ib-frame absolute pointer-events-none"></div>
+                        <div class="ib-frame-inner absolute pointer-events-none"></div>
+                        <div class="ib-diamond absolute pointer-events-none tl"></div>
+                        <div class="ib-diamond absolute pointer-events-none tr"></div>
+                        <div class="ib-diamond absolute pointer-events-none bl"></div>
+                        <div class="ib-diamond absolute pointer-events-none br"></div>
+                        <div class="text-center relative z-10">
+                            <span class="ib-bb-label block">The Team</span>
+                            <p id="mpBackName" class="ib-bb-name"></p>
+                        </div>
+                        <div class="ib-bb-divider shrink-0 relative"></div>
+                        <div id="mpBackTeam" class="ib-bb-team w-full flex flex-col items-center overflow-y-auto relative"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Tap to flip hint -->
+            <span class="ib-mob-preview-hint" id="mpHint">Tap card to flip</span>
+
+            <!-- Read More button -->
+            <button class="ib-mob-preview-read" id="mpReadMore">
+                Read More
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+    </div>
+
     <!-- Data + Scripts -->
     <script>
     window.__ibData = <?= json_encode(array_map(function($inc){

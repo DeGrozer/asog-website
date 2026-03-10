@@ -3,6 +3,7 @@ const navbar = document.getElementById('navbar');
 let lastScrollY = window.scrollY;
 let ticking = false;
 const SCROLL_THRESHOLD = 60;
+const isMobile = () => window.innerWidth < 1024;
 
 // Detect if the section behind the navbar has a light background
 function isLightBackground() {

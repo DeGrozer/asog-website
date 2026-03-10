@@ -358,16 +358,15 @@
 
 .ib-p-head {
     padding: 2rem 3.5rem 1.3rem 2rem;
-    border-bottom: 1px solid rgba(2,13,24,.04);
 }
 .ib-p-about-label {
-    font-size: .42rem; font-weight: 700;
+    font-size: .58rem; font-weight: 700;
     letter-spacing: .22em; text-transform: uppercase;
     color: #03558C; margin-bottom: .6rem;
     text-shadow: 0 1px 0 rgba(255,255,255,.28);
 }
 .ib-p-cohort {
-    font-size: .44rem; font-weight: 700;
+    font-size: .6rem; font-weight: 700;
     letter-spacing: .2em; text-transform: uppercase;
     color: #c48800; margin-bottom: 3px;
 }
@@ -380,13 +379,11 @@
 
 .ib-p-body { padding: 1.4rem 2rem }
 .ib-p-short {
-    font-size: .82rem; font-weight: 300;
-    line-height: 1.85; color: rgba(2,13,24,.7);
-    margin-bottom: 1.2rem;
+    display: none;
 }
 .ib-p-content {
-    font-size: .78rem; font-weight: 300;
-    line-height: 1.9; color: rgba(2,13,24,.55);
+    font-size: .82rem; font-weight: 300;
+    line-height: 1.85; color: rgba(2,13,24,.7);
 }
 .ib-p-content p { margin-bottom: .8rem }
 .ib-p-content p:last-child { margin-bottom: 0 }
@@ -452,6 +449,317 @@
     transition: color .2s, border-color .2s;
 }
 .ib-apply:hover { color: #F8AF21; border-color: rgba(248,175,33,.5) }
+
+/* --------------------------------------------------------------------------
+   10b. MOBILE: CARD FLIP + SEE MORE + MODAL
+   -------------------------------------------------------------------------- */
+/* "See More" button on the back face of small card — hidden on desktop */
+.ib-see-more {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Show "See More" on card back face */
+    .ib-see-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: .6rem;
+        padding: .35rem .9rem;
+        font-family: 'DM Sans', sans-serif;
+        font-size: .5rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: rgba(248,175,33,.85);
+        background: rgba(248,175,33,.1);
+        border: 1px solid rgba(248,175,33,.2);
+        border-radius: .25rem;
+        cursor: pointer;
+        transition: all .2s ease;
+        z-index: 5;
+        position: relative;
+    }
+    .ib-see-more:active {
+        background: rgba(248,175,33,.25);
+        color: #F8AF21;
+    }
+
+    /* Mobile card flip support */
+    .ib-card.mob-flipped .ib-inner {
+        transform: rotateY(180deg) !important;
+    }
+
+    /* Hide the big card overlay on mobile */
+    .ib-modal {
+        display: none !important;
+    }
+
+    /* Convert panel into a full-screen modal from bottom */
+    .ib-panel {
+        max-width: 100% !important;
+        width: 100% !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        border-radius: 0;
+        z-index: 1001;
+    }
+
+    /* Adjust panel header for mobile */
+    .ib-p-head {
+        padding: 1.5rem 1.2rem 1rem;
+    }
+    .ib-p-body {
+        padding: 1rem 1.2rem;
+    }
+    .ib-p-foot {
+        padding: .8rem 1.2rem 1.2rem;
+    }
+    .ib-p-name {
+        font-size: 1.3rem;
+    }
+
+    /* Card sizing for mobile */
+    .ib-card {
+        width: calc(50% - 12px);
+        height: auto;
+        aspect-ratio: 2/3;
+    }
+    .ib-stack {
+        gap: 12px;
+        padding: 8px 0 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ib-card {
+        width: calc(50% - 8px);
+    }
+    .ib-stack {
+        gap: 8px;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   10c. MOBILE PREVIEW — mini flipping card + Read More
+   -------------------------------------------------------------------------- */
+.ib-mob-preview {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    pointer-events: none;
+}
+.ib-mob-preview.is-open {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.ib-mob-preview-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(2,13,24,.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    opacity: 0;
+    transition: opacity .25s ease;
+}
+.ib-mob-preview.is-open .ib-mob-preview-backdrop {
+    opacity: 1;
+}
+
+/* Wrapper: card + hint + button, vertically stacked */
+.ib-mob-preview-wrap {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .7rem;
+    opacity: 0;
+    transform: scale(.85) translateY(24px);
+    transition: opacity .3s ease, transform .3s ease;
+}
+.ib-mob-preview.is-open .ib-mob-preview-wrap {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* Close — top-right floating */
+.ib-mob-preview-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.15);
+    background: rgba(2,13,24,.6);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,.7);
+    cursor: pointer;
+    z-index: 10;
+    transition: all .15s;
+}
+.ib-mob-preview-close:active {
+    color: #fff;
+    background: rgba(2,13,24,.85);
+}
+
+/* Mini card container — same aspect as the big card */
+.ib-mob-preview-card {
+    width: 52vw;
+    max-width: 220px;
+    aspect-ratio: 2/3;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+/* Inner — handles the 3D flip */
+.ib-mob-preview-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    border-radius: 1rem;
+    box-shadow: 0 20px 60px rgba(2,13,24,.3);
+    transition: transform .55s cubic-bezier(.4,.0,.2,1);
+}
+.ib-mob-preview-inner.is-flipped {
+    transform: rotateY(-180deg);
+}
+
+/* Reuse the big-front / big-back styles — just scale content down */
+.ib-mob-preview-card .ib-big-front,
+.ib-mob-preview-card .ib-big-back {
+    border-radius: 1rem;
+}
+.ib-mob-preview-card .ib-big-front {
+    padding: 1.2rem .8rem;
+    gap: .5rem;
+}
+.ib-mob-preview-card .ib-big-back {
+    padding: 1.2rem .8rem;
+}
+
+/* Scale down text inside the mini card */
+.ib-mob-preview-card .ib-bf-num {
+    font-size: .5rem;
+    top: 10px; left: 12px;
+}
+.ib-mob-preview-card .ib-bf-logo img {
+    width: 10vh;
+    height: 10vh;
+}
+.ib-mob-preview-card .ib-bf-divider {
+    display: none;
+}
+.ib-mob-preview-card .ib-bf-name {
+    font-size: 1rem;
+}
+.ib-mob-preview-card .ib-bf-founder {
+    display: none;
+}
+.ib-mob-preview-card .ib-bf-cohort {
+    font-size: .55rem;
+}
+
+/* Flip cue on card */
+.ib-mob-flip-cue {
+    position: absolute;
+    bottom: 14px;
+    left: 0; right: 0;
+    text-align: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .38rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.25);
+    z-index: 10;
+    pointer-events: none;
+}
+.ib-mob-preview-card .ib-bb-name {
+    font-size: 1rem;
+}
+.ib-mob-preview-card .ib-bb-label {
+    font-size: .36rem;
+}
+.ib-mob-preview-card .ib-bb-member-name {
+    font-size: .8rem;
+}
+.ib-mob-preview-card .ib-bb-member-role {
+    font-size: .45rem;
+}
+.ib-mob-preview-card .ib-bb-team {
+    gap: .35rem;
+    padding: 0 .8rem;
+}
+.ib-mob-preview-card .ib-frame { inset: 5px; border-radius: 8px }
+.ib-mob-preview-card .ib-frame-inner { inset: 12px; border-radius: 5px }
+.ib-mob-preview-card .ib-diamond { width: 5px; height: 5px }
+.ib-mob-preview-card .ib-diamond.tl { top: 10px; left: 10px }
+.ib-mob-preview-card .ib-diamond.tr { top: 10px; right: 10px }
+.ib-mob-preview-card .ib-diamond.bl { bottom: 10px; left: 10px }
+.ib-mob-preview-card .ib-diamond.br { bottom: 10px; right: 10px }
+
+/* Flip hint */
+.ib-mob-preview-hint {
+    position: relative;
+    z-index: 5;
+    font-size: .52rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.35);
+    transition: opacity .3s;
+}
+.ib-mob-preview-hint.hidden {
+    opacity: 0;
+}
+
+/* Read More button */
+.ib-mob-preview-read {
+    position: relative;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: .6rem 1.6rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .6rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #03558C;
+    background: #F8AF21;
+    border: none;
+    border-radius: .3rem;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(248,175,33,.3);
+    transition: background .2s, transform .15s;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(248,175,33,.3);
+}
+.ib-mob-preview-read:active {
+    background: #e8a900;
+    transform: scale(.97);
+}
+
+/* Hide on desktop */
+@media (min-width: 769px) {
+    .ib-mob-preview {
+        display: none !important;
+    }
+}
 
 /* --------------------------------------------------------------------------
    11. EMPTY STATE

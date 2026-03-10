@@ -215,6 +215,10 @@ $cohorts = $cohorts ?? [];
         <!-- Cohort Navigation Bars -->
         <?php if (! empty($cohorts)): ?>
         <div class="ch-bars reveal reveal-d1">
+            <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;padding:0 .5rem">
+                <span style="font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#03558C"><?= count($cohorts) ?> Cohort<?= count($cohorts) !== 1 ? 's' : '' ?></span>
+                <span style="flex:1;height:1px;background:rgba(2,13,24,.06)"></span>
+            </div>
             <?php foreach ($cohorts as $i => $cohortName): ?>
             <?php
                 $cNum  = (int) filter_var($cohortName, FILTER_SANITIZE_NUMBER_INT);
