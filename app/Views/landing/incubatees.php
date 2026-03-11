@@ -98,8 +98,8 @@ if (! empty($fi['teamMembers'])) {
 
 .fic-logo {
     position: relative; z-index: 5;
-    max-width: 160px; max-height: 160px;
-    object-fit: contain; opacity: .6;
+    max-width: 190px; max-height: 190px;
+    object-fit: contain; opacity: .65;
     transition: opacity .3s
 }
 .fic-logo.is-filtered {
@@ -137,8 +137,8 @@ if (! empty($fi['teamMembers'])) {
     opacity: .45; margin-bottom: .5rem
 }
 .fic-back-divider {
-    width: 28px; height: 1px;
-    background: rgba(248,175,33,.2);
+    width: 50px; height: 1px;
+    background: rgba(248,175,33,.25);
     margin: .5rem 0 .5rem
 }
 .fic-back-name {
@@ -158,18 +158,18 @@ if (! empty($fi['teamMembers'])) {
     padding: 0 .5rem
 }
 .fic-back-team-label {
-    font-size: .38rem; font-weight: 700;
+    font-size: .54rem; font-weight: 700;
     letter-spacing: .18em; text-transform: uppercase;
     color: rgba(248,175,33,.7);
-    margin-bottom: .4rem
+    margin-bottom: .5rem
 }
 .fic-back-member {
-    font-size: .52rem; line-height: 1.6;
-    color: rgba(255,255,255,.75)
+    font-size: .72rem; font-weight: 400; line-height: 1.7;
+    color: rgba(255,255,255,.85)
 }
 .fic-back-member span {
-    display: block; font-size: .36rem;
-    color: rgba(255,255,255,.4);
+    display: block; font-size: .46rem; font-weight: 400;
+    color: rgba(255,255,255,.45);
     letter-spacing: .06em
 }
 
@@ -317,10 +317,20 @@ if (! empty($fi['teamMembers'])) {
                 <h3 class="fic-name"><?= esc(html_entity_decode($fi['companyName'], ENT_QUOTES, 'UTF-8')) ?></h3>
 
                 <p class="fic-meta">
-                    <?php if (! empty($fi['founderName'])): ?>
-                        by <?= esc(html_entity_decode($fi['founderName'], ENT_QUOTES, 'UTF-8')) ?>
+                    <?php
+                        // Show leaders/founders from team, or fallback to all team, then founderName
+                        $teamList = [];
+                        if (!empty($team)) {
+                            $leaders = array_filter($team, fn($m) => !empty($m['role']) && preg_match('/leader|founder|ceo|cto|coo|president|director/i', $m['role']));
+                            $teamList = !empty($leaders) ? $leaders : $team;
+                        }
+                    ?>
+                    <?php if (!empty($teamList)): ?>
+                        <?= implode(', ', array_map(fn($m) => esc(html_entity_decode($m['name'], ENT_QUOTES, 'UTF-8')), array_slice($teamList, 0, 4))) ?>
+                    <?php elseif (!empty($fi['founderName'])): ?>
+                        <?= esc(html_entity_decode($fi['founderName'], ENT_QUOTES, 'UTF-8')) ?>
                     <?php endif; ?>
-                    <?php if (! empty($fi['founderName']) && ! empty($fi['cohort'])): ?>
+                    <?php if ((!empty($teamList) || !empty($fi['founderName'])) && !empty($fi['cohort'])): ?>
                         <span>·</span>
                     <?php endif; ?>
                     <?php if (! empty($fi['cohort'])): ?>

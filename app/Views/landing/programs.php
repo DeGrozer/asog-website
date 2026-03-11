@@ -12,12 +12,12 @@
                     <span class="block w-[18px] h-[1.5px] bg-gold"></span>
                     <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-gold">What We Offer</span>
                 </div>
-                <h2 class="font-display text-3xl md:text-[2.1rem] leading-[1.12] text-off">Programs &amp; <em
-                        class="italic text-gold">Services</em></h2>
+                <h2 class="font-display text-3xl md:text-[2.1rem] leading-[1.12] text-off"><em
+                        class="italic text-gold">Services</em> offered </h2>
             </div>
             <a href="<?= site_url('programs') ?>"
-                class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-white/[.55] no-underline border-b border-white/[.24] pb-0.5 transition-colors duration-200 hover:text-gold hover:border-gold shrink-0">View
-                All Programs →</a>
+                class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-white/[.55] no-underline border-b border-white/[.24] pb-0.5 transition-colors duration-200 hover:text-gold hover:border-gold shrink-0">
+                View Programs and Services →</a>
         </div>
 
         <?php
@@ -40,7 +40,8 @@
                 <?php foreach ($programs as $i => $prog): ?>
                 <div class="prog-card shrink-0 box-border py-2" data-ix="<?= $i ?>">
                     <div class="h-full px-6 md:px-7<?= $i > 0 ? ' border-l border-white/[.08]' : '' ?>">
-                        <span class="block text-[.5rem] font-semibold tracking-[.22em] uppercase text-gold/70 mb-4"><?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?></span>
+                        <span
+                            class="block text-[.5rem] font-semibold tracking-[.22em] uppercase text-gold/70 mb-4"><?= str_pad($i + 1, 2, '0', STR_PAD_LEFT) ?></span>
                         <h3 class="font-display text-[1.05rem] text-off mb-3 leading-snug"><?= $prog[0] ?></h3>
                         <p class="text-[.78rem] font-light leading-[1.8] text-white/60"><?= $prog[1] ?></p>
                     </div>
@@ -54,9 +55,11 @@
             <button id="progPrev" aria-label="Previous"
                 class="group/btn relative w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/[.15] flex items-center justify-center text-white/40 cursor-pointer opacity-30 pointer-events-none overflow-hidden"
                 style="transition:border-color .3s,color .3s,background .3s,opacity .3s,transform .2s">
-                <span class="absolute inset-0 rounded-full bg-gold/0 group-hover/btn:bg-gold/[.12] transition-all duration-300"></span>
-                <svg class="relative z-[1] transition-transform duration-200 group-hover/btn:-translate-x-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                <span
+                    class="absolute inset-0 rounded-full bg-gold/0 group-hover/btn:bg-gold/[.12] transition-all duration-300"></span>
+                <svg class="relative z-[1] transition-transform duration-200 group-hover/btn:-translate-x-0.5"
+                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
             </button>
             <div class="flex items-center gap-2">
@@ -69,9 +72,11 @@
             <button id="progNext" aria-label="Next"
                 class="group/btn relative w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/[.15] flex items-center justify-center text-white/40 cursor-pointer overflow-hidden"
                 style="transition:border-color .3s,color .3s,background .3s,opacity .3s,transform .2s">
-                <span class="absolute inset-0 rounded-full bg-gold/0 group-hover/btn:bg-gold/[.12] transition-all duration-300"></span>
-                <svg class="relative z-[1] transition-transform duration-200 group-hover/btn:translate-x-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                <span
+                    class="absolute inset-0 rounded-full bg-gold/0 group-hover/btn:bg-gold/[.12] transition-all duration-300"></span>
+                <svg class="relative z-[1] transition-transform duration-200 group-hover/btn:translate-x-0.5" width="16"
+                    height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
             </button>
         </div>

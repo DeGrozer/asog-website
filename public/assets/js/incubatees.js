@@ -115,7 +115,7 @@
         /* ── Populate FRONT (navy) — same as desktop bfXxx ── */
         mpNum.textContent     = num;
         mpName.textContent    = d.companyName;
-        mpFounder.textContent = d.founderName ? 'by ' + d.founderName : '';
+        mpFounder.textContent = '';
         mpCohort.textContent  = d.cohort;
         mpLogo.innerHTML = d.logoWhitePath
             ? '<img src="' + d.logoWhitePath + '" alt="' + d.companyName + '" class="is-white">'
@@ -223,7 +223,7 @@
         /* Big front */
         bfNum.textContent     = num;
         bfName.textContent    = d.companyName;
-        bfFounder.textContent = d.founderName ? 'by ' + d.founderName : '';
+        bfFounder.textContent = '';
         bfCohort.textContent  = d.cohort;
         bfLogo.innerHTML = d.logoWhitePath
             ? '<img src="' + d.logoWhitePath + '" alt="' + d.companyName + '" class="is-white">'
@@ -251,7 +251,17 @@
         /* Panel */
         pCohort.textContent  = d.cohort;
         pName.textContent    = d.companyName;
-        pFounder.textContent = d.founderName ? 'by ' + d.founderName : '';
+        /* Show leaders/founders, fallback to all team, fallback to founderName */
+        var pLeaders = (d.teamMembers || []).filter(function(m){ return m.role && /leader|founder|ceo|cto|coo|president|director/i.test(m.role); });
+        if (pLeaders.length) {
+            pFounder.textContent = pLeaders.map(function(m){ return m.name; }).join(', ');
+        } else if (d.teamMembers && d.teamMembers.length) {
+            pFounder.textContent = d.teamMembers.map(function(m){ return m.name; }).join(', ');
+        } else if (d.founderName) {
+            pFounder.textContent = d.founderName;
+        } else {
+            pFounder.textContent = '';
+        }
         pShort.textContent   = d.shortDescription;
         pContent.innerHTML   = d.content || '';
 

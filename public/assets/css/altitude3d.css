@@ -2,91 +2,94 @@
    ║  ALTITUDE 3D INTERACTIVE — Card + Wilderness-Zoom + 3D Overlay    ║
    ╚══════════════════════════════════════════════════════════════════════╝ */
 
-/* ─── 1.  HORIZONTAL EXPLORE STRIP ─── */
+/* ─── 1.  EXPLORE CARD (HORIZONTAL) ─── */
 .alt3d-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  position: relative;
+  overflow: hidden;
   cursor: pointer;
   background: #fff;
-  border: 1px solid rgba(26,48,64,.08);
-  border-radius: 10px;
-  padding: 20px 28px;
-  transition: border-color .25s, box-shadow .25s;
-  box-shadow: 0 1px 4px rgba(0,0,0,.03);
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,.05);
+  max-width: 100%;
 }
 .alt3d-card:hover {
-  border-color: rgba(248,175,33,.3);
-  box-shadow: 0 4px 16px rgba(0,0,0,.05);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(0,0,0,.1);
 }
-.alt3d-card:active { transform: scale(.995); }
+.alt3d-card:active { transform: scale(.997); }
 
-/* Left: text */
-.alt3d-card-left {
-  flex: 1; min-width: 0;
+/* Mountain preview illustration */
+.alt3d-card-preview {
+  flex: 0 0 200px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #d9edf5 0%, #eef6fa 100%);
+  border-radius: 14px 0 0 14px;
+  align-self: stretch;
+}
+.alt3d-card-svg {
+  width: 100%;
+  height: auto;
+  transition: transform .5s cubic-bezier(.22,1,.36,1);
+}
+.alt3d-card:hover .alt3d-card-svg {
+  transform: scale(1.05) translateY(-2px);
+}
+
+/* Card body text */
+.alt3d-card-body {
+  padding: 20px 24px;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
 }
 .alt3d-card-tag {
   display: inline-block;
-  font-size: .5rem; font-weight: 600;
+  font-size: .44rem; font-weight: 600;
   letter-spacing: .14em; text-transform: uppercase;
-  color: rgba(26,48,64,.28);
+  color: rgba(26,48,64,.3);
   border: 1px solid rgba(26,48,64,.1);
   border-radius: 3px;
-  padding: 2px 7px;
+  padding: 2px 8px;
   margin-bottom: 8px;
 }
 .alt3d-card-title {
   font-family: 'DM Serif Display', serif;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 400; color: #1a2a2a;
-  line-height: 1.2; margin-bottom: 4px;
+  line-height: 1.2; margin-bottom: 6px;
 }
 .alt3d-card-sub {
-  font-size: .78rem; font-weight: 400;
-  line-height: 1.55; color: rgba(26,48,64,.38);
-  margin: 0;
+  font-size: .76rem; font-weight: 400;
+  line-height: 1.55; color: rgba(26,26,26,.4);
+  margin: 0 0 12px;
 }
 
-/* Right: mountain sketch + CTA */
-.alt3d-card-right {
-  flex-shrink: 0;
-  display: flex; flex-direction: column;
-  align-items: flex-end; gap: 8px;
-}
-.alt3d-card-mtn {
-  width: 140px; height: auto;
-  opacity: .7;
-  transition: opacity .25s;
-}
-.alt3d-card:hover .alt3d-card-mtn { opacity: 1; }
-
+/* CTA */
 .alt3d-card-cta {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-size: .54rem; font-weight: 600;
-  letter-spacing: .12em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .52rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
   color: rgba(248,175,33,.7);
-  transition: color .2s, gap .2s;
+  transition: color .25s, gap .25s;
 }
-.alt3d-card:hover .alt3d-card-cta { color: #F8AF21; gap: 8px; }
-.alt3d-card-cta svg { transition: transform .2s; }
+.alt3d-card:hover .alt3d-card-cta { color: #F8AF21; gap: 9px; }
+.alt3d-card-cta svg { transition: transform .25s; }
 .alt3d-card:hover .alt3d-card-cta svg { transform: translate(2px,-2px); }
 
-/* Mobile: stack vertically */
+/* Mobile: stack vertical */
 @media (max-width: 540px) {
-  .alt3d-card {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 18px 20px;
-    gap: 14px;
-  }
-  .alt3d-card-right {
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    justify-content: space-between;
-  }
-  .alt3d-card-mtn { width: 100px; }
+  .alt3d-card { flex-direction: column; }
+  .alt3d-card-preview { flex: none; width: 100%; border-radius: 14px 14px 0 0; }
+  .alt3d-card-body { text-align: center; padding: 16px 20px 18px; }
+  .alt3d-card-title { font-size: 1.1rem; }
 }
 
 

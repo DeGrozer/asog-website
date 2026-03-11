@@ -126,9 +126,9 @@ $cohorts = $cohorts ?? [];
 }
 .ch-bar-num {
     font-family: 'DM Serif Display', serif;
-    font-size: .65rem;
-    color: rgba(248,175,33,.5);
-    width: 1.2rem;
+    font-size: .82rem;
+    color: rgba(3,85,140,.55);
+    width: 1.4rem;
     flex-shrink: 0;
 }
 .ch-bar-title {
@@ -141,16 +141,16 @@ $cohorts = $cohorts ?? [];
     color: #03558C;
 }
 .ch-bar-count {
-    font-size: .52rem;
-    font-weight: 600;
-    letter-spacing: .16em;
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .14em;
     text-transform: uppercase;
-    color: rgba(2,13,24,.25);
+    color: rgba(2,13,24,.45);
     margin-left: .5rem;
     transition: color .25s;
 }
 .ch-bar:hover .ch-bar-count {
-    color: rgba(3,85,140,.4);
+    color: rgba(3,85,140,.6);
 }
 
 .ch-bar-arrow {
@@ -224,7 +224,7 @@ $cohorts = $cohorts ?? [];
                 $cNum  = (int) filter_var($cohortName, FILTER_SANITIZE_NUMBER_INT);
                 $count = count(model('IncubateeModel')->getPublishedByCohort($cohortName));
                 $label = $count > 0
-                    ? $count . ' startup' . ($count !== 1 ? 's' : '')
+                    ? $count . ' incubatee' . ($count !== 1 ? 's' : '')
                     : 'Coming Soon';
             ?>
             <a href="<?= site_url('incubatees/cohort-' . $cNum) ?>" class="ch-bar group">

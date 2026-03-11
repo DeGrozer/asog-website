@@ -17,7 +17,6 @@
                             ['id' => 'basecamp', 'label' => 'Basecamp'],
                             ['id' => 'ascent', 'label' => 'Ascent'],
                             ['id' => 'summit-launch', 'label' => 'Summit Launch'],
-                            ['id' => 'altitude-3d', 'label' => '3D Journey'],
                         ]],
                     ];
                 ?>
@@ -34,29 +33,6 @@
 
                     <div id="altitude-program" class="scroll-mt-28"></div>
 
-                    <!-- ── 3D Explore Strip ── -->
-                    <div id="altitude-3d" class="scroll-mt-28 mb-14">
-                        <div id="altitudeExploreCard" class="alt3d-card" role="button" tabindex="0" aria-label="Open interactive 3D view">
-                            <div class="alt3d-card-left">
-                                <span class="alt3d-card-tag">Interactive</span>
-                                <h3 class="alt3d-card-title">The Journey to Summit</h3>
-                                <p class="alt3d-card-sub">See the four stages of ALTITUDE as a 3D mountain trail you can explore.</p>
-                            </div>
-                            <div class="alt3d-card-right">
-                                <svg class="alt3d-card-mtn" viewBox="0 0 320 120" fill="none">
-                                    <path d="M0 120 L45 55 L80 78 L130 22 L180 65 L220 35 L270 58 L320 15 L320 120Z" fill="rgba(26,48,64,.06)"/>
-                                    <path d="M0 120 L60 70 L110 88 L160 42 L210 75 L260 48 L310 68 L320 60 L320 120Z" fill="rgba(26,48,64,.04)"/>
-                                    <circle cx="290" cy="25" r="3" fill="rgba(248,175,33,.5)"/>
-                                    <line x1="290" y1="28" x2="290" y2="42" stroke="rgba(26,48,64,.12)" stroke-width="1"/>
-                                </svg>
-                                <span class="alt3d-card-cta">
-                                    Explore
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="max-w-[760px] mx-auto relative z-[2]">
                         <!-- Hero text -->
                         <div class="text-center mb-14">
@@ -71,6 +47,72 @@
                             <p class="text-[.95rem] font-light leading-[1.8] text-dark/50 italic">Advancing Local
                                 Technology and Innovation through Transformative Upskilling, Development, and
                                 Entrepreneurship</p>
+                        </div>
+
+                        <!-- ── 3D Explore Card (horizontal) ── -->
+                        <div id="altitude-3d" class="scroll-mt-28 mb-14">
+                            <div id="altitudeExploreCard" class="alt3d-card" role="button" tabindex="0" aria-label="Open interactive 3D view">
+                                <div class="alt3d-card-preview">
+                                    <svg class="alt3d-card-svg" viewBox="0 0 220 180" fill="none">
+                                        <rect width="220" height="180" fill="#87ceeb" rx="6"/>
+                                        <!-- Clouds -->
+                                        <ellipse cx="40" cy="28" rx="18" ry="8" fill="#fff" opacity=".8"/>
+                                        <ellipse cx="50" cy="26" rx="12" ry="7" fill="#fff" opacity=".8"/>
+                                        <ellipse cx="185" cy="22" rx="15" ry="7" fill="#fff" opacity=".8"/>
+                                        <ellipse cx="175" cy="20" rx="10" ry="6" fill="#fff" opacity=".8"/>
+                                        <!-- Dirt rim / base plate -->
+                                        <ellipse cx="110" cy="155" rx="95" ry="18" fill="#c4a46c"/>
+                                        <ellipse cx="110" cy="153" rx="92" ry="16" fill="#3d7a28"/>
+                                        <!-- Green rolling hills -->
+                                        <ellipse cx="108" cy="132" rx="78" ry="38" fill="#5a9e3e"/>
+                                        <ellipse cx="85" cy="135" rx="40" ry="22" fill="#4a8c2a" opacity=".5"/>
+                                        <!-- Pointed grassy peaks -->
+                                        <path d="M102 40 L85 128 Q110 132 135 128 Z" fill="#5a9e3e"/>
+                                        <path d="M55 68 L42 132 Q55 136 72 132 Z" fill="#3d7a28"/>
+                                        <path d="M160 76 L148 134 Q160 138 175 134 Z" fill="#3d7a28"/>
+                                        <path d="M72 80 L62 130 Q72 134 82 130 Z" fill="#4a8c2a"/>
+                                        <!-- Rocky highlights near peaks -->
+                                        <circle cx="100" cy="52" r="3" fill="#8a8070" opacity=".6"/>
+                                        <circle cx="56" cy="75" r="2.5" fill="#6e655a" opacity=".6"/>
+                                        <circle cx="158" cy="82" r="2" fill="#8a8070" opacity=".5"/>
+                                        <!-- Dirt trail winding up -->
+                                        <path d="M155 145 C140 135, 130 125, 120 118 S95 108, 80 100 S60 88, 58 80 S85 60, 102 42" stroke="#c4a46c" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".7"/>
+                                        <!-- Trees -->
+                                        <g transform="translate(78,116) scale(.6)"><rect x="-1.5" y="0" width="3" height="6" fill="#6b4226" rx="1"/><polygon points="0,-8 5,1 -5,1" fill="#2d6b1a"/><polygon points="0,-5 4,0 -4,0" fill="#4a8c2a"/><polygon points="0,-3 3,1 -3,1" fill="#60a836"/></g>
+                                        <g transform="translate(128,114) scale(.55)"><rect x="-1.5" y="0" width="3" height="6" fill="#6b4226" rx="1"/><polygon points="0,-8 5,1 -5,1" fill="#2d6b1a"/><polygon points="0,-5 4,0 -4,0" fill="#4a8c2a"/></g>
+                                        <g transform="translate(95,108) scale(.5)"><rect x="-1.5" y="0" width="3" height="6" fill="#6b4226" rx="1"/><polygon points="0,-8 5,1 -5,1" fill="#4a8c2a"/><polygon points="0,-5 4,0 -4,0" fill="#60a836"/></g>
+                                        <g transform="translate(145,122) scale(.45)"><rect x="-1.5" y="0" width="3" height="6" fill="#6b4226" rx="1"/><polygon points="0,-8 5,1 -5,1" fill="#2d6b1a"/><polygon points="0,-5 4,0 -4,0" fill="#4a8c2a"/></g>
+                                        <g transform="translate(65,120) scale(.5)"><rect x="-1.5" y="0" width="3" height="6" fill="#6b4226" rx="1"/><polygon points="0,-8 5,1 -5,1" fill="#2d6b1a"/><polygon points="0,-5 4,0 -4,0" fill="#60a836"/></g>
+                                        <!-- Flowers -->
+                                        <circle cx="88" cy="125" r="1.5" fill="#f7d75a"/><circle cx="118" cy="122" r="1.5" fill="#e86040"/><circle cx="135" cy="128" r="1.5" fill="#d05aba"/>
+                                        <!-- Red flags along trail -->
+                                        <line x1="82" y1="102" x2="82" y2="92" stroke="#6b4226" stroke-width="1.2" stroke-linecap="round"/>
+                                        <polygon points="82,92 90,94 82,97" fill="#e85040"/>
+                                        <line x1="118" y1="118" x2="118" y2="108" stroke="#6b4226" stroke-width="1.2" stroke-linecap="round"/>
+                                        <polygon points="118,108 126,110 118,113" fill="#e85040"/>
+                                        <!-- Gold flag on summit -->
+                                        <line x1="102" y1="42" x2="102" y2="26" stroke="#6b4226" stroke-width="1.5" stroke-linecap="round"/>
+                                        <polygon points="102,26 113,29 102,33" fill="#F8AF21"/>
+                                        <!-- Hero hiker near trailhead -->
+                                        <g transform="translate(148,138) scale(.7)">
+                                            <rect x="-3" y="-12" width="6" height="10" fill="#2a7a4a" rx="2"/>
+                                            <circle cx="0" cy="-15" r="3" fill="#f0c8a0"/>
+                                            <ellipse cx="0" cy="-18" rx="5" ry="2" fill="#5a3a1a"/>
+                                            <rect x="-1.5" y="-2" width="3" height="5" fill="#4a4035"/>
+                                            <rect x="1" y="-10" width="4" height="6" fill="#b85530" rx="1"/>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="alt3d-card-body">
+                                    <span class="alt3d-card-tag">Interactive 3D</span>
+                                    <h3 class="alt3d-card-title">The Journey to Summit</h3>
+                                    <p class="alt3d-card-sub">Follow a hiker through each stage of the ALTITUDE program on an interactive grassland mountain.</p>
+                                    <span class="alt3d-card-cta">
+                                        Explore
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Main content -->
@@ -178,6 +220,7 @@
                         </div>
                     </div>
 
+                </section>
 
             </div><!-- end main content column -->
         </div><!-- end grid -->

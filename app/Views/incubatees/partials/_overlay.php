@@ -40,7 +40,7 @@
                         <p id="bbName" class="ib-bb-name"></p>
                     </div>
                     <div class="ib-bb-divider shrink-0 relative"></div>
-                    <div id="bbTeam" class="ib-bb-team w-full flex flex-col items-center overflow-y-auto relative"></div>
+                    <div id="bbTeam" class="ib-bb-team w-full flex flex-col items-center relative"></div>
                 </div>
 
             </div>
