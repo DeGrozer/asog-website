@@ -12,9 +12,9 @@
                 <div class="ib-diamond absolute pointer-events-none bl"></div>
                 <div class="ib-diamond absolute pointer-events-none br"></div>
                 <div class="ib-portrait w-full flex-1 flex items-center justify-center relative">
-                    <div class="flex items-center justify-center">
+                    <div class="ib-logo-box">
                         <?php if (!empty($inc['logoPath'])): ?>
-                            <img class="ib-logo-sm" src="<?= base_url(esc($inc['logoPath'])) ?>" alt="<?= esc($inc['companyName']) ?>">
+                            <img src="<?= base_url(esc($inc['logoPath'])) ?>" alt="<?= esc($inc['companyName']) ?>">
                         <?php else: ?>
                             <span class="ib-init"><?= strtoupper(substr($inc['companyName'], 0, 1)) ?></span>
                         <?php endif; ?>

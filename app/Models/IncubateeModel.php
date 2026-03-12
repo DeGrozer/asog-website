@@ -22,6 +22,8 @@ class IncubateeModel extends Model
         'companyName',
         'slug',
         'founderName',
+        'founderPosition',
+        'founderPhoto',
         'shortDescription',
         'content',
         'logoPath',

@@ -114,3 +114,22 @@ mobileMenu.querySelectorAll('a').forEach(link => {
 document.getElementById('navLogo').addEventListener('click', () => {
     if (menuOpen) toggleMenu(false);
 });
+
+/* ═══ MOBILE PROGRAMS & SERVICES COLLAPSIBLE ═══ */
+const psToggle = document.getElementById('mobPsToggle');
+const psSub = document.getElementById('mobPsSub');
+const psChevron = document.getElementById('mobPsChevron');
+let psOpen = false;
+
+if (psToggle && psSub) {
+    psToggle.addEventListener('click', () => {
+        psOpen = !psOpen;
+        if (psOpen) {
+            psSub.style.maxHeight = psSub.scrollHeight + 'px';
+            if (psChevron) psChevron.style.transform = 'rotate(180deg)';
+        } else {
+            psSub.style.maxHeight = '0';
+            if (psChevron) psChevron.style.transform = 'rotate(0)';
+        }
+    });
+}

@@ -83,22 +83,31 @@
 .ib-front .ib-diamond.bl { bottom: 10px; left: 10px }
 .ib-front .ib-diamond.br { bottom: 10px; right: 10px }
 
-.ib-portrait { padding: 1rem; z-index: 2 }
+.ib-portrait { padding: .6rem; z-index: 2 }
 
-/* Small card logo — on the white/cream front face.
-   Force white background so transparent logos always look clean */
-img.ib-logo-sm,
-.ib-logo-sm img {
-    max-width: 140px; max-height: 140px;
+/* Small card logo — invisible container, logo fills most of the card */
+.ib-logo-box {
+    width: 80%; height: 80%;
+    max-width: 190px; max-height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    overflow: visible;
+    flex-shrink: 0;
+}
+.ib-logo-box img {
+    width: 100%; height: 100%;
     object-fit: contain;
-    background: #fff;
-    border-radius: 6px;
-    padding: 8px;
 }
 .ib-init {
     font-family: 'DM Serif Display', serif;
-    font-size: 2.2rem; color: rgba(248,175,33,.55);
+    font-size: 2.8rem; color: rgba(248,175,33,.45);
     line-height: 1;
+    background: transparent;
 }
 
 /* --------------------------------------------------------------------------
@@ -251,10 +260,12 @@ img.ib-logo-sm,
     width: 16vh; height: 16vh;
     object-fit: contain;
     filter: brightness(0) invert(1);
-    opacity: .6; transition: opacity .3s;
+    opacity: .85; transition: opacity .3s;
+    background: transparent !important;
+    border-radius: 0; padding: 0;
 }
-.ib-bf-logo:hover img { opacity: .75 }
-.ib-bf-logo img.is-white { filter: none }
+.ib-bf-logo:hover img { opacity: 1 }
+.ib-bf-logo img.is-white { filter: none; opacity: .9 }
 
 .ib-bf-divider {
     width: 36px; height: 1.5px; border-radius: 1px;
@@ -364,58 +375,119 @@ img.ib-logo-sm,
 }
 .ib-close:hover { color: #020d18; border-color: rgba(2,13,24,.18) }
 
-.ib-p-head {
-    padding: 2rem 3.5rem 1.3rem 2rem;
-}
-.ib-p-about-label {
-    font-size: .58rem; font-weight: 700;
-    letter-spacing: .22em; text-transform: uppercase;
-    color: #03558C; margin-bottom: .6rem;
-    text-shadow: 0 1px 0 rgba(255,255,255,.28);
-}
-.ib-p-cohort {
-    font-size: .6rem; font-weight: 700;
-    letter-spacing: .2em; text-transform: uppercase;
-    color: #c48800; margin-bottom: 3px;
-}
-.ib-p-name {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.5rem; line-height: 1.15;
-    color: #020d18; margin-bottom: 3px;
-}
-.ib-p-founder { font-size: .7rem; color: rgba(2,13,24,.45) }
-
-.ib-p-body { padding: 1.4rem 2rem; scrollbar-width: none; -ms-overflow-style: none }
+.ib-p-body { padding: 2rem 2rem 1.4rem; scrollbar-width: none; -ms-overflow-style: none }
 .ib-p-body::-webkit-scrollbar { display: none }
-.ib-p-short {
-    display: none;
+.ib-p-about-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    line-height: 1.15;
+    color: #020d18;
+    margin: 0 0 1.5rem;
 }
 .ib-p-content {
-    font-size: .82rem; font-weight: 300;
-    line-height: 1.85; color: rgba(2,13,24,.7);
+    font-size: .84rem; font-weight: 400;
+    line-height: 1.8; color: rgba(2,13,24,.72);
 }
 .ib-p-content p { margin-bottom: .8rem }
 .ib-p-content p:last-child { margin-bottom: 0 }
+
+.ib-p-divider {
+    height: 1px;
+    background: rgba(2,13,24,.08);
+    margin: 1.2rem 0 1rem;
+}
+
+.ib-p-team-wrap { margin-bottom: .25rem; }
+.ib-p-team-label {
+    font-size: .58rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(2,13,24,.45);
+    display: block;
+    margin-bottom: .7rem;
+}
+.ib-p-team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: .65rem;
+}
+.ib-p-member-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: .3rem;
+    padding: .3rem 0;
+}
+.ib-p-member-photo {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(2,13,24,.06);
+    flex-shrink: 0;
+}
+.ib-p-member-photo-default {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e5e7eb;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+.ib-p-member-photo-default svg {
+    width: 34px;
+    height: 34px;
+    color: #9ca3af;
+}
+.ib-p-member-name {
+    display: block;
+    font-size: .74rem;
+    font-weight: 600;
+    color: #020d18;
+    line-height: 1.2;
+    margin-top: .15rem;
+}
+.ib-p-member-role {
+    display: block;
+    font-size: .52rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: rgba(2,13,24,.42);
+}
+
+@media (max-width: 560px) {
+    .ib-p-team-grid { grid-template-columns: repeat(2, 1fr); }
+}
 
 .ib-p-foot {
     padding: 1rem 2rem 1.4rem;
     border-top: 1px solid rgba(2,13,24,.04);
     gap: 1rem;
 }
-.ib-p-link {
-    gap: 6px; font-size: .52rem; font-weight: 700;
-    letter-spacing: .14em; text-transform: uppercase;
-    color: #e8a900; text-decoration: none;
-    transition: gap .2s, color .2s;
+.ib-p-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .62rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    color: rgba(2,13,24,.45);
+    text-decoration: none;
+    padding: .4rem .8rem;
+    border: 1px solid rgba(2,13,24,.08);
+    border-radius: .3rem;
+    transition: all .2s;
 }
-.ib-p-link:hover { gap: 12px; color: #F8AF21 }
-
-.ib-p-web {
-    font-size: .5rem; font-weight: 500;
-    color: rgba(2,13,24,.3); text-decoration: none;
-    transition: color .2s;
+.ib-p-social:hover {
+    color: #03558C;
+    border-color: rgba(3,85,140,.2);
+    background: rgba(3,85,140,.04);
 }
-.ib-p-web:hover { color: rgba(2,13,24,.55) }
 
 /* ── Click-to-reveal content ────────────── */
 .ib-p-content-wrap {
@@ -516,12 +588,9 @@ img.ib-logo-sm,
         z-index: 1001;
     }
 
-    /* Adjust panel header for mobile */
-    .ib-p-head {
-        padding: 1.5rem 1.2rem 1rem;
-    }
+    /* Adjust panel body for mobile — extra top padding since head is removed */
     .ib-p-body {
-        padding: 1rem 1.2rem;
+        padding: 1.5rem 1.2rem 1rem;
     }
     .ib-p-foot {
         padding: .8rem 1.2rem 1.2rem;
@@ -791,3 +860,64 @@ img.ib-logo-sm,
     line-height: 1.8; color: rgba(2,13,24,.4);
     max-width: 380px; margin: 0 auto 1.5rem;
 }
+
+/* --------------------------------------------------------------------------
+   12. COHORT TABS
+   -------------------------------------------------------------------------- */
+.ib-tabs {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1.5px solid rgba(2,13,24,.06);
+    padding-bottom: 0;
+    overflow-x: auto;
+    scrollbar-width: none; -ms-overflow-style: none;
+}
+.ib-tabs::-webkit-scrollbar { display: none }
+
+.ib-tab {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .7rem 1.2rem;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: rgba(2,13,24,.35);
+    background: none;
+    border: none;
+    border-bottom: 2.5px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color .2s, border-color .2s;
+    margin-bottom: -1.5px;
+}
+.ib-tab:hover {
+    color: rgba(2,13,24,.6);
+}
+.ib-tab.is-active {
+    color: #03558C;
+    border-bottom-color: #F8AF21;
+}
+
+.ib-tab-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .58rem;
+    font-weight: 700;
+    color: rgba(2,13,24,.4);
+    background: rgba(2,13,24,.04);
+    border-radius: 10px;
+    line-height: 1;
+}
+.ib-tab.is-active .ib-tab-badge {
+    color: #03558C;
+    background: rgba(3,85,140,.08);
+}
+

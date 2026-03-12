@@ -1,183 +1,237 @@
 <!-- ╔══════════════════════════════════════════════════════════════════════╗
-     ║  BE AN INCUBATEE — Full-page description + Apply Now CTA           ║
+     ║  BE AN INCUBATEE — Guidelines (editorial layout)                    ║
      ╚══════════════════════════════════════════════════════════════════════╝ -->
 
-<!-- ── What the Program Offers ── -->
-<section class="relative bg-off py-16 md:py-24 px-6 md:px-10 lg:px-14 overflow-hidden">
+<!-- ── 1 · Eligibility — open typography, no containers ── -->
+<section class="relative bg-off py-20 md:py-28 px-6 md:px-10 lg:px-14 overflow-hidden">
     <div class="ai-grid"></div>
     <div class="ai-grid-fade"></div>
 
-    <div class="max-w-[1000px] mx-auto relative z-[2]">
-        <!-- Section heading — left-aligned, editorial style -->
-        <div class="grid grid-cols-1 lg:grid-cols-[280px_1px_1fr] gap-8 lg:gap-14 items-start mb-16 md:mb-20">
-            <div>
-                <div class="flex items-center gap-2 mb-4">
-                    <span class="block w-[18px] h-[1.5px] bg-navy"></span>
-                    <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-navy">What You Get</span>
-                </div>
-                <h2 class="font-display text-3xl md:text-[2.1rem] leading-[1.12] text-dark">
-                    Everything You Need to <em class="italic text-gold">Launch</em>
-                </h2>
-            </div>
-            <div class="hidden lg:block bg-navy/15"></div>
-            <div>
-                <p class="text-[.88rem] font-light leading-[1.95] text-dark/80">
-                    ASOG-TBI provides a complete support system — from lab access and technical mentorship to business strategy, IP guidance, and investor connections — so you can focus on building.
-                </p>
-            </div>
+    <div class="max-w-[880px] mx-auto relative z-[2]">
+        <div class="reveal mb-12 md:mb-14">
+            <span class="text-[.5rem] font-bold tracking-[.22em] uppercase text-gold block mb-3">01 — Eligibility</span>
+            <h2 class="font-display text-[1.65rem] md:text-[2.2rem] leading-[1.1] text-dark max-w-[520px]">
+                We look for founders who are ready to build.
+            </h2>
         </div>
 
-        <!-- Staggered feature rows — alternating left/right, no icons, no cards -->
-        <div class="space-y-0">
+        <div class="reveal space-y-0">
+            <div class="flex items-start gap-5 py-5 border-t border-dark/[.07]">
+                <span class="text-[.82rem] font-light leading-[1.8] text-dark/75">Early-stage startups or MSMEs with innovative food value chain solutions — agriculture, fisheries, food tech, food processing, and related areas.</span>
+            </div>
+            <div class="flex items-start gap-5 py-5 border-t border-dark/[.07]">
+                <span class="text-[.82rem] font-light leading-[1.8] text-dark/75">Must be based in or willing to operate in the Bicol Region.</span>
+            </div>
+            <div class="flex items-start gap-5 py-5 border-t border-dark/[.07]">
+                <span class="text-[.82rem] font-light leading-[1.8] text-dark/75">Must have at least a working prototype or proof of concept.</span>
+            </div>
+            <div class="flex items-start gap-5 py-5 border-t border-b border-dark/[.07]">
+                <span class="text-[.82rem] font-light leading-[1.8] text-dark/75">Team must be willing to participate in the full ALTITUDE incubation program.</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── 2 · Categories — flowing tags, not boxed grid ── -->
+<section class="bg-navy py-20 md:py-28 px-6 md:px-10 lg:px-14">
+    <div class="max-w-[880px] mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.8fr] gap-10 lg:gap-20 items-start">
+            <div class="reveal">
+                <span class="text-[.5rem] font-bold tracking-[.22em] uppercase text-gold block mb-3">02 — Categories</span>
+                <h2 class="font-display text-[1.5rem] md:text-[1.8rem] text-off leading-[1.15] mb-4">What kind of startups do we support?</h2>
+                <p class="text-[.82rem] font-light leading-[1.8] text-white/50 m-0">We welcome innovations across the entire food value chain ecosystem.</p>
+            </div>
+            <div class="reveal flex flex-wrap gap-2.5 items-start content-start pt-1">
+                <span class="text-[.78rem] text-off/85 bg-white/[.06] border border-white/[.10] px-4 py-2 rounded-full transition-colors duration-200 hover:bg-white/[.10]">AgriTech</span>
+                <span class="text-[.78rem] text-off/85 bg-white/[.06] border border-white/[.10] px-4 py-2 rounded-full transition-colors duration-200 hover:bg-white/[.10]">Aquaculture &amp; Fisheries</span>
+                <span class="text-[.78rem] text-off/85 bg-white/[.06] border border-white/[.10] px-4 py-2 rounded-full transition-colors duration-200 hover:bg-white/[.10]">Food Processing &amp; Safety</span>
+                <span class="text-[.78rem] text-off/85 bg-white/[.06] border border-white/[.10] px-4 py-2 rounded-full transition-colors duration-200 hover:bg-white/[.10]">Supply Chain &amp; Logistics</span>
+                <span class="text-[.78rem] text-off/85 bg-white/[.06] border border-white/[.10] px-4 py-2 rounded-full transition-colors duration-200 hover:bg-white/[.10]">AI &amp; Data for Food Systems</span>
+                <span class="text-[.78rem] text-off/85 bg-white/[.06] border border-white/[.10] px-4 py-2 rounded-full transition-colors duration-200 hover:bg-white/[.10]">Sustainable Packaging</span>
+                <span class="text-[.78rem] text-off/85 bg-white/[.06] border border-white/[.10] px-4 py-2 rounded-full transition-colors duration-200 hover:bg-white/[.10]">Nutrition &amp; Health Tech</span>
+                <span class="text-[.78rem] text-off/85 bg-white/[.06] border border-white/[.10] px-4 py-2 rounded-full transition-colors duration-200 hover:bg-white/[.10]">Environmental Engineering</span>
+                <span class="text-[.78rem] text-gold/80 bg-gold/[.08] border border-gold/[.15] px-4 py-2 rounded-full transition-colors duration-200 hover:bg-gold/[.14]">+ Other Innovations</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── 3 · Evaluation — horizontal table rows, no card wrappers ── -->
+<section class="relative bg-off py-20 md:py-28 px-6 md:px-10 lg:px-14 overflow-hidden">
+    <div class="ai-grid"></div>
+    <div class="ai-grid-fade"></div>
+
+    <div class="max-w-[880px] mx-auto relative z-[2]">
+        <div class="reveal mb-12">
+            <span class="text-[.5rem] font-bold tracking-[.22em] uppercase text-gold block mb-3">03 — Evaluation</span>
+            <h2 class="font-display text-[1.5rem] md:text-[1.8rem] text-dark leading-[1.15] max-w-[440px]">How we score your application</h2>
+        </div>
+
+        <div class="reveal">
+            <!-- Table header -->
+            <div class="hidden md:flex items-center justify-between pb-3 mb-1">
+                <span class="text-[.48rem] font-bold tracking-[.2em] uppercase text-dark/30">Criteria</span>
+                <span class="text-[.48rem] font-bold tracking-[.2em] uppercase text-dark/30">Weight</span>
+            </div>
             <!-- Row 1 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 border-t border-dark/[.07]">
-                <div class="py-8 md:py-10 md:pr-12 md:border-r border-dark/[.07]">
-                    <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/70 mb-2 block">01</span>
-                    <h3 class="font-display text-[1.2rem] text-dark mb-2">Mentorship &amp; Training</h3>
-                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/70">Industry mentors, technical advisors, and structured workshops through the ALTITUDE incubation program.</p>
-                </div>
-                <div class="py-8 md:py-10 md:pl-12">
-                    <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/70 mb-2 block">02</span>
-                    <h3 class="font-display text-[1.2rem] text-dark mb-2">Facilities &amp; Equipment</h3>
-                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/70">Fully equipped labs, co-working spaces, and access to prototyping, testing, and R&D infrastructure.</p>
+            <div class="flex items-center justify-between py-4 border-t border-dark/[.07] group">
+                <span class="text-[.88rem] text-dark/85 group-hover:text-dark transition-colors">Innovation &amp; Technology</span>
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:block w-[100px] h-[3px] bg-dark/[.05] rounded-full overflow-hidden">
+                        <div class="h-full bg-gold rounded-full eval-bar" style="width:0%" data-w="100%"></div>
+                    </div>
+                    <span class="text-[.82rem] font-semibold text-navy tabular-nums w-10 text-right">30%</span>
                 </div>
             </div>
             <!-- Row 2 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 border-t border-dark/[.07]">
-                <div class="py-8 md:py-10 md:pr-12 md:border-r border-dark/[.07]">
-                    <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/70 mb-2 block">03</span>
-                    <h3 class="font-display text-[1.2rem] text-dark mb-2">Network &amp; Partnerships</h3>
-                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/70">Government agencies, investors, industry partners, and a growing founder community across the Bicol Region.</p>
-                </div>
-                <div class="py-8 md:py-10 md:pl-12">
-                    <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/70 mb-2 block">04</span>
-                    <h3 class="font-display text-[1.2rem] text-dark mb-2">Business Development</h3>
-                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/70">Hands-on support in market validation, business modelling, pitch preparation, and investor readiness.</p>
+            <div class="flex items-center justify-between py-4 border-t border-dark/[.07] group">
+                <span class="text-[.88rem] text-dark/85 group-hover:text-dark transition-colors">Market Potential &amp; Scalability</span>
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:block w-[100px] h-[3px] bg-dark/[.05] rounded-full overflow-hidden">
+                        <div class="h-full bg-gold/80 rounded-full eval-bar" style="width:0%" data-w="83%"></div>
+                    </div>
+                    <span class="text-[.82rem] font-semibold text-navy tabular-nums w-10 text-right">25%</span>
                 </div>
             </div>
             <!-- Row 3 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 border-t border-b border-dark/[.07]">
-                <div class="py-8 md:py-10 md:pr-12 md:border-r border-dark/[.07]">
-                    <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/70 mb-2 block">05</span>
-                    <h3 class="font-display text-[1.2rem] text-dark mb-2">R&D &amp; IP Support</h3>
-                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/70">Research infrastructure for product development plus guidance on intellectual property protection.</p>
+            <div class="flex items-center justify-between py-4 border-t border-dark/[.07] group">
+                <span class="text-[.88rem] text-dark/85 group-hover:text-dark transition-colors">Team Capability</span>
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:block w-[100px] h-[3px] bg-dark/[.05] rounded-full overflow-hidden">
+                        <div class="h-full bg-gold/65 rounded-full eval-bar" style="width:0%" data-w="67%"></div>
+                    </div>
+                    <span class="text-[.82rem] font-semibold text-navy tabular-nums w-10 text-right">20%</span>
                 </div>
-                <div class="py-8 md:py-10 md:pl-12">
-                    <span class="text-[.48rem] font-bold tracking-[.22em] uppercase text-gold/70 mb-2 block">06</span>
-                    <h3 class="font-display text-[1.2rem] text-dark mb-2">Funding Access</h3>
-                    <p class="text-[.82rem] font-light leading-[1.85] text-dark/70">Connections to grant programs, seed funding, and pitch events with angel investors and venture capitalists.</p>
+            </div>
+            <!-- Row 4 -->
+            <div class="flex items-center justify-between py-4 border-t border-dark/[.07] group">
+                <span class="text-[.88rem] text-dark/85 group-hover:text-dark transition-colors">Social &amp; Environmental Impact</span>
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:block w-[100px] h-[3px] bg-dark/[.05] rounded-full overflow-hidden">
+                        <div class="h-full bg-gold/50 rounded-full eval-bar" style="width:0%" data-w="50%"></div>
+                    </div>
+                    <span class="text-[.82rem] font-semibold text-navy tabular-nums w-10 text-right">15%</span>
+                </div>
+            </div>
+            <!-- Row 5 -->
+            <div class="flex items-center justify-between py-4 border-t border-b border-dark/[.07] group">
+                <span class="text-[.88rem] text-dark/85 group-hover:text-dark transition-colors">Feasibility &amp; Readiness</span>
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:block w-[100px] h-[3px] bg-dark/[.05] rounded-full overflow-hidden">
+                        <div class="h-full bg-gold/35 rounded-full eval-bar" style="width:0%" data-w="33%"></div>
+                    </div>
+                    <span class="text-[.82rem] font-semibold text-navy tabular-nums w-10 text-right">10%</span>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ── Who Can Apply ── -->
-<section class="bg-navy py-16 md:py-24 px-6 md:px-10 lg:px-14">
-    <div class="max-w-[1000px] mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-20 items-start">
-            <!-- Left -->
+<!-- ── 4 · Application Process — vertical timeline, no cards ── -->
+<section class="bg-navy py-20 md:py-28 px-6 md:px-10 lg:px-14">
+    <div class="max-w-[880px] mx-auto">
+        <div class="reveal mb-14 md:mb-18">
+            <span class="text-[.5rem] font-bold tracking-[.22em] uppercase text-gold block mb-3">04 — Process</span>
+            <h2 class="font-display text-[1.5rem] md:text-[1.8rem] text-off leading-[1.15]">From application to launch</h2>
+        </div>
+
+        <div class="relative pl-8 md:pl-10 border-l border-white/[.10] space-y-14">
+            <div class="reveal relative">
+                <span class="absolute -left-[calc(2rem+4px)] md:-left-[calc(2.5rem+4px)] top-0.5 w-2 h-2 rounded-full bg-gold ring-4 ring-navy"></span>
+                <span class="text-[.48rem] font-bold tracking-[.2em] uppercase text-gold/70 block mb-1.5">Step 1</span>
+                <h4 class="font-display text-[1.05rem] text-off mb-1.5">Submit Online Application</h4>
+                <p class="text-[.82rem] font-light leading-[1.8] text-white/50 m-0 max-w-[480px]">Complete the application form with your startup details, team info, and pitch video.</p>
+            </div>
+            <div class="reveal relative">
+                <span class="absolute -left-[calc(2rem+4px)] md:-left-[calc(2.5rem+4px)] top-0.5 w-2 h-2 rounded-full bg-gold ring-4 ring-navy"></span>
+                <span class="text-[.48rem] font-bold tracking-[.2em] uppercase text-gold/70 block mb-1.5">Step 2</span>
+                <h4 class="font-display text-[1.05rem] text-off mb-1.5">Screening &amp; Shortlisting</h4>
+                <p class="text-[.82rem] font-light leading-[1.8] text-white/50 m-0 max-w-[480px]">Applications are reviewed and scored by the evaluation panel.</p>
+            </div>
+            <div class="reveal relative">
+                <span class="absolute -left-[calc(2rem+4px)] md:-left-[calc(2.5rem+4px)] top-0.5 w-2 h-2 rounded-full bg-gold ring-4 ring-navy"></span>
+                <span class="text-[.48rem] font-bold tracking-[.2em] uppercase text-gold/70 block mb-1.5">Step 3</span>
+                <h4 class="font-display text-[1.05rem] text-off mb-1.5">Pitch Day &amp; Interview</h4>
+                <p class="text-[.82rem] font-light leading-[1.8] text-white/50 m-0 max-w-[480px]">Shortlisted applicants present their startup to the ASOG-TBI evaluation team.</p>
+            </div>
+            <div class="reveal relative">
+                <span class="absolute -left-[calc(2rem+4px)] md:-left-[calc(2.5rem+4px)] top-0.5 w-2 h-2 rounded-full bg-gold ring-4 ring-navy"></span>
+                <span class="text-[.48rem] font-bold tracking-[.2em] uppercase text-gold/70 block mb-1.5">Step 4</span>
+                <h4 class="font-display text-[1.05rem] text-off mb-1.5">Acceptance &amp; Onboarding</h4>
+                <p class="text-[.82rem] font-light leading-[1.8] text-white/50 m-0 max-w-[480px]">Selected startups begin the ALTITUDE incubation program.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── 5 · What You'll Receive + CTA — split layout, no card grid ── -->
+<section class="relative bg-off py-20 md:py-28 px-6 md:px-10 lg:px-14 overflow-hidden">
+    <div class="ai-grid"></div>
+    <div class="ai-grid-fade"></div>
+
+    <div class="max-w-[880px] mx-auto relative z-[2]">
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-14 lg:gap-20">
+            <!-- Left — benefits as a simple list -->
             <div>
-                <div class="flex items-center gap-2 mb-4">
-                    <span class="block w-[18px] h-[1.5px] bg-gold"></span>
-                    <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-gold">Eligibility</span>
+                <div class="reveal mb-8">
+                    <span class="text-[.5rem] font-bold tracking-[.22em] uppercase text-gold block mb-3">05 — Benefits</span>
+                    <h2 class="font-display text-[1.5rem] md:text-[1.8rem] text-dark leading-[1.15]">What you'll receive</h2>
                 </div>
-                <h2 class="font-display text-2xl md:text-[2rem] text-off leading-[1.15] mb-5">Who Can Apply</h2>
-                <p class="text-[.85rem] font-light leading-[1.85] text-white/70">We welcome innovators working on engineering and AI-based solutions for food value chain management.</p>
+                <ul class="reveal list-none p-0 m-0 space-y-0">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.84rem] text-dark/80">
+                        <span class="text-gold text-[.7rem]">✓</span> Co-working space &amp; lab access
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.84rem] text-dark/80">
+                        <span class="text-gold text-[.7rem]">✓</span> Technical mentorship &amp; advisory
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.84rem] text-dark/80">
+                        <span class="text-gold text-[.7rem]">✓</span> Business model development support
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.84rem] text-dark/80">
+                        <span class="text-gold text-[.7rem]">✓</span> IP &amp; legal guidance
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.84rem] text-dark/80">
+                        <span class="text-gold text-[.7rem]">✓</span> Investor readiness &amp; pitch coaching
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.84rem] text-dark/80">
+                        <span class="text-gold text-[.7rem]">✓</span> Networking &amp; partnership opportunities
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.84rem] text-dark/80">
+                        <span class="text-gold text-[.7rem]">✓</span> Training workshops &amp; seminars
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-b border-dark/[.06] text-[.84rem] text-dark/80">
+                        <span class="text-gold text-[.7rem]">✓</span> Demo day &amp; showcase events
+                    </li>
+                </ul>
             </div>
 
-            <!-- Right -->
-            <div class="space-y-6">
-                <div class="flex gap-5 items-start">
-                    <span class="shrink-0 font-display text-[1.4rem] text-gold/50 leading-none mt-0.5">01</span>
-                    <div>
-                        <h4 class="text-[.88rem] font-semibold text-off mb-1">Startups &amp; MSMEs</h4>
-                        <p class="text-[.8rem] font-light leading-[1.75] text-white/65">Building scalable, tech-driven solutions for the food value chain.</p>
-                    </div>
-                </div>
-                <div class="h-px bg-white/[.08]"></div>
-                <div class="flex gap-5 items-start">
-                    <span class="shrink-0 font-display text-[1.4rem] text-gold/50 leading-none mt-0.5">02</span>
-                    <div>
-                        <h4 class="text-[.88rem] font-semibold text-off mb-1">Student &amp; Faculty Innovation Teams</h4>
-                        <p class="text-[.8rem] font-light leading-[1.75] text-white/65">University-led teams working on AI, engineering, or applied R&D.</p>
-                    </div>
-                </div>
-                <div class="h-px bg-white/[.08]"></div>
-                <div class="flex gap-5 items-start">
-                    <span class="shrink-0 font-display text-[1.4rem] text-gold/50 leading-none mt-0.5">03</span>
-                    <div>
-                        <h4 class="text-[.88rem] font-semibold text-off mb-1">Researchers with Prototypes</h4>
-                        <p class="text-[.8rem] font-light leading-[1.75] text-white/65">Ready for validation, testing, and commercialisation pathways.</p>
-                    </div>
-                </div>
-                <div class="h-px bg-white/[.08]"></div>
-                <div class="flex gap-5 items-start">
-                    <span class="shrink-0 font-display text-[1.4rem] text-gold/50 leading-none mt-0.5">04</span>
-                    <div>
-                        <h4 class="text-[.88rem] font-semibold text-off mb-1">Early-Stage Founders</h4>
-                        <p class="text-[.8rem] font-light leading-[1.75] text-white/65">Seeking mentorship, market access, and structured incubation support.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ── How It Works ── -->
-<section class="bg-off py-16 md:py-24 px-6 md:px-10 lg:px-14">
-    <div class="max-w-[900px] mx-auto">
-        <div class="flex items-center gap-2 mb-4">
-            <span class="block w-[18px] h-[1.5px] bg-navy"></span>
-            <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-navy">Process</span>
-        </div>
-        <h2 class="font-display text-2xl md:text-[2rem] text-dark leading-tight mb-12 md:mb-16">From Application to&nbsp;Launch</h2>
-
-        <!-- Vertical steps — left border accent -->
-        <div class="relative pl-8 md:pl-10 border-l-2 border-dark/[.08] space-y-12">
-            <div class="relative">
-                <span class="absolute -left-[calc(2rem+5px)] md:-left-[calc(2.5rem+5px)] top-1 w-2 h-2 rounded-full bg-gold"></span>
-                <span class="text-[.5rem] font-bold tracking-[.2em] uppercase text-gold block mb-1">Step 1</span>
-                <h4 class="font-display text-[1.15rem] text-dark mb-2">Submit Your Application</h4>
-                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[540px]">Fill out the online form with your team profile, solution overview, and current development stage.</p>
-            </div>
-            <div class="relative">
-                <span class="absolute -left-[calc(2rem+5px)] md:-left-[calc(2.5rem+5px)] top-1 w-2 h-2 rounded-full bg-gold"></span>
-                <span class="text-[.5rem] font-bold tracking-[.2em] uppercase text-gold block mb-1">Step 2</span>
-                <h4 class="font-display text-[1.15rem] text-dark mb-2">Screening &amp; Pitch</h4>
-                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[540px]">Shortlisted teams are invited for a pitch session and interview with the ASOG-TBI evaluation panel.</p>
-            </div>
-            <div class="relative">
-                <span class="absolute -left-[calc(2rem+5px)] md:-left-[calc(2.5rem+5px)] top-1 w-2 h-2 rounded-full bg-gold"></span>
-                <span class="text-[.5rem] font-bold tracking-[.2em] uppercase text-gold block mb-1">Step 3</span>
-                <h4 class="font-display text-[1.15rem] text-dark mb-2">Acceptance &amp; Onboarding</h4>
-                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[540px]">Approved incubatees join the ALTITUDE program with facility access and a dedicated mentor.</p>
-            </div>
-            <div class="relative">
-                <span class="absolute -left-[calc(2rem+5px)] md:-left-[calc(2.5rem+5px)] top-1 w-2 h-2 rounded-full bg-gold"></span>
-                <span class="text-[.5rem] font-bold tracking-[.2em] uppercase text-gold block mb-1">Step 4</span>
-                <h4 class="font-display text-[1.15rem] text-dark mb-2">Incubate &amp; Launch</h4>
-                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[540px]">Six months of hands-on support, culminating in demo day, investor pitching, and market launch.</p>
-            </div>
-        </div>
-
-        <!-- Apply CTA — inline below process -->
-        <div class="mt-14 md:mt-18 pt-10 border-t border-dark/[.08]">
-            <p class="text-[.88rem] font-light leading-[1.85] text-dark/70 mb-6 max-w-[540px]">Ready to get started? Fill out our application form and the ASOG TBI team will reach out to schedule your screening and next steps.</p>
-            <div class="flex items-center gap-3 flex-wrap">
+            <!-- Right — CTA block -->
+            <div class="reveal flex flex-col justify-center">
+                <h3 class="font-display text-[1.3rem] md:text-[1.5rem] text-dark leading-[1.2] mb-4">Ready to get started?</h3>
+                <p class="text-[.84rem] font-light leading-[1.85] text-dark/60 mb-8">Fill out our application form and the ASOG-TBI team will reach out to schedule your screening and next steps.</p>
                 <a href="<?= site_url('incubatees/apply/form') ?>"
-                   class="inline-block font-body text-[.65rem] font-bold tracking-[.14em] uppercase text-dark bg-gold px-8 py-3.5 rounded-sm no-underline transition-colors duration-200 hover:bg-gold-dk">
-                    Apply Now
+                   class="inline-block self-start font-body text-[.62rem] font-bold tracking-[.14em] uppercase text-dark bg-gold px-8 py-3.5 rounded-sm no-underline transition-colors duration-200 hover:bg-gold-dk">
+                    Apply Now →
                 </a>
-                <button type="button" data-open-guidelines
-                    class="font-body text-[.6rem] font-bold tracking-[.13em] uppercase text-dark/45 bg-transparent px-5 py-3.5 rounded-sm border border-dark/15 cursor-pointer transition-all duration-200 hover:text-dark hover:border-dark/30">
-                    <svg class="w-3.5 h-3.5 inline -mt-0.5 mr-1" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" /></svg>
-                    View Guidelines
-                </button>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ═══ GUIDELINES MODAL (reusable) ═══ -->
-<?= view('incubatees/partials/_guidelines_modal') ?>
+<!-- Evaluation bar animation -->
+<script>
+(function(){
+    var bars = document.querySelectorAll('.eval-bar');
+    if (!bars.length) return;
+    var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+            if (e.isIntersecting) {
+                e.target.style.transition = 'width .8s cubic-bezier(.16,1,.3,1)';
+                e.target.style.width = e.target.dataset.w;
+                io.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    bars.forEach(function(b){ io.observe(b); });
+})();
+</script>

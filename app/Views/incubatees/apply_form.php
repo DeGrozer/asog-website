@@ -26,10 +26,10 @@
                 </div>
                 <h2 class="font-display text-[1.4rem] md:text-[1.7rem] text-dark leading-snug mb-2">Startup Application Form</h2>
                 <p class="text-[.92rem] font-medium text-dark/85 mb-3">Welcome, Future Innovator!</p>
-                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[640px] mb-3">
+                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[640px] mb-3 text-justify">
                     Thank you for your interest in joining the ASOG Technology Business Incubator (TBI). We're excited to support passionate startups like yours in turning bold ideas into real-world solutions — especially those rooted in AI, engineering, and food value chain innovation.
                 </p>
-                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[640px]">
+                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[640px] text-justify">
                     Please fill out this form carefully so we can get to know your team, your idea, and how we can best support your startup journey. We're looking forward to discovering the next big thing — and it might just be you!
                 </p>
             </div>
@@ -83,7 +83,7 @@
                             data-v="required|min:2|name"
                             class="v-field w-full bg-transparent border-none p-0 text-[.88rem] text-dark font-normal outline-none placeholder:text-dark/25"
                             placeholder="Dela Cruz, Juan A." value="<?= old('applicantName') ?>" required>
-                        <span class="text-[.58rem] text-navy/30 block mt-1">Last Name, First Name MI</span>
+                        <span class="text-[.58rem] text-dark/60 block mt-2">Last Name, First Name MI</span>
                         <span class="v-msg text-[.62rem] text-red-500 block mt-1 hidden"
                             data-for="applicantName"><?= $errs['applicantName'] ?? '' ?></span>
                     </div>

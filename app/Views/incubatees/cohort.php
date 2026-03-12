@@ -152,6 +152,8 @@ $sealUrl       = base_url('assets/img/ASOG%20TBI/PNG/Logo-white.png');
         return [
             'companyName'      => html_entity_decode($inc['companyName'] ?? '', ENT_QUOTES, 'UTF-8'),
             'founderName'      => html_entity_decode($inc['founderName'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'founderPosition'  => html_entity_decode($inc['founderPosition'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'founderPhoto'     => ! empty($inc['founderPhoto']) ? base_url($inc['founderPhoto']) : '',
             'shortDescription' => html_entity_decode($inc['shortDescription'] ?? '', ENT_QUOTES, 'UTF-8'),
             'content'          => $inc['content'] ?? '',
             'logoPath'         => ! empty($inc['logoPath']) ? base_url($inc['logoPath']) : '',
@@ -159,7 +161,13 @@ $sealUrl       = base_url('assets/img/ASOG%20TBI/PNG/Logo-white.png');
             'websiteUrl'       => html_entity_decode($inc['websiteUrl'] ?? '', ENT_QUOTES, 'UTF-8'),
             'facebookUrl'      => html_entity_decode($inc['facebookUrl'] ?? '', ENT_QUOTES, 'UTF-8'),
             'cohort'           => html_entity_decode($inc['cohort'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'teamMembers'      => ! empty($inc['teamMembers']) ? json_decode($inc['teamMembers'], true) : [],
+            'teamMembers'      => array_map(static function ($m) {
+                return [
+                    'name'  => html_entity_decode($m['name'] ?? '', ENT_QUOTES, 'UTF-8'),
+                    'role'  => html_entity_decode($m['role'] ?? '', ENT_QUOTES, 'UTF-8'),
+                    'photo' => ! empty($m['photo']) ? base_url($m['photo']) : '',
+                ];
+            }, ! empty($inc['teamMembers']) ? (json_decode($inc['teamMembers'], true) ?: []) : []),
         ];
     }, $incubatees), JSON_HEX_TAG | JSON_HEX_APOS) ?>;
     </script>

@@ -63,20 +63,18 @@ class IncubateesAdmin extends BaseController
             $content = null;
         }
 
-        // Build team members JSON from repeater inputs
-        $tmNames = $this->request->getPost('tm_name') ?? [];
-        $tmRoles = $this->request->getPost('tm_role') ?? [];
-        $teamMembers = [];
-        foreach ($tmNames as $i => $name) {
-            $name = trim($name);
-            if ($name !== '') {
-                $teamMembers[] = ['name' => $name, 'role' => trim($tmRoles[$i] ?? '')];
-            }
+        // Build team members JSON from repeater inputs (with per-member photos)
+        try {
+            $teamMembers = $this->buildTeamMembersFromRequest();
+        } catch (\RuntimeException $e) {
+            setToast('error', $e->getMessage());
+            return redirect()->back()->withInput();
         }
 
         $data = [
             'companyName'      => trim($this->request->getPost('companyName') ?? ''),
             'founderName'      => trim($this->request->getPost('founderName') ?? '') ?: null,
+            'founderPosition'  => trim($this->request->getPost('founderPosition') ?? '') ?: null,
             'shortDescription' => trim($this->request->getPost('shortDescription') ?? '') ?: null,
             'content'          => $content,
             'websiteUrl'       => trim($this->request->getPost('websiteUrl') ?? '') ?: null,
@@ -150,6 +148,36 @@ class IncubateesAdmin extends BaseController
             return redirect()->back()->withInput();
         }
 
+        // Handle founder photo upload
+        try {
+            $founderFile = $this->request->getFile('founderPhoto');
+
+            if ($founderFile !== null && $founderFile->getError() !== UPLOAD_ERR_NO_FILE) {
+                if (! $founderFile->isValid()) {
+                    setToast('error', 'Founder photo upload failed: ' . $founderFile->getErrorString());
+                    return redirect()->back()->withInput();
+                }
+
+                if ($founderFile->hasMoved()) {
+                    setToast('error', 'Founder photo upload error: file was already processed.');
+                    return redirect()->back()->withInput();
+                }
+
+                $uploader = new ImageUpload();
+                $founderPath = $uploader->upload($founderFile, 'incubatees');
+                if ($founderPath !== null) {
+                    $data['founderPhoto'] = $founderPath;
+                } else {
+                    setToast('error', 'Founder photo upload failed: ' . $uploader->getError());
+                    return redirect()->back()->withInput();
+                }
+            }
+        } catch (\Throwable $e) {
+            log_message('error', 'Incubatee founder photo upload error: ' . $e->getMessage());
+            setToast('error', 'Founder photo upload error: ' . $e->getMessage());
+            return redirect()->back()->withInput();
+        }
+
         if (! $this->incubateeModel->insert($data)) {
             setToast('error', 'Validation failed: ' . implode(', ', $this->incubateeModel->errors()));
             return redirect()->back()->withInput();
@@ -203,20 +231,22 @@ class IncubateesAdmin extends BaseController
             $content = null;
         }
 
-        // Build team members JSON from repeater inputs
-        $tmNames = $this->request->getPost('tm_name') ?? [];
-        $tmRoles = $this->request->getPost('tm_role') ?? [];
-        $teamMembers = [];
-        foreach ($tmNames as $i => $name) {
-            $name = trim($name);
-            if ($name !== '') {
-                $teamMembers[] = ['name' => $name, 'role' => trim($tmRoles[$i] ?? '')];
-            }
+        $oldTeamMembers = ! empty($incubatee['teamMembers'])
+            ? (json_decode($incubatee['teamMembers'], true) ?: [])
+            : [];
+
+        // Build team members JSON from repeater inputs (with per-member photos)
+        try {
+            $teamMembers = $this->buildTeamMembersFromRequest();
+        } catch (\RuntimeException $e) {
+            setToast('error', $e->getMessage());
+            return redirect()->back()->withInput();
         }
 
         $data = [
             'companyName'      => trim($this->request->getPost('companyName') ?? ''),
             'founderName'      => trim($this->request->getPost('founderName') ?? '') ?: null,
+            'founderPosition'  => trim($this->request->getPost('founderPosition') ?? '') ?: null,
             'shortDescription' => trim($this->request->getPost('shortDescription') ?? '') ?: null,
             'content'          => $content,
             'websiteUrl'       => trim($this->request->getPost('websiteUrl') ?? '') ?: null,
@@ -300,6 +330,55 @@ class IncubateesAdmin extends BaseController
             return redirect()->back()->withInput();
         }
 
+        // Handle founder photo upload (optional on edit)
+        try {
+            $founderFile = $this->request->getFile('founderPhoto');
+
+            if ($founderFile !== null && $founderFile->getError() !== UPLOAD_ERR_NO_FILE) {
+                if (! $founderFile->isValid()) {
+                    setToast('error', 'Founder photo upload failed: ' . $founderFile->getErrorString());
+                    return redirect()->back()->withInput();
+                }
+
+                if ($founderFile->hasMoved()) {
+                    setToast('error', 'Founder photo upload error: file was already processed.');
+                    return redirect()->back()->withInput();
+                }
+
+                $uploader = new ImageUpload();
+                $founderPath = $uploader->upload($founderFile, 'incubatees');
+                if ($founderPath !== null) {
+                    if (! empty($incubatee['founderPhoto'])) {
+                        $uploader->delete($incubatee['founderPhoto']);
+                    }
+                    $data['founderPhoto'] = $founderPath;
+                } else {
+                    setToast('error', 'Founder photo upload failed: ' . $uploader->getError());
+                    return redirect()->back()->withInput();
+                }
+            }
+        } catch (\Throwable $e) {
+            log_message('error', 'Incubatee founder photo update error: ' . $e->getMessage());
+            setToast('error', 'Founder photo upload error: ' . $e->getMessage());
+            return redirect()->back()->withInput();
+        }
+
+        // Remove deleted/replaced team-member photos
+        $oldPhotos = array_values(array_filter(array_map(static function ($m) {
+            return trim((string) ($m['photo'] ?? ''));
+        }, $oldTeamMembers)));
+        $newPhotos = array_values(array_filter(array_map(static function ($m) {
+            return trim((string) ($m['photo'] ?? ''));
+        }, $teamMembers)));
+
+        $removedPhotos = array_diff($oldPhotos, $newPhotos);
+        if (! empty($removedPhotos)) {
+            $uploader = new ImageUpload();
+            foreach ($removedPhotos as $path) {
+                $uploader->delete($path);
+            }
+        }
+
         // Use a clean DB builder for the update to avoid any residual
         // query-builder state from find() or generateSlug().
         $db = \Config\Database::connect();
@@ -334,11 +413,81 @@ class IncubateesAdmin extends BaseController
         if (! empty($incubatee['logoWhitePath'])) {
             $uploader->delete($incubatee['logoWhitePath']);
         }
+        if (! empty($incubatee['founderPhoto'])) {
+            $uploader->delete($incubatee['founderPhoto']);
+        }
+        if (! empty($incubatee['teamMembers'])) {
+            $members = json_decode($incubatee['teamMembers'], true) ?: [];
+            foreach ($members as $member) {
+                $memberPhoto = trim((string) ($member['photo'] ?? ''));
+                if ($memberPhoto !== '') {
+                    $uploader->delete($memberPhoto);
+                }
+            }
+        }
 
         $this->incubateeModel->delete($id);
 
         setToast('success', 'Incubatee deleted.');
         return redirect()->to(site_url('admin/incubatees'));
+    }
+
+    /**
+     * Build team-members payload from repeater fields and uploads.
+     *
+     * Output format:
+     * [
+     *   ['name' => '...', 'role' => '...', 'photo' => 'uploads/...'],
+     *   ...
+     * ]
+     *
+     * @throws \RuntimeException
+     */
+    private function buildTeamMembersFromRequest(): array
+    {
+        $tmNames         = $this->request->getPost('tm_name') ?? [];
+        $tmRoles         = $this->request->getPost('tm_role') ?? [];
+        $tmPhotoExisting = $this->request->getPost('tm_photo_existing') ?? [];
+        $tmPhotoFiles    = $this->request->getFileMultiple('tm_photo') ?? [];
+
+        $uploader = new ImageUpload();
+        $teamMembers = [];
+
+        foreach ($tmNames as $i => $nameRaw) {
+            $name = trim((string) $nameRaw);
+            if ($name === '') {
+                continue;
+            }
+
+            $role      = trim((string) ($tmRoles[$i] ?? ''));
+            $photoPath = trim((string) ($tmPhotoExisting[$i] ?? ''));
+
+            $photoFile = $tmPhotoFiles[$i] ?? null;
+            if ($photoFile !== null && $photoFile->getError() !== UPLOAD_ERR_NO_FILE) {
+                if (! $photoFile->isValid()) {
+                    throw new \RuntimeException('Team member photo upload failed: ' . $photoFile->getErrorString());
+                }
+
+                if ($photoFile->hasMoved()) {
+                    throw new \RuntimeException('Team member photo upload error: file was already processed.');
+                }
+
+                $uploaded = $uploader->upload($photoFile, 'incubatees/team');
+                if ($uploaded === null) {
+                    throw new \RuntimeException('Team member photo upload failed: ' . $uploader->getError());
+                }
+
+                $photoPath = $uploaded;
+            }
+
+            $teamMembers[] = [
+                'name'  => $name,
+                'role'  => $role,
+                'photo' => $photoPath !== '' ? $photoPath : null,
+            ];
+        }
+
+        return $teamMembers;
     }
 
     // ──────────────────────────────────────────────

@@ -171,13 +171,13 @@ $formUrl = $isEdit
 }
 
 .tm-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 92px 1fr 1fr 32px;
     gap: .5rem;
-    align-items: center
+    align-items: start
 }
 
 .tm-row input {
-    flex: 1;
     font-family: 'DM Sans', sans-serif;
     font-size: .82rem;
     color: #1e293b;
@@ -191,6 +191,47 @@ $formUrl = $isEdit
 
 .tm-row input:focus {
     border-color: #03558C
+}
+
+.tm-photo-zone {
+    border: 1px dashed #d4d0ca;
+    border-radius: .35rem;
+    background: #fff;
+    min-height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.tm-photo-zone input[type=file] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.tm-photo-preview {
+    width: 100%;
+    height: 84px;
+    object-fit: cover;
+}
+
+.tm-photo-placeholder {
+    font-size: .6rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    text-align: center;
+    line-height: 1.35;
+    padding: .35rem;
 }
 
 .tm-row .tm-remove {
@@ -234,6 +275,16 @@ $formUrl = $isEdit
 .tm-add:hover {
     border-color: #03558C;
     background: #f0f9ff
+}
+
+@media (max-width: 900px) {
+    .tm-row {
+        grid-template-columns: 1fr;
+    }
+
+    .tm-row .tm-remove {
+        margin-left: auto;
+    }
 }
 
 .switch {
@@ -338,13 +389,19 @@ $formUrl = $isEdit
                     placeholder="Startup or company name">
             </div>
 
-            <!-- Founder + Cohort -->
-            <div class="form-row">
+            <!-- Founder + Position + Cohort -->
+            <div class="form-row-3">
                 <div class="field">
-                    <label for="founderName">Founder / Team</label>
+                    <label for="founderName">Founder Name</label>
                     <input type="text" id="founderName" name="founderName"
                         value="<?= esc(old('founderName', $isEdit ? $incubatee['founderName'] : '')) ?>"
-                        placeholder="e.g. Maria Cruz & Team">
+                        placeholder="e.g. Teodoro Barte">
+                </div>
+                <div class="field">
+                    <label for="founderPosition">Founder Position</label>
+                    <input type="text" id="founderPosition" name="founderPosition"
+                        value="<?= esc(old('founderPosition', $isEdit ? ($incubatee['founderPosition'] ?? '') : '')) ?>"
+                        placeholder="e.g. CEO / Founder">
                 </div>
                 <div class="field">
                     <label for="cohortSelect">Cohort</label>
@@ -397,13 +454,6 @@ $formUrl = $isEdit
                 <div class="field"></div>
             </div>
 
-            <!-- Short description -->
-            <div class="field">
-                <label for="shortDescription">Short Description</label>
-                <textarea id="shortDescription" name="shortDescription" rows="2"
-                    placeholder="One-liner shown on cards (max ~160 chars)"><?= esc(old('shortDescription', $isEdit ? $incubatee['shortDescription'] : '')) ?></textarea>
-            </div>
-
             <!-- Content (Quill) -->
             <div class="field">
                 <label>Full Description</label>
@@ -448,6 +498,23 @@ $formUrl = $isEdit
                 <?php endif; ?>
             </div>
 
+            <!-- Founder Photo upload -->
+            <div class="field">
+                <label>Founder Photo <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#b0aaa0">(shown in the detail panel)</span></label>
+                <div class="upload-zone" id="uploadZoneFounder">
+                    <input type="file" name="founderPhoto" id="founderPhotoInput" accept="image/*">
+                    <div class="label" id="uploadLabelFounder"><strong>Click to upload</strong> a photo of the founder</div>
+                    <div class="upload-preview" id="uploadPreviewFounder">
+                        <?php if ($isEdit && ! empty($incubatee['founderPhoto'])): ?>
+                        <img src="<?= site_url($incubatee['founderPhoto']) ?>" alt="" style="max-height:100px;border-radius:50%;aspect-ratio:1;object-fit:cover">
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php if ($isEdit && ! empty($incubatee['founderPhoto'])): ?>
+                <p style="font-size:.62rem;color:#94a3b8;margin-top:.35rem">Click to replace the current founder photo</p>
+                <?php endif; ?>
+            </div>
+
             <!-- Team Members -->
             <?php
                 $existingMembers = [];
@@ -461,17 +528,31 @@ $formUrl = $isEdit
                     <?php if (! empty($existingMembers)): ?>
                     <?php foreach ($existingMembers as $member): ?>
                     <div class="tm-row">
+                        <label class="tm-photo-zone">
+                            <input type="hidden" name="tm_photo_existing[]" value="<?= esc($member['photo'] ?? '') ?>">
+                            <input type="file" name="tm_photo[]" class="tm-photo-input" accept="image/*">
+                            <?php if (! empty($member['photo'])): ?>
+                                <img class="tm-photo-preview" src="<?= site_url($member['photo']) ?>" alt="<?= esc($member['name'] ?? '') ?>">
+                            <?php else: ?>
+                                <span class="tm-photo-placeholder">Team<br>Photo</span>
+                            <?php endif; ?>
+                        </label>
                         <input type="text" name="tm_name[]" value="<?= esc($member['name'] ?? '') ?>"
                             placeholder="Name">
                         <input type="text" name="tm_role[]" value="<?= esc($member['role'] ?? '') ?>"
-                            placeholder="Role (e.g. CEO, CTO)">
+                            placeholder="Position (e.g. CTO, Marketing Lead)">
                         <button type="button" class="tm-remove" title="Remove">×</button>
                     </div>
                     <?php endforeach; ?>
                     <?php else: ?>
                     <div class="tm-row">
+                        <label class="tm-photo-zone">
+                            <input type="hidden" name="tm_photo_existing[]" value="">
+                            <input type="file" name="tm_photo[]" class="tm-photo-input" accept="image/*">
+                            <span class="tm-photo-placeholder">Team<br>Photo</span>
+                        </label>
                         <input type="text" name="tm_name[]" placeholder="Name">
-                        <input type="text" name="tm_role[]" placeholder="Role (e.g. CEO, CTO)">
+                        <input type="text" name="tm_role[]" placeholder="Position (e.g. CTO, Marketing Lead)">
                         <button type="button" class="tm-remove" title="Remove">×</button>
                     </div>
                     <?php endif; ?>

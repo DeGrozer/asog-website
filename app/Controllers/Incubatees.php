@@ -6,14 +6,23 @@ class Incubatees extends BaseController
 {
     public function index()
     {
-        $cohorts = $this->cohortModel->getActiveNames();
+        $cohorts = $this->cohortModel->getActive();
+        $allIncubatees = [];
+
+        foreach ($cohorts as &$cohort) {
+            $incubatees = $this->incubateeModel->getPublishedByCohort($cohort['name']);
+            $cohort['_count'] = count($incubatees);
+            $allIncubatees = array_merge($allIncubatees, $incubatees);
+        }
+        unset($cohort);
 
         $data = [
-            'title'        => 'Incubatees - ASOG-TBI',
-            'heroSubtitle' => 'Our Startups',
-            'heroTitle'    => 'Incubatees',
-            'heroDesc'     => 'Meet the startups and MSMEs building the future of food value chain management through engineering and AI.',
-            'cohorts'      => $cohorts,
+            'title'          => 'Incubatees - ASOG-TBI',
+            'heroSubtitle'   => 'Our Startups',
+            'heroTitle'      => 'Incubatees',
+            'heroDesc'       => 'Meet the startups and MSMEs building the future of food value chain management through engineering and AI.',
+            'cohorts'        => $cohorts,
+            'allIncubatees'  => $allIncubatees,
         ];
 
         return view('templates/header', $data)

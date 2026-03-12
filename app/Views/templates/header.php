@@ -68,16 +68,8 @@
                     </div>
                 </div>
                 <!-- Incubatees -->
-                <div class="nav-dd group" data-order="3">
-                    <a href="<?= $navIncubatees ?>"
-                        class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">Incubatees</a>
-                    <div class="dd-menu dd-right">
-                        <?php foreach ($navCohorts as $c): ?>
-                        <?php $cNum = (int) filter_var($c, FILTER_SANITIZE_NUMBER_INT); ?>
-                        <a href="<?= site_url('incubatees/cohort-' . $cNum) ?>" class="dd-item"><?= esc($c) ?></a>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
+                <a href="<?= $navIncubatees ?>"
+                    class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">Incubatees</a>
             </div>
 
             <!-- CENTER LOGO -->
@@ -120,16 +112,9 @@
                         <a href="<?= $navFacilities ?>" class="dd-item">Facilities</a>
                     </div>
                 </div>
-                <div class="nav-dd group lo" data-order="3">
-                    <a href="<?= $navIncubatees ?>"
-                        class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold">Incubatees</a>
-                    <div class="dd-menu dd-right">
-                        <?php foreach ($navCohorts as $c): ?>
-                        <?php $cNum = (int) filter_var($c, FILTER_SANITIZE_NUMBER_INT); ?>
-                        <a href="<?= site_url('incubatees/cohort-' . $cNum) ?>" class="dd-item"><?= esc($c) ?></a>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
+                <a href="<?= $navIncubatees ?>"
+                    class="nl nav-link lo text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold"
+                    data-order="3">Incubatees</a>
             </div>
 
             <!-- MOBILE HAMBURGER (visible only on <lg) -->
@@ -163,26 +148,26 @@
             <a href="<?= $navAbout ?>"
                 class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">About
                 Us</a>
-            <span
-                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/40 py-3 border-b border-white/[.06] cursor-default select-none block">Programs
-                &amp; Services</span>
-            <a href="<?= $navPrograms ?>"
-                class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold">↳
-                The ALTITUDE Program</a>
-            <a href="<?= $navServices ?>"
-                class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold">↳
-                Services Offered</a>
-            <a href="<?= $navFacilities ?>"
-                class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold">↳
-                Facilities</a>
+            <button type="button" id="mobPsToggle"
+                class="w-full flex items-center justify-between text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 py-3 border-b border-white/[.06] bg-transparent cursor-pointer select-none transition-colors hover:text-gold">
+                Programs &amp; Services
+                <svg id="mobPsChevron" class="w-4 h-4 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <div id="mobPsSub" class="overflow-hidden" style="max-height:0;transition:max-height .3s ease">
+                <a href="<?= $navPrograms ?>"
+                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block">↳
+                    The ALTITUDE Program</a>
+                <a href="<?= $navServices ?>"
+                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block">↳
+                    Services Offered</a>
+                <a href="<?= $navFacilities ?>"
+                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block">↳
+                    Facilities</a>
+            </div>
             <a href="<?= $navIncubatees ?>"
                 class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Incubatees</a>
-            <?php foreach ($navCohorts as $c): ?>
-            <?php $cNum = (int) filter_var($c, FILTER_SANITIZE_NUMBER_INT); ?>
-            <a href="<?= site_url('incubatees/cohort-' . $cNum) ?>"
-                class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold">↳
-                <?= esc($c) ?></a>
-            <?php endforeach; ?>
             <a href="<?= $navNews ?>"
                 class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">News
                 &amp; Insights</a>

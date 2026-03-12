@@ -27,11 +27,10 @@
     var bbName = $('bbName'),
         bbTeam = $('bbTeam');
 
-    var pCohort      = $('pCohort'),
-        pName        = $('pName'),
-        pFounder     = $('pFounder'),
-        pShort       = $('pShort'),
+    var pAboutTitle  = $('pAboutTitle'),
         pContent     = $('pContent'),
+        pTeamSection = $('pTeamSection'),
+        pTeamList    = $('pTeamList'),
         pWebsite     = $('pWebsite'),
         pFacebook    = $('pFacebook');
 
@@ -60,6 +59,29 @@
     var mpReadMore   = document.getElementById('mpReadMore');
     var previewIdx   = null;
     var mpFlipped    = false;
+
+    function buildDisplayTeam(d) {
+        var members = [];
+        if (d.founderName) {
+            members.push({
+                name: d.founderName,
+                role: d.founderPosition || 'Founder',
+                photo: d.founderPhoto || ''
+            });
+        }
+        if (Array.isArray(d.teamMembers) && d.teamMembers.length) {
+            d.teamMembers.forEach(function (m) {
+                if (m && m.name) {
+                    members.push({
+                        name: m.name,
+                        role: m.role || '',
+                        photo: m.photo || ''
+                    });
+                }
+            });
+        }
+        return members;
+    }
 
     /* ── Entrance animation ── */
     gsap.from('.ib-card', {
@@ -125,10 +147,11 @@
 
         /* ── Populate BACK (team) — same as desktop bbXxx ── */
         mpBackName.textContent = d.companyName;
+        var team = buildDisplayTeam(d);
         var html = '';
-        if (d.teamMembers && d.teamMembers.length) {
+        if (team.length) {
             html += '<span class="ib-bb-team-label">Members</span>';
-            d.teamMembers.forEach(function (m) {
+            team.forEach(function (m) {
                 html += '<div class="ib-bb-member flex flex-col items-center">';
                 html += '<span class="ib-bb-member-name">' + m.name + '</span>';
                 if (m.role) html += '<span class="ib-bb-member-role">' + m.role + '</span>';
@@ -234,10 +257,11 @@
 
         /* Big back */
         bbName.textContent = d.companyName;
+        var team = buildDisplayTeam(d);
         var html = '';
-        if (d.teamMembers && d.teamMembers.length) {
+        if (team.length) {
             html += '<span class="ib-bb-team-label">Members</span>';
-            d.teamMembers.forEach(function (m) {
+            team.forEach(function (m) {
                 html += '<div class="ib-bb-member flex flex-col items-center">';
                 html += '<span class="ib-bb-member-name">' + m.name + '</span>';
                 if (m.role) html += '<span class="ib-bb-member-role">' + m.role + '</span>';
@@ -249,21 +273,37 @@
         bbTeam.innerHTML = html;
 
         /* Panel */
-        pCohort.textContent  = d.cohort;
-        pName.textContent    = d.companyName;
-        /* Show leaders/founders, fallback to all team, fallback to founderName */
-        var pLeaders = (d.teamMembers || []).filter(function(m){ return m.role && /leader|founder|ceo|cto|coo|president|director/i.test(m.role); });
-        if (pLeaders.length) {
-            pFounder.textContent = pLeaders.map(function(m){ return m.name; }).join(', ');
-        } else if (d.teamMembers && d.teamMembers.length) {
-            pFounder.textContent = d.teamMembers.map(function(m){ return m.name; }).join(', ');
-        } else if (d.founderName) {
-            pFounder.textContent = d.founderName;
-        } else {
-            pFounder.textContent = '';
+        if (pAboutTitle) {
+            pAboutTitle.textContent = 'About ' + d.companyName;
         }
-        pShort.textContent   = d.shortDescription;
         pContent.innerHTML   = d.content || '';
+
+        var team = buildDisplayTeam(d);
+
+        if (pTeamList && pTeamSection) {
+            if (team.length) {
+                var teamHtml = '';
+                team.forEach(function (m) {
+                    var initial = (m.name || '?').trim().charAt(0).toUpperCase();
+                    var photoMarkup = m.photo
+                        ? '<img class="ib-p-member-photo" src="' + m.photo + '" alt="' + m.name + '">'
+                        : '<div class="ib-p-member-photo-default"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></div>';
+
+                    teamHtml += '<div class="ib-p-member-card">';
+                    teamHtml += photoMarkup;
+                    teamHtml += '<span class="ib-p-member-name">' + m.name + '</span>';
+                    if (m.role) {
+                        teamHtml += '<span class="ib-p-member-role">' + m.role + '</span>';
+                    }
+                    teamHtml += '</div>';
+                });
+                pTeamList.innerHTML = teamHtml;
+                pTeamSection.style.display = '';
+            } else {
+                pTeamList.innerHTML = '';
+                pTeamSection.style.display = 'none';
+            }
+        }
 
         if (d.websiteUrl)  { pWebsite.href = d.websiteUrl;   pWebsite.style.display = 'inline-flex'; }
         else               { pWebsite.style.display = 'none'; }
