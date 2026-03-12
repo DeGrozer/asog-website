@@ -58,9 +58,9 @@
                     Us</a>
                 <!-- Programs & Services -->
                 <div class="nav-dd group">
-                    <a href="<?= $navPrograms ?>"
-                        class="nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">Programs
-                        &amp; Services</a>
+                    <span role="button" tabindex="0"
+                        class="nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold cursor-pointer select-none">Programs
+                        &amp; Services</span>
                     <div class="dd-menu">
                         <a href="<?= $navPrograms ?>" class="dd-item">The ALTITUDE Program</a>
                         <a href="<?= $navServices ?>" class="dd-item">Services Offered</a>
@@ -91,15 +91,9 @@
             <!-- desktop right links -->
             <div id="navR" class="absolute right-10 lg:flex hidden items-center">
                 <!-- News & Insights -->
-                <div class="nav-dd group" data-order="4">
-                    <a href="<?= $navNews ?>"
-                        class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">News
-                        &amp; Insights</a>
-                    <div class="dd-menu dd-right">
-                        <a href="<?= $navNews ?>" class="dd-item">Events</a>
-                        <a href="<?= $navNews ?>" class="dd-item">Features &amp; Opinion</a>
-                    </div>
-                </div>
+                <a href="<?= $navNews ?>" data-order="4"
+                    class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">News
+                    &amp; Insights</a>
                 <!-- Contact Us -->
                 <div class="nav-dd group" data-order="5">
                     <a href="<?= $navContact ?>"
@@ -117,9 +111,9 @@
                     data-order="1">About
                     Us</a>
                 <div class="nav-dd group lo" data-order="2">
-                    <a href="<?= $navPrograms ?>"
-                        class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold">Programs
-                        &amp; Services</a>
+                    <span role="button" tabindex="0"
+                        class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold cursor-pointer select-none">Programs
+                        &amp; Services</span>
                     <div class="dd-menu dd-right">
                         <a href="<?= $navPrograms ?>" class="dd-item">The ALTITUDE Program</a>
                         <a href="<?= $navServices ?>" class="dd-item">Services Offered</a>
@@ -169,9 +163,15 @@
             <a href="<?= $navAbout ?>"
                 class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">About
                 Us</a>
+            <span
+                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/40 py-3 border-b border-white/[.06] cursor-default select-none block">Programs
+                &amp; Services</span>
             <a href="<?= $navPrograms ?>"
-                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Programs
-                &amp; Services</a>
+                class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold">↳
+                The ALTITUDE Program</a>
+            <a href="<?= $navServices ?>"
+                class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold">↳
+                Services Offered</a>
             <a href="<?= $navFacilities ?>"
                 class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold">↳
                 Facilities</a>

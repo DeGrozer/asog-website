@@ -54,14 +54,6 @@
                     <span class="text-[.82rem] md:text-[.85rem] text-white/80 font-light">+63 (054) 123-4567</span>
                 </div>
             </div>
-            <div class="flex flex-wrap gap-3">
-                <a href="#"
-                    class="text-[.55rem] font-semibold tracking-[.12em] uppercase text-white/50 no-underline border border-white/[.08] px-4 py-2.5 rounded transition-all duration-200 hover:text-gold hover:border-gold/30 hover:bg-gold/5">Get
-                    Directions</a>
-                <a href="#contact"
-                    class="text-[.55rem] font-semibold tracking-[.12em] uppercase text-dark no-underline bg-gold px-4 py-2.5 rounded transition-all duration-200 hover:bg-gold-dk">Contact
-                    Us</a>
-            </div>
         </div>
     </div>
 </div>

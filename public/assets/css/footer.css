@@ -1,219 +1,209 @@
-/* Footer — sleek editorial design */
+/* Footer — Classic columnar design, navy / gold theme  (refreshed) */
 
 /* ── Base ────────────────────────────────── */
 .site-footer {
-    background: #0a1a28;
+    background: #03558C;
+    color: rgba(255,255,255,.72);
+    padding-top: 4rem;
+    padding-bottom: 0;
+    width: 100%;
 }
 
-/* ── Connect Block ───────────────────────── */
-.ft-connect-tag {
-    font-size: .52rem;
-    font-weight: 700;
-    letter-spacing: .22em;
-    text-transform: uppercase;
-    color: rgba(248,175,33,.5);
+/* ── Grid: 4 columns on large, 2 on md ──── */
+.ft-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.8rem 2rem;
+    padding-bottom: 2.8rem;
+    border-bottom: 1px solid rgba(255,255,255,.08);
 }
-.ft-connect-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
-    line-height: 1.2;
-    color: rgba(255,255,255,.88);
-    margin: 0 0 1rem;
-    font-weight: 400;
+@media (min-width: 640px) {
+    .ft-grid {
+        grid-template-columns: 1fr 1fr;
+    }
 }
-.ft-connect-title em {
-    color: #F8AF21;
-    font-style: italic;
+@media (min-width: 1024px) {
+    .ft-grid {
+        grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+        gap: 2rem 3.5rem;
+    }
 }
-.ft-connect-desc {
-    font-size: .85rem;
+
+/* ── Column base ─────────────────────────── */
+.ft-col {}
+
+/* ── Brand column ────────────────────────── */
+.ft-logo {
+    height: 42px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    opacity: .9;
+    transition: opacity .3s;
+}
+.ft-logo:hover { opacity: 1; }
+
+.ft-tagline {
+    font-size: .8rem;
     font-weight: 300;
-    line-height: 1.85;
-    color: rgba(255,255,255,.3);
-    margin: 0;
-    max-width: 400px;
+    line-height: 1.8;
+    color: rgba(255,255,255,.42);
+    margin: 0 0 1.4rem;
+    max-width: 300px;
 }
 
-/* ── Social Row — inline, minimal ────────── */
-.ft-social-row {
+/* ── Social Icons (in brand column) ──────── */
+.ft-social {
     display: flex;
-    align-items: center;
-    gap: 0;
+    gap: .55rem;
 }
 .ft-social-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.1);
     text-decoration: none;
     color: rgba(255,255,255,.35);
-    transition: color .25s;
-    position: relative;
+    transition: color .3s, border-color .3s, background .3s, transform .3s;
 }
 .ft-social-link:hover {
     color: #F8AF21;
-}
-.ft-social-link svg {
-    width: 18px;
-    height: 18px;
-    transition: transform .25s;
-}
-.ft-social-link:hover svg {
+    border-color: rgba(248,175,33,.4);
+    background: rgba(248,175,33,.08);
     transform: translateY(-2px);
 }
-.ft-social-sep {
-    width: 1px;
-    height: 14px;
-    background: rgba(255,255,255,.08);
+.ft-social-link svg {
+    width: 16px;
+    height: 16px;
 }
 
-/* ── Email Row ───────────────────────────── */
-.ft-email-row {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
-    text-decoration: none;
-    padding: .6rem 0;
-    transition: gap .25s;
-}
-.ft-email-row:hover {
-    gap: 1rem;
-}
-.ft-email-icon {
+/* ── Headings ────────────────────────────── */
+.ft-heading {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .6rem;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
     color: #F8AF21;
-    opacity: .6;
-    flex-shrink: 0;
-    transition: opacity .25s;
+    margin: 0 0 1.2rem;
+    position: relative;
+    padding-bottom: .6rem;
 }
-.ft-email-row:hover .ft-email-icon {
-    opacity: 1;
+.ft-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background: rgba(248,175,33,.35);
+    border-radius: 1px;
 }
-.ft-email-addr {
+
+/* ── Link lists ──────────────────────────── */
+.ft-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.ft-links li {
+    margin-bottom: .65rem;
+}
+.ft-links a {
     font-size: .82rem;
     font-weight: 400;
-    color: rgba(255,255,255,.45);
-    transition: color .25s;
-}
-.ft-email-row:hover .ft-email-addr {
-    color: #F8AF21;
-}
-.ft-email-arrow {
-    color: rgba(255,255,255,.15);
-    transition: color .25s, transform .25s;
-    margin-left: auto;
-}
-.ft-email-row:hover .ft-email-arrow {
-    color: #F8AF21;
-    transform: translate(3px, -3px);
-}
-
-/* ── Link Rows ───────────────────────────── */
-.ft-rows {
-    border-top: 1px solid rgba(255,255,255,.06);
-}
-.ft-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(255,255,255,.06);
+    color: rgba(255,255,255,.5);
     text-decoration: none;
-    transition: padding-left .25s;
+    position: relative;
+    transition: color .25s, padding-left .25s;
 }
-.ft-row:hover {
-    padding-left: .5rem;
+.ft-links a::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #F8AF21;
+    transition: width .3s ease;
+}
+.ft-links a:hover {
+    color: #F8AF21;
+    padding-left: 6px;
+}
+.ft-links a:hover::before {
+    width: 100%;
 }
 
-.ft-row-title {
-    font-family: 'DM Sans', sans-serif;
-    font-size: .78rem;
-    font-weight: 600;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.45);
+/* ── Contact info list ───────────────────── */
+.ft-contact-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.ft-contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: .6rem;
+    margin-bottom: .9rem;
+    font-size: .8rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(255,255,255,.48);
+}
+.ft-contact-list a {
+    color: rgba(255,255,255,.48);
+    text-decoration: none;
     transition: color .25s;
 }
-.ft-row:hover .ft-row-title {
+.ft-contact-list a:hover {
     color: #F8AF21;
 }
-
-.ft-row-desc {
-    font-size: .68rem;
-    font-weight: 400;
-    color: rgba(255,255,255,.15);
-    white-space: nowrap;
-    display: none;
-    margin-left: auto;
-}
-@media (min-width: 768px) {
-    .ft-row-desc { display: inline; }
-}
-
-.ft-arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255,255,255,.12);
-    transition: color .25s, transform .25s;
+.ft-contact-icon {
+    width: 17px;
+    height: 17px;
     flex-shrink: 0;
+    margin-top: 2px;
+    color: rgba(248,175,33,.5);
+    transition: color .25s;
 }
-.ft-row:hover .ft-arrow {
+.ft-contact-list li:hover .ft-contact-icon {
     color: #F8AF21;
-    transform: translate(3px, -3px);
 }
 
 /* ── Bottom Bar ──────────────────────────── */
 .ft-bottom {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 2rem 0 1.5rem;
-    border-top: 1px solid rgba(255,255,255,.06);
+    gap: .4rem;
+    align-items: center;
+    text-align: center;
+    padding: 1.6rem 0;
 }
 @media (min-width: 768px) {
     .ft-bottom {
         flex-direction: row;
-        align-items: flex-end;
         justify-content: space-between;
     }
 }
-.ft-bottom-logo {
-    height: 36px;
-    object-fit: contain;
-    margin-bottom: .6rem;
-    opacity: .5;
-}
-.ft-bottom-tagline {
-    font-size: .68rem;
-    font-weight: 300;
-    color: rgba(255,255,255,.18);
-    max-width: 340px;
-    line-height: 1.7;
-    margin: 0;
-}
-.ft-bottom-meta {
-    display: flex;
-    flex-direction: column;
-    gap: .35rem;
-    text-align: left;
-}
-@media (min-width: 768px) {
-    .ft-bottom-meta { text-align: right; }
-}
 .ft-copyright {
-    font-size: .5rem;
+    font-size: .54rem;
     font-weight: 500;
-    letter-spacing: .1em;
+    letter-spacing: .09em;
     text-transform: uppercase;
-    color: rgba(255,255,255,.14);
+    color: rgba(255,255,255,.22);
+    transition: color .2s;
+}
+.ft-copyright:hover {
+    color: rgba(255,255,255,.35);
 }
 .ft-funded {
-    font-size: .46rem;
+    font-size: .5rem;
     font-weight: 600;
-    letter-spacing: .14em;
+    letter-spacing: .15em;
     text-transform: uppercase;
-    color: rgba(248,175,33,.25);
+    color: rgba(248,175,33,.32);
 }
 

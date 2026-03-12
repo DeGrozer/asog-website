@@ -35,7 +35,7 @@ class PostModel extends Model
         'title'            => 'required|min_length[3]|max_length[255]',
         'shortDescription' => 'permit_empty|max_length[500]',
         'content'          => 'permit_empty',
-        'category'         => 'required|in_list[news,events,features]',
+        'category'         => 'required|in_list[news,events,features,opinions]',
     ];
 
     protected $validationMessages = [
@@ -44,7 +44,7 @@ class PostModel extends Model
             'min_length' => 'Title must be at least 3 characters.',
         ],
         'category' => [
-            'in_list' => 'Category must be one of: news, events, features.',
+            'in_list' => 'Category must be one of: news, events, features, opinions.',
         ],
     ];
 

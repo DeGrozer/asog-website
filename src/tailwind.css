@@ -193,11 +193,15 @@
   /* ═══ MOBILE MENU ═══ */
   #mobileMenu {
     @apply transition-all duration-300;
+    pointer-events: none;
+    visibility: hidden;
   }
 
   #mobileMenu.open {
     transform: translateX(0) !important;
     opacity: 1 !important;
+    pointer-events: auto;
+    visibility: visible;
   }
 
   /* ═══ HERO SLIDES ═══ */
@@ -318,8 +322,8 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle, rgba(67,167,219,.12) 1px, transparent 1px);
-    background-size: 60px 60px;
+    /* dots removed — grid lines only */
+    background-image: none;
   }
   .ai-grid-fade {
     position: absolute;
@@ -341,7 +345,7 @@
   .ai-cross::after {
     content: '';
     position: absolute;
-    background: rgba(248,175,33,.3);
+    background: transparent; /* + symbols removed */
   }
   .ai-cross::before { width: 20px; height: 1px; top: 50%; left: 0; }
   .ai-cross::after  { width: 1px; height: 20px; left: 50%; top: 0; }

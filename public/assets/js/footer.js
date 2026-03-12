@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function playFooterIntro() {
         var tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
-        // Connect block fade
-        var connect = footer.querySelector('.ft-connect');
-        if (connect) {
-            tl.from(connect, { y: 20, opacity: 0, duration: 0.5 });
+        // Columns stagger
+        var cols = footer.querySelectorAll('.ft-col');
+        if (cols.length) {
+            tl.from(cols, { y: 20, opacity: 0, duration: 0.4, stagger: 0.1 });
         }
 
         // Social links stagger
@@ -21,18 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 y: 8, opacity: 0,
                 duration: 0.3, stagger: 0.06
             }, '-=0.2');
-        }
-
-        // Email row
-        var emailRow = footer.querySelector('.ft-email-row');
-        if (emailRow) {
-            tl.from(emailRow, { y: 10, opacity: 0, duration: 0.35 }, '-=0.1');
-        }
-
-        // Link rows stagger
-        var rows = footer.querySelectorAll('.ft-row');
-        if (rows.length) {
-            tl.from(rows, { x: -12, opacity: 0, duration: 0.3, stagger: 0.04 }, '-=0.1');
         }
 
         // Bottom bar

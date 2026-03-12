@@ -4,8 +4,22 @@
 <section class="relative bg-off py-16 md:py-24 px-6 md:px-10 lg:px-14">
     <div class="max-w-[1100px] mx-auto relative z-[2]">
 
-        <div id="events" class="scroll-mt-28"></div>
-        <div id="features" class="scroll-mt-28"></div>
+        <!-- Category Filters -->
+        <div class="flex flex-wrap items-center gap-3 mb-10">
+            <span class="text-[.54rem] font-bold tracking-[.18em] uppercase mr-1" style="color:rgba(2,13,24,.3)">Filter by:</span>
+            <a href="<?= site_url('news') ?>"
+               class="px-4 py-2 text-[.6rem] font-semibold tracking-[.12em] uppercase rounded-sm border transition-all duration-200 no-underline <?= empty($activeCategory ?? '') ? 'bg-navy text-white border-navy' : 'bg-transparent border-dark/15 hover:border-navy/40 hover:text-navy' ?>"
+               style="<?= empty($activeCategory ?? '') ? '' : 'color:rgba(2,13,24,.5)' ?>">All</a>
+            <a href="<?= site_url('news?category=news') ?>"
+               class="px-4 py-2 text-[.6rem] font-semibold tracking-[.12em] uppercase rounded-sm border transition-all duration-200 no-underline <?= ($activeCategory ?? '') === 'news' ? 'bg-navy text-white border-navy' : 'bg-transparent border-dark/15 hover:border-navy/40 hover:text-navy' ?>"
+               style="<?= ($activeCategory ?? '') === 'news' ? '' : 'color:rgba(2,13,24,.5)' ?>">News</a>
+            <a href="<?= site_url('news?category=features') ?>"
+               class="px-4 py-2 text-[.6rem] font-semibold tracking-[.12em] uppercase rounded-sm border transition-all duration-200 no-underline <?= ($activeCategory ?? '') === 'features' ? 'bg-navy text-white border-navy' : 'bg-transparent border-dark/15 hover:border-navy/40 hover:text-navy' ?>"
+               style="<?= ($activeCategory ?? '') === 'features' ? '' : 'color:rgba(2,13,24,.5)' ?>">Features</a>
+            <a href="<?= site_url('news?category=opinions') ?>"
+               class="px-4 py-2 text-[.6rem] font-semibold tracking-[.12em] uppercase rounded-sm border transition-all duration-200 no-underline <?= ($activeCategory ?? '') === 'opinions' ? 'bg-navy text-white border-navy' : 'bg-transparent border-dark/15 hover:border-navy/40 hover:text-navy' ?>"
+               style="<?= ($activeCategory ?? '') === 'opinions' ? '' : 'color:rgba(2,13,24,.5)' ?>">Opinions</a>
+        </div>
 
         <?php if (! empty($latestPost)): ?>
         <!-- ─── LATEST RELEASE ─── -->
@@ -48,7 +62,7 @@
                             class="font-display text-[1.3rem] md:text-[1.6rem] lg:text-[1.8rem] leading-[1.18] text-dark mb-4">
                             <?= esc($latestPost['title']) ?></h2>
                         <?php if (! empty($latestPost['shortDescription'])): ?>
-                        <p class="text-[.84rem] font-light leading-[1.8] text-dark/55 mb-5 group-hover:text-dark/70 transition-colors duration-200">
+                        <p class="text-[.95rem] font-light leading-[1.8] mb-5 transition-colors duration-200" style="color:#1a1a1a;">
                             <?= html_entity_decode(esc(character_limiter($latestPost['shortDescription'], 180))) ?></p>
                         <?php endif; ?>
                         <?php if (! empty($latestPost['authorName'])): ?>
@@ -105,7 +119,7 @@
                             class="font-display text-[1rem] md:text-[1.08rem] text-dark leading-snug mb-1.5">
                             <?= esc($post['title']) ?></h3>
                         <?php if (! empty($post['shortDescription'])): ?>
-                        <p class="text-[.76rem] font-light leading-[1.7] text-dark/45 group-hover:text-dark/65 transition-colors duration-200 line-clamp-2">
+                        <p class="text-[.88rem] font-light leading-[1.7] transition-colors duration-200 line-clamp-2" style="color:#1a1a1a;">
                             <?= html_entity_decode(esc(character_limiter($post['shortDescription'], 120))) ?></p>
                         <?php endif; ?>
                     </div>

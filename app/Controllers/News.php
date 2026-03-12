@@ -6,13 +6,24 @@ class News extends BaseController
 {
     public function index(): string
     {
-        $allPosts   = $this->postModel->getPublished();
+        $category = $this->request->getGet('category');
+        $validCategories = ['news', 'features', 'opinions'];
+
+        if ($category && in_array($category, $validCategories)) {
+            $allPosts = $this->postModel->getByCategory($category);
+            $activeCategory = $category;
+        } else {
+            $allPosts = $this->postModel->getPublished();
+            $activeCategory = '';
+        }
+
         $latestPost = ! empty($allPosts) ? array_shift($allPosts) : null;
 
         $data = [
-            'title'       => 'News & Insights - ASOG-TBI',
-            'latestPost'  => $latestPost,
-            'posts'       => $allPosts,
+            'title'           => 'News & Insights - ASOG-TBI',
+            'latestPost'      => $latestPost,
+            'posts'           => $allPosts,
+            'activeCategory'  => $activeCategory,
         ];
 
         $data['heroSubtitle'] = 'Stay Updated';

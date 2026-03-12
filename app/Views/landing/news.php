@@ -15,7 +15,7 @@
                         class="italic text-gold">Insights</em></h2>
             </div>
             <a href="<?= site_url('news') ?>"
-                class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-dark/[.28] no-underline border-b border-dark/[.12] pb-0.5 transition-colors duration-200 hover:text-gold hover:border-gold shrink-0">View
+                class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-dark no-underline border-b border-dark/40 pb-0.5 transition-colors duration-200 hover:text-gold hover:border-gold shrink-0">View
                 All News →</a>
         </div>
 

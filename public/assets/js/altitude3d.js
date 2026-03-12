@@ -44,6 +44,8 @@ let hero, heroStage = -1, heroAnimState = 'idle', heroAnimTime = 0;
 let stageCams = [];
 let hStick, hMapMesh, heroFlagGroup;
 let confettiGroup = null, confettiParts = [];
+let trailCurve = null;
+const stageTValues = [0.04, 0.27, 0.68, 1.0]; /* t on trailCurve for each stage */
 
 /* -- Stage data -- */
 const S = [
@@ -279,9 +281,9 @@ function initScene() {
       G.add(r);
     }
   }
-  /* Scattered rocks on upper slopes */
-  slopeRocks(0.3, 5.5, -1.2, 6, 0.8, 0.25);
-  slopeRocks(0.3, 6.5, -1.4, 4, 0.5, 0.20);
+  /* Scattered rocks on upper slopes — kept away from trail path */
+  slopeRocks(0.3, 5.5, -2.8, 6, 0.8, 0.25);
+  slopeRocks(0.3, 6.5, -2.8, 4, 0.5, 0.20);
   slopeRocks(-3.2, 3.8, 0.6, 4, 0.6, 0.18);
   slopeRocks(3.8, 3.0, 0.6, 3, 0.5, 0.15);
 
@@ -302,14 +304,14 @@ function initScene() {
       G.add(r);
     }
   }
-  rockCluster(0.3, 5.5, -1.5, 0.6);   // near main summit
+  rockCluster(0.3, 5.5, -3.5, 0.6);   // behind main summit — off trail
   rockCluster(-3.2, 3.8, 0.5, 0.5);   // near pk2
   rockCluster(3.8, 3.0, 0.5, 0.4);    // near pk3
-  rockCluster(1.5, 0.1, 4.0, 0.35);   // trailhead area
-  rockCluster(-2.0, 0.6, 2.5, 0.3);   // grounded
-  rockCluster(2.0, 0.1, 5.5, 0.25);   // trail edge
-  rockCluster(-1.0, 0.1, 5.0, 0.2);   // trail edge
-  rockCluster(0.0, 0.1, 6.5, 0.3);    // near plate edge
+  rockCluster(-5.0, 0.1, -3.0, 0.35); // behind mountain — off trail
+  rockCluster(-4.5, 0.1, -2.5, 0.3);  // behind mountain — off trail
+  rockCluster(5.5, 0.1, -3.0, 0.25);  // behind mountain — off trail
+  rockCluster(-5.5, 0.1, -1.5, 0.2);  // behind mountain — off trail
+  rockCluster(0.0, 0.1, -5.5, 0.3);   // behind mountain — off trail
 
   /* -- Green rolling hills — flattened so trail stays visible -- */
   const h1 = hill(6.5, 1.4, 5.5, mGrass);
@@ -351,65 +353,107 @@ function initScene() {
      surface radius r = 3.5 * pow(1-y/7, 0.7). Trail placed at
      that radius from pk1 center (0.3, -1.5), with +0.05 y offset. */
   const trailPts = [
-    new THREE.Vector3( 6.5,  0.12,  6.5),   // plate edge entry
+    new THREE.Vector3( 5.8,  0.50,  5.8),   // inside base edge
     new THREE.Vector3( 5.0,  0.92,  5.5),   // trailhead — on h1 surface
-    new THREE.Vector3( 3.2,  1.28,  5.0),   // gentle rise — on h1
-    new THREE.Vector3( 1.0,  1.43,  4.5),   // across front — h1 crest
-    new THREE.Vector3(-1.0,  1.42,  3.8),   // heading left
-    new THREE.Vector3(-2.5,  1.35,  2.8),   // basecamp — pk2/h1 ridge
+    new THREE.Vector3( 3.8,  1.10,  5.2),   // gentle rise
+    new THREE.Vector3( 2.4,  1.28,  4.8),   // on h1
+    new THREE.Vector3( 1.0,  1.40,  4.4),   // across front — h1 crest
+    new THREE.Vector3(-0.5,  1.42,  3.8),   // heading left
+    new THREE.Vector3(-2.0,  1.38,  3.8),   // approaching basecamp
+    new THREE.Vector3(-3.2,  1.35,  3.8),   // basecamp — pushed far from pk1
     /* Transition from hills onto pk1 front face */
-    new THREE.Vector3(-1.5,  1.45,  2.0),   // saddle between pk2 and pk1
-    new THREE.Vector3(-0.71, 1.55,  1.28),  // pk1 lower slope, front-left
-    /* Switchback trail climbing pk1 — on surface */
-    new THREE.Vector3( 0.30, 2.05,  1.27),  // front center
-    new THREE.Vector3( 1.18, 2.55,  0.92),  // switchback right
-    new THREE.Vector3( 0.30, 3.05,  0.87),  // back to front
-    new THREE.Vector3(-0.26, 3.55,  0.59),  // switchback left
-    new THREE.Vector3( 0.64, 4.05,  0.41),  // ascent — on pk1 surface
-    new THREE.Vector3( 0.15, 4.55,  0.19),  // heading left
-    new THREE.Vector3( 0.50, 5.05, -0.05),  // narrowing
-    new THREE.Vector3( 0.20, 5.55, -0.31),  // upper slope
-    new THREE.Vector3( 0.38, 6.05, -0.60),  // approaching summit
-    new THREE.Vector3( 0.30, 6.55, -0.95),  // near summit ridge
+    new THREE.Vector3(-2.4,  1.40,  3.0),   // saddle between pk2 and pk1
+    new THREE.Vector3(-1.4,  1.50,  2.2),   // smooth transition
+    new THREE.Vector3(-0.3,  1.65,  1.4),   // pk1 lower slope
+    /* Gentle spiral climbing pk1 — wider sweeps, not sharp switchbacks */
+    new THREE.Vector3( 0.5,  1.95,  1.3),   // right side
+    new THREE.Vector3( 1.2,  2.30,  0.9),   // sweeping right
+    new THREE.Vector3( 0.8,  2.65,  0.5),   // curve back
+    new THREE.Vector3( 0.1,  3.00,  0.6),   // front left
+    new THREE.Vector3(-0.4,  3.35,  0.3),   // left side
+    new THREE.Vector3( 0.0,  3.70,  0.0),   // curving right
+    new THREE.Vector3( 0.6,  4.05,  0.0),   // ascent — on pk1 surface
+    new THREE.Vector3( 0.4,  4.40, -0.15),  // gentle left
+    new THREE.Vector3( 0.15, 4.75, -0.05),  // heading up
+    new THREE.Vector3( 0.40, 5.10, -0.20),  // slight right
+    new THREE.Vector3( 0.25, 5.50, -0.40),  // upper slope
+    new THREE.Vector3( 0.35, 5.90, -0.65),  // approaching summit
+    new THREE.Vector3( 0.30, 6.30, -0.90),  // near summit
+    new THREE.Vector3( 0.30, 6.70, -1.20),  // summit ridge
     new THREE.Vector3( 0.30, 7.05, -1.50),  // summit peak
   ];
-  const trailCurve = new THREE.CatmullRomCurve3(trailPts, false, 'centripetal', 0.5);
 
-  /* Trail materials — polygonOffset prevents z-fighting on mountain surface */
-  const mTrailCore = new THREE.MeshStandardMaterial({
-    color: 0xc4a46c, roughness: 0.95,
-    polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2
-  });
-  const mTrailEdge = new THREE.MeshStandardMaterial({
-    color: 0xa08040, roughness: 1.0,
-    polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1
-  });
+  /* ── Project trail points OUTSIDE pk1 mountain surface ──
+     The LatheGeometry peak at (0.3, 0, -1.5) with baseR=3.5, height=7
+     has surface radius r(y) = 3.5 * pow(1-y/7, 0.7). Many upper trail
+     control points sit INSIDE that surface, so the rendered mountain
+     hides the path. We push each offending point radially outward until
+     it is POP units beyond the surface.                                  */
+  {
+    const cx = 0.3, cz = -1.5, bR = 3.5, H = 7.0, POP = 0.65;
+    trailPts.forEach(p => {
+      if (p.y < 1.5) return;                        // lower trail is on hills
+      const dx = p.x - cx, dz = p.z - cz;
+      const d  = Math.sqrt(dx * dx + dz * dz);
+      if (d < 0.05) return;                         // summit tip — skip
+      const sr = bR * Math.pow(Math.max(1 - p.y / H, 0), 0.7);
+      const need = sr + POP;
+      if (d < need) {
+        const s = need / d;
+        p.x = cx + dx * s;
+        p.z = cz + dz * s;
+      }
+    });
+  }
 
-  /* Build flat ribbon mesh along curve — looks like real dirt path */
-  function buildFlatTrail(curve, segments, halfW, mat) {
+  trailCurve = new THREE.CatmullRomCurve3(trailPts, false, 'centripetal', 0.4);
+
+  /* ====== DIRT TRAIL SURFACE — thin ribbon that hugs terrain ====== */
+  /* Only the top face is generated (no side walls). The surface sits
+     just above the mountain geometry so it reads as a packed-dirt path
+     rather than a raised boardwalk. */
+  const TRAIL_HW = 0.36;   /* half-width of trail */
+  const TRAIL_H  = 0.02;   /* very thin — no visible walls */
+  const TRAIL_LIFT = 0.14;  /* raised well above mountain surface */
+  const TRAIL_SEGS = 400;
+  const _up = new THREE.Vector3(0, 1, 0); /* shared up vector */
+
+  /* pk1 surface projection helper — pushes any XZ point outside pk1 */
+  const _pk1cx = 0.3, _pk1cz = -1.5, _pk1bR = 3.5, _pk1H = 7.0, _pk1POP = 0.65;
+  function projectOutsidePk1(x, y, z) {
+    if (y < 1.2) return { x, z };  /* lower trail sits on hills, skip */
+    const dx = x - _pk1cx, dz = z - _pk1cz;
+    const d  = Math.sqrt(dx * dx + dz * dz);
+    if (d < 0.05) return { x, z }; /* summit tip */
+    const sr = _pk1bR * Math.pow(Math.max(1 - y / _pk1H, 0), 0.7);
+    const need = sr + _pk1POP;
+    if (d < need) {
+      const s = need / d;
+      return { x: _pk1cx + dx * s, z: _pk1cz + dz * s };
+    }
+    return { x, z };
+  }
+
+  function buildTrailSurface(curve, segs, hw, lift, mat) {
     const verts = [], uvs = [], idxs = [];
-    for (let i = 0; i <= segments; i++) {
-      const t = i / segments;
+    /* Ribbon — 2 verts per ring, project EVERY vertex outside pk1 */
+    for (let i = 0; i <= segs; i++) {
+      const t = i / segs;
       const pt = curve.getPoint(t);
       const tang = curve.getTangent(t);
-      /* Perpendicular in XZ plane (flat) */
-      const perp = new THREE.Vector3(-tang.z, 0, tang.x).normalize();
-      /* Slight upward normal tilt so ribbon conforms to slope */
-      const up = new THREE.Vector3(0, 1, 0);
-      const side = new THREE.Vector3().crossVectors(tang, up).normalize();
-
-      const L = pt.clone().add(side.clone().multiplyScalar(-halfW));
-      const R = pt.clone().add(side.clone().multiplyScalar( halfW));
-      /* Push ribbon slightly above surface */
-      L.y = pt.y + 0.03;
-      R.y = pt.y + 0.03;
-
-      verts.push(L.x, L.y, L.z, R.x, R.y, R.z);
+      const side = new THREE.Vector3().crossVectors(tang, _up).normalize();
+      const y = pt.y + lift;
+      /* Left and right edge vertices */
+      let lx = pt.x + side.x * -hw, lz = pt.z + side.z * -hw;
+      let rx = pt.x + side.x *  hw, rz = pt.z + side.z *  hw;
+      /* Project both vertices outside pk1 mountain surface */
+      const projL = projectOutsidePk1(lx, y, lz);
+      const projR = projectOutsidePk1(rx, y, rz);
+      verts.push(projL.x, y, projL.z, projR.x, y, projR.z);
       uvs.push(0, t, 1, t);
-
-      if (i < segments) {
-        const a = i * 2, b = a + 1, c = a + 2, d = a + 3;
-        idxs.push(a, c, b, b, c, d);
+      if (i < segs) {
+        const a = i * 2;
+        idxs.push(a, a+2, a+1,  a+1, a+2, a+3);
       }
     }
     const geo = new THREE.BufferGeometry();
@@ -419,60 +463,69 @@ function initScene() {
     geo.computeVertexNormals();
     const mesh = new THREE.Mesh(geo, mat);
     mesh.receiveShadow = true;
-    mesh.castShadow = false;
     return mesh;
   }
 
-  /* Core trail — flat dirt ribbon */
-  const trail = buildFlatTrail(trailCurve, 250, 0.35, mTrailCore);
-  trail.renderOrder = 2;
-  G.add(trail);
+  /* Trail surface material — warm sandy dirt, aggressive polygonOffset to beat mountain z-fight */
+  const mTrailSlab = new THREE.MeshStandardMaterial({
+    color: 0xc4a46c, roughness: 0.92, side: THREE.DoubleSide,
+    polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4
+  });
+  /* Darker border material — subtle edge tint */
+  const mTrailBorder = new THREE.MeshStandardMaterial({
+    color: 0xa08550, roughness: 0.95, side: THREE.DoubleSide,
+    polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3
+  });
 
-  /* Trail edges — wider darker border */
-  const trailBed = buildFlatTrail(trailCurve, 250, 0.55, mTrailEdge);
-  trailBed.renderOrder = 1;
-  G.add(trailBed);
+  /* Outer border — slightly wider, sits just below main surface */
+  const trailBorder = buildTrailSurface(trailCurve, TRAIL_SEGS, TRAIL_HW + 0.12, TRAIL_LIFT - 0.005, mTrailBorder);
+  trailBorder.renderOrder = 10;
+  G.add(trailBorder);
 
-  /* Trail edge stones — small rocks along path borders for definition */
+  /* Main trail surface — dirt-coloured walkable path */
+  const trailSlab = buildTrailSurface(trailCurve, TRAIL_SEGS, TRAIL_HW, TRAIL_LIFT, mTrailSlab);
+  trailSlab.renderOrder = 11;
+  G.add(trailSlab);
+
+  /* Edge stones — sparse small pebbles along trail for definition */
   const mEdgeStone = new THREE.MeshStandardMaterial({ color: 0x9a8a6a, roughness: 0.95 });
-  for (let t = 0.04; t < 0.96; t += 0.018) {
+  for (let t = 0.06; t < 0.70; t += 0.035) {
+    /* Only place stones on the lower/middle trail, not upper switchbacks */
     const pt = trailCurve.getPoint(t);
     const tang = trailCurve.getTangent(t);
-    const perp = new THREE.Vector3(-tang.z, 0, tang.x).normalize();
-    for (const side of [-1, 1]) {
+    const perp = new THREE.Vector3().crossVectors(tang, _up).normalize();
+    for (const sd of [-1, 1]) {
+      if (Math.random() > 0.45) continue; /* quite sparse */
       const stone = new THREE.Mesh(
-        new THREE.DodecahedronGeometry(0.06 + Math.random() * 0.04, 0),
-        mEdgeStone
-      );
+        new THREE.DodecahedronGeometry(0.03 + Math.random() * 0.03, 0), mEdgeStone);
       stone.position.set(
-        pt.x + perp.x * 0.50 * side,
-        pt.y - 0.04,
-        pt.z + perp.z * 0.50 * side
+        pt.x + perp.x * (TRAIL_HW + 0.08) * sd,
+        pt.y + TRAIL_LIFT + 0.01,
+        pt.z + perp.z * (TRAIL_HW + 0.08) * sd
       );
       stone.rotation.set(Math.random() * 2, Math.random() * 2, 0);
       stone.receiveShadow = true;
-      stone.renderOrder = 2;
       G.add(stone);
     }
   }
 
-  /* ====== FOOTSTEP MARKS — pressed into the dirt trail ====== */
+  /* Footstep marks — subtle impressions on the trail surface */
   const mFootprint = new THREE.MeshStandardMaterial({
-    color: 0x8a7040, roughness: 1.0, transparent: true, opacity: 0.5
+    color: 0x9a8050, roughness: 1.0, transparent: true, opacity: 0.35
   });
-  const fpGeo = new THREE.CylinderGeometry(0.06, 0.07, 0.02, 6);
-  for (let t = 0.05; t < 0.95; t += 0.025) {
+  const fpGeo = new THREE.CylinderGeometry(0.05, 0.06, 0.005, 6);
+  for (let t = 0.06; t < 0.94; t += 0.03) {
     const pt = trailCurve.getPoint(t);
     const tang = trailCurve.getTangent(t);
-    const side = (Math.floor(t * 40) % 2 === 0) ? 1 : -1;
-    const perp = new THREE.Vector3(-tang.z, 0, tang.x).normalize();
+    const sd = (Math.floor(t * 40) % 2 === 0) ? 1 : -1;
+    const perp = new THREE.Vector3().crossVectors(tang, _up).normalize();
     const fp = new THREE.Mesh(fpGeo, mFootprint);
     fp.position.set(
-      pt.x + perp.x * 0.08 * side,
-      pt.y - 0.01,
-      pt.z + perp.z * 0.08 * side
+      pt.x + perp.x * 0.10 * sd,
+      pt.y + TRAIL_LIFT + 0.005,
+      pt.z + perp.z * 0.10 * sd
     );
-    fp.scale.set(0.8, 1, 1.3);
+    fp.scale.set(0.8, 1, 1.4);
     fp.rotation.y = Math.atan2(tang.x, tang.z);
     fp.receiveShadow = true;
     G.add(fp);
@@ -480,9 +533,9 @@ function initScene() {
 
   /* ====== STAGE POSITIONS — grounded on trail / peak surface ====== */
   S[0].pos = new THREE.Vector3( 5.0,  0.92,  5.5);   // Trailhead — on hill surface
-  S[1].pos = new THREE.Vector3(-2.5,  1.35,  2.8);   // Basecamp — pk2/h1 ridge
-  S[2].pos = new THREE.Vector3( 0.64, 4.05,  0.41);  // Ascent — on pk1 surface
-  S[3].pos = new THREE.Vector3( 0.30, 7.10, -1.50);  // Summit — at peak top
+  S[1].pos = new THREE.Vector3(-3.2,  1.35,  3.8);   // Basecamp — farther from pk1
+  S[2].pos = new THREE.Vector3( 0.75, 4.05,  0.72);  // Ascent — projected outside pk1
+  S[3].pos = new THREE.Vector3( 0.30, 7.20, -1.50);  // Summit — firmly on peak top
 
   /* ====== FLAGS — brown poles with red pennants (gold on summit) ====== */
   function mkFlag(pos, stageIdx) {
@@ -582,19 +635,19 @@ function initScene() {
   mkTree( 6.5, 0.10, 1.8, 1.35, 2);
   mkTree( 6.2, 0.10, -1.0, 1.55, 0);
   mkTree( 7.0, 0.10, 3.0, 1.25, 1);
-  /* -- Front hills — grounded at base plate level -- */
-  mkTree(-3.0, 0.10, 3.8, 0.85, 0);
-  mkTree( 1.5, 0.10, 4.0, 0.82, 1);
-  mkTree(-1.2, 0.10, 3.5, 0.78, 2);
-  mkTree( 3.2, 0.10, 4.5, 0.72, 0);
+  /* -- Front hills — relocated away from trail corridor -- */
+  mkTree(-4.2, 0.10, 4.5, 0.85, 0);
+  mkTree( 0.3, 0.10, 6.5, 0.82, 1);
+  mkTree(-0.5, 0.10, 6.2, 0.78, 2);
+  mkTree( 4.8, 0.10, 3.2, 0.72, 0);
   mkTree(-4.0, 0.10, 3.2, 0.68, 1);
-  mkTree(-2.0, 0.10, 4.8, 0.65, 0);
-  mkTree( 2.0, 0.10, 5.0, 0.70, 1);
-  mkTree( 4.2, 0.10, 5.0, 0.58, 2);
-  mkTree(-3.5, 0.10, 5.0, 0.60, 0);
-  mkTree( 0.0, 0.10, 6.0, 0.52, 1);
-  /* -- Between peaks — mid elevation -- */
-  mkTree(-2.8, 0.10, 1.5, 0.52, 0);
+  mkTree(-2.5, 0.10, 6.5, 0.65, 0);
+  mkTree( 1.0, 0.10, 7.0, 0.70, 1);
+  mkTree( 5.2, 0.10, 3.5, 0.58, 2);
+  mkTree(-3.5, 0.10, 5.5, 0.60, 0);
+  mkTree(-0.8, 0.10, 7.2, 0.52, 1);
+  /* -- Between peaks — mid elevation, away from trail -- */
+  mkTree(-3.8, 0.10, 1.2, 0.52, 0);
   mkTree( 2.8, 0.10, 1.2, 0.48, 1);
   mkTree(-4.2, 0.10, 0.5, 0.42, 2);
   mkTree( 4.2, 0.10, 0.5, 0.40, 0);
@@ -626,15 +679,15 @@ function initScene() {
     g.position.set(x, terrainY(x, z), z);
     G.add(g);
   }
-  /* Bushes along trail edges and forest floor */
-  mkBush(-1.5, 0.0, 4.2, 0.25, 0);
-  mkBush( 0.8, 0.0, 4.5, 0.22, 1);
-  mkBush(-3.5, 0.0, 2.8, 0.28, 2);
-  mkBush( 2.5, 0.0, 3.5, 0.24, 0);
+  /* Bushes along forest floor — relocated away from trail corridor */
+  mkBush(-1.5, 0.0, 5.8, 0.25, 0);
+  mkBush( 0.8, 0.0, 6.5, 0.22, 1);
+  mkBush(-4.5, 0.0, 3.5, 0.28, 2);
+  mkBush( 2.5, 0.0, 6.0, 0.24, 0);
   mkBush(-4.5, 0.0, 1.8, 0.20, 1);
   mkBush( 4.5, 0.0, 2.0, 0.22, 2);
-  mkBush(-2.0, 0.0, 5.5, 0.18, 0);
-  mkBush( 1.0, 0.0, 5.8, 0.20, 1);
+  mkBush(-2.5, 0.0, 6.8, 0.18, 0);
+  mkBush( 1.5, 0.0, 7.2, 0.20, 1);
   mkBush(-5.0, 0.0, 3.0, 0.22, 2);
   mkBush( 5.0, 0.0, 3.0, 0.20, 0);
   mkBush(-3.0, 0.0, -2.0, 0.26, 1);
@@ -699,99 +752,187 @@ function initScene() {
    [-1.5,2.5,0.3],[3.0,1.5,0.25],[0.5,3.0,0.4],[-4.5,3.5,0.3]].forEach(([x,z,r]) =>
     mkGroundPatch(x, z, r));
 
-  /* ====== HIKERS — simple cartoonish figures on the trail ====== */
+  /* ====== STARTUP FOUNDERS — stylized professionals on the trail ====== */
   const hikerData = [];
-  function mkHiker(x, y, z, shirtMat, faceDir) {
+  const mBlazer1  = new THREE.MeshStandardMaterial({ color: 0x1e3a5f, roughness: 0.7 }); /* navy */
+  const mBlazer2  = new THREE.MeshStandardMaterial({ color: 0x3a3a3a, roughness: 0.7 }); /* charcoal */
+  const mBlazer3  = new THREE.MeshStandardMaterial({ color: 0x5a3a2a, roughness: 0.7 }); /* brown */
+  const mWhiteShirt = new THREE.MeshStandardMaterial({ color: 0xf0ede8, roughness: 0.6 });
+  const mTie      = new THREE.MeshStandardMaterial({ color: 0xc0392b, roughness: 0.5 }); /* red tie */
+  const mBriefcase = new THREE.MeshStandardMaterial({ color: 0x5a3a20, roughness: 0.75 }); /* leather */
+  const mSlacks   = new THREE.MeshStandardMaterial({ color: 0x2c2c3a, roughness: 0.8 }); /* dark */
+  const mShoe     = new THREE.MeshStandardMaterial({ color: 0x2a2018, roughness: 0.8 });
+  const mHair1    = new THREE.MeshStandardMaterial({ color: 0x2a1a0a, roughness: 0.85 });
+  const mHair2    = new THREE.MeshStandardMaterial({ color: 0x4a3018, roughness: 0.85 });
+
+  function mkFounder(x, y, z, blazerMat, hairMat, faceDir) {
     const g = new THREE.Group();
-    /* Body */
+    /* Body — blazer */
     const body = new THREE.Mesh(
-      new THREE.CapsuleGeometry(0.12, 0.22, 6, 8), shirtMat);
+      new THREE.CapsuleGeometry(0.12, 0.22, 6, 8), blazerMat);
     body.position.y = 0.30; body.castShadow = true; g.add(body);
+    /* Shirt collar — visible at neckline */
+    const collar = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.08, 0.10, 0.04, 8), mWhiteShirt);
+    collar.position.y = 0.43; g.add(collar);
+    /* Tie */
+    const tie = new THREE.Mesh(
+      new THREE.BoxGeometry(0.03, 0.12, 0.02), mTie);
+    tie.position.set(0, 0.32, 0.10); g.add(tie);
     /* Head */
     const head = new THREE.Mesh(
       new THREE.SphereGeometry(0.10, 10, 8), mSkin);
     head.position.y = 0.55; head.castShadow = true; g.add(head);
-    /* Legs */
+    /* Hair — full visible hairstyle */
+    const hair = new THREE.Mesh(
+      new THREE.SphereGeometry(0.11, 10, 8, 0, Math.PI * 2, 0, Math.PI * 0.6), hairMat);
+    hair.position.y = 0.58; hair.scale.set(1.08, 0.85, 1.05); g.add(hair);
+    const hairBack = new THREE.Mesh(
+      new THREE.SphereGeometry(0.08, 8, 6), hairMat);
+    hairBack.position.set(0, 0.60, -0.03); hairBack.scale.set(1.1, 0.5, 0.9); g.add(hairBack);
+    /* Legs — slacks */
     const legL = new THREE.Mesh(
-      new THREE.CapsuleGeometry(0.04, 0.14, 4, 6), mPants);
+      new THREE.CapsuleGeometry(0.04, 0.14, 4, 6), mSlacks);
     legL.position.set(-0.05, 0.10, 0); g.add(legL);
     const legR = new THREE.Mesh(
-      new THREE.CapsuleGeometry(0.04, 0.14, 4, 6), mPants);
+      new THREE.CapsuleGeometry(0.04, 0.14, 4, 6), mSlacks);
     legR.position.set(0.05, 0.10, 0); g.add(legR);
-    /* Backpack */
-    const bp = new THREE.Mesh(
-      new THREE.BoxGeometry(0.14, 0.16, 0.10, 1, 1, 1), mBackpack);
-    bp.position.set(0, 0.34, -0.10); bp.castShadow = true; g.add(bp);
+    /* Shoes */
+    const shoeL = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.03, 0.09), mShoe);
+    shoeL.position.set(-0.05, 0.02, 0.01); g.add(shoeL);
+    const shoeR = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.03, 0.09), mShoe);
+    shoeR.position.set(0.05, 0.02, 0.01); g.add(shoeR);
+    /* Briefcase — carried at side */
+    const bc = new THREE.Mesh(
+      new THREE.BoxGeometry(0.10, 0.08, 0.03), mBriefcase);
+    bc.position.set(0.15, 0.18, 0.04); bc.castShadow = true; g.add(bc);
+    /* Briefcase handle */
+    const bcH = new THREE.Mesh(
+      new THREE.TorusGeometry(0.025, 0.005, 6, 8, Math.PI), mBriefcase);
+    bcH.position.set(0.15, 0.23, 0.04); bcH.rotation.z = Math.PI; g.add(bcH);
 
-    g.position.set(x, y, z);
+    g.position.set(x, y + 0.18, z);
     g.rotation.y = faceDir;
     G.add(g);
-    hikerData.push({ group: g, legL, legR, baseY: y });
+    hikerData.push({ group: g, legL, legR, baseY: y + 0.18 });
     return g;
   }
 
-  /* Place hikers along trail curve — properly grounded on trail surface */
-  const hikerShirts = [mShirt1, mShirt2, mShirt3];
+  /* Place founders along trail curve — grounded on trail surface */
+  const blazerMats = [mBlazer1, mBlazer2, mBlazer3];
+  const hairMats = [mHair1, mHair2, mHair1];
   [0.06, 0.14, 0.22, 0.38, 0.52, 0.64, 0.80].forEach((t, i) => {
     const pt = trailCurve.getPoint(t);
     const tang = trailCurve.getTangent(t);
     const faceAngle = Math.atan2(tang.x, tang.z);
-    mkHiker(pt.x, pt.y + 0.02, pt.z, hikerShirts[i % 3], faceAngle);
+    mkFounder(pt.x, pt.y + 0.02, pt.z, blazerMats[i % 3], hairMats[i % 3], faceAngle);
   });
 
-  /* ====== HERO HIKER — main protagonist, larger + detailed ====== */
-  const mHat = new THREE.MeshStandardMaterial({ color: 0x5a3a1a, roughness: 0.8 });
-  const mBoot = new THREE.MeshStandardMaterial({ color: 0x4a3520, roughness: 0.85 });
+  /* ====== HERO — startup CEO protagonist, larger + detailed ====== */
+  const mHeroBlazer = new THREE.MeshStandardMaterial({ color: 0x1a2e4a, roughness: 0.65 }); /* dark navy */
+  const mHeroWhite = new THREE.MeshStandardMaterial({ color: 0xf5f0ea, roughness: 0.55 });
+  const mHeroTie = new THREE.MeshStandardMaterial({ color: 0xF8AF21, roughness: 0.4 }); /* gold tie */
+  const mHeroSlacks = new THREE.MeshStandardMaterial({ color: 0x1e2a38, roughness: 0.75 });
+  const mHeroShoe = new THREE.MeshStandardMaterial({ color: 0x2a1810, roughness: 0.8 });
+  const mHeroHair = new THREE.MeshStandardMaterial({ color: 0x1a0e05, roughness: 0.85 });
+  const mHeroBrief = new THREE.MeshStandardMaterial({ color: 0x6a3a18, roughness: 0.7 }); /* leather */
   const mStick = new THREE.MeshStandardMaterial({ color: 0x8a6a3a, roughness: 0.9 });
-  const mHeroShirt = new THREE.MeshStandardMaterial({ color: 0x2a7a4a, roughness: 0.7 });
-  const mHeroPants = new THREE.MeshStandardMaterial({ color: 0x4a4035, roughness: 0.8 });
-  const mHeroPack = new THREE.MeshStandardMaterial({ color: 0xb85530, roughness: 0.7 });
-  const mMap = new THREE.MeshStandardMaterial({ color: 0xf0e8c8, roughness: 0.6, side: THREE.DoubleSide });
 
   hero = new THREE.Group();
-  /* Body */
-  const hBody = new THREE.Mesh(new THREE.CapsuleGeometry(0.18, 0.30, 8, 10), mHeroShirt);
+  /* Body — blazer */
+  const hBody = new THREE.Mesh(new THREE.CapsuleGeometry(0.18, 0.30, 8, 10), mHeroBlazer);
   hBody.position.y = 0.42; hBody.castShadow = true; hero.add(hBody);
+  /* Shirt collar */
+  const hCollar = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.14, 0.05, 10), mHeroWhite);
+  hCollar.position.y = 0.60; hero.add(hCollar);
+  /* Tie */
+  const hTie = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.16, 0.02), mHeroTie);
+  hTie.position.set(0, 0.44, 0.14); hero.add(hTie);
   /* Head */
   const hHead = new THREE.Mesh(new THREE.SphereGeometry(0.15, 12, 10), mSkin);
   hHead.position.y = 0.78; hHead.castShadow = true; hero.add(hHead);
-  /* Hat — wide brim explorer hat */
-  const hHatBrim = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.24, 0.03, 12), mHat);
-  hHatBrim.position.y = 0.88; hero.add(hHatBrim);
-  const hHatTop = new THREE.Mesh(new THREE.CylinderGeometry(0.10, 0.13, 0.10, 10), mHat);
-  hHatTop.position.y = 0.94; hero.add(hHatTop);
+  /* Hair — full styled hair, clearly visible */
+  const hHairMain = new THREE.Mesh(
+    new THREE.SphereGeometry(0.16, 12, 10, 0, Math.PI * 2, 0, Math.PI * 0.6), mHeroHair);
+  hHairMain.position.y = 0.82; hHairMain.scale.set(1.08, 0.85, 1.05); hero.add(hHairMain);
+  /* Hair side volume */
+  const hHairSide = new THREE.Mesh(
+    new THREE.SphereGeometry(0.12, 10, 8), mHeroHair);
+  hHairSide.position.set(0, 0.84, -0.04); hHairSide.scale.set(1.15, 0.55, 0.9); hero.add(hHairSide);
+  /* Hair top tuft for style */
+  const hHairTop = new THREE.Mesh(
+    new THREE.SphereGeometry(0.08, 8, 6), mHeroHair);
+  hHairTop.position.set(0.02, 0.90, 0.04); hHairTop.scale.set(1.2, 0.6, 1.0); hero.add(hHairTop);
   /* Left arm */
-  const hArmL = new THREE.Mesh(new THREE.CapsuleGeometry(0.05, 0.18, 4, 6), mHeroShirt);
+  const hArmL = new THREE.Mesh(new THREE.CapsuleGeometry(0.05, 0.18, 4, 6), mHeroBlazer);
   hArmL.position.set(-0.22, 0.48, 0); hArmL.rotation.z = 0.25; hero.add(hArmL);
   /* Right arm */
-  const hArmR = new THREE.Mesh(new THREE.CapsuleGeometry(0.05, 0.18, 4, 6), mHeroShirt);
+  const hArmR = new THREE.Mesh(new THREE.CapsuleGeometry(0.05, 0.18, 4, 6), mHeroBlazer);
   hArmR.position.set(0.22, 0.48, 0); hArmR.rotation.z = -0.25; hero.add(hArmR);
-  /* Legs */
-  const hLegL = new THREE.Mesh(new THREE.CapsuleGeometry(0.06, 0.20, 4, 6), mHeroPants);
+  /* Legs — slacks */
+  const hLegL = new THREE.Mesh(new THREE.CapsuleGeometry(0.06, 0.20, 4, 6), mHeroSlacks);
   hLegL.position.set(-0.08, 0.13, 0); hero.add(hLegL);
-  const hLegR = new THREE.Mesh(new THREE.CapsuleGeometry(0.06, 0.20, 4, 6), mHeroPants);
+  const hLegR = new THREE.Mesh(new THREE.CapsuleGeometry(0.06, 0.20, 4, 6), mHeroSlacks);
   hLegR.position.set(0.08, 0.13, 0); hero.add(hLegR);
-  /* Boots */
-  const hBootL = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.05, 0.12), mBoot);
-  hBootL.position.set(-0.08, 0.02, 0.02); hero.add(hBootL);
-  const hBootR = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.05, 0.12), mBoot);
-  hBootR.position.set(0.08, 0.02, 0.02); hero.add(hBootR);
-  /* Backpack */
-  const hPack = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.28, 0.14), mHeroPack);
-  hPack.position.set(0, 0.48, -0.16); hPack.castShadow = true; hero.add(hPack);
-  /* Backpack flap */
-  const hFlap = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.04, 0.16), mHeroPack);
-  hFlap.position.set(0, 0.63, -0.16); hero.add(hFlap);
-  /* Walking stick — in right hand */
+  /* Dress shoes */
+  const hShoeL = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.04, 0.12), mHeroShoe);
+  hShoeL.position.set(-0.08, 0.02, 0.02); hero.add(hShoeL);
+  const hShoeR = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.04, 0.12), mHeroShoe);
+  hShoeR.position.set(0.08, 0.02, 0.02); hero.add(hShoeR);
+  /* Briefcase — carried at right side */
+  const hBrief = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.12, 0.04), mHeroBrief);
+  hBrief.position.set(0.26, 0.22, 0.06); hBrief.castShadow = true; hero.add(hBrief);
+  const hBriefH = new THREE.Mesh(
+    new THREE.TorusGeometry(0.035, 0.008, 6, 8, Math.PI), mHeroBrief);
+  hBriefH.position.set(0.26, 0.29, 0.06); hBriefH.rotation.z = Math.PI; hero.add(hBriefH);
+  /* Walking stick — placeholder, hidden when not used */
   hStick = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.02, 0.9, 6), mStick);
-  hStick.position.set(0.28, 0.35, 0.08); hStick.rotation.z = -0.15; hero.add(hStick);
-  /* Map — hidden by default, shown in stage 2 */
-  const hMapGeo = new THREE.PlaneGeometry(0.28, 0.20);
-  hMapMesh = new THREE.Mesh(hMapGeo, mMap);
-  hMapMesh.position.set(-0.30, 0.55, 0.15);
+  hStick.position.set(0.28, 0.35, 0.08); hStick.rotation.z = -0.15;
+  hStick.visible = false; hero.add(hStick);
+
+  /* Business plan — canvas texture with visible content, shown at stage 2 */
+  const planCanvas = document.createElement('canvas');
+  planCanvas.width = 256; planCanvas.height = 192;
+  const ctx = planCanvas.getContext('2d');
+  /* Background */
+  ctx.fillStyle = '#f5f0e0'; ctx.fillRect(0, 0, 256, 192);
+  /* Header */
+  ctx.fillStyle = '#1a2e4a'; ctx.font = 'bold 16px sans-serif';
+  ctx.fillText('BUSINESS PLAN', 20, 28);
+  /* Horizontal rule */
+  ctx.strokeStyle = '#F8AF21'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(20, 36); ctx.lineTo(236, 36); ctx.stroke();
+  /* Section lines */
+  ctx.fillStyle = '#3a4a5a'; ctx.font = '10px sans-serif';
+  const lines = ['Market Analysis', 'Target Customers', 'Revenue Model',
+    'Growth Strategy', 'Team & Advisors', 'Financial Projections'];
+  lines.forEach((l, li) => {
+    const yy = 52 + li * 22;
+    ctx.fillStyle = '#1a2e4a'; ctx.font = 'bold 9px sans-serif';
+    ctx.fillText(l, 20, yy);
+    ctx.fillStyle = '#8a8a8a'; ctx.font = '8px sans-serif';
+    ctx.fillRect(20, yy + 4, 120 + Math.random() * 80, 1.5);
+    ctx.fillRect(20, yy + 9, 80 + Math.random() * 60, 1.5);
+  });
+  /* Chart icon */
+  ctx.strokeStyle = '#F8AF21'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(180, 120); ctx.lineTo(195, 90);
+  ctx.lineTo(210, 100); ctx.lineTo(230, 60); ctx.stroke();
+  /* Logo placeholder */
+  ctx.fillStyle = '#F8AF21'; ctx.beginPath();
+  ctx.arc(230, 26, 8, 0, Math.PI * 2); ctx.fill();
+
+  const planTex = new THREE.CanvasTexture(planCanvas);
+  const mPlan = new THREE.MeshStandardMaterial({
+    map: planTex, roughness: 0.5, side: THREE.DoubleSide
+  });
+  const hMapGeo = new THREE.PlaneGeometry(0.34, 0.25);
+  hMapMesh = new THREE.Mesh(hMapGeo, mPlan);
+  hMapMesh.position.set(-0.32, 0.55, 0.18);
   hMapMesh.rotation.set(-0.3, 0.4, 0);
   hMapMesh.visible = false;
   hero.add(hMapMesh);
+
   /* Mini flag — hidden by default, shown in stage 4 summit */
   heroFlagGroup = new THREE.Group();
   const hfPole = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.025, 0.6, 6), mStick);
@@ -804,9 +945,9 @@ function initScene() {
   heroFlagGroup.position.set(-0.25, 0, 0.15);
   hero.add(heroFlagGroup);
 
-  /* Start hero at trailhead */
+  /* Start hero at trailhead — grounded on trail slab surface */
   hero.position.copy(S[0].pos);
-  hero.position.y += 0.02;
+  hero.position.y += 0.20;
   hero.scale.setScalar(1.3);
   G.add(hero);
 
@@ -818,7 +959,7 @@ function initScene() {
   /* Stage-specific camera angles — top-side-left perspective along trail */
   stageCams = [
     { offset: new THREE.Vector3(-3.0, 2.5, 3.5), lookUp: 0.3 },  // trailhead: left-above
-    { offset: new THREE.Vector3(-3.5, 2.5, 3.0), lookUp: 0.3 },  // basecamp: left-above
+    { offset: new THREE.Vector3(-2.5, 2.5, 3.5), lookUp: 0.3 },  // basecamp: left-above — adjusted for farther pos
     { offset: new THREE.Vector3(-3.0, 3.0, 3.5), lookUp: 0.4 },  // ascent: left-above
     { offset: new THREE.Vector3(-3.5, 3.5, 4.0), lookUp: 0.5 },  // summit: left-above panoramic
   ];
@@ -967,9 +1108,9 @@ function initScene() {
       hBody.scale.y = 1.0 + Math.sin(et * 2.5) * 0.04;
       hBody.scale.x = 1.0 + Math.sin(et * 2.5) * 0.015;
     } else if (heroAnimState === 'celebrating') {
-      /* Jump celebration at summit */
-      const jmp = Math.max(0, Math.sin(et * 4.0)) * 0.35;
-      hero.position.y = S[3].pos.y + 0.02 + jmp;
+      /* Standing tall at summit with gentle fist-pump */
+      const jmp = Math.max(0, Math.sin(et * 4.0)) * 0.12;
+      hero.position.y = S[3].pos.y + 0.20 + jmp;
       hArmL.rotation.z = 1.2 + Math.sin(et * 3.0) * 0.3;
       hArmR.rotation.z = -1.2 - Math.sin(et * 3.0) * 0.3;
       hArmL.rotation.x *= 0.9;
@@ -1082,27 +1223,40 @@ function zoomToFlag(i) {
   heroAnimTime = 0;
   hMapMesh.visible = false;
   heroFlagGroup.visible = false;
-  hStick.visible = true;
+  hStick.visible = false;
   clearConfetti();
 
-  /* Animate hero walking to the flag position */
-  const heroTarget = S[i].pos.clone();
-  heroTarget.y += 0.02;
-  const faceDirX = heroTarget.x - hero.position.x;
-  const faceDirZ = heroTarget.z - hero.position.z;
-  const faceAngle = Math.atan2(faceDirX, faceDirZ);
+  /* Animate hero walking ALONG the trail curve between stages */
+  const prevStage = Math.max(0, (heroStage > 0 ? heroStage - 1 : 0));
+  /* Compute nearest t on trailCurve for current hero position */
+  let startT = stageTValues[0];
+  if (hero.position.distanceTo(S[0].pos) < 1.0) startT = stageTValues[0];
+  for (let si = 0; si < 4; si++) {
+    const sp = S[si].pos;
+    if (hero.position.distanceTo(sp) < 1.5) { startT = stageTValues[si]; break; }
+  }
+  const endT = stageTValues[i];
+  const walkObj = { t: startT };
 
   heroAnimState = 'walking';
-  gsap.to(hero.rotation, { y: faceAngle, duration: 0.3, ease: 'power2.out' });
-  gsap.to(hero.position, {
-    x: heroTarget.x, y: heroTarget.y, z: heroTarget.z,
-    duration: 1.6, ease: 'power2.inOut',
+  gsap.to(walkObj, {
+    t: endT, duration: 2.0, ease: 'power1.inOut',
+    onUpdate() {
+      if (!trailCurve) return;
+      const pt = trailCurve.getPoint(walkObj.t);
+      hero.position.set(pt.x, pt.y + 0.20, pt.z);
+      /* Face along trail tangent direction */
+      const tang = trailCurve.getTangent(walkObj.t);
+      const dir = endT > startT ? 1 : -1;
+      hero.rotation.y = Math.atan2(tang.x * dir, tang.z * dir);
+    },
     onComplete() {
       /* Stage-specific idle animation */
       if (i === 0) {
         heroAnimState = 'idle'; // standing at trailhead
+        hStick.visible = false;
       } else if (i === 1) {
-        heroAnimState = 'looking'; // reading map at basecamp
+        heroAnimState = 'looking'; // reading business plan at basecamp
         hStick.visible = false;
         hMapMesh.visible = true;
       } else if (i === 2) {
@@ -1135,10 +1289,10 @@ function overviewCamera() {
   heroAnimState = 'idle';
   hMapMesh.visible = false;
   heroFlagGroup.visible = false;
-  hStick.visible = true;
+  hStick.visible = false;
   hero.rotation.x = 0;
   clearConfetti();
-  gsap.to(hero.position, { x: S[0].pos.x, y: S[0].pos.y + 0.02, z: S[0].pos.z, duration: 1.0, ease: 'power2.inOut' });
+  gsap.to(hero.position, { x: S[0].pos.x, y: S[0].pos.y + 0.20, z: S[0].pos.z, duration: 1.0, ease: 'power2.inOut' });
   gsap.to(hero.rotation, { y: -0.8, duration: 0.6, ease: 'power2.out' });
 
   document.querySelectorAll('.alt3d-dot').forEach(d => d.classList.remove('active'));

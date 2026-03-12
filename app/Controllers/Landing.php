@@ -30,7 +30,6 @@ class Landing extends BaseController
             . view('landing/organization', $data)
             . view('landing/cta', $data)
             . view('landing/contact', $data)
-            . view('templates/map')
             . view('templates/footer');
     }
 }

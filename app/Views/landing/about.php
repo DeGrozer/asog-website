@@ -7,11 +7,6 @@
      
 -->
 <section id="about" class="relative overflow-hidden bg-off py-16 md:py-24 px-6 md:px-10 lg:px-14">
-    <div class="ai-grid"></div>
-    <div class="ai-grid-fade"></div>
-    <div class="ai-cross hidden lg:block" style="top:18%;left:22%"></div>
-    <div class="ai-cross hidden lg:block" style="top:72%;right:14%"></div>
-
     <div class="grid grid-cols-1 lg:grid-cols-[280px_1px_1fr] gap-8 lg:gap-14 items-start relative z-[1]">
 
         <!-- Left heading -->
@@ -35,13 +30,36 @@
         <div class="reveal reveal-d2">
             <div class="text-sm md:text-base font-light leading-[2.0] mb-5 text-justify" style="color:#020d18;">
                 <p>The ASOG Technology Business Incubator (TBI) is an initiative of Camarines Sur Polytechnic
-                    Colleges (CSPC), by DOST-PCIEERD, aimed at fostering Engineering and AI-based innovations for
-                    food value chain management.
+                    Colleges (CSPC), funded by DOST-PCIEERD in coordination with DOST Region V,
+                    aimed at fostering Engineering and AI-based innovations for food value chain management.
                 </p>
                 <p>
                     Our mission is to empower startups and Micro, Small, and Medium Enterprises (MSMEs) with the
                     resources, mentorship, and the support they need to develop cutting-edge solutions that enhance
                     efficiency, productivity, and sustainability in the food industry.</p>
+            </div>
+
+            <!-- Partner Organization Logos -->
+            <div class="mt-8 mb-6">
+                <span class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/35 block mb-4">Supported by</span>
+                <div class="flex flex-wrap items-center gap-6 md:gap-8">
+                    <a href="https://www.dost.gov.ph/" target="_blank" rel="noopener" title="DOST"
+                        class="inline-block transition-all duration-400 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 hover:scale-105">
+                        <img src="<?= base_url('assets/img/partners/dost.png') ?>" alt="DOST" class="h-12 md:h-14 w-auto object-contain">
+                    </a>
+                    <a href="https://region5.dost.gov.ph/" target="_blank" rel="noopener" title="DOST Region V"
+                        class="inline-block transition-all duration-400 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 hover:scale-105">
+                        <img src="<?= base_url('assets/img/partners/dost-region5.png') ?>" alt="DOST Region V" class="h-12 md:h-14 w-auto object-contain">
+                    </a>
+                    <a href="https://pcieerd.dost.gov.ph/" target="_blank" rel="noopener" title="PCIEERD"
+                        class="inline-block transition-all duration-400 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 hover:scale-105">
+                        <img src="<?= base_url('assets/img/partners/pcieerd.png') ?>" alt="PCIEERD" class="h-12 md:h-14 w-auto object-contain">
+                    </a>
+                    <a href="https://cspc.edu.ph/" target="_blank" rel="noopener" title="CSPC"
+                        class="inline-block transition-all duration-400 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 hover:scale-105">
+                        <img src="<?= base_url('assets/img/partners/cspc.png') ?>" alt="CSPC" class="h-12 md:h-14 w-auto object-contain">
+                    </a>
+                </div>
             </div>
             <a href="<?= site_url('about') ?>"
                 class="group inline-flex items-center gap-1.5 mt-5 text-[.65rem] font-bold tracking-[.13em] uppercase text-navy no-underline transition-all duration-200 hover:text-gold hover:gap-3">
