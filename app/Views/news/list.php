@@ -4,21 +4,38 @@
 <section class="relative bg-off py-16 md:py-24 px-6 md:px-10 lg:px-14">
     <div class="max-w-[1100px] mx-auto relative z-[2]">
 
-        <!-- Category Filters -->
-        <div class="flex flex-wrap items-center gap-3 mb-10">
-            <span class="text-[.54rem] font-bold tracking-[.18em] uppercase mr-1" style="color:rgba(2,13,24,.3)">Filter by:</span>
-            <a href="<?= site_url('news') ?>"
-               class="px-4 py-2 text-[.6rem] font-semibold tracking-[.12em] uppercase rounded-sm border transition-all duration-200 no-underline <?= empty($activeCategory ?? '') ? 'bg-navy text-white border-navy' : 'bg-transparent border-dark/15 hover:border-navy/40 hover:text-navy' ?>"
-               style="<?= empty($activeCategory ?? '') ? '' : 'color:rgba(2,13,24,.5)' ?>">All</a>
-            <a href="<?= site_url('news?category=news') ?>"
-               class="px-4 py-2 text-[.6rem] font-semibold tracking-[.12em] uppercase rounded-sm border transition-all duration-200 no-underline <?= ($activeCategory ?? '') === 'news' ? 'bg-navy text-white border-navy' : 'bg-transparent border-dark/15 hover:border-navy/40 hover:text-navy' ?>"
-               style="<?= ($activeCategory ?? '') === 'news' ? '' : 'color:rgba(2,13,24,.5)' ?>">News</a>
-            <a href="<?= site_url('news?category=features') ?>"
-               class="px-4 py-2 text-[.6rem] font-semibold tracking-[.12em] uppercase rounded-sm border transition-all duration-200 no-underline <?= ($activeCategory ?? '') === 'features' ? 'bg-navy text-white border-navy' : 'bg-transparent border-dark/15 hover:border-navy/40 hover:text-navy' ?>"
-               style="<?= ($activeCategory ?? '') === 'features' ? '' : 'color:rgba(2,13,24,.5)' ?>">Features</a>
-            <a href="<?= site_url('news?category=opinions') ?>"
-               class="px-4 py-2 text-[.6rem] font-semibold tracking-[.12em] uppercase rounded-sm border transition-all duration-200 no-underline <?= ($activeCategory ?? '') === 'opinions' ? 'bg-navy text-white border-navy' : 'bg-transparent border-dark/15 hover:border-navy/40 hover:text-navy' ?>"
-               style="<?= ($activeCategory ?? '') === 'opinions' ? '' : 'color:rgba(2,13,24,.5)' ?>">Opinions</a>
+        <!-- Category Filter — funnel + select -->
+        <div class="flex items-center gap-4 mb-10">
+            <label class="relative flex items-center gap-2 bg-white border rounded-sm pl-3 pr-8 py-2 cursor-pointer transition-colors duration-200 hover:border-dark/25 focus-within:border-dark/30" style="border-color:rgba(2,13,24,.12)">
+                <!-- Funnel -->
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:rgba(2,13,24,.28);flex-shrink:0" aria-hidden="true">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                </svg>
+                <span class="text-[.5rem] font-bold tracking-[.18em] uppercase select-none" style="color:rgba(2,13,24,.28);white-space:nowrap">Filter</span>
+                <div class="w-px h-3 shrink-0" style="background:rgba(2,13,24,.08)"></div>
+                <select
+                    id="newsFilter"
+                    onchange="window.location=this.value"
+                    class="appearance-none bg-transparent text-[.58rem] font-semibold tracking-[.1em] uppercase focus:outline-none cursor-pointer border-0 min-w-[80px]"
+                    style="color:rgba(2,13,24,.7)">
+                    <option value="<?= site_url('news') ?>" <?= empty($activeCategory ?? '') ? 'selected' : '' ?>>All Posts</option>
+                    <option value="<?= site_url('news?category=news') ?>" <?= ($activeCategory ?? '') === 'news' ? 'selected' : '' ?>>News</option>
+                    <option value="<?= site_url('news?category=features') ?>" <?= ($activeCategory ?? '') === 'features' ? 'selected' : '' ?>>Features</option>
+                    <option value="<?= site_url('news?category=opinions') ?>" <?= ($activeCategory ?? '') === 'opinions' ? 'selected' : '' ?>>Opinions</option>
+                </select>
+                <!-- Caret -->
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);color:rgba(2,13,24,.3);pointer-events:none" aria-hidden="true">
+                    <polyline points="6 9 12 15 18 9"/>
+                </svg>
+            </label>
+            <?php if (!empty($activeCategory ?? '')): ?>
+            <div class="flex items-center gap-2 px-3 py-2 rounded-sm" style="background:rgba(3,53,90,.06)">
+                <span class="text-[.56rem] font-semibold tracking-[.1em] uppercase" style="color:#03355a"><?= esc(ucfirst($activeCategory)) ?></span>
+                <a href="<?= site_url('news') ?>" class="no-underline transition-colors" style="color:rgba(2,13,24,.3)" title="Clear filter">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </a>
+            </div>
+            <?php endif; ?>
         </div>
 
         <?php if (! empty($latestPost)): ?>
@@ -62,7 +79,7 @@
                             class="font-display text-[1.3rem] md:text-[1.6rem] lg:text-[1.8rem] leading-[1.18] text-dark mb-4">
                             <?= esc($latestPost['title']) ?></h2>
                         <?php if (! empty($latestPost['shortDescription'])): ?>
-                        <p class="text-[.95rem] font-light leading-[1.8] mb-5 transition-colors duration-200" style="color:#1a1a1a;">
+                        <p class="text-[.9rem] font-light leading-[1.6] mb-3 transition-colors duration-200" style="color:#1a1a1a;">
                             <?= html_entity_decode(esc(character_limiter($latestPost['shortDescription'], 180))) ?></p>
                         <?php endif; ?>
                         <?php if (! empty($latestPost['authorName'])): ?>

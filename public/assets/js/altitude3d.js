@@ -45,7 +45,8 @@ let stageCams = [];
 let hStick, hMapMesh, heroFlagGroup;
 let confettiGroup = null, confettiParts = [];
 let trailCurve = null;
-const stageTValues = [0.04, 0.27, 0.68, 1.0]; /* t on trailCurve for each stage */
+const stageTValues = [0.04, 0.31, 0.74, 1.0]; /* t on trailCurve for each stage */
+let heroTrailT = stageTValues[0];
 
 /* -- Stage data -- */
 const S = [
@@ -251,10 +252,7 @@ function initScene() {
   pk1.position.set(0.3, 0, -1.5);
   G.add(pk1);
 
-  /* Left peak — medium */
-  const pk2 = mtnPeak(2.8, 5.2, 40, mGrassD);
-  pk2.position.set(-3.2, 0, 0.5);
-  G.add(pk2);
+  /* Left peak removed per request */
 
   /* Right peak — shorter, pulled forward for depth */
   const pk3 = mtnPeak(2.5, 4.2, 36, mGrass);
@@ -281,11 +279,7 @@ function initScene() {
       G.add(r);
     }
   }
-  /* Scattered rocks on upper slopes — kept away from trail path */
-  slopeRocks(0.3, 5.5, -2.8, 6, 0.8, 0.25);
-  slopeRocks(0.3, 6.5, -2.8, 4, 0.5, 0.20);
-  slopeRocks(-3.2, 3.8, 0.6, 4, 0.6, 0.18);
-  slopeRocks(3.8, 3.0, 0.6, 3, 0.5, 0.15);
+  /* Removed upper-slope loose rocks to avoid any floating artifacts */
 
   /* -- Rocky ridges near peaks — adds realism -- */
   function rockCluster(x, y, z, s) {
@@ -304,14 +298,7 @@ function initScene() {
       G.add(r);
     }
   }
-  rockCluster(0.3, 5.5, -3.5, 0.6);   // behind main summit — off trail
-  rockCluster(-3.2, 3.8, 0.5, 0.5);   // near pk2
-  rockCluster(3.8, 3.0, 0.5, 0.4);    // near pk3
-  rockCluster(-5.0, 0.1, -3.0, 0.35); // behind mountain — off trail
-  rockCluster(-4.5, 0.1, -2.5, 0.3);  // behind mountain — off trail
-  rockCluster(5.5, 0.1, -3.0, 0.25);  // behind mountain — off trail
-  rockCluster(-5.5, 0.1, -1.5, 0.2);  // behind mountain — off trail
-  rockCluster(0.0, 0.1, -5.5, 0.3);   // behind mountain — off trail
+  /* Removed decorative rock clusters to ensure no detached/floating rocks */
 
   /* -- Green rolling hills — flattened so trail stays visible -- */
   const h1 = hill(6.5, 1.4, 5.5, mGrass);
@@ -359,29 +346,50 @@ function initScene() {
     new THREE.Vector3( 2.4,  1.28,  4.8),   // on h1
     new THREE.Vector3( 1.0,  1.40,  4.4),   // across front — h1 crest
     new THREE.Vector3(-0.5,  1.42,  3.8),   // heading left
-    new THREE.Vector3(-2.0,  1.38,  3.8),   // approaching basecamp
-    new THREE.Vector3(-3.2,  1.35,  3.8),   // basecamp — pushed far from pk1
-    /* Transition from hills onto pk1 front face */
-    new THREE.Vector3(-2.4,  1.40,  3.0),   // saddle between pk2 and pk1
-    new THREE.Vector3(-1.4,  1.50,  2.2),   // smooth transition
-    new THREE.Vector3(-0.3,  1.65,  1.4),   // pk1 lower slope
-    /* Gentle spiral climbing pk1 — wider sweeps, not sharp switchbacks */
-    new THREE.Vector3( 0.5,  1.95,  1.3),   // right side
-    new THREE.Vector3( 1.2,  2.30,  0.9),   // sweeping right
-    new THREE.Vector3( 0.8,  2.65,  0.5),   // curve back
-    new THREE.Vector3( 0.1,  3.00,  0.6),   // front left
-    new THREE.Vector3(-0.4,  3.35,  0.3),   // left side
-    new THREE.Vector3( 0.0,  3.70,  0.0),   // curving right
-    new THREE.Vector3( 0.6,  4.05,  0.0),   // ascent — on pk1 surface
-    new THREE.Vector3( 0.4,  4.40, -0.15),  // gentle left
-    new THREE.Vector3( 0.15, 4.75, -0.05),  // heading up
-    new THREE.Vector3( 0.40, 5.10, -0.20),  // slight right
-    new THREE.Vector3( 0.25, 5.50, -0.40),  // upper slope
-    new THREE.Vector3( 0.35, 5.90, -0.65),  // approaching summit
-    new THREE.Vector3( 0.30, 6.30, -0.90),  // near summit
-    new THREE.Vector3( 0.30, 6.70, -1.20),  // summit ridge
-    new THREE.Vector3( 0.30, 7.05, -1.50),  // summit peak
+    new THREE.Vector3(-1.9,  1.40,  3.72),  // approaching basecamp
+    new THREE.Vector3(-2.7,  1.43,  3.60),  // basecamp lead-in
+    new THREE.Vector3(-3.15, 1.48,  3.35),  // basecamp marker zone
+    /* Smooth continuous turn from stage 2 into mountain climb */
+    new THREE.Vector3(-3.05, 1.56,  2.95),
+    new THREE.Vector3(-2.75, 1.64,  2.55),
+    new THREE.Vector3(-2.35, 1.72,  2.20),
+    new THREE.Vector3(-1.90, 1.80,  1.90),
+    new THREE.Vector3(-1.40, 1.90,  1.62),
+    new THREE.Vector3(-0.92, 1.98,  1.34),
+    new THREE.Vector3(-0.42, 2.03,  1.06),
+    new THREE.Vector3( 0.02, 2.08,  0.84),  // clean hand-off to circular staircase
   ];
+
+  /* Stair-like mountain climb — circular wrap around the main peak */
+  {
+    const cx = 0.3, cz = -1.5, bR = 3.5, H = 7.0;
+    const start = trailPts[trailPts.length - 1];
+    const startAng = Math.atan2(start.z - cz, start.x - cx);
+    const stepCount = 36;
+    const turns = 1.16;
+    const startY = 2.05;
+    const endY = 6.95;
+
+    for (let i = 0; i < stepCount; i++) {
+      const t = i / (stepCount - 1);
+      const e = t * t * (3 - 2 * t); /* smoothstep for cleaner curvature */
+      const ang = startAng + e * Math.PI * 2 * turns;
+      const y = startY + (endY - startY) * e;
+      const surfaceR = bR * Math.pow(Math.max(1 - y / H, 0), 0.7);
+      const r = Math.max(0.26, surfaceR + 0.62 - 0.18 * e);
+      const x = cx + Math.cos(ang) * r;
+      const z = cz + Math.sin(ang) * r;
+
+      trailPts.push(new THREE.Vector3(
+        x,
+        y,
+        z
+      ));
+    }
+
+    /* Final summit point (kept to preserve existing summit flag placement logic) */
+    trailPts.push(new THREE.Vector3(0.30, 7.05, -1.50));
+  }
 
   /* ── Project trail points OUTSIDE pk1 mountain surface ──
      The LatheGeometry peak at (0.3, 0, -1.5) with baseR=3.5, height=7
@@ -416,6 +424,7 @@ function initScene() {
   const TRAIL_H  = 0.02;   /* very thin — no visible walls */
   const TRAIL_LIFT = 0.14;  /* raised well above mountain surface */
   const TRAIL_SEGS = 400;
+  const STAIR_START_T = 0.58;
   const _up = new THREE.Vector3(0, 1, 0); /* shared up vector */
 
   /* pk1 surface projection helper — pushes any XZ point outside pk1 */
@@ -468,28 +477,65 @@ function initScene() {
 
   /* Trail surface material — warm sandy dirt, aggressive polygonOffset to beat mountain z-fight */
   const mTrailSlab = new THREE.MeshStandardMaterial({
-    color: 0xc4a46c, roughness: 0.92, side: THREE.DoubleSide,
+    color: 0xb79f6f, roughness: 0.94, side: THREE.DoubleSide,
     polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4
   });
   /* Darker border material — subtle edge tint */
   const mTrailBorder = new THREE.MeshStandardMaterial({
-    color: 0xa08550, roughness: 0.95, side: THREE.DoubleSide,
+    color: 0x8f7b4f, roughness: 0.96, side: THREE.DoubleSide,
     polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3
   });
 
   /* Outer border — slightly wider, sits just below main surface */
-  const trailBorder = buildTrailSurface(trailCurve, TRAIL_SEGS, TRAIL_HW + 0.12, TRAIL_LIFT - 0.005, mTrailBorder);
+  const trailBorder = buildTrailSurface(trailCurve, Math.floor(TRAIL_SEGS * STAIR_START_T), TRAIL_HW + 0.12, TRAIL_LIFT - 0.005, mTrailBorder);
   trailBorder.renderOrder = 10;
   G.add(trailBorder);
 
   /* Main trail surface — dirt-coloured walkable path */
-  const trailSlab = buildTrailSurface(trailCurve, TRAIL_SEGS, TRAIL_HW, TRAIL_LIFT, mTrailSlab);
+  const trailSlab = buildTrailSurface(trailCurve, Math.floor(TRAIL_SEGS * STAIR_START_T), TRAIL_HW, TRAIL_LIFT, mTrailSlab);
   trailSlab.renderOrder = 11;
   G.add(trailSlab);
 
+  /* Stone staircase for upper climb — no railings, integrated with terrain */
+  const mStepStone = new THREE.MeshStandardMaterial({ color: 0x8f836f, roughness: 0.94, metalness: 0.02 });
+  const upVec = new THREE.Vector3(0, 1, 0);
+  const stairCount = 34;
+  for (let i = 0; i < stairCount; i++) {
+    const t = STAIR_START_T + ((i + 0.5) / stairCount) * (1 - STAIR_START_T);
+    const pt = trailCurve.getPoint(t);
+    const tang = trailCurve.getTangent(t).normalize();
+    const yaw = Math.atan2(tang.x, tang.z);
+
+    const w = 0.95 - 0.20 * (i / stairCount);
+    const d = 0.42;
+    const h = 0.11;
+    const step = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mStepStone);
+    step.position.set(pt.x, pt.y + 0.06, pt.z);
+    step.rotation.y = yaw;
+    step.castShadow = true;
+    step.receiveShadow = true;
+    G.add(step);
+
+    /* Tiny side chips so steps feel terrain-carved, not floating blocks */
+    if (i % 2 === 0) {
+      const side = new THREE.Vector3().crossVectors(tang, upVec).normalize();
+      for (const s of [-1, 1]) {
+        const chip = new THREE.Mesh(new THREE.DodecahedronGeometry(0.035 + Math.random() * 0.02, 0), mRockD);
+        chip.position.set(
+          pt.x + side.x * (w * 0.5 + 0.04) * s,
+          pt.y + 0.035,
+          pt.z + side.z * (w * 0.5 + 0.04) * s
+        );
+        chip.castShadow = true;
+        chip.receiveShadow = true;
+        G.add(chip);
+      }
+    }
+  }
+
   /* Edge stones — sparse small pebbles along trail for definition */
   const mEdgeStone = new THREE.MeshStandardMaterial({ color: 0x9a8a6a, roughness: 0.95 });
-  for (let t = 0.06; t < 0.70; t += 0.035) {
+  for (let t = 0.06; t < STAIR_START_T; t += 0.035) {
     /* Only place stones on the lower/middle trail, not upper switchbacks */
     const pt = trailCurve.getPoint(t);
     const tang = trailCurve.getTangent(t);
@@ -514,7 +560,7 @@ function initScene() {
     color: 0x9a8050, roughness: 1.0, transparent: true, opacity: 0.35
   });
   const fpGeo = new THREE.CylinderGeometry(0.05, 0.06, 0.005, 6);
-  for (let t = 0.06; t < 0.94; t += 0.03) {
+  for (let t = 0.06; t < STAIR_START_T; t += 0.03) {
     const pt = trailCurve.getPoint(t);
     const tang = trailCurve.getTangent(t);
     const sd = (Math.floor(t * 40) % 2 === 0) ? 1 : -1;
@@ -532,10 +578,10 @@ function initScene() {
   }
 
   /* ====== STAGE POSITIONS — grounded on trail / peak surface ====== */
-  S[0].pos = new THREE.Vector3( 5.0,  0.92,  5.5);   // Trailhead — on hill surface
-  S[1].pos = new THREE.Vector3(-3.2,  1.35,  3.8);   // Basecamp — farther from pk1
-  S[2].pos = new THREE.Vector3( 0.75, 4.05,  0.72);  // Ascent — projected outside pk1
-  S[3].pos = new THREE.Vector3( 0.30, 7.20, -1.50);  // Summit — firmly on peak top
+  S[0].pos = trailCurve.getPoint(stageTValues[0]).clone();
+  S[1].pos = trailCurve.getPoint(stageTValues[1]).clone();
+  S[2].pos = trailCurve.getPoint(stageTValues[2]).clone();
+  S[3].pos = trailCurve.getPoint(stageTValues[3]).clone();
 
   /* ====== FLAGS — brown poles with red pennants (gold on summit) ====== */
   function mkFlag(pos, stageIdx) {
@@ -948,6 +994,7 @@ function initScene() {
   /* Start hero at trailhead — grounded on trail slab surface */
   hero.position.copy(S[0].pos);
   hero.position.y += 0.20;
+  heroTrailT = stageTValues[0];
   hero.scale.setScalar(1.3);
   G.add(hero);
 
@@ -1227,16 +1274,11 @@ function zoomToFlag(i) {
   clearConfetti();
 
   /* Animate hero walking ALONG the trail curve between stages */
-  const prevStage = Math.max(0, (heroStage > 0 ? heroStage - 1 : 0));
-  /* Compute nearest t on trailCurve for current hero position */
-  let startT = stageTValues[0];
-  if (hero.position.distanceTo(S[0].pos) < 1.0) startT = stageTValues[0];
-  for (let si = 0; si < 4; si++) {
-    const sp = S[si].pos;
-    if (hero.position.distanceTo(sp) < 1.5) { startT = stageTValues[si]; break; }
-  }
+  let startT = Number.isFinite(heroTrailT) ? heroTrailT : stageTValues[0];
+  startT = Math.max(0, Math.min(1, startT));
   const endT = stageTValues[i];
   const walkObj = { t: startT };
+  const stopPos = S[i].pos;
 
   heroAnimState = 'walking';
   gsap.to(walkObj, {
@@ -1245,12 +1287,22 @@ function zoomToFlag(i) {
       if (!trailCurve) return;
       const pt = trailCurve.getPoint(walkObj.t);
       hero.position.set(pt.x, pt.y + 0.20, pt.z);
+      heroTrailT = walkObj.t;
       /* Face along trail tangent direction */
       const tang = trailCurve.getTangent(walkObj.t);
       const dir = endT > startT ? 1 : -1;
       hero.rotation.y = Math.atan2(tang.x * dir, tang.z * dir);
     },
     onComplete() {
+      heroTrailT = endT;
+      /* Exact stop at stage flag marker */
+      hero.position.set(stopPos.x, stopPos.y + 0.20, stopPos.z);
+      const endTang = trailCurve ? trailCurve.getTangent(endT) : null;
+      if (endTang) {
+        const dir = endT >= startT ? 1 : -1;
+        hero.rotation.y = Math.atan2(endTang.x * dir, endTang.z * dir);
+      }
+
       /* Stage-specific idle animation */
       if (i === 0) {
         heroAnimState = 'idle'; // standing at trailhead

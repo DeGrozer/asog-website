@@ -30,7 +30,7 @@
 
             <!-- ── Main Content ── -->
             <div class="min-w-0">
-                <div class="max-w-[760px] text-[.95rem] font-normal leading-[1.95] text-dark/60 text-justify">
+                <div class="max-w-[760px] text-[.95rem] font-normal leading-[1.95] text-justify" style="color:#020d18">
 
                     <!-- ── OUR STORY ── -->
                     <h2 id="our-story"
@@ -41,14 +41,14 @@
                         class="mb-4 text-[.78rem] font-semibold tracking-wide uppercase text-gold/80 scroll-mt-28">
                         Who
                         We Are</p>
-                    <p class="mb-5">
+                    <p class="mb-3">
                         The ASOG Technology Business Incubator (TBI) is an initiative of Camarines Sur Polytechnic
                         Colleges (CSPC) aimed at fostering Engineering and AI-based innovations for food value chain
                         management. Our mission is to empower startups and Micro, Small, and Medium Enterprises (MSMEs)
                         with the resources, mentorship, and support they need to develop cutting-edge solutions that
                         enhance efficiency, productivity, and sustainability in the food industry.
                     </p>
-                    <p class="mb-5">
+                    <p class="mb-3">
                         It is funded by the Department of Science and Technology – Philippine Council for Industry,
                         Energy and Emerging Technology Research and Development (DOST-PCIEERD) and co-monitored by DOST
                         Region V.
@@ -58,8 +58,8 @@
                         class="mb-4 text-[.78rem] font-semibold tracking-wide uppercase text-gold/80 scroll-mt-28">
                         What
                         We Do</p>
-                    <p class="mb-5">At ASOG TBI, we incubate and accelerate startups by providing them with:</p>
-                    <ul class="space-y-3 list-none pl-0 mb-5">
+                    <p class="mb-3">At ASOG TBI, we incubate and accelerate startups by providing them with:</p>
+                    <ul class="space-y-3 list-none pl-0 mb-4">
                         <li class="flex gap-3 items-start"><span
                                 class="text-gold text-lg leading-none mt-1">•</span><span><strong
                                     class="text-dark/75">Access to state-of-the-art facilities</strong> like the AI
@@ -84,7 +84,7 @@
                                 trademarks</span></li>
                     </ul>
 
-                    <div class="h-px bg-dark/[.08] my-14"></div>
+                    <div class="h-px bg-dark/[.08] my-10"></div>
 
                     <!-- ── WHY CHOOSE US? ── -->
 
@@ -95,7 +95,7 @@
                     <p id="why-asog"
                         class="mb-4 text-[.78rem] font-semibold tracking-wide uppercase text-gold/80 scroll-mt-28">Why
                         ASOG?</p>
-                    <p class="mb-5">
+                    <p class="mb-3">
                         ASOG TBI stands out because we integrate expertise from <strong class="text-dark/75">Academe,
                             Society, Organizations, and Government</strong> (ASOG) to build a robust innovation
                         ecosystem. We work closely with DOST-PCIEERD, other national government agencies, and local
@@ -107,7 +107,7 @@
                         class="mb-4 text-[.78rem] font-semibold tracking-wide uppercase text-gold/80 scroll-mt-28">
                         Who
                         Can Join?</p>
-                    <p class="mb-5">We support a diverse group of innovators, researchers, and entrepreneurs, including:
+                    <p class="mb-3">We support a diverse group of innovators, researchers, and entrepreneurs, including:
                     </p>
                     <ul class="space-y-3 list-none pl-0">
                         <li class="flex gap-3 items-start"><span
@@ -124,13 +124,13 @@
                                 applications in the food industry</span></li>
                     </ul>
 
-                    <div class="h-px bg-dark/[.08] my-14"></div>
+                    <div class="h-px bg-dark/[.08] my-10"></div>
 
                     <!-- ── OUR IMPACT ── -->
                     <h2 id="our-impact"
                         class="font-display text-[1.8rem] md:text-[2.2rem] leading-[1.18] text-dark mb-6 scroll-mt-28">
                         Our Impact</h2>
-                    <p class="mb-6">We aim to revolutionize the food industry in Camarines Sur and beyond by:</p>
+                    <p class="mb-3">We aim to revolutionize the food industry in Camarines Sur and beyond by:</p>
                     <ul class="space-y-3 list-none pl-0">
                         <li class="flex gap-3 items-start"><span
                                 class="text-gold text-lg leading-none mt-1">•</span><span>Improving

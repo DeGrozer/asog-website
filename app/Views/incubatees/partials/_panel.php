@@ -1,7 +1,7 @@
 <!-- Detail Panel — slides in from right -->
 <div id="ibPanel" class="ib-panel fixed top-0 right-0 bottom-0 w-full flex flex-col overflow-hidden">
-    <button class="ib-close absolute rounded-full flex items-center justify-center cursor-pointer" id="ibClose">
-        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+    <button class="ib-close absolute flex items-center justify-center cursor-pointer" id="ibClose" aria-label="Close">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
     </button>

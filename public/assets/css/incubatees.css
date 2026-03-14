@@ -214,40 +214,24 @@
 
 .ib-big-inner {
     transform-style: preserve-3d;
-    box-shadow: 0 30px 90px rgba(2,13,24,.2);
+    box-shadow: 0 24px 80px rgba(2,13,24,.18), 0 2px 12px rgba(2,13,24,.06);
     border-radius: 1.2rem;
 }
 
 /* --------------------------------------------------------------------------
-   7. BIG CARD — FRONT (NAVY)
+   7. BIG CARD — FRONT (NAVY BRAND CANVAS)
    -------------------------------------------------------------------------- */
 .ib-big-front {
-    background: #03355a;
-    border: 2.5px solid rgba(248,175,33,.24);
+    background: linear-gradient(170deg, #04406b, #03355a 40%, #022a48);
+    border: none;
     gap: 1.2rem; padding: 2.5rem 1.5rem;
     z-index: 2;
 }
-.ib-big-front .ib-frame {
-    inset: 7px; border-radius: 10px;
-    border-color: rgba(248,175,33,.14);
-}
-.ib-big-front .ib-frame-inner {
-    inset: 17px;
-    border: 1px solid rgba(248,176,33,.19);
-    border-radius: 6px; z-index: 2;
-}
-.ib-big-front .ib-diamond { width: 7px; height: 7px; background: rgba(248,175,33,.25) }
-.ib-big-front .ib-diamond.tl { top: 14px; left: 14px }
-.ib-big-front .ib-diamond.tr { top: 14px; right: 14px }
-.ib-big-front .ib-diamond.bl { bottom: 14px; left: 14px }
-.ib-big-front .ib-diamond.br { bottom: 14px; right: 14px }
-
-.ib-big-front .ib-dots {
-    background-image:
-        linear-gradient(rgba(248,175,33,.028) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(248,175,33,.028) 1px, transparent 1px);
-    background-size: 22px 22px;
-}
+/* Decorative frames/diamonds/dots hidden on big card (kept on small cards) */
+.ib-big-front .ib-frame,
+.ib-big-front .ib-frame-inner,
+.ib-big-front .ib-diamond,
+.ib-big-front .ib-dots { display: none }
 
 .ib-bf-num {
     top: 18px; left: 20px; z-index: 6;
@@ -291,26 +275,41 @@
     color: rgba(248,175,33,.65);
 }
 
+/* Subtle flip hint on big card */
+.ib-big-flip-hint {
+    position: absolute;
+    bottom: 18px; left: 0; right: 0;
+    text-align: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .48rem; font-weight: 500;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: rgba(255,255,255,.18);
+    pointer-events: none;
+    transition: opacity .3s;
+}
+.ib-big-flip-hint.is-back {
+    color: rgba(2,13,24,.15);
+}
+.ib-big-inner:hover .ib-big-flip-hint {
+    color: rgba(255,255,255,.35);
+}
+.ib-big-inner:hover .ib-big-flip-hint.is-back {
+    color: rgba(2,13,24,.3);
+}
+
 /* --------------------------------------------------------------------------
-   8. BIG CARD — BACK (TEAM / WHITE)
+   8. BIG CARD — BACK (CLEAN TEAM)
    -------------------------------------------------------------------------- */
 .ib-big-back {
-    background: linear-gradient(178deg, #fff, #f6f4ef);
-    border: 2.5px solid rgba(248,175,33,.22);
+    background: linear-gradient(178deg, #fff, #f9f7f3);
+    border: none;
     transform: rotateY(-180deg);
     padding: 2.5rem 1.5rem;
 }
-.ib-big-back .ib-frame { inset: 7px; border-radius: 10px }
-.ib-big-back .ib-frame-inner {
-    inset: 17px;
-    border: 1px solid rgba(3,85,140,.04);
-    border-radius: 6px; z-index: 2;
-}
-.ib-big-back .ib-diamond { width: 7px; height: 7px; background: rgba(248,175,33,.22) }
-.ib-big-back .ib-diamond.tl { top: 14px; left: 14px }
-.ib-big-back .ib-diamond.tr { top: 14px; right: 14px }
-.ib-big-back .ib-diamond.bl { bottom: 14px; left: 14px }
-.ib-big-back .ib-diamond.br { bottom: 14px; right: 14px }
+/* Decorative elements hidden on big card back */
+.ib-big-back .ib-frame,
+.ib-big-back .ib-frame-inner,
+.ib-big-back .ib-diamond { display: none }
 
 .ib-bb-label {
     font-size: .56rem; font-weight: 700;
@@ -366,14 +365,15 @@
     box-shadow: -8px 0 40px rgba(0,0,0,.1);
 }
 .ib-close {
-    top: 16px; right: 16px; z-index: 5;
-    width: 36px; height: 36px;
-    border: 1px solid rgba(2,13,24,.06);
-    background: rgba(248,246,242,.92);
-    backdrop-filter: blur(6px);
-    color: rgba(2,13,24,.3); transition: all .15s;
+    top: 20px; right: 20px; z-index: 5;
+    width: 40px; height: 40px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    color: rgba(2,13,24,.22);
+    transition: color .2s, background .2s;
 }
-.ib-close:hover { color: #020d18; border-color: rgba(2,13,24,.18) }
+.ib-close:hover { color: #020d18; background: rgba(2,13,24,.05) }
 
 .ib-p-body { padding: 2rem 2rem 1.4rem; scrollbar-width: none; -ms-overflow-style: none }
 .ib-p-body::-webkit-scrollbar { display: none }
@@ -408,60 +408,69 @@
     margin-bottom: .7rem;
 }
 .ib-p-team-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: .65rem;
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
 }
 .ib-p-member-card {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    text-align: center;
-    gap: .3rem;
-    padding: .3rem 0;
+    text-align: left;
+    gap: .75rem;
+    padding: .55rem 0;
+    border-bottom: 1px solid rgba(2,13,24,.04);
+}
+.ib-p-member-card:last-child {
+    border-bottom: none;
 }
 .ib-p-member-photo {
-    width: 68px;
-    height: 68px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid rgba(2,13,24,.06);
+    border: 1.5px solid rgba(2,13,24,.06);
     flex-shrink: 0;
 }
 .ib-p-member-photo-default {
-    width: 68px;
-    height: 68px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #e5e7eb;
+    background: #edeae5;
     flex-shrink: 0;
     overflow: hidden;
 }
 .ib-p-member-photo-default svg {
-    width: 34px;
-    height: 34px;
-    color: #9ca3af;
+    width: 22px;
+    height: 22px;
+    color: #b8b3aa;
 }
 .ib-p-member-name {
     display: block;
-    font-size: .74rem;
+    font-size: .76rem;
     font-weight: 600;
     color: #020d18;
-    line-height: 1.2;
-    margin-top: .15rem;
+    line-height: 1.25;
 }
 .ib-p-member-role {
     display: block;
     font-size: .52rem;
     letter-spacing: .06em;
     text-transform: uppercase;
-    color: rgba(2,13,24,.42);
+    color: rgba(2,13,24,.38);
+    margin-top: .05rem;
+}
+.ib-p-member-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
 }
 
 @media (max-width: 560px) {
-    .ib-p-team-grid { grid-template-columns: repeat(2, 1fr); }
+    .ib-p-team-grid { flex-direction: column; }
 }
 
 .ib-p-foot {
@@ -476,17 +485,17 @@
     font-size: .62rem;
     font-weight: 600;
     letter-spacing: .06em;
-    color: rgba(2,13,24,.45);
+    color: rgba(2,13,24,.4);
     text-decoration: none;
-    padding: .4rem .8rem;
-    border: 1px solid rgba(2,13,24,.08);
-    border-radius: .3rem;
+    padding: .35rem .7rem;
+    border: none;
+    border-bottom: 1px solid rgba(2,13,24,.1);
+    border-radius: 0;
     transition: all .2s;
 }
 .ib-p-social:hover {
     color: #03558C;
-    border-color: rgba(3,85,140,.2);
-    background: rgba(3,85,140,.04);
+    border-bottom-color: rgba(3,85,140,.3);
 }
 
 /* ── Click-to-reveal content ────────────── */

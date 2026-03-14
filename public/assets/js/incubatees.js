@@ -291,10 +291,12 @@
 
                     teamHtml += '<div class="ib-p-member-card">';
                     teamHtml += photoMarkup;
+                    teamHtml += '<div class="ib-p-member-info">';
                     teamHtml += '<span class="ib-p-member-name">' + m.name + '</span>';
                     if (m.role) {
                         teamHtml += '<span class="ib-p-member-role">' + m.role + '</span>';
                     }
+                    teamHtml += '</div>';
                     teamHtml += '</div>';
                 });
                 pTeamList.innerHTML = teamHtml;
