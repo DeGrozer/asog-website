@@ -360,13 +360,15 @@ function initScene() {
     new THREE.Vector3( 0.02, 2.08,  0.84),  // clean hand-off to circular staircase
   ];
 
-  /* Stair-like mountain climb — circular wrap around the main peak */
+  /* Stair-like mountain climb — spiral wrap around the main peak.
+     Uses 0.62 turns (< 1 full revolution) so the path never crosses
+     itself — keeps the visible trail clean and uncrumpled. */
   {
     const cx = 0.3, cz = -1.5, bR = 3.5, H = 7.0;
     const start = trailPts[trailPts.length - 1];
     const startAng = Math.atan2(start.z - cz, start.x - cx);
-    const stepCount = 36;
-    const turns = 1.16;
+    const stepCount = 26;      /* fewer, more evenly-spaced points */
+    const turns = 0.62;        /* clean partial spiral — no self-overlap */
     const startY = 2.05;
     const endY = 6.95;
 
@@ -376,7 +378,9 @@ function initScene() {
       const ang = startAng + e * Math.PI * 2 * turns;
       const y = startY + (endY - startY) * e;
       const surfaceR = bR * Math.pow(Math.max(1 - y / H, 0), 0.7);
-      const r = Math.max(0.26, surfaceR + 0.62 - 0.18 * e);
+      /* Keep radius comfortably outside mountain — minimum 0.48 avoids
+         compression near the summit that made the path look crumpled. */
+      const r = Math.max(0.48, surfaceR + 0.72 - 0.22 * e);
       const x = cx + Math.cos(ang) * r;
       const z = cz + Math.sin(ang) * r;
 

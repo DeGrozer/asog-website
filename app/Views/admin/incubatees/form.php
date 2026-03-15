@@ -498,23 +498,6 @@ $formUrl = $isEdit
                 <?php endif; ?>
             </div>
 
-            <!-- Founder Photo upload -->
-            <div class="field">
-                <label>Founder Photo <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#b0aaa0">(shown in the detail panel)</span></label>
-                <div class="upload-zone" id="uploadZoneFounder">
-                    <input type="file" name="founderPhoto" id="founderPhotoInput" accept="image/*">
-                    <div class="label" id="uploadLabelFounder"><strong>Click to upload</strong> a photo of the founder</div>
-                    <div class="upload-preview" id="uploadPreviewFounder">
-                        <?php if ($isEdit && ! empty($incubatee['founderPhoto'])): ?>
-                        <img src="<?= site_url($incubatee['founderPhoto']) ?>" alt="" style="max-height:100px;border-radius:50%;aspect-ratio:1;object-fit:cover">
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <?php if ($isEdit && ! empty($incubatee['founderPhoto'])): ?>
-                <p style="font-size:.62rem;color:#94a3b8;margin-top:.35rem">Click to replace the current founder photo</p>
-                <?php endif; ?>
-            </div>
-
             <!-- Team Members -->
             <?php
                 $existingMembers = [];

@@ -23,7 +23,6 @@ class IncubateeModel extends Model
         'slug',
         'founderName',
         'founderPosition',
-        'founderPhoto',
         'shortDescription',
         'content',
         'logoPath',

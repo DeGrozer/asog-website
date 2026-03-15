@@ -131,18 +131,20 @@
         previewIdx = idx;
         activeCard = card;
         mpFlipped = false;
+        /* Ensure the small card is NOT in a flipped state before opening */
+        card.classList.remove('mob-flipped');
         var d   = data[idx];
         var num = String(idx + 1).padStart(2, '0');
 
         /* ── Populate FRONT (navy) — same as desktop bfXxx ── */
         mpNum.textContent     = num;
         mpName.textContent    = d.companyName;
-        mpFounder.textContent = '';
+        mpFounder.textContent = d.founderName ? 'Founder: ' + d.founderName : '';
         mpCohort.textContent  = d.cohort;
-        mpLogo.innerHTML = d.logoWhitePath
-            ? '<img src="' + d.logoWhitePath + '" alt="' + d.companyName + '" class="is-white">'
-            : d.logoPath
-            ? '<img src="' + d.logoPath + '" alt="' + d.companyName + '">'
+        /* Always use white-filter approach so any uploaded logo reads as white on navy */
+        var logoSrc = d.logoPath || d.logoWhitePath;
+        mpLogo.innerHTML = logoSrc
+            ? '<img src="' + logoSrc + '" alt="' + d.companyName + '">'
             : '<span class="ib-init" style="font-size:1.8rem;color:rgba(255,255,255,.5)">' + d.companyName.charAt(0).toUpperCase() + '</span>';
 
         /* ── Populate BACK (team) — same as desktop bbXxx ── */
@@ -175,6 +177,8 @@
         if (!mobPreview) return;
         mobPreview.classList.remove('is-open');
         document.body.style.overflow = '';
+        /* Ensure the source card returns to its normal front-face state */
+        if (activeCard) activeCard.classList.remove('mob-flipped');
         previewIdx = null;
         activeCard = null;
         mpFlipped = false;
@@ -246,12 +250,12 @@
         /* Big front */
         bfNum.textContent     = num;
         bfName.textContent    = d.companyName;
-        bfFounder.textContent = '';
+        bfFounder.textContent = d.founderName ? 'Founder: ' + d.founderName : '';
         bfCohort.textContent  = d.cohort;
-        bfLogo.innerHTML = d.logoWhitePath
-            ? '<img src="' + d.logoWhitePath + '" alt="' + d.companyName + '" class="is-white">'
-            : d.logoPath
-            ? '<img src="' + d.logoPath + '" alt="' + d.companyName + '">'
+        /* Always use white-filter — CSS already applies brightness(0) invert(1) */
+        var logoSrc = d.logoPath || d.logoWhitePath;
+        bfLogo.innerHTML = logoSrc
+            ? '<img src="' + logoSrc + '" alt="' + d.companyName + '">'
             : '<span class="ib-init" style="font-size:2.4rem;color:rgba(255,255,255,.5)">'
               + d.companyName.charAt(0).toUpperCase() + '</span>';
 

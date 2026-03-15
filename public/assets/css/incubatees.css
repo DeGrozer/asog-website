@@ -249,7 +249,8 @@
     border-radius: 0; padding: 0;
 }
 .ib-bf-logo:hover img { opacity: 1 }
-.ib-bf-logo img.is-white { filter: none; opacity: .9 }
+/* is-white: keep same white-filter treatment so any uploaded logo reads as white on navy */
+.ib-bf-logo img.is-white { filter: brightness(0) invert(1); opacity: .9 }
 
 .ib-bf-divider {
     width: 36px; height: 1.5px; border-radius: 1px;

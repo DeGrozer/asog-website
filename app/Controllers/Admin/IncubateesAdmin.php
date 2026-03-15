@@ -149,35 +149,6 @@ class IncubateesAdmin extends BaseController
         }
 
         // Handle founder photo upload
-        try {
-            $founderFile = $this->request->getFile('founderPhoto');
-
-            if ($founderFile !== null && $founderFile->getError() !== UPLOAD_ERR_NO_FILE) {
-                if (! $founderFile->isValid()) {
-                    setToast('error', 'Founder photo upload failed: ' . $founderFile->getErrorString());
-                    return redirect()->back()->withInput();
-                }
-
-                if ($founderFile->hasMoved()) {
-                    setToast('error', 'Founder photo upload error: file was already processed.');
-                    return redirect()->back()->withInput();
-                }
-
-                $uploader = new ImageUpload();
-                $founderPath = $uploader->upload($founderFile, 'incubatees');
-                if ($founderPath !== null) {
-                    $data['founderPhoto'] = $founderPath;
-                } else {
-                    setToast('error', 'Founder photo upload failed: ' . $uploader->getError());
-                    return redirect()->back()->withInput();
-                }
-            }
-        } catch (\Throwable $e) {
-            log_message('error', 'Incubatee founder photo upload error: ' . $e->getMessage());
-            setToast('error', 'Founder photo upload error: ' . $e->getMessage());
-            return redirect()->back()->withInput();
-        }
-
         if (! $this->incubateeModel->insert($data)) {
             setToast('error', 'Validation failed: ' . implode(', ', $this->incubateeModel->errors()));
             return redirect()->back()->withInput();
@@ -331,38 +302,6 @@ class IncubateesAdmin extends BaseController
         }
 
         // Handle founder photo upload (optional on edit)
-        try {
-            $founderFile = $this->request->getFile('founderPhoto');
-
-            if ($founderFile !== null && $founderFile->getError() !== UPLOAD_ERR_NO_FILE) {
-                if (! $founderFile->isValid()) {
-                    setToast('error', 'Founder photo upload failed: ' . $founderFile->getErrorString());
-                    return redirect()->back()->withInput();
-                }
-
-                if ($founderFile->hasMoved()) {
-                    setToast('error', 'Founder photo upload error: file was already processed.');
-                    return redirect()->back()->withInput();
-                }
-
-                $uploader = new ImageUpload();
-                $founderPath = $uploader->upload($founderFile, 'incubatees');
-                if ($founderPath !== null) {
-                    if (! empty($incubatee['founderPhoto'])) {
-                        $uploader->delete($incubatee['founderPhoto']);
-                    }
-                    $data['founderPhoto'] = $founderPath;
-                } else {
-                    setToast('error', 'Founder photo upload failed: ' . $uploader->getError());
-                    return redirect()->back()->withInput();
-                }
-            }
-        } catch (\Throwable $e) {
-            log_message('error', 'Incubatee founder photo update error: ' . $e->getMessage());
-            setToast('error', 'Founder photo upload error: ' . $e->getMessage());
-            return redirect()->back()->withInput();
-        }
-
         // Remove deleted/replaced team-member photos
         $oldPhotos = array_values(array_filter(array_map(static function ($m) {
             return trim((string) ($m['photo'] ?? ''));
@@ -412,9 +351,6 @@ class IncubateesAdmin extends BaseController
         }
         if (! empty($incubatee['logoWhitePath'])) {
             $uploader->delete($incubatee['logoWhitePath']);
-        }
-        if (! empty($incubatee['founderPhoto'])) {
-            $uploader->delete($incubatee['founderPhoto']);
         }
         if (! empty($incubatee['teamMembers'])) {
             $members = json_decode($incubatee['teamMembers'], true) ?: [];
