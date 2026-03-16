@@ -39,7 +39,7 @@
 
                     <!-- Floating gold detail card -->
                     <div class="absolute bottom-4 left-4 right-4 md:right-auto md:max-w-[320px] z-10 bg-gold rounded-lg p-4 md:p-5 shadow-lg">
-                        <h3 class="font-display text-[1rem] md:text-[1.1rem] text-dark leading-tight mb-2">ASOG Technology Business Incubator</h3>
+                        <h3 class="font-display text-[1rem] md:text-[1.1rem] text-white leading-tight mb-2">ASOG Technology Business Incubator</h3>
                         <div class="flex items-start gap-2 mb-2">
                             <svg class="w-3.5 h-3.5 text-dark/50 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>

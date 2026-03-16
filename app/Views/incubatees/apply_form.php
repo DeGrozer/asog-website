@@ -26,10 +26,10 @@
                 </div>
                 <h2 class="font-display text-[1.4rem] md:text-[1.7rem] text-dark leading-snug mb-2">Startup Application Form</h2>
                 <p class="text-[.92rem] font-medium text-dark/85 mb-3">Welcome, Future Innovator!</p>
-                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[640px] mb-3 text-justify">
+                <p class="text-[.84rem] font-normal leading-[1.65] text-dark max-w-[640px] mb-2 text-justify">
                     Thank you for your interest in joining the ASOG Technology Business Incubator (TBI). We're excited to support passionate startups like yours in turning bold ideas into real-world solutions — especially those rooted in AI, engineering, and food value chain innovation.
                 </p>
-                <p class="text-[.82rem] font-light leading-[1.85] text-dark/70 max-w-[640px] text-justify">
+                <p class="text-[.84rem] font-normal leading-[1.65] text-dark max-w-[640px] text-justify">
                     Please fill out this form carefully so we can get to know your team, your idea, and how we can best support your startup journey. We're looking forward to discovering the next big thing — and it might just be you!
                 </p>
             </div>
@@ -42,7 +42,7 @@
                     <span class="block w-[18px] h-[2px] bg-gold"></span>
                     <h3 class="text-[.62rem] font-bold tracking-[.2em] uppercase text-navy m-0">Privacy &amp; Data Agreement</h3>
                 </div>
-                <p class="text-[.78rem] font-light leading-[1.8] text-dark/70 mb-4">
+                <p class="text-[.82rem] font-normal leading-[1.65] text-dark mb-3">
                     By submitting this application, you agree that ASOG Technology Business Incubator (ASOG-TBI) 
                     may collect, process, and store the personal information you provide for the purpose of evaluating 
                     your application to the incubation program. Your data will be handled in accordance with the 
@@ -51,9 +51,9 @@
                 <label class="flex items-start gap-3 cursor-pointer select-none group">
                     <input type="checkbox" id="privacyAgreement" name="privacyAgreement" value="1" required
                         class="v-field mt-0.5 w-4 h-4 shrink-0 accent-gold cursor-pointer" data-v="required">
-                    <span class="text-[.78rem] text-dark/80 leading-[1.7] group-hover:text-dark/90 transition-colors">
-                        I have read and agree to the <strong class="text-navy font-semibold">Privacy Policy</strong> and 
-                        <strong class="text-navy font-semibold">Data Collection Agreement</strong>. I consent to ASOG-TBI 
+                    <span class="text-[.82rem] text-dark leading-[1.6] group-hover:text-dark transition-colors">
+                        I have read and agree to the <strong class="text-[#102033] font-semibold">Privacy Policy</strong> and 
+                        <strong class="text-[#102033] font-semibold">Data Collection Agreement</strong>. I consent to ASOG-TBI 
                         collecting and processing my personal data for application evaluation purposes. 
                         <span class="text-red-400">*</span>
                     </span>
@@ -76,7 +76,7 @@
                     <!-- Full Name -->
                     <div class="border-b md:border-b md:border-r border-navy/10 p-4 md:p-5">
                         <label for="applicantName"
-                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-[#102033]/85 block mb-1.5">
                             Full Name <span class="text-red-400">*</span>
                         </label>
                         <input type="text" id="applicantName" name="applicantName" maxlength="255"
@@ -90,7 +90,7 @@
                     <!-- Email -->
                     <div class="border-b md:border-b md:border-r border-navy/10 p-4 md:p-5">
                         <label for="applicantEmail"
-                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-[#102033]/85 block mb-1.5">
                             Email Address <span class="text-red-400">*</span>
                         </label>
                         <input type="email" id="applicantEmail" name="applicantEmail" maxlength="255"
@@ -103,7 +103,7 @@
                     <!-- Contact -->
                     <div class="border-b border-navy/10 p-4 md:p-5">
                         <label for="contactNumber"
-                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-[#102033]/85 block mb-1.5">
                             Contact Number <span class="text-red-400">*</span>
                         </label>
                         <input type="tel" id="contactNumber" name="contactNumber" maxlength="20" data-v="required|phone"
@@ -129,7 +129,7 @@
                     <!-- Row 1: Startup Name (full width) -->
                     <div class="border-b border-navy/10 p-4 md:p-5">
                         <label for="startupName"
-                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-[#102033]/85 block mb-1.5">
                             Startup Name <span class="text-red-400">*</span>
                         </label>
                         <input type="text" id="startupName" name="startupName" maxlength="255" data-v="required|min:2"
@@ -141,7 +141,7 @@
                     <!-- Row 2: Description (full width) -->
                     <div class="border-b border-navy/10 p-4 md:p-5">
                         <label for="startupDescription"
-                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-[#102033]/85 block mb-1.5">
                             Describe your startup. How is it innovative? <span class="text-red-400">*</span>
                         </label>
                         <textarea id="startupDescription" name="startupDescription" rows="4" maxlength="2000"
@@ -156,7 +156,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="border-b md:border-b-0 md:border-r border-navy/10 p-4 md:p-5">
                             <label for="mainRisk"
-                                class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                                class="text-[.52rem] font-bold tracking-[.18em] uppercase text-[#102033]/85 block mb-1.5">
                                 Main Risk for Your Startup
                             </label>
                             <textarea id="mainRisk" name="mainRisk" rows="3" maxlength="1000"
@@ -165,7 +165,7 @@
                         </div>
                         <div class="p-4 md:p-5">
                             <label for="shortTermGoals"
-                                class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                                class="text-[.52rem] font-bold tracking-[.18em] uppercase text-[#102033]/85 block mb-1.5">
                                 Short-term Goals (3–5 months)
                             </label>
                             <textarea id="shortTermGoals" name="shortTermGoals" rows="3" maxlength="1000"
@@ -191,7 +191,7 @@
                         <!-- CV Upload -->
                         <div class="border-b md:border-b-0 md:border-r border-navy/10 p-4 md:p-5">
                             <label for="teamCv"
-                                class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                                class="text-[.52rem] font-bold tracking-[.18em] uppercase text-[#102033]/85 block mb-1.5">
                                 Team Members' CV
                             </label>
                             <span class="text-[.58rem] text-navy/30 block mb-3">Upload PDFs · Max 10 files · 100 MB
@@ -204,7 +204,7 @@
                         <!-- Video Link -->
                         <div class="p-4 md:p-5">
                             <label for="videoPresentationLink"
-                                class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1.5">
+                                class="text-[.52rem] font-bold tracking-[.18em] uppercase text-[#102033]/85 block mb-1.5">
                                 Video Presentation Link <span class="text-red-400">*</span>
                             </label>
                             <span class="text-[.58rem] text-navy/30 block mb-3">1-minute pitch · YouTube or Google
@@ -258,7 +258,7 @@
                     <!-- Upload row -->
                     <div class="p-4 md:p-5">
                         <label for="leanCanvas"
-                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/50 block mb-1">
+                            class="text-[.52rem] font-bold tracking-[.18em] uppercase text-[#102033]/85 block mb-1">
                             Your Startup's Lean Canvas <span class="text-red-400">*</span>
                         </label>
                         <span class="text-[.58rem] text-navy/30 block mb-3">Must be in .docx or PDF &middot; 1 file
@@ -332,7 +332,7 @@
             <div>
                 <div class="flex items-center gap-2 mb-3">
                     <span class="block w-3 h-[2px] bg-gold"></span>
-                    <span class="text-[.52rem] font-bold tracking-[.2em] uppercase text-navy/50">Applicant
+                    <span class="text-[.52rem] font-bold tracking-[.2em] uppercase text-[#102033]/85">Applicant
                         Information</span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -360,7 +360,7 @@
             <div>
                 <div class="flex items-center gap-2 mb-3">
                     <span class="block w-3 h-[2px] bg-gold"></span>
-                    <span class="text-[.52rem] font-bold tracking-[.2em] uppercase text-navy/50">Startup Details</span>
+                    <span class="text-[.52rem] font-bold tracking-[.2em] uppercase text-[#102033]/85">Startup Details</span>
                 </div>
                 <div class="space-y-3">
                     <div>
@@ -400,7 +400,7 @@
             <div>
                 <div class="flex items-center gap-2 mb-3">
                     <span class="block w-3 h-[2px] bg-gold"></span>
-                    <span class="text-[.52rem] font-bold tracking-[.2em] uppercase text-navy/50">Team
+                    <span class="text-[.52rem] font-bold tracking-[.2em] uppercase text-[#102033]/85">Team
                         Presentation</span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">

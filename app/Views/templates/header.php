@@ -26,6 +26,7 @@
     /* ── Nav URLs: always link to dedicated pages ── */
     $navAbout      = site_url('about');
     $navPrograms   = site_url('programs');
+    $navAltitude   = $navPrograms . '#altitude-3d';
     $navServices   = site_url('services');
     $navFacilities = site_url('facilities');
     $navIncubatees = site_url('incubatees');
@@ -74,7 +75,7 @@
                         class="nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold cursor-pointer select-none<?= $activeClass($isProgramsGroup) ?>">Programs
                         &amp; Services</span>
                     <div class="dd-menu">
-                        <a href="<?= $navPrograms ?>" class="dd-item<?= $activeClass($seg1 === 'programs') ?>">The ALTITUDE Program</a>
+                        <a href="<?= $navAltitude ?>" class="dd-item<?= $activeClass($seg1 === 'programs') ?>">The ALTITUDE Program</a>
                         <a href="<?= $navServices ?>" class="dd-item<?= $activeClass($seg1 === 'services') ?>">Services Offered</a>
                         <a href="<?= $navFacilities ?>" class="dd-item<?= $activeClass($seg1 === 'facilities') ?>">Facilities</a>
                     </div>
@@ -119,7 +120,7 @@
                         class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold cursor-pointer select-none<?= $activeClass($isProgramsGroup) ?>">Programs
                         &amp; Services</span>
                     <div class="dd-menu dd-right">
-                        <a href="<?= $navPrograms ?>" class="dd-item<?= $activeClass($seg1 === 'programs') ?>">The ALTITUDE Program</a>
+                        <a href="<?= $navAltitude ?>" class="dd-item<?= $activeClass($seg1 === 'programs') ?>">The ALTITUDE Program</a>
                         <a href="<?= $navServices ?>" class="dd-item<?= $activeClass($seg1 === 'services') ?>">Services Offered</a>
                         <a href="<?= $navFacilities ?>" class="dd-item<?= $activeClass($seg1 === 'facilities') ?>">Facilities</a>
                     </div>
@@ -168,7 +169,7 @@
                 </svg>
             </button>
             <div id="mobPsSub" class="overflow-hidden" style="max-height:0;transition:max-height .3s ease">
-                <a href="<?= $navPrograms ?>"
+                <a href="<?= $navAltitude ?>"
                     class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block<?= $activeClass($seg1 === 'programs') ?>">↳
                     The ALTITUDE Program</a>
                 <a href="<?= $navServices ?>"

@@ -2,6 +2,245 @@
    ║  ALTITUDE 3D INTERACTIVE — Card + Wilderness-Zoom + 3D Overlay    ║
    ╚══════════════════════════════════════════════════════════════════════╝ */
 
+/* ─── 0. ALTITUDE PROGRAM PAGE FLOW ─── */
+.altitude-exp-root {
+  position: relative;
+}
+
+.altitude-exp-page {
+  display: none;
+}
+
+.altitude-exp-page.is-active {
+  display: block;
+}
+
+.altitude-exp-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  padding: 40px 28px 34px;
+  background: radial-gradient(circle at 75% 10%, #5ca2c9 0%, #1f567b 45%, #102d45 100%);
+  box-shadow: 0 12px 30px rgba(16, 45, 69, .18);
+  color: #f6f7f8;
+}
+
+.altitude-exp-mtn {
+  position: absolute;
+  inset: 0;
+  opacity: .62;
+  pointer-events: none;
+}
+
+.altitude-exp-mtn svg {
+  width: 100%;
+  height: 100%;
+}
+
+.altitude-exp-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 620px;
+}
+
+.altitude-exp-kicker {
+  margin: 0 0 10px;
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: rgba(255, 255, 255, .78);
+  font-weight: 700;
+}
+
+.altitude-exp-title {
+  margin: 0;
+  font-family: 'DM Serif Display', serif;
+  line-height: 1;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+}
+
+.altitude-exp-subtitle {
+  margin: 14px 0 0;
+  max-width: 650px;
+  font-size: .88rem;
+  line-height: 1.72;
+  color: rgba(255, 255, 255, .86);
+}
+
+.altitude-exp-enter-btn {
+  margin-top: 20px;
+  border: 0;
+  border-radius: 999px;
+  background: #F8AF21;
+  color: #173149;
+  padding: 12px 20px;
+  font-size: .66rem;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+  box-shadow: 0 8px 20px rgba(248, 175, 33, .35);
+}
+
+.altitude-exp-enter-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(248, 175, 33, .42);
+}
+
+.altitude-exp-toolbar {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 14px;
+}
+
+.altitude-exp-back-btn {
+  border: 1px solid rgba(2, 13, 24, .12);
+  background: #fff;
+  color: rgba(2, 13, 24, .78);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: .58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .11em;
+  cursor: pointer;
+}
+
+.altitude-exp-callout {
+  border: 1px solid rgba(11, 47, 73, .12);
+  border-left: 4px solid #F8AF21;
+  border-radius: 10px;
+  padding: 14px 15px;
+  background: rgba(235, 246, 251, .75);
+}
+
+.altitude-exp-stages {
+  display: grid;
+  gap: 12px;
+}
+
+.altitude-stage-card {
+  border-radius: 12px;
+  border: 1px solid rgba(2, 13, 24, .09);
+  background: #fff;
+  overflow: hidden;
+}
+
+.altitude-stage-head {
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+  padding: 15px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: transparent;
+  text-align: left;
+}
+
+.altitude-stage-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.24rem;
+  color: #10263a;
+}
+
+.altitude-stage-meta {
+  font-size: .58rem;
+  text-transform: uppercase;
+  letter-spacing: .13em;
+  color: rgba(2, 13, 24, .5);
+  font-weight: 700;
+}
+
+.altitude-stage-panel {
+  padding: 0 16px 16px;
+  border-top: 1px solid rgba(2, 13, 24, .07);
+}
+
+.altitude-stage-topic {
+  margin: 10px 0;
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: .13em;
+  font-weight: 700;
+}
+
+.altitude-stage-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.altitude-stage-list li {
+  position: relative;
+  padding-left: 15px;
+  margin-top: 5px;
+}
+
+.altitude-stage-list li::before {
+  content: '';
+  position: absolute;
+  top: .58em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.stage-trailhead {
+  border-left: 4px solid #f0a90f;
+}
+
+.stage-trailhead .altitude-stage-topic,
+.stage-trailhead .altitude-stage-list li::before {
+  color: #ce8f08;
+  background: #ce8f08;
+}
+
+.stage-basecamp {
+  border-left: 4px solid #2878b5;
+}
+
+.stage-basecamp .altitude-stage-topic,
+.stage-basecamp .altitude-stage-list li::before {
+  color: #246ca2;
+  background: #246ca2;
+}
+
+.stage-ascent {
+  border-left: 4px solid #6f5da9;
+}
+
+.stage-ascent .altitude-stage-topic,
+.stage-ascent .altitude-stage-list li::before {
+  color: #5f4d95;
+  background: #5f4d95;
+}
+
+.stage-summit {
+  border-left: 4px solid #2f8a62;
+}
+
+.stage-summit .altitude-stage-topic,
+.stage-summit .altitude-stage-list li::before {
+  color: #2a7a57;
+  background: #2a7a57;
+}
+
+@media (max-width: 640px) {
+  .altitude-exp-hero {
+    padding: 30px 18px 26px;
+  }
+
+  .altitude-stage-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
 /* ─── 1.  EXPLORE CARD (HORIZONTAL) ─── */
 .alt3d-card {
   position: relative;
@@ -156,36 +395,122 @@
 }
 
 .alt3d-overlay canvas {
-  display: block; width: 100%; height: 100%;
+  display: block; width: 100%; height: 100vh;
   cursor: grab;
 }
 .alt3d-overlay canvas:active { cursor: grabbing; }
 
-/* Title bar */
-.alt3d-title {
-  position: fixed; top: 24px; left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  pointer-events: none; z-index: 20;
-  transition: opacity .4s;
+/* Mini info button + tooltip */
+.alt3d-mini-info-wrap {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 65;
 }
-.alt3d-overlay.zoomed .alt3d-title { opacity: 0; }
 
-.alt3d-title .at-eyebrow {
-  font-size: .46rem; letter-spacing: .28em;
+.alt3d-program-chip {
+  position: fixed;
+  top: 19px;
+  left: 64px;
+  z-index: 65;
+  border: 1px solid rgba(14, 35, 49, .2);
+  background: #f5f2e8;
+  color: #1a3448;
+  border-radius: 999px;
+  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alt3d-program-chip-title {
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  color: rgba(248,175,33,.7);
-  margin-bottom: 5px;
 }
-.alt3d-title h1 {
+
+.alt3d-program-chip-link {
+  border: 0;
+  background: transparent;
+  color: #0f4f73;
+  font-size: .58rem;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.alt3d-mini-info-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(3, 31, 46, .22);
+  background: #f5f2e8;
+  color: #193246;
+  font-weight: 700;
+  font-size: .95rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .12);
+}
+
+.alt3d-info-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 115;
+  background: rgba(13, 34, 47, .56);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.alt3d-info-modal-card {
+  width: min(700px, 92vw);
+  max-height: min(78vh, 680px);
+  overflow-y: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(20, 40, 56, .16);
+  background: #f7f3e8;
+  color: #112838;
+  box-shadow: 0 20px 56px rgba(0, 0, 0, .34);
+  padding: 20px 20px 14px;
+  position: relative;
+}
+
+.alt3d-info-modal-card::-webkit-scrollbar {
+  width: 5px;
+}
+
+.alt3d-info-modal-card::-webkit-scrollbar-thumb {
+  background: rgba(17, 40, 56, .35);
+  border-radius: 999px;
+}
+
+.alt3d-info-modal-card h3 {
+  margin: 0 0 10px;
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(1.1rem, 2.4vw, 1.9rem);
-  font-weight: 400; color: #1a3040; line-height: 1;
+  font-size: 1.6rem;
 }
-.alt3d-title .at-sub {
-  margin-top: 5px; font-size: .48rem;
-  letter-spacing: .12em;
-  color: rgba(26,48,64,.22);
+
+.alt3d-info-modal-card p {
+  margin: 0 0 12px;
+  line-height: 1.7;
+  font-size: .88rem;
+  color: rgba(17, 40, 56, .84);
+}
+
+.alt3d-info-modal-close {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  border: 0;
+  background: transparent;
+  color: rgba(17, 40, 56, .66);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
 }
 
 /* Close button */
@@ -210,49 +535,189 @@
 
 /* Info card */
 .alt3d-info {
-  position: fixed; right: 32px; top: 50%;
-  width: 340px; background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 10px 44px rgba(0,0,0,.07), 0 1px 3px rgba(0,0,0,.03);
-  padding: 28px 26px 22px;
+  position: fixed; right: 26px; top: 50%;
+  width: min(390px, 35vw);
+  background: #f8f6f0;
+  border: 1px solid rgba(20, 40, 56, .10);
+  border-radius: 16px;
+  box-shadow: 0 16px 48px rgba(0,0,0,.18);
+  padding: 20px 20px 16px;
   z-index: 50;
   opacity: 0; pointer-events: none;
-  transform: translateY(-50%) translateX(46px);
+  transform: translateY(-50%) translateX(52px);
 }
 .alt3d-info.vis { pointer-events: auto; }
 
+.alt3d-info .ci-prestep {
+  border-left: 3px solid rgba(248, 175, 33, .9);
+  background: rgba(236, 245, 251, .65);
+  color: rgba(22, 41, 55, .84);
+  padding: 8px 9px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-size: .72rem;
+  line-height: 1.45;
+}
+
+.alt3d-info .ci-btn-about {
+  display: none;
+  border: 1px solid rgba(24, 52, 71, .22);
+  background: #f8f3e7;
+  color: #1a3a52;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: .56rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
 .alt3d-info .ci-num {
-  font-size: .52rem; font-weight: 700;
-  letter-spacing: .2em; text-transform: uppercase;
-  color: #F8AF21; margin-bottom: 5px;
+  font-size: .50rem; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: #c18a10; margin-bottom: 6px;
 }
 .alt3d-info .ci-name {
   font-family: 'DM Serif Display', serif;
-  font-size: 1.4rem; color: #1a2a2a;
-  line-height: 1.15; margin-bottom: 3px;
+  font-size: 1.58rem; color: #182933;
+  line-height: 1.12; margin-bottom: 2px;
 }
 .alt3d-info .ci-phase {
-  font-size: .6rem; font-weight: 600;
-  letter-spacing: .1em; text-transform: uppercase;
-  color: #5a9ab5; margin-bottom: 12px;
+  font-size: .62rem; font-weight: 700;
+  letter-spacing: .11em; text-transform: uppercase;
+  color: #3f88ad; margin-bottom: 11px;
 }
 .alt3d-info .ci-dur {
-  display: inline-block; font-size: .48rem;
+  display: inline-block; font-size: .50rem;
   font-weight: 700; letter-spacing: .14em;
   text-transform: uppercase;
-  background: #eef6fa; color: rgba(26,48,64,.4);
+  background: #e5ecef; color: rgba(23,46,59,.56);
   padding: 4px 11px; border-radius: 4px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .alt3d-info .ci-desc {
-  font-size: .82rem; font-weight: 300;
-  line-height: 1.85; color: rgba(26,26,26,.5);
-  margin-bottom: 18px;
+  font-size: .82rem; font-weight: 400;
+  line-height: 1.72; color: rgba(22,33,40,.78);
+  margin-bottom: 12px;
+  max-height: min(52vh, 430px);
+  overflow-y: auto;
+  padding: 4px 6px 2px 0;
+}
+
+.alt3d-info .ci-desc::-webkit-scrollbar {
+  width: 5px;
+}
+
+.alt3d-info .ci-desc::-webkit-scrollbar-track {
+  background: rgba(12, 33, 48, .08);
+  border-radius: 999px;
+}
+
+.alt3d-info .ci-desc::-webkit-scrollbar-thumb {
+  background: rgba(23, 51, 70, .35);
+  border-radius: 999px;
+}
+
+.alt3d-info .ci-desc p {
+  margin: 0 0 10px;
+}
+
+.alt3d-info .ci-desc .ci-overview {
+  color: rgba(26, 26, 26, .62);
+}
+
+.alt3d-info .ci-desc .ci-awareness {
+  border-left: 3px solid rgba(248, 175, 33, .75);
+  padding-left: 10px;
+  color: rgba(26, 48, 64, .68);
+}
+
+.alt3d-info .ci-desc .ci-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.alt3d-step-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 116;
+  background: rgba(10, 31, 44, .5);
+  display: grid;
+  place-items: end center;
+  padding: 0;
+}
+
+.alt3d-step-modal-card {
+  width: min(100%, 560px);
+  max-height: 72vh;
+  overflow-y: auto;
+  border-radius: 16px 16px 0 0;
+  background: #f8f6f0;
+  border: 1px solid rgba(18, 39, 54, .12);
+  padding: 16px 14px 14px;
+  position: relative;
+}
+
+.alt3d-step-modal-card::-webkit-scrollbar {
+  width: 5px;
+}
+
+.alt3d-step-modal-card::-webkit-scrollbar-thumb {
+  background: rgba(22, 46, 62, .35);
+  border-radius: 999px;
+}
+
+.alt3d-step-modal-close {
+  position: absolute;
+  right: 8px;
+  top: 4px;
+  border: 0;
+  background: transparent;
+  color: rgba(23, 43, 57, .65);
+  font-size: 1.7rem;
+}
+
+.alt3d-info .ci-desc .ci-list li {
+  position: relative;
+  margin: 0 0 6px;
+  padding-left: 14px;
+}
+
+.alt3d-info .ci-desc .ci-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .7em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #F8AF21;
+}
+
+.alt3d-info .ci-desc .ci-impact {
+  margin-top: 12px;
+  color: rgba(26, 48, 64, .86);
+  font-style: italic;
 }
 .alt3d-info .ci-nav {
-  display: flex; gap: 7px; align-items: center;
-  padding-top: 12px;
+  display: flex; gap: 8px; align-items: center;
+  padding-top: 11px;
   border-top: 1px solid rgba(0,0,0,.05);
+}
+
+/* Hide scene HUD while user is scrolled to the section below the 3D viewport */
+.alt3d-overlay.is-below-scene .alt3d-info,
+.alt3d-overlay.is-below-scene .alt3d-labels,
+.alt3d-overlay.is-below-scene .alt3d-dots,
+.alt3d-overlay.is-below-scene .alt3d-hint,
+.alt3d-overlay.is-below-scene .alt3d-mini-info-wrap,
+.alt3d-overlay.is-below-scene .alt3d-mentors-btn,
+.alt3d-overlay.is-below-scene .alt3d-program-chip,
+.alt3d-overlay.is-below-scene .alt3d-close {
+  opacity: 0;
+  pointer-events: none;
 }
 .alt3d-info .ci-nav button {
   font-family: 'DM Sans', sans-serif;
@@ -263,17 +728,171 @@
   transition: all .2s;
 }
 .alt3d-info .ci-btn-main {
-  background: #1a3040; color: #eef6fa;
+  background: #183447; color: #eef6fa;
 }
 .alt3d-info .ci-btn-main:hover { background: #2a4050; }
 .alt3d-info .ci-btn-main:disabled {
   background: #ddd; color: #aaa; cursor: not-allowed;
 }
 .alt3d-info .ci-btn-close {
-  background: transparent; color: rgba(26,26,26,.3);
+  background: transparent; color: rgba(26,26,26,.46);
   margin-left: auto;
 }
 .alt3d-info .ci-btn-close:hover { color: rgba(26,26,26,.6); }
+
+/* Mentors entry button */
+.alt3d-mentors-btn {
+  position: fixed;
+  left: 18px;
+  bottom: 24px;
+  z-index: 62;
+  border: 1px solid rgba(21, 42, 57, .22);
+  background: #f5f2e8;
+  color: #173446;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: .56rem;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.alt3d-mentors-btn-arrow {
+  font-size: .9rem;
+  line-height: 1;
+  color: #f0a400;
+}
+
+/* Mentors section style aligned with 3D scene look */
+.alt3d-mentors-overlay {
+  position: relative;
+  z-index: 30;
+  background: linear-gradient(180deg, #8ac2dc 0%, #bfe0ef 26%, #d5eee0 100%);
+  color: #17384c;
+  overflow-y: auto;
+  min-height: 100vh;
+  margin-top: 0;
+  padding: 28px 24px 30px;
+}
+
+.alt3d-mentors-overlay::-webkit-scrollbar {
+  width: 6px;
+}
+
+.alt3d-mentors-overlay::-webkit-scrollbar-thumb {
+  background: rgba(20, 57, 79, .33);
+  border-radius: 999px;
+}
+
+.alt3d-mentors-close {
+  position: sticky;
+  right: 0;
+  top: 0;
+  border: 1px solid rgba(15, 49, 69, .22);
+  background: #f6f3e9;
+  color: #18384f;
+  font-size: .58rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  border-radius: 999px;
+  padding: 7px 10px;
+  cursor: pointer;
+  float: right;
+  margin-bottom: 8px;
+}
+
+.alt3d-mentors-inner {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.alt3d-mentors-kicker {
+  margin: 0 0 8px;
+  font-size: .62rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(23, 59, 80, .72);
+}
+
+.alt3d-mentors-inner h2 {
+  margin: 0 0 18px;
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.7rem, 5vw, 2.6rem);
+  line-height: 1.08;
+}
+
+.alt3d-mentors-block {
+  margin-top: 16px;
+}
+
+.alt3d-mentors-block h3 {
+  margin: 0 0 10px;
+  font-size: .82rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(20, 56, 76, .88);
+}
+
+.alt3d-mentor-grid,
+.alt3d-industry-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.alt3d-mentor-card {
+  background: #f7f3e8;
+  border: 1px solid rgba(19, 48, 66, .14);
+  border-radius: 10px;
+  padding: 12px 12px;
+}
+
+.alt3d-mentor-name {
+  margin: 0;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1rem;
+  color: #17374e;
+}
+
+.alt3d-mentor-role {
+  margin: 4px 0 0;
+  font-size: .67rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(22, 54, 73, .68);
+}
+
+.alt3d-industry-toggle {
+  border: 1px solid rgba(20, 51, 71, .2);
+  background: #f3eee0;
+  color: #15374d;
+  border-radius: 10px;
+  padding: 10px 12px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .64rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.alt3d-industry-toggle[aria-expanded='true'] .alt3d-industry-arrow {
+  transform: rotate(180deg);
+}
+
+.alt3d-industry-arrow {
+  transition: transform .24s ease;
+}
 
 /* Flag labels */
 .alt3d-labels { position: fixed; inset: 0; pointer-events: none; z-index: 15; }
@@ -308,7 +927,7 @@
 
 /* Hint text */
 .alt3d-hint {
-  position: fixed; bottom: 48px; left: 50%;
+  position: fixed; bottom: 70px; left: 50%;
   transform: translateX(-50%);
   font-size: .46rem; letter-spacing: .15em;
   text-transform: uppercase;
@@ -329,8 +948,8 @@
     right: auto;
     top: auto;
     bottom: max(12px, env(safe-area-inset-bottom));
-    width: min(92vw, 420px);
-    max-height: min(68vh, 520px);
+    width: min(94vw, 420px);
+    max-height: min(58vh, 460px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     transform: translateX(-50%) translateY(28px);
@@ -344,5 +963,47 @@
   .alt3d-close {
     top: 14px; right: 14px;
     width: 36px; height: 36px;
+  }
+
+  .alt3d-mini-info-wrap {
+    top: 12px;
+    left: 12px;
+  }
+
+  .alt3d-program-chip {
+    top: 12px;
+    left: 54px;
+    max-width: calc(100vw - 120px);
+    padding: 5px 8px;
+    gap: 7px;
+  }
+
+  .alt3d-program-chip-title {
+    font-size: .52rem;
+  }
+
+  .alt3d-program-chip-link {
+    font-size: .52rem;
+  }
+
+  .alt3d-mentors-btn {
+    left: 12px;
+    bottom: 12px;
+    font-size: .5rem;
+    padding: 7px 9px;
+    letter-spacing: .08em;
+  }
+
+  .alt3d-info .ci-desc {
+    display: none;
+  }
+
+  .alt3d-info .ci-btn-about {
+    display: inline-block;
+  }
+
+  .alt3d-info .ci-prestep {
+    font-size: .66rem;
+    line-height: 1.38;
   }
 }

@@ -16,6 +16,17 @@ const closeBtn  = document.getElementById('alt3dClose');
 const infoCard  = document.getElementById('alt3dInfo');
 const lblCont   = document.getElementById('alt3dLabels');
 const hintEl    = document.getElementById('alt3dHint');
+const miniInfoBtn = document.getElementById('alt3dInfoBtn');
+const infoModal = document.getElementById('alt3dInfoModal');
+const infoModalClose = document.getElementById('alt3dInfoModalClose');
+const stepAboutBtn = document.getElementById('ciBtnAboutStep');
+const stepModal = document.getElementById('alt3dStepModal');
+const stepModalClose = document.getElementById('alt3dStepModalClose');
+const ciStepNum = document.getElementById('ciStepNum');
+const ciStepName = document.getElementById('ciStepName');
+const ciStepPhase = document.getElementById('ciStepPhase');
+const ciStepDur = document.getElementById('ciStepDur');
+const ciStepDesc = document.getElementById('ciStepDesc');
 
 /* Info card fields */
 const ciNum   = document.getElementById('ciNum');
@@ -38,6 +49,7 @@ let sceneReady = false;
 let active = -1, zoomed = false;
 let R, scene, cam, oc, G;
 const pinHits = [], flags = [];
+let isClosingOverlay = false;
 
 /* Hero state — module scope so zoomToFlag / overviewCamera can access */
 let hero, heroStage = -1, heroAnimState = 'idle', heroAnimTime = 0;
@@ -45,24 +57,67 @@ let stageCams = [];
 let hStick, hMapMesh, heroFlagGroup;
 let confettiGroup = null, confettiParts = [];
 let trailCurve = null;
-const stageTValues = [0.04, 0.24, 0.77, 1.0]; /* t on trailCurve for each stage */
-let heroTrailT = stageTValues[0];
+let cloudMatRef = null;
+let summitFlagGroup = null;
+let summitFlagPlanted = false;
+const AWARENESS_INDEX = 0;
+const TRAILHEAD_INDEX = 1;
+const BASECAMP_INDEX = 2;
+const ASCENT_INDEX = 3;
+const SUMMIT_INDEX = 4;
+const stageTValues = [0.02, 0.20, 0.44, 0.70, 0.94]; /* includes Stage 00 before Step 1 */
+let heroTrailT = stageTValues[AWARENESS_INDEX];
+let heroWalkTween = null;
+
+const MAIN_PEAK_CENTER = new THREE.Vector3(0.3, 0, -1.5);
 
 /* -- Stage data -- */
 const S = [
+  { id:'00', n:'Awareness Caravan', p:'Program Entry', d:'Before Month 1',
+    x:'The program begins with an Awareness Caravan, which identifies potential startups and introduces innovators to the opportunities within ASOG TBI. Selected teams then proceed to the formal incubation stages.',
+    m:[
+      'Identifying potential startups and founder teams',
+      'Introducing innovators to ASOG TBI opportunities',
+      'Selecting teams for formal incubation stages'
+    ],
+    pos: null },
   { id:'01', n:'Trailhead', p:'Pre-Incubation', d:'Month 1',
-    x:'The starting point. Teams undergo orientation, needs assessment, and initial mentoring to prepare for the climb ahead.',
+    x:'The Trailhead stage focuses on refining the startup concept and validating whether the identified problem is worth solving. Founders work closely with mentors and industry validators to ensure that their proposed solution addresses real market needs within the food and agri-tech value chain.',
+    m:[
+      'Clarifying the target problem and user segment',
+      "Validating the startup's problem-solution fit",
+      'Refining the initial concept through expert feedback'
+    ],
     pos: null },
   { id:'02', n:'Basecamp', p:'Incubation Phase', d:'Months 2-4',
-    x:'Deep work begins. Startups access labs, receive technical mentorship, develop prototypes, and validate their business models.',
+    x:"During the Basecamp stage, startups begin building and testing their solutions. Founders develop minimum viable products (MVPs), validate product features with early adopters, and shape both the technical and business foundations of the venture.",
+    m:[
+      'Building and testing MVP prototypes',
+      "Developing the startup's business model",
+      'Preparing for market entry and early partnerships',
+      'Planning customer acquisition strategies within the agri and food ecosystem'
+    ],
     pos: null },
-  { id:'03', n:'Ascent', p:'Post-Incubation', d:'Months 5-6',
-    x:'Scaling up. Teams refine products, connect with investors, and prepare for market entry with continued support.',
+  { id:'03', n:'Ascent', p:'Post-Validation', d:'Months 5-6',
+    x:'At this stage, startups prepare for investment and funding opportunities. Teams develop the documentation and presentation materials necessary to approach investors, grant providers, and funding institutions.',
+    m:[
+      'Developing investor-ready pitch decks',
+      'Preparing funding proposals and business documentation',
+      'Connecting with potential agri investors and angel networks'
+    ],
     pos: null },
-  { id:'04', n:'Summit', p:'Graduation & Beyond', d:'Post-Program',
-    x:'The peak. Startups graduate as market-ready ventures, joining the ASOG-TBI alumni network with ongoing advisory access.',
+  { id:'04', n:'Summit Launch', p:'Post-Incubation', d:'Beyond Month 6',
+    x:'The Summit Launch stage supports startups as they transition from early validation to long-term growth. Startups receive continued strategic support as they scale operations and expand partnerships.',
+    m:[
+      'Developing long-term scaling strategies',
+      'Strengthening partnerships and market networks',
+      'Connecting with venture builders and ecosystem partners'
+    ],
     pos: null },
 ];
+
+const ALTITUDE_OVERVIEW = 'ALTITUDE - Advancing Local Technology and Innovation through Transformative Upskilling, Development, and Entrepreneurship - is the official incubation program of the ASOG Technology Business Incubator.';
+const ALTITUDE_AWARENESS = 'Awareness Caravan: The program begins with an Awareness Caravan, which identifies potential startups and introduces innovators to the opportunities within ASOG TBI. Selected teams then proceed to the formal incubation stages.';
 
 /* =============================================================
    WILDERNESS-ZOOM TRANSITION
@@ -89,6 +144,9 @@ function spawnParticles() {
 }
 
 function openWildernessZoom() {
+  if (zoomOvl.classList.contains('active') || overlay.classList.contains('active') || isClosingOverlay) {
+    return;
+  }
   document.body.style.overflow = 'hidden';
   zoomOvl.classList.add('active');
   const tl = gsap.timeline();
@@ -100,24 +158,87 @@ function openWildernessZoom() {
     .to(zoomText, { opacity: 1, y: 0, duration: .45, ease: 'power2.out' }, '-=.4')
     .call(() => {
       if (!sceneReady) initScene();
+      overlay.scrollTop = 0;
       overlay.classList.add('active');
+      if (overlay.requestFullscreen) {
+        overlay.requestFullscreen().catch(() => {});
+      }
     }, [], '+=.3')
     .to(overlay, { opacity: 1, duration: .5, ease: 'power2.inOut' }, '+=.02')
     .to(zoomOvl, { opacity: 0, duration: .35, ease: 'power2.in' }, '-=.25')
     .call(() => {
       zoomOvl.classList.remove('active');
       zoomText.style.opacity = 0;
+      if (overlay.classList.contains('active')) {
+        zoomed = false;
+        active = -1;
+        overlay.classList.remove('zoomed');
+        if (oc) {
+          oc.enabled = true;
+          oc.target.copy(OVT);
+          oc.update();
+        }
+        if (cam) cam.position.copy(OVP);
+        hideInfoCard();
+        hideMiniInfo();
+        closeStepModal();
+      }
     });
 }
 
 function closeOverlay() {
+  if (isClosingOverlay) return;
+  isClosingOverlay = true;
+  hideMiniInfo();
+  closeStepModal();
   if (zoomed) overviewCamera();
   const tl = gsap.timeline();
   tl.to(overlay, { opacity: 0, duration: .45, ease: 'power2.in' })
     .call(() => {
       overlay.classList.remove('active');
       document.body.style.overflow = '';
+      if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      }
+      isClosingOverlay = false;
     });
+}
+
+function hideMiniInfo() {
+  if (!infoModal || !miniInfoBtn) return;
+  infoModal.hidden = true;
+  miniInfoBtn.setAttribute('aria-expanded', 'false');
+}
+
+function showMiniInfo() {
+  if (!infoModal || !miniInfoBtn) return;
+  infoModal.hidden = false;
+  miniInfoBtn.setAttribute('aria-expanded', 'true');
+}
+
+function closeStepModal() {
+  if (!stepModal) return;
+  stepModal.hidden = true;
+}
+
+function openStepModal(i) {
+  if (!stepModal || !ciStepDesc) return;
+  const s = S[i];
+  if (!s) return;
+  ciStepNum.textContent = 'Stage ' + s.id;
+  ciStepName.textContent = s.n;
+  ciStepPhase.textContent = s.p;
+  ciStepDur.textContent = s.d;
+  const milestones = Array.isArray(s.m)
+    ? `<ul class="ci-list">${s.m.map(item => `<li>${item}</li>`).join('')}</ul>`
+    : '';
+  ciStepDesc.innerHTML = `<p>${s.x}</p>${milestones}${i === SUMMIT_INDEX ? '<p class="ci-impact">Through the ALTITUDE Program, ASOG TBI gives startups a clear pathway from idea to impact.</p>' : ''}`;
+  stepModal.hidden = false;
+}
+
+function setCloudOpacity(target, duration = 0.35) {
+  if (!cloudMatRef) return;
+  gsap.to(cloudMatRef, { opacity: target, duration, ease: 'power2.out' });
 }
 
 if (card) {
@@ -126,6 +247,36 @@ if (card) {
 }
 if (closeBtn) closeBtn.addEventListener('click', closeOverlay);
 
+if (miniInfoBtn && infoModal) {
+  miniInfoBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (infoModal.hidden) showMiniInfo(); else hideMiniInfo();
+  });
+}
+if (infoModalClose) infoModalClose.addEventListener('click', hideMiniInfo);
+if (infoModal) {
+  infoModal.addEventListener('click', (e) => {
+    if (e.target === infoModal) hideMiniInfo();
+  });
+}
+if (stepAboutBtn) {
+  stepAboutBtn.addEventListener('click', () => {
+    if (active < 0) return;
+    openStepModal(active);
+  });
+}
+if (stepModalClose) stepModalClose.addEventListener('click', closeStepModal);
+if (stepModal) {
+  stepModal.addEventListener('click', (e) => {
+    if (e.target === stepModal) closeStepModal();
+  });
+}
+
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement && overlay.classList.contains('active')) {
+    closeOverlay();
+  }
+});
 
 /* =============================================================
    THREE.JS SCENE — Cartoonish grassland mountain
@@ -155,7 +306,9 @@ function initScene() {
 
   oc = new OrbitControls(cam, cv);
   oc.enableDamping = true; oc.dampingFactor = 0.06;
+  oc.enablePan = false;
   oc.minDistance = 5; oc.maxDistance = 22;
+  oc.minPolarAngle = 0.28;
   oc.maxPolarAngle = Math.PI / 2.1;
   oc.target.set(0, 2.0, 0); oc.update();
 
@@ -334,203 +487,102 @@ function initScene() {
     return maxH;
   }
 
-  /* ====== DIRT TRAIL — hiking path ON mountain surface ====== */
-  /* Lower y values = terrainY(x,z)+0.06 to sit on hills.
-     Upper points computed on pk1 LatheGeometry: at height y,
-     surface radius r = 3.5 * pow(1-y/7, 0.7). Trail placed at
-     that radius from pk1 center (0.3, -1.5), with +0.05 y offset. */
-  const trailPts = [
-    new THREE.Vector3( 5.8,  0.50,  5.8),   // inside base edge
-    new THREE.Vector3( 5.0,  0.92,  5.5),   // trailhead — on h1 surface
-    new THREE.Vector3( 3.8,  1.10,  5.2),   // gentle rise
-    new THREE.Vector3( 2.4,  1.28,  4.8),   // on h1
-    new THREE.Vector3( 1.0,  1.40,  4.4),   // across front — h1 crest
-    new THREE.Vector3(-0.5,  1.42,  3.8),   // heading left
-    new THREE.Vector3(-1.9,  1.40,  3.72),  // approaching basecamp
-    new THREE.Vector3(-2.74, 1.43,  3.66),  // basecamp lead-in
-    new THREE.Vector3(-3.04, 1.48,  3.44),  // basecamp marker zone (before the turn)
-    /* Refined, gentler turn from stage 2 into the circular mountain climb */
-    new THREE.Vector3(-3.18, 1.55,  3.08),
-    new THREE.Vector3(-3.15, 1.62,  2.70),
-    new THREE.Vector3(-3.00, 1.70,  2.33),
-    new THREE.Vector3(-2.74, 1.79,  1.99),
-    new THREE.Vector3(-2.37, 1.88,  1.70),
-    new THREE.Vector3(-1.94, 1.96,  1.45),
-    new THREE.Vector3(-1.47, 2.03,  1.23),
-    new THREE.Vector3(-0.98, 2.09,  1.06),
-    new THREE.Vector3(-0.52, 2.13,  0.94),
-    new THREE.Vector3(-0.12, 2.16,  0.86),  // cleaner hand-off to circular staircase
+  /* ====== PROCEDURAL MOUNTAIN TRAIL — contour-safe spiral ====== */
+  const trailPts = [];
+  const peakCx = 0.3;
+  const peakCz = -1.5;
+  const peakBaseR = 3.5;
+  const peakH = 7.0;
+
+  function peakSurfaceRadiusAtY(y) {
+    const ny = Math.max(0, Math.min(1, 1 - (y / peakH)));
+    return peakBaseR * Math.pow(ny, 0.7);
+  }
+
+  /* Entry approach before spiral wraps around the mountain. */
+  const entryPts = [
+    new THREE.Vector3(5.05, 0.94, 5.30),
+    new THREE.Vector3(4.55, 1.02, 4.52),
+    new THREE.Vector3(4.05, 1.08, 3.70),
+    new THREE.Vector3(3.55, 1.14, 2.92),
   ];
+  entryPts.forEach((p) => trailPts.push(p));
 
-  /* Stair-like mountain climb — spiral wrap around the main peak.
-     Uses 0.62 turns (< 1 full revolution) so the path never crosses
-     itself — keeps the visible trail clean and uncrumpled. */
-  {
-    const cx = 0.3, cz = -1.5, bR = 3.5, H = 7.0;
-    const start = trailPts[trailPts.length - 1];
-    const startAng = Math.atan2(start.z - cz, start.x - cx);
-    const stepCount = 36;      /* denser points for cleaner spiral interpolation */
-    const turns = 0.82;        /* clearer circular ascent without crossing */
-    const startY = 2.05;
-    const endY = 6.95;
+  /* Spiral segment: always projected outside mountain profile. */
+  const spiralStart = entryPts[entryPts.length - 1];
+  const startAng = Math.atan2(spiralStart.z - peakCz, spiralStart.x - peakCx);
+  const turns = 1.52;
+  const spiralCount = 52;
+  const yStart = 1.18;
+  const yEnd = 7.16;
 
-    for (let i = 0; i < stepCount; i++) {
-      const t = i / (stepCount - 1);
-      const e = t * t * (3 - 2 * t); /* smoothstep for cleaner curvature */
-      const ang = startAng + e * Math.PI * 2 * turns;
-      const y = startY + (endY - startY) * e;
-      const surfaceR = bR * Math.pow(Math.max(1 - y / H, 0), 0.7);
-      /* Keep radius comfortably outside mountain — minimum 0.48 avoids
-         compression near the summit that made the path look crumpled. */
-      const r = Math.max(0.62, surfaceR + 0.84 - 0.16 * e);
-      const x = cx + Math.cos(ang) * r;
-      const z = cz + Math.sin(ang) * r;
-
-      trailPts.push(new THREE.Vector3(
-        x,
-        y,
-        z
-      ));
-    }
-
-    /* Final summit point (kept to preserve existing summit flag placement logic) */
-    trailPts.push(new THREE.Vector3(0.30, 7.05, -1.50));
+  for (let i = 0; i < spiralCount; i++) {
+    const t = i / (spiralCount - 1);
+    const ease = t * t * (3 - 2 * t);
+    const y = yStart + (yEnd - yStart) * ease;
+    const surfaceR = peakSurfaceRadiusAtY(y);
+    const clearance = 1.08 + (1 - ease) * 0.18;
+    const r = Math.max(surfaceR + clearance, 1.02);
+    const ang = startAng + (Math.PI * 2 * turns * ease);
+    const x = peakCx + Math.cos(ang) * r;
+    const z = peakCz + Math.sin(ang) * r;
+    trailPts.push(new THREE.Vector3(x, y, z));
   }
 
-  /* ── Project trail points OUTSIDE pk1 mountain surface ──
-     The LatheGeometry peak at (0.3, 0, -1.5) with baseR=3.5, height=7
-     has surface radius r(y) = 3.5 * pow(1-y/7, 0.7). Many upper trail
-     control points sit INSIDE that surface, so the rendered mountain
-     hides the path. We push each offending point radially outward until
-     it is POP units beyond the surface.                                  */
-  {
-    const cx = 0.3, cz = -1.5, bR = 3.5, H = 7.0, POP = 0.65;
-    trailPts.forEach(p => {
-      if (p.y < 1.5) return;                        // lower trail is on hills
-      const dx = p.x - cx, dz = p.z - cz;
-      const d  = Math.sqrt(dx * dx + dz * dz);
-      if (d < 0.05) return;                         // summit tip — skip
-      const sr = bR * Math.pow(Math.max(1 - p.y / H, 0), 0.7);
-      const need = sr + POP;
-      if (d < need) {
-        const s = need / d;
-        p.x = cx + dx * s;
-        p.z = cz + dz * s;
-      }
-    });
-  }
+  trailCurve = new THREE.CatmullRomCurve3(trailPts, false, 'centripetal', 0.24);
 
-  trailCurve = new THREE.CatmullRomCurve3(trailPts, false, 'centripetal', 0.28);
-
-  /* ====== DIRT TRAIL SURFACE — thin ribbon that hugs terrain ====== */
-  /* Only the top face is generated (no side walls). The surface sits
-     just above the mountain geometry so it reads as a packed-dirt path
-     rather than a raised boardwalk. */
-  const TRAIL_HW = 0.36;   /* half-width of trail */
-  const TRAIL_H  = 0.02;   /* very thin — no visible walls */
-  const TRAIL_LIFT = 0.14;  /* raised well above mountain surface */
-  const TRAIL_SEGS = 400;
-  const STAIR_START_T = 0.58;
-  const _up = new THREE.Vector3(0, 1, 0); /* shared up vector */
-
-  /* pk1 surface projection helper — pushes any XZ point outside pk1 */
-  const _pk1cx = 0.3, _pk1cz = -1.5, _pk1bR = 3.5, _pk1H = 7.0, _pk1POP = 0.65;
-  function projectOutsidePk1(x, y, z) {
-    if (y < 1.2) return { x, z };  /* lower trail sits on hills, skip */
-    const dx = x - _pk1cx, dz = z - _pk1cz;
-    const d  = Math.sqrt(dx * dx + dz * dz);
-    if (d < 0.05) return { x, z }; /* summit tip */
-    const sr = _pk1bR * Math.pow(Math.max(1 - y / _pk1H, 0), 0.7);
-    const need = sr + _pk1POP;
-    if (d < need) {
-      const s = need / d;
-      return { x: _pk1cx + dx * s, z: _pk1cz + dz * s };
-    }
-    return { x, z };
-  }
-
-  function buildTrailSurface(curve, segs, hw, lift, mat) {
-    const verts = [], uvs = [], idxs = [];
-    /* Ribbon — 2 verts per ring, project EVERY vertex outside pk1 */
-    for (let i = 0; i <= segs; i++) {
-      const t = i / segs;
-      const pt = curve.getPoint(t);
-      const tang = curve.getTangent(t);
-      const side = new THREE.Vector3().crossVectors(tang, _up).normalize();
-      const y = pt.y + lift;
-      /* Left and right edge vertices */
-      let lx = pt.x + side.x * -hw, lz = pt.z + side.z * -hw;
-      let rx = pt.x + side.x *  hw, rz = pt.z + side.z *  hw;
-      /* Project both vertices outside pk1 mountain surface */
-      const projL = projectOutsidePk1(lx, y, lz);
-      const projR = projectOutsidePk1(rx, y, rz);
-      verts.push(projL.x, y, projL.z, projR.x, y, projR.z);
-      uvs.push(0, t, 1, t);
-      if (i < segs) {
-        const a = i * 2;
-        idxs.push(a, a+2, a+1,  a+1, a+2, a+3);
-      }
-    }
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
-    geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
-    geo.setIndex(idxs);
-    geo.computeVertexNormals();
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.receiveShadow = true;
-    return mesh;
-  }
-
-  /* Trail surface material — warm sandy dirt, aggressive polygonOffset to beat mountain z-fight */
-  const mTrailSlab = new THREE.MeshStandardMaterial({
-    color: 0xb79f6f, roughness: 0.94, side: THREE.DoubleSide,
-    polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4
+  /* Curve mesh base: keeps a single clean continuous trail body. */
+  const mTrailTube = new THREE.MeshStandardMaterial({
+    color: 0x8f836f,
+    roughness: 0.95,
+    metalness: 0.02
   });
-  /* Darker border material — subtle edge tint */
-  const mTrailBorder = new THREE.MeshStandardMaterial({
-    color: 0x8f7b4f, roughness: 0.96, side: THREE.DoubleSide,
-    polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3
-  });
+  const trailTube = new THREE.Mesh(
+    new THREE.TubeGeometry(trailCurve, 180, 0.18, 6, false),
+    mTrailTube
+  );
+  trailTube.scale.y = 0.34;
+  trailTube.position.y += 0.06;
+  trailTube.castShadow = true;
+  trailTube.receiveShadow = true;
+  G.add(trailTube);
 
-  /* Outer border — slightly wider, sits just below main surface */
-  const trailBorder = buildTrailSurface(trailCurve, Math.floor(TRAIL_SEGS * STAIR_START_T), TRAIL_HW + 0.12, TRAIL_LIFT - 0.005, mTrailBorder);
-  trailBorder.renderOrder = 10;
-  G.add(trailBorder);
+  /* Stone slabs: spaced platforms that follow curve direction and slope. */
+  const mStepStone = new THREE.MeshStandardMaterial({ color: 0xb7aa94, roughness: 0.93, metalness: 0.03 });
+  const slabGeo = new THREE.BoxGeometry(0.78, 0.10, 0.48);
+  const lookTarget = new THREE.Vector3();
+  const trailNormalUp = new THREE.Vector3(0, 1, 0);
+  const slabCount = 92;
+  for (let i = 0; i < slabCount; i++) {
+    const t = 0.02 + (i / (slabCount - 1)) * 0.95;
+    const pt = trailCurve.getPointAt(t);
+    const tang = trailCurve.getTangentAt(t).normalize();
+    const slab = new THREE.Mesh(slabGeo, mStepStone);
+    slab.position.copy(pt);
+    slab.position.y += 0.11 + ((i % 2) ? 0.008 : -0.004);
+    lookTarget.copy(pt).add(tang);
+    slab.lookAt(lookTarget);
+    slab.rotateY(Math.PI);
+    slab.rotation.z += Math.sin(i * 0.55) * 0.03;
+    slab.rotation.x += Math.cos(i * 0.33) * 0.02;
+    slab.scale.x = 0.9 + ((i % 5) * 0.03);
+    slab.scale.z = 0.92 + (((i + 2) % 4) * 0.02);
+    slab.castShadow = true;
+    slab.receiveShadow = true;
+    G.add(slab);
 
-  /* Main trail surface — dirt-coloured walkable path */
-  const trailSlab = buildTrailSurface(trailCurve, Math.floor(TRAIL_SEGS * STAIR_START_T), TRAIL_HW, TRAIL_LIFT, mTrailSlab);
-  trailSlab.renderOrder = 11;
-  G.add(trailSlab);
-
-  /* Stone staircase for upper climb — no railings, integrated with terrain */
-  const mStepStone = new THREE.MeshStandardMaterial({ color: 0x8f836f, roughness: 0.94, metalness: 0.02 });
-  const upVec = new THREE.Vector3(0, 1, 0);
-  const stairCount = 34;
-  for (let i = 0; i < stairCount; i++) {
-    const t = STAIR_START_T + ((i + 0.5) / stairCount) * (1 - STAIR_START_T);
-    const pt = trailCurve.getPoint(t);
-    const tang = trailCurve.getTangent(t).normalize();
-    const yaw = Math.atan2(tang.x, tang.z);
-
-    const w = 0.95 - 0.20 * (i / stairCount);
-    const d = 0.42;
-    const h = 0.11;
-    const step = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mStepStone);
-    step.position.set(pt.x, pt.y + 0.06, pt.z);
-    step.rotation.y = yaw;
-    step.castShadow = true;
-    step.receiveShadow = true;
-    G.add(step);
-
-    /* Tiny side chips so steps feel terrain-carved, not floating blocks */
-    if (i % 2 === 0) {
-      const side = new THREE.Vector3().crossVectors(tang, upVec).normalize();
-      for (const s of [-1, 1]) {
-        const chip = new THREE.Mesh(new THREE.DodecahedronGeometry(0.035 + Math.random() * 0.02, 0), mRockD);
+    /* Tiny side stones keep the low-poly handcrafted path feel. */
+    if (i % 6 === 0) {
+      const side = new THREE.Vector3().crossVectors(tang, trailNormalUp).normalize();
+      for (const sgn of [-1, 1]) {
+        const chip = new THREE.Mesh(
+          new THREE.DodecahedronGeometry(0.03 + Math.random() * 0.02, 0),
+          mRockD
+        );
         chip.position.set(
-          pt.x + side.x * (w * 0.5 + 0.04) * s,
-          pt.y + 0.035,
-          pt.z + side.z * (w * 0.5 + 0.04) * s
+          pt.x + side.x * (0.42 + Math.random() * 0.1) * sgn,
+          pt.y + 0.06,
+          pt.z + side.z * (0.42 + Math.random() * 0.1) * sgn
         );
         chip.castShadow = true;
         chip.receiveShadow = true;
@@ -539,91 +591,110 @@ function initScene() {
     }
   }
 
-  /* Edge stones — sparse small pebbles along trail for definition */
-  const mEdgeStone = new THREE.MeshStandardMaterial({ color: 0x9a8a6a, roughness: 0.95 });
-  for (let t = 0.06; t < STAIR_START_T; t += 0.035) {
-    /* Only place stones on the lower/middle trail, not upper switchbacks */
-    const pt = trailCurve.getPoint(t);
-    const tang = trailCurve.getTangent(t);
-    const perp = new THREE.Vector3().crossVectors(tang, _up).normalize();
-    for (const sd of [-1, 1]) {
-      if (Math.random() > 0.72) continue; /* very sparse for clearer path */
-      const stone = new THREE.Mesh(
-        new THREE.DodecahedronGeometry(0.03 + Math.random() * 0.03, 0), mEdgeStone);
-      stone.position.set(
-        pt.x + perp.x * (TRAIL_HW + 0.08) * sd,
-        pt.y + TRAIL_LIFT + 0.01,
-        pt.z + perp.z * (TRAIL_HW + 0.08) * sd
-      );
-      stone.rotation.set(Math.random() * 2, Math.random() * 2, 0);
-      stone.receiveShadow = true;
-      G.add(stone);
+  /* ====== STAGE POSITIONS + PLATFORMS ====== */
+  const platformRadius = 1.05;
+  const platformMat = new THREE.MeshStandardMaterial({ color: 0xaba08d, roughness: 0.9, metalness: 0.02 });
+  const platformEdgeMat = new THREE.MeshStandardMaterial({ color: 0x8f846f, roughness: 0.95 });
+  const checkpointYLift = [0.06, 0.12, 0.04, 0.20, 0.04];
+  const summitPos = new THREE.Vector3(0.30, 7.04, -1.50);
+
+  function addCheckpointPlatform(pos, yLift) {
+    const plate = new THREE.Mesh(new THREE.CylinderGeometry(platformRadius, platformRadius * 1.08, 0.16, 10), platformMat);
+    plate.position.copy(pos);
+    plate.position.y += yLift;
+    plate.castShadow = true;
+    plate.receiveShadow = true;
+    G.add(plate);
+
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(platformRadius * 0.92, 0.05, 8, 14), platformEdgeMat);
+    rim.position.copy(pos);
+    rim.position.y += yLift + 0.09;
+    rim.rotation.x = Math.PI / 2;
+    rim.receiveShadow = true;
+    G.add(rim);
+  }
+
+  S.forEach((s, i) => {
+    const p = (i === SUMMIT_INDEX)
+      ? summitPos.clone()
+      : trailCurve.getPointAt(stageTValues[i]).clone();
+
+    if (i === ASCENT_INDEX) {
+      /* Keep stage 3 click target clear of nearby mesh by nudging outward. */
+      const outward = new THREE.Vector3(p.x - peakCx, 0, p.z - peakCz);
+      if (outward.lengthSq() > 1e-6) {
+        outward.normalize();
+        p.x += outward.x * 0.52;
+        p.z += outward.z * 0.52;
+      }
+      p.y += 0.16;
     }
-  }
 
-  /* Footstep marks — subtle impressions on the trail surface */
-  const mFootprint = new THREE.MeshStandardMaterial({
-    color: 0x9a8050, roughness: 1.0, transparent: true, opacity: 0.35
+    s.pos = p;
+    addCheckpointPlatform(p, checkpointYLift[i]);
   });
-  const fpGeo = new THREE.CylinderGeometry(0.05, 0.06, 0.005, 6);
-  for (let t = 0.06; t < STAIR_START_T; t += 0.03) {
-    const pt = trailCurve.getPoint(t);
-    const tang = trailCurve.getTangent(t);
-    const sd = (Math.floor(t * 40) % 2 === 0) ? 1 : -1;
-    const perp = new THREE.Vector3().crossVectors(tang, _up).normalize();
-    const fp = new THREE.Mesh(fpGeo, mFootprint);
-    fp.position.set(
-      pt.x + perp.x * 0.10 * sd,
-      pt.y + TRAIL_LIFT + 0.005,
-      pt.z + perp.z * 0.10 * sd
-    );
-    fp.scale.set(0.8, 1, 1.4);
-    fp.rotation.y = Math.atan2(tang.x, tang.z);
-    fp.receiveShadow = true;
-    G.add(fp);
-  }
-
-  /* ====== STAGE POSITIONS — grounded on trail / peak surface ====== */
-  S[0].pos = trailCurve.getPoint(stageTValues[0]).clone();
-  S[1].pos = trailCurve.getPoint(stageTValues[1]).clone();
-  S[2].pos = trailCurve.getPoint(stageTValues[2]).clone();
-  S[3].pos = trailCurve.getPoint(stageTValues[3]).clone();
 
   /* ====== FLAGS — brown poles with red pennants (gold on summit) ====== */
   function mkFlag(pos, stageIdx) {
     const g = new THREE.Group();
-    const isSummit = stageIdx === 3;
-    const poleH = isSummit ? 1.4 : (stageIdx === 1 ? 0.82 : 1.0);
-    const flagMat = isSummit ? mGold : mRed;
+    const isAwareness = stageIdx === AWARENESS_INDEX;
+    const isSummit = stageIdx === SUMMIT_INDEX;
 
-    const pole = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.04, 0.06, poleH, 8), mTrunk);
-    pole.position.y = poleH / 2;
-    pole.castShadow = true; g.add(pole);
+    if (isAwareness) {
+      const markerMat = new THREE.MeshStandardMaterial({ color: 0xd8cfbe, roughness: 0.85, metalness: 0.03 });
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.28, 0.05, 8, 20), markerMat);
+      ring.rotation.x = Math.PI / 2;
+      ring.position.y = 0.18;
+      ring.castShadow = true;
+      ring.receiveShadow = true;
+      g.add(ring);
 
-    const ball = new THREE.Mesh(
-      new THREE.SphereGeometry(0.06, 10, 8), mTrunk);
-    ball.position.y = poleH + 0.03; g.add(ball);
+      const disc = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.06, 20), markerMat);
+      disc.position.y = 0.08;
+      disc.castShadow = true;
+      disc.receiveShadow = true;
+      g.add(disc);
+    } else {
+      const poleH = isSummit ? 1.4 : (stageIdx === BASECAMP_INDEX ? 0.82 : 1.0);
+      const flagMat = isSummit ? mGold : mRed;
 
-    const fs = new THREE.Shape();
-    fs.moveTo(0, 0);
-    fs.lineTo(0.42, 0.08);
-    fs.lineTo(0, 0.24);
-    fs.closePath();
-    const fl = new THREE.Mesh(new THREE.ShapeGeometry(fs), flagMat);
-    fl.position.set(0.04, poleH - 0.26, 0.015);
-    fl.castShadow = true;
-    g.add(fl);
-    flags.push(fl);
+      const pole = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.04, 0.06, poleH, 8), mTrunk);
+      pole.position.y = poleH / 2;
+      pole.castShadow = true; g.add(pole);
+
+      const ball = new THREE.Mesh(
+        new THREE.SphereGeometry(0.06, 10, 8), mTrunk);
+      ball.position.y = poleH + 0.03; g.add(ball);
+
+      const fs = new THREE.Shape();
+      fs.moveTo(0, 0);
+      fs.lineTo(0.42, 0.08);
+      fs.lineTo(0, 0.24);
+      fs.closePath();
+      const fl = new THREE.Mesh(new THREE.ShapeGeometry(fs), flagMat);
+      fl.position.set(0.04, poleH - 0.26, 0.015);
+      fl.castShadow = true;
+      g.add(fl);
+      flags.push(fl);
+    }
 
     g.position.copy(pos);
+    g.position.y += isAwareness ? 0.06 : 0.14;
+    if (isSummit) {
+      summitFlagGroup = g;
+      summitFlagGroup.visible = false;
+      summitFlagPlanted = false;
+    }
     G.add(g);
 
+    const hitRadius = stageIdx === ASCENT_INDEX ? 1.55 : (isAwareness ? 0.74 : 0.9);
+    const hitLift = stageIdx === ASCENT_INDEX ? 1.78 : (isAwareness ? 0.44 : 0.76);
     const ht = new THREE.Mesh(
-      new THREE.SphereGeometry(0.9, 8, 6),
+      new THREE.SphereGeometry(hitRadius, 10, 8),
       new THREE.MeshBasicMaterial({ visible: false })
     );
-    ht.position.copy(pos); ht.position.y += 0.6;
+    ht.position.copy(pos); ht.position.y += hitLift;
     G.add(ht); pinHits.push(ht);
   }
 
@@ -997,10 +1068,11 @@ function initScene() {
   heroFlagGroup.position.set(-0.25, 0, 0.15);
   hero.add(heroFlagGroup);
 
-  /* Start hero at trailhead — grounded on trail slab surface */
-  hero.position.copy(S[0].pos);
+  /* Start hero at stage 00 — grounded on trail slab surface */
+  const startPoint = trailCurve.getPointAt(stageTValues[AWARENESS_INDEX]);
+  hero.position.copy(startPoint);
   hero.position.y += 0.20;
-  heroTrailT = stageTValues[0];
+  heroTrailT = stageTValues[AWARENESS_INDEX];
   hero.scale.setScalar(1.3);
   G.add(hero);
 
@@ -1011,16 +1083,18 @@ function initScene() {
 
   /* Stage-specific camera angles — top-side-left perspective along trail */
   stageCams = [
-    { offset: new THREE.Vector3(-3.0, 2.5, 3.5), lookUp: 0.3 },  // trailhead: left-above
-    { offset: new THREE.Vector3(-2.5, 2.5, 3.5), lookUp: 0.3 },  // basecamp: left-above — adjusted for farther pos
-    { offset: new THREE.Vector3(-3.0, 3.0, 3.5), lookUp: 0.4 },  // ascent: left-above
-    { offset: new THREE.Vector3(-3.5, 3.5, 4.0), lookUp: 0.5 },  // summit: left-above panoramic
+    { dist: 4.7, y: 2.2, side: 0.45, lookUp: 0.24 },
+    { dist: 5.2, y: 2.6, side: 0.75, lookUp: 0.28 },
+    { dist: 5.9, y: 3.05, side: 0.95, lookUp: 0.34 },
+    { dist: 6.6, y: 3.55, side: 1.05, lookUp: 0.46 },
+    { dist: 6.1, y: 3.45, side: 0.88, lookUp: 0.52 },
   ];
 
   /* ====== CLOUDS — puffy cartoonish clouds ====== */
   const cloudMat = new THREE.MeshStandardMaterial({
     color: 0xffffff, roughness: 0.9, transparent: true, opacity: 0.85
   });
+  cloudMatRef = cloudMat;
   const clouds = [];
   function mkCloud(x, y, z, s) {
     const g = new THREE.Group();
@@ -1086,14 +1160,34 @@ function initScene() {
   /* Keyboard */
   document.addEventListener('keydown', e => {
     if (!overlay.classList.contains('active')) return;
-    if (e.key === 'Escape') { if (zoomed) overviewCamera(); else closeOverlay(); }
+    if (e.key === 'Escape') {
+      if (stepModal && !stepModal.hidden) {
+        closeStepModal();
+        return;
+      }
+      if (infoModal && !infoModal.hidden) {
+        hideMiniInfo();
+        return;
+      }
+      if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+        return;
+      }
+      if (zoomed) overviewCamera(); else closeOverlay();
+    }
     if (e.key === 'ArrowRight' && zoomed && active < S.length - 1) { hideInfoCard(); setTimeout(() => zoomToFlag(active + 1), 300); }
     if (e.key === 'ArrowLeft' && zoomed && active > 0) { hideInfoCard(); setTimeout(() => zoomToFlag(active - 1), 300); }
   });
 
   /* Navigation buttons */
   if (btnPrev) btnPrev.addEventListener('click', () => { if (active > 0) { hideInfoCard(); setTimeout(() => zoomToFlag(active - 1), 300); } });
-  if (btnNext) btnNext.addEventListener('click', () => { if (active < S.length - 1) { hideInfoCard(); setTimeout(() => zoomToFlag(active + 1), 300); } });
+  if (btnNext) btnNext.addEventListener('click', () => {
+    if (active < 0) return;
+    if (active < S.length - 1) {
+      hideInfoCard();
+      setTimeout(() => zoomToFlag(active + 1), 300);
+    }
+  });
   if (btnOvw) btnOvw.addEventListener('click', overviewCamera);
 
   /* Entrance animation */
@@ -1160,17 +1254,6 @@ function initScene() {
       /* Heavy breathing — bigger body swell */
       hBody.scale.y = 1.0 + Math.sin(et * 2.5) * 0.04;
       hBody.scale.x = 1.0 + Math.sin(et * 2.5) * 0.015;
-    } else if (heroAnimState === 'celebrating') {
-      /* Standing tall at summit with gentle fist-pump */
-      const jmp = Math.max(0, Math.sin(et * 4.0)) * 0.12;
-      hero.position.y = S[3].pos.y + 0.20 + jmp;
-      hArmL.rotation.z = 1.2 + Math.sin(et * 3.0) * 0.3;
-      hArmR.rotation.z = -1.2 - Math.sin(et * 3.0) * 0.3;
-      hArmL.rotation.x *= 0.9;
-      hArmR.rotation.x *= 0.9;
-      hLegL.rotation.x = Math.sin(et * 4.0) * 0.15;
-      hLegR.rotation.x = -Math.sin(et * 4.0) * 0.15;
-      hBody.scale.y = 1.0 + Math.sin(et * 2.0) * 0.02;
     }
 
     /* Cloud drift */
@@ -1197,6 +1280,7 @@ function initScene() {
     }
 
     oc.update();
+    if (cam.position.y < 0.85) cam.position.y = 0.85;
     updateLabels();
     R.render(scene, cam);
   })();
@@ -1252,6 +1336,10 @@ function clearConfetti() {
 function zoomToFlag(i) {
   gsap.killTweensOf(cam.position);
   gsap.killTweensOf(oc.target);
+  if (heroWalkTween) {
+    heroWalkTween.kill();
+    heroWalkTween = null;
+  }
   active = i; zoomed = true;
   overlay.classList.add('zoomed');
   oc.enabled = false;
@@ -1259,12 +1347,19 @@ function zoomToFlag(i) {
   const wp = new THREE.Vector3();
   pinHits[i].getWorldPosition(wp);
 
+  /* Keep summit cloud layer subtle so the top checkpoint is not obstructed. */
+  setCloudOpacity(i === SUMMIT_INDEX ? 0.22 : 0.85);
+
   /* Stage-specific camera positioning */
   const sc = stageCams[i];
+  const radial = new THREE.Vector3(wp.x - MAIN_PEAK_CENTER.x, 0, wp.z - MAIN_PEAK_CENTER.z);
+  if (radial.lengthSq() < 1e-6) radial.set(1, 0, 0);
+  radial.normalize();
+  const sideVec = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), radial).normalize();
   const cp = new THREE.Vector3(
-    wp.x + sc.offset.x,
-    wp.y + sc.offset.y,
-    wp.z + sc.offset.z
+    wp.x + radial.x * sc.dist + sideVec.x * sc.side,
+    wp.y + sc.y,
+    wp.z + radial.z * sc.dist + sideVec.z * sc.side
   );
   const lk = wp.clone(); lk.y += sc.lookUp;
 
@@ -1280,52 +1375,82 @@ function zoomToFlag(i) {
   clearConfetti();
 
   /* Animate hero walking ALONG the trail curve between stages */
-  let startT = Number.isFinite(heroTrailT) ? heroTrailT : stageTValues[0];
+  let startT = Number.isFinite(heroTrailT) ? heroTrailT : stageTValues[AWARENESS_INDEX];
   startT = Math.max(0, Math.min(1, startT));
   const endT = stageTValues[i];
   const walkObj = { t: startT };
   const stopPos = S[i].pos;
 
   heroAnimState = 'walking';
-  gsap.to(walkObj, {
+  heroWalkTween = gsap.to(walkObj, {
     t: endT, duration: 2.0, ease: 'power1.inOut',
     onUpdate() {
       if (!trailCurve) return;
-      const pt = trailCurve.getPoint(walkObj.t);
+      const pt = trailCurve.getPointAt(walkObj.t);
       hero.position.set(pt.x, pt.y + 0.20, pt.z);
       heroTrailT = walkObj.t;
       /* Face along trail tangent direction */
-      const tang = trailCurve.getTangent(walkObj.t);
-      const dir = endT > startT ? 1 : -1;
+      const tang = trailCurve.getTangentAt(walkObj.t);
+      const dir = endT >= startT ? 1 : -1;
       hero.rotation.y = Math.atan2(tang.x * dir, tang.z * dir);
     },
     onComplete() {
+      heroWalkTween = null;
       heroTrailT = endT;
       /* Exact stop at stage flag marker */
-      hero.position.set(stopPos.x, stopPos.y + 0.20, stopPos.z);
-      const endTang = trailCurve ? trailCurve.getTangent(endT) : null;
+      let finalX = stopPos.x;
+      let finalY = stopPos.y + 0.20;
+      let finalZ = stopPos.z;
+      const endTang = trailCurve ? trailCurve.getTangentAt(endT) : null;
+      if (i === SUMMIT_INDEX && endTang) {
+        /* Summit: stop beside centered flag, not on top of it. */
+        const side = new THREE.Vector3().crossVectors(endTang, new THREE.Vector3(0, 1, 0)).normalize();
+        finalX += side.x * 0.42;
+        finalZ += side.z * 0.42;
+      }
+      hero.position.set(finalX, finalY, finalZ);
       if (endTang) {
         const dir = endT >= startT ? 1 : -1;
         hero.rotation.y = Math.atan2(endTang.x * dir, endTang.z * dir);
       }
 
       /* Stage-specific idle animation */
-      if (i === 0) {
-        heroAnimState = 'idle'; // standing at trailhead
+      if (i === AWARENESS_INDEX) {
+        heroAnimState = 'idle';
+        hero.rotation.x = 0;
         hStick.visible = false;
-      } else if (i === 1) {
+      } else if (i === TRAILHEAD_INDEX) {
+        heroAnimState = 'idle'; // standing at trailhead
+        hero.rotation.x = 0;
+        hStick.visible = false;
+      } else if (i === BASECAMP_INDEX) {
         heroAnimState = 'looking'; // reading business plan at basecamp
+        hero.rotation.x = 0;
         hStick.visible = false;
         hMapMesh.visible = true;
-      } else if (i === 2) {
+      } else if (i === ASCENT_INDEX) {
         heroAnimState = 'climbing'; // tired, climbing
         hero.rotation.x = 0.15; // leaning forward
-      } else if (i === 3) {
-        heroAnimState = 'celebrating'; // jump + confetti at summit
+      } else if (i === SUMMIT_INDEX) {
+        heroAnimState = 'idle'; // summit plant and jump
+        hero.rotation.x = 0;
         hStick.visible = false;
         heroFlagGroup.visible = false;
-        /* Launch confetti celebration */
-        spawnConfetti(S[3].pos);
+        if (summitFlagGroup && !summitFlagPlanted) {
+          summitFlagGroup.visible = true;
+          summitFlagGroup.position.y -= 0.36;
+          gsap.to(summitFlagGroup.position, {
+            y: summitFlagGroup.position.y + 0.18,
+            duration: 0.65,
+            ease: 'power2.out'
+          });
+          summitFlagPlanted = true;
+        }
+        const baseY = finalY;
+        gsap.timeline()
+          .to(hero.position, { y: baseY + 0.48, duration: 0.28, ease: 'power2.out' })
+          .to(hero.position, { y: baseY, duration: 0.30, ease: 'bounce.out' });
+        spawnConfetti(new THREE.Vector3(finalX, finalY, finalZ));
       }
     }
   });
@@ -1339,6 +1464,7 @@ function overviewCamera() {
   gsap.killTweensOf(oc.target);
   zoomed = false; active = -1;
   overlay.classList.remove('zoomed');
+  setCloudOpacity(0.85);
 
   gsap.to(cam.position, { x: OVP.x, y: OVP.y, z: OVP.z, duration: 1.2, ease: 'power2.inOut', onComplete() { oc.enabled = true; } });
   gsap.to(oc.target, { x: OVT.x, y: OVT.y, z: OVT.z, duration: 1.2, ease: 'power2.inOut' });
@@ -1350,11 +1476,16 @@ function overviewCamera() {
   hStick.visible = false;
   hero.rotation.x = 0;
   clearConfetti();
-  gsap.to(hero.position, { x: S[0].pos.x, y: S[0].pos.y + 0.20, z: S[0].pos.z, duration: 1.0, ease: 'power2.inOut' });
+  const startPoint = trailCurve ? trailCurve.getPointAt(stageTValues[AWARENESS_INDEX]) : S[AWARENESS_INDEX].pos.clone();
+  gsap.to(hero.position, { x: startPoint.x, y: startPoint.y + 0.20, z: startPoint.z, duration: 1.0, ease: 'power2.inOut' });
   gsap.to(hero.rotation, { y: -0.8, duration: 0.6, ease: 'power2.out' });
+  heroTrailT = stageTValues[AWARENESS_INDEX];
 
   document.querySelectorAll('.alt3d-dot').forEach(d => d.classList.remove('active'));
+  if (btnOvw) btnOvw.textContent = '\u00d7 Overview';
   hideInfoCard();
+  hideMiniInfo();
+  closeStepModal();
 }
 
 /* =============================================================
@@ -1366,14 +1497,25 @@ function showInfoCard(i) {
   ciName.textContent  = s.n;
   ciPhase.textContent = s.p;
   ciDur.textContent   = s.d;
-  ciDesc.textContent  = s.x;
+  const milestones = Array.isArray(s.m)
+    ? `<ul class="ci-list">${s.m.map(item => `<li>${item}</li>`).join('')}</ul>`
+    : '';
+  const showOverview = i === AWARENESS_INDEX;
+  ciDesc.innerHTML = `
+    ${showOverview ? `<p class="ci-overview">${ALTITUDE_OVERVIEW}</p>` : ''}
+    ${showOverview ? `<p class="ci-awareness">${ALTITUDE_AWARENESS}</p>` : ''}
+    <p>${s.x}</p>
+    ${milestones}
+    ${i === SUMMIT_INDEX ? '<p class="ci-impact">Through the ALTITUDE Program, ASOG TBI gives startups a clear pathway from idea to impact.</p>' : ''}
+  `;
   btnPrev.disabled = i === 0;
   btnNext.disabled = i === S.length - 1;
-  gsap.to(infoCard, { opacity: 1, x: 0, duration: 0.45, delay: 0.5, ease: 'power2.out',
+  btnOvw.textContent = '\u00d7 Overview';
+  gsap.to(infoCard, { opacity: 1, x: 0, y: 0, duration: 0.52, delay: 0.42, ease: 'power3.out',
     onStart() { infoCard.classList.add('vis'); } });
 }
 function hideInfoCard() {
-  gsap.to(infoCard, { opacity: 0, x: 46, duration: 0.28, ease: 'power2.in',
+  gsap.to(infoCard, { opacity: 0, x: 52, y: 8, duration: 0.24, ease: 'power2.in',
     onComplete() { infoCard.classList.remove('vis'); } });
 }
 

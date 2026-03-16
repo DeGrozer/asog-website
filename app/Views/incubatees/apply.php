@@ -16,17 +16,17 @@
         </div>
 
         <div class="reveal space-y-0">
-            <div class="flex items-start gap-5 py-5 border-t border-dark/[.07]">
-                <span class="text-[.82rem] font-light leading-[1.8] text-dark/75">Early-stage startups or MSMEs with innovative food value chain solutions — agriculture, fisheries, food tech, food processing, and related areas.</span>
+            <div class="flex items-start gap-5 py-4 border-t border-dark/[.07]">
+                <span class="text-[.9rem] font-normal leading-[1.65] text-dark">Early-stage startups or MSMEs with innovative food value chain solutions — agriculture, fisheries, food tech, food processing, and related areas.</span>
             </div>
-            <div class="flex items-start gap-5 py-5 border-t border-dark/[.07]">
-                <span class="text-[.82rem] font-light leading-[1.8] text-dark/75">Must be based in or willing to operate in the Bicol Region.</span>
+            <div class="flex items-start gap-5 py-4 border-t border-dark/[.07]">
+                <span class="text-[.9rem] font-normal leading-[1.65] text-dark">Must be based in or willing to operate in the Bicol Region.</span>
             </div>
-            <div class="flex items-start gap-5 py-5 border-t border-dark/[.07]">
-                <span class="text-[.82rem] font-light leading-[1.8] text-dark/75">Must have at least a working prototype or proof of concept.</span>
+            <div class="flex items-start gap-5 py-4 border-t border-dark/[.07]">
+                <span class="text-[.9rem] font-normal leading-[1.65] text-dark">Must have at least a working prototype or proof of concept.</span>
             </div>
-            <div class="flex items-start gap-5 py-5 border-t border-b border-dark/[.07]">
-                <span class="text-[.82rem] font-light leading-[1.8] text-dark/75">Team must be willing to participate in the full ALTITUDE incubation program.</span>
+            <div class="flex items-start gap-5 py-4 border-t border-b border-dark/[.07]">
+                <span class="text-[.9rem] font-normal leading-[1.65] text-dark">Team must be willing to participate in the full ALTITUDE incubation program.</span>
             </div>
         </div>
     </div>
@@ -70,57 +70,57 @@
         <div class="reveal">
             <!-- Table header -->
             <div class="hidden md:flex items-center justify-between pb-3 mb-1">
-                <span class="text-[.48rem] font-bold tracking-[.2em] uppercase text-dark/30">Criteria</span>
-                <span class="text-[.48rem] font-bold tracking-[.2em] uppercase text-dark/30">Weight</span>
+                <span class="text-[.54rem] font-bold tracking-[.2em] uppercase text-dark">Criteria</span>
+                <span class="text-[.54rem] font-bold tracking-[.2em] uppercase text-dark">Weight</span>
             </div>
             <!-- Row 1 -->
             <div class="flex items-center justify-between py-4 border-t border-dark/[.07] group">
-                <span class="text-[.88rem] text-dark/85 group-hover:text-dark transition-colors">Innovation &amp; Technology</span>
+                <span class="text-[.94rem] text-dark group-hover:text-dark transition-colors">Innovation &amp; Technology</span>
                 <div class="flex items-center gap-4">
                     <div class="hidden md:block w-[100px] h-[3px] bg-dark/[.05] rounded-full overflow-hidden">
                         <div class="h-full bg-gold rounded-full eval-bar" style="width:0%" data-w="100%"></div>
                     </div>
-                    <span class="text-[.82rem] font-semibold text-navy tabular-nums w-10 text-right">30%</span>
+                    <span class="text-[.88rem] font-semibold text-dark tabular-nums w-10 text-right">30%</span>
                 </div>
             </div>
             <!-- Row 2 -->
             <div class="flex items-center justify-between py-4 border-t border-dark/[.07] group">
-                <span class="text-[.88rem] text-dark/85 group-hover:text-dark transition-colors">Market Potential &amp; Scalability</span>
+                <span class="text-[.94rem] text-dark group-hover:text-dark transition-colors">Market Potential &amp; Scalability</span>
                 <div class="flex items-center gap-4">
                     <div class="hidden md:block w-[100px] h-[3px] bg-dark/[.05] rounded-full overflow-hidden">
                         <div class="h-full bg-gold/80 rounded-full eval-bar" style="width:0%" data-w="83%"></div>
                     </div>
-                    <span class="text-[.82rem] font-semibold text-navy tabular-nums w-10 text-right">25%</span>
+                    <span class="text-[.88rem] font-semibold text-dark tabular-nums w-10 text-right">25%</span>
                 </div>
             </div>
             <!-- Row 3 -->
             <div class="flex items-center justify-between py-4 border-t border-dark/[.07] group">
-                <span class="text-[.88rem] text-dark/85 group-hover:text-dark transition-colors">Team Capability</span>
+                <span class="text-[.94rem] text-dark group-hover:text-dark transition-colors">Team Capability</span>
                 <div class="flex items-center gap-4">
                     <div class="hidden md:block w-[100px] h-[3px] bg-dark/[.05] rounded-full overflow-hidden">
                         <div class="h-full bg-gold/65 rounded-full eval-bar" style="width:0%" data-w="67%"></div>
                     </div>
-                    <span class="text-[.82rem] font-semibold text-navy tabular-nums w-10 text-right">20%</span>
+                    <span class="text-[.88rem] font-semibold text-dark tabular-nums w-10 text-right">20%</span>
                 </div>
             </div>
             <!-- Row 4 -->
             <div class="flex items-center justify-between py-4 border-t border-dark/[.07] group">
-                <span class="text-[.88rem] text-dark/85 group-hover:text-dark transition-colors">Social &amp; Environmental Impact</span>
+                <span class="text-[.94rem] text-dark group-hover:text-dark transition-colors">Social &amp; Environmental Impact</span>
                 <div class="flex items-center gap-4">
                     <div class="hidden md:block w-[100px] h-[3px] bg-dark/[.05] rounded-full overflow-hidden">
                         <div class="h-full bg-gold/50 rounded-full eval-bar" style="width:0%" data-w="50%"></div>
                     </div>
-                    <span class="text-[.82rem] font-semibold text-navy tabular-nums w-10 text-right">15%</span>
+                    <span class="text-[.88rem] font-semibold text-dark tabular-nums w-10 text-right">15%</span>
                 </div>
             </div>
             <!-- Row 5 -->
             <div class="flex items-center justify-between py-4 border-t border-b border-dark/[.07] group">
-                <span class="text-[.88rem] text-dark/85 group-hover:text-dark transition-colors">Feasibility &amp; Readiness</span>
+                <span class="text-[.94rem] text-dark group-hover:text-dark transition-colors">Feasibility &amp; Readiness</span>
                 <div class="flex items-center gap-4">
                     <div class="hidden md:block w-[100px] h-[3px] bg-dark/[.05] rounded-full overflow-hidden">
                         <div class="h-full bg-gold/35 rounded-full eval-bar" style="width:0%" data-w="33%"></div>
                     </div>
-                    <span class="text-[.82rem] font-semibold text-navy tabular-nums w-10 text-right">10%</span>
+                    <span class="text-[.88rem] font-semibold text-dark tabular-nums w-10 text-right">10%</span>
                 </div>
             </div>
         </div>
@@ -178,28 +178,28 @@
                     <h2 class="font-display text-[1.5rem] md:text-[1.8rem] text-dark leading-[1.15]">What you'll receive</h2>
                 </div>
                 <ul class="reveal list-none p-0 m-0 space-y-0">
-                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.84rem] text-dark/80">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-dark">
                         <span class="text-gold text-[.7rem]">✓</span> Co-working space &amp; lab access
                     </li>
-                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.84rem] text-dark/80">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-dark">
                         <span class="text-gold text-[.7rem]">✓</span> Technical mentorship &amp; advisory
                     </li>
-                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.84rem] text-dark/80">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-dark">
                         <span class="text-gold text-[.7rem]">✓</span> Business model development support
                     </li>
-                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.84rem] text-dark/80">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-dark">
                         <span class="text-gold text-[.7rem]">✓</span> IP &amp; legal guidance
                     </li>
-                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.84rem] text-dark/80">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-dark">
                         <span class="text-gold text-[.7rem]">✓</span> Investor readiness &amp; pitch coaching
                     </li>
-                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.84rem] text-dark/80">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-dark">
                         <span class="text-gold text-[.7rem]">✓</span> Networking &amp; partnership opportunities
                     </li>
-                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.84rem] text-dark/80">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-dark">
                         <span class="text-gold text-[.7rem]">✓</span> Training workshops &amp; seminars
                     </li>
-                    <li class="flex items-center gap-3 py-3 border-t border-b border-dark/[.06] text-[.84rem] text-dark/80">
+                    <li class="flex items-center gap-3 py-3 border-t border-b border-dark/[.06] text-[.88rem] text-dark">
                         <span class="text-gold text-[.7rem]">✓</span> Demo day &amp; showcase events
                     </li>
                 </ul>
@@ -208,7 +208,7 @@
             <!-- Right — CTA block -->
             <div class="reveal flex flex-col justify-center">
                 <h3 class="font-display text-[1.3rem] md:text-[1.5rem] text-dark leading-[1.2] mb-4">Ready to get started?</h3>
-                <p class="text-[.84rem] font-light leading-[1.85] text-dark/60 mb-8">Fill out our application form and the ASOG-TBI team will reach out to schedule your screening and next steps.</p>
+                <p class="text-[.88rem] font-normal leading-[1.65] text-dark mb-6">Fill out our application form and the ASOG-TBI team will reach out to schedule your screening and next steps.</p>
                 <a href="<?= site_url('incubatees/apply/form') ?>"
                    class="inline-block self-start font-body text-[.62rem] font-bold tracking-[.14em] uppercase text-dark bg-gold px-8 py-3.5 rounded-sm no-underline transition-colors duration-200 hover:bg-gold-dk">
                     Apply Now →
