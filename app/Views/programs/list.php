@@ -52,131 +52,14 @@
                                         <p class="altitude-exp-kicker">ASOG TBI Incubation Program</p>
                                         <h1 class="altitude-exp-title">ALTITUDE</h1>
                                         <p class="altitude-exp-subtitle">Advancing Local Technology and Innovation through Transformative Upskilling, Development, and Entrepreneurship</p>
-                                        <button id="altitudeEnterProgram" type="button" class="altitude-exp-enter-btn">Enter the Experience</button>
+                                        <button id="altitudeEnterProgram" type="button" class="altitude-exp-enter-btn">Go to ALTITUDE Experience</button>
                                     </div>
                                 </div>
                             </div>
 
                             <div id="altitudeProgramPage" class="altitude-exp-page altitude-exp-program" hidden>
-                                <div class="altitude-exp-toolbar">
-                                    <button id="altitudeBackToLanding" type="button" class="altitude-exp-back-btn">&larr; Back</button>
-                                </div>
-
-                                <div class="prose-content text-[.9rem] font-normal leading-[1.72] space-y-6" style="color:#020d18">
-                                    <div id="altitude-3d" class="scroll-mt-28"></div>
-                                    <h2 class="font-display text-[1.9rem] leading-[1.15] text-dark mb-4">The Official Incubation Program of ASOG TBI</h2>
-                                    <p>ALTITUDE &mdash; <strong class="text-dark/75">Advancing Local Technology and Innovation through Transformative Upskilling, Development, and Entrepreneurship</strong> &mdash; is the official incubation program of the ASOG Technology Business Incubator.</p>
-                                    <p>The program supports early-stage startups by providing structured guidance, mentorship, and resources that help transform innovative ideas into viable ventures.</p>
-                                    <p>ALTITUDE follows a staged incubation approach designed to guide startups from idea development to scaling. Each stage focuses on specific milestones that help founders refine their technology, validate market demand, and prepare for sustainable growth.</p>
-                                    <div class="altitude-exp-callout">
-                                        <p class="font-semibold mb-2" style="color:#0b2f49">Awareness Caravan</p>
-                                        <p>The program begins with an Awareness Caravan, which identifies potential startups and introduces innovators to the opportunities within ASOG TBI. Selected teams then proceed to the formal incubation stages.</p>
-                                    </div>
-                                    <div class="altitude-exp-toolbar">
-                                        <button id="altitudeProgramReadMore" type="button" class="altitude-exp-back-btn">Read More</button>
-                                    </div>
-
-                                    <div class="altitude-exp-stages">
-                                        <article class="altitude-stage-card stage-trailhead" data-stage-card>
-                                            <span id="trailhead" class="scroll-mt-28"></span>
-                                            <button type="button" class="altitude-stage-head" data-stage-toggle aria-expanded="false" aria-controls="stage-panel-trailhead">
-                                                <span class="altitude-stage-name">Trailhead</span>
-                                                <span class="altitude-stage-meta">Pre-Incubation · Month 1</span>
-                                            </button>
-                                            <div id="stage-panel-trailhead" class="altitude-stage-panel" hidden>
-                                                <p class="altitude-stage-topic">Problem-Solution Fit and Ideation</p>
-                                                <p>The Trailhead stage focuses on refining the startup concept and validating whether the identified problem is worth solving. Founders work closely with mentors and industry validators to ensure that their proposed solution addresses real market needs within the food and agri-tech value chain.</p>
-                                                <ul class="altitude-stage-list">
-                                                    <li>Clarifying the target problem and user segment</li>
-                                                    <li>Validating the startup's problem-solution fit</li>
-                                                    <li>Refining the initial concept through expert feedback</li>
-                                                </ul>
-                                            </div>
-                                        </article>
-
-                                        <article class="altitude-stage-card stage-basecamp" data-stage-card>
-                                            <span id="basecamp" class="scroll-mt-28"></span>
-                                            <button type="button" class="altitude-stage-head" data-stage-toggle aria-expanded="false" aria-controls="stage-panel-basecamp">
-                                                <span class="altitude-stage-name">Basecamp</span>
-                                                <span class="altitude-stage-meta">Incubation · Months 2-4</span>
-                                            </button>
-                                            <div id="stage-panel-basecamp" class="altitude-stage-panel" hidden>
-                                                <p class="altitude-stage-topic">Product Development, Business Modeling, and Market Readiness</p>
-                                                <p>During the Basecamp stage, startups begin building and testing their solutions. Founders develop minimum viable products (MVPs), validate product features with early adopters, and shape both the technical and business foundations of the venture.</p>
-                                                <ul class="altitude-stage-list">
-                                                    <li>Building and testing MVP prototypes</li>
-                                                    <li>Developing the startup's business model</li>
-                                                    <li>Preparing for market entry and early partnerships</li>
-                                                    <li>Planning customer acquisition strategies within the agri and food ecosystem</li>
-                                                </ul>
-                                            </div>
-                                        </article>
-
-                                        <article class="altitude-stage-card stage-ascent" data-stage-card>
-                                            <span id="ascent" class="scroll-mt-28"></span>
-                                            <button type="button" class="altitude-stage-head" data-stage-toggle aria-expanded="false" aria-controls="stage-panel-ascent">
-                                                <span class="altitude-stage-name">Ascent</span>
-                                                <span class="altitude-stage-meta">Post-Validation · Months 5-6</span>
-                                            </button>
-                                            <div id="stage-panel-ascent" class="altitude-stage-panel" hidden>
-                                                <p class="altitude-stage-topic">Fundraising and Investor Readiness</p>
-                                                <p>At this stage, startups prepare for investment and funding opportunities. Teams develop the documentation and presentation materials necessary to approach investors, grant providers, and funding institutions.</p>
-                                                <ul class="altitude-stage-list">
-                                                    <li>Developing investor-ready pitch decks</li>
-                                                    <li>Preparing funding proposals and business documentation</li>
-                                                    <li>Connecting with potential agri investors and angel networks</li>
-                                                </ul>
-                                            </div>
-                                        </article>
-
-                                        <article class="altitude-stage-card stage-summit" data-stage-card>
-                                            <span id="summit-launch" class="scroll-mt-28"></span>
-                                            <button type="button" class="altitude-stage-head" data-stage-toggle aria-expanded="false" aria-controls="stage-panel-summit">
-                                                <span class="altitude-stage-name">Summit Launch</span>
-                                                <span class="altitude-stage-meta">Post-Incubation</span>
-                                            </button>
-                                            <div id="stage-panel-summit" class="altitude-stage-panel" hidden>
-                                                <p class="altitude-stage-topic">Scaling Strategy and Post-Program Support</p>
-                                                <p>The Summit Launch stage supports startups as they transition from early validation to long-term growth. Startups receive continued strategic support as they scale operations and expand partnerships.</p>
-                                                <ul class="altitude-stage-list">
-                                                    <li>Developing long-term scaling strategies</li>
-                                                    <li>Strengthening partnerships and market networks</li>
-                                                    <li>Connecting with venture builders and ecosystem partners</li>
-                                                </ul>
-                                            </div>
-                                        </article>
-                                    </div>
-
-                                    <blockquote class="border-l-[3px] border-gold pl-4 mt-2 mb-7">
-                                        <p class="text-[.9rem] italic leading-[1.7]" style="color:#020d18">Through the ALTITUDE Program, ASOG TBI gives startups a clear pathway from idea to impact.</p>
-                                    </blockquote>
-
-                                    <div id="altitudeExploreCard" class="alt3d-card" role="button" tabindex="0" aria-label="Open interactive 3D view">
-                                        <div class="alt3d-card-preview">
-                                            <svg class="alt3d-card-svg" viewBox="0 0 220 180" fill="none">
-                                                <rect width="220" height="180" fill="#87ceeb" rx="6" />
-                                                <ellipse cx="40" cy="28" rx="18" ry="8" fill="#fff" opacity=".8" />
-                                                <ellipse cx="50" cy="26" rx="12" ry="7" fill="#fff" opacity=".8" />
-                                                <ellipse cx="185" cy="22" rx="15" ry="7" fill="#fff" opacity=".8" />
-                                                <ellipse cx="175" cy="20" rx="10" ry="6" fill="#fff" opacity=".8" />
-                                                <ellipse cx="110" cy="155" rx="95" ry="18" fill="#c4a46c" />
-                                                <ellipse cx="110" cy="153" rx="92" ry="16" fill="#3d7a28" />
-                                                <ellipse cx="108" cy="132" rx="78" ry="38" fill="#5a9e3e" />
-                                                <path d="M102 40 L85 128 Q110 132 135 128 Z" fill="#5a9e3e" />
-                                                <path d="M160 76 L148 134 Q160 138 175 134 Z" fill="#3d7a28" />
-                                                <path d="M155 145 C140 135, 130 125, 120 118 S95 108, 80 100 S60 88, 58 80 S85 60, 102 42" stroke="#c4a46c" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".7" />
-                                                <line x1="102" y1="42" x2="102" y2="26" stroke="#6b4226" stroke-width="1.5" stroke-linecap="round" />
-                                                <polygon points="102,26 113,29 102,33" fill="#F8AF21" />
-                                            </svg>
-                                        </div>
-                                        <div class="alt3d-card-body">
-                                            <span class="alt3d-card-tag">Interactive 3D</span>
-                                            <h3 class="alt3d-card-title">The Journey to Summit</h3>
-                                            <p class="alt3d-card-sub">Open the immersive mountain walkthrough and click checkpoints to explore each incubation stage in 3D.</p>
-                                            <span class="alt3d-card-cta">Launch 3D Journey</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- Ghost trigger keeps the 3D module's click handler alive -->
+                                <div id="altitudeExploreCard" role="button" tabindex="-1" aria-label="Open ALTITUDE interactive view" style="display:none"></div>
                             </div>
                         </div>
                     </div>
@@ -386,7 +269,7 @@
         <div class="ci-name" id="ciName"></div>
         <div class="ci-phase" id="ciPhase"></div>
         <div class="ci-dur" id="ciDur"></div>
-        <button id="ciBtnAboutStep" class="ci-btn-about" type="button">About this step</button>
+        <button id="ciBtnAboutStep" class="ci-btn-about" type="button">Read More</button>
         <div class="ci-desc" id="ciDesc"></div>
         <div class="ci-nav">
             <button class="ci-btn-main" id="ciBtnPrev">&larr; Prev</button>
@@ -426,7 +309,6 @@
         <p>ALTITUDE - Advancing Local Technology and Innovation through Transformative Upskilling, Development, and Entrepreneurship - is the official incubation program of the ASOG Technology Business Incubator.</p>
         <p>The program supports early-stage startups by providing structured guidance, mentorship, and resources that help transform innovative ideas into viable ventures.</p>
         <p>ALTITUDE follows a staged incubation approach designed to guide startups from idea development to scaling. Each stage focuses on specific milestones that help founders refine their technology, validate market demand, and prepare for sustainable growth.</p>
-        <p><strong>Awareness Caravan.</strong> The program begins with an Awareness Caravan, which identifies potential startups and introduces innovators to the opportunities within ASOG TBI. Selected teams then proceed to the formal incubation stages.</p>
     </div>
 </div>
 
@@ -449,12 +331,21 @@
         const programModalClose = document.getElementById('altitudeProgramModalClose');
 
         const showProgramPage = () => {
-            landingPage.classList.remove('is-active');
-            programPage.hidden = false;
-            requestAnimationFrame(() => programPage.classList.add('is-active'));
+            /* Skip intermediate program page — fire the 3D experience directly */
+            const c = document.getElementById('altitudeExploreCard');
+            if (c) c.click();
         };
 
         const showLandingPage = () => {
+            hideProgramModal();
+            root.querySelectorAll('[data-stage-toggle]').forEach((btn) => {
+                const panelId = btn.getAttribute('aria-controls');
+                const panel = panelId ? document.getElementById(panelId) : null;
+                const card = btn.closest('[data-stage-card]');
+                btn.setAttribute('aria-expanded', 'false');
+                if (panel) panel.hidden = true;
+                if (card) card.classList.remove('is-open');
+            });
             programPage.classList.remove('is-active');
             programPage.hidden = true;
             landingPage.classList.add('is-active');
@@ -486,24 +377,12 @@
 
         const revealFromHash = (hashValue, smooth) => {
             const targetHash = (hashValue || '').replace('#', '');
-            if (!['trailhead', 'basecamp', 'ascent', 'summit-launch', 'altitude-3d'].includes(targetHash)) return;
+            if (!['altitude-program', 'altitude-3d', 'trailhead', 'basecamp', 'ascent', 'summit-launch'].includes(targetHash)) return;
 
-            if (targetHash === 'altitude-3d') {
-                showProgramPage();
-            }
-            const panelId = stagePanelByHash[targetHash];
-            if (panelId) {
-                const panel = document.getElementById(panelId);
-                const toggle = panel ? root.querySelector(`[aria-controls="${panelId}"]`) : null;
-                const card = toggle ? toggle.closest('[data-stage-card]') : null;
-                if (panel && toggle && card) {
-                    panel.hidden = false;
-                    toggle.setAttribute('aria-expanded', 'true');
-                    card.classList.add('is-open');
-                }
-            }
+            /* Always land on ALTITUDE intro screen; user enters 3D explicitly from button. */
+            showLandingPage();
 
-            const anchor = document.getElementById(targetHash);
+            const anchor = document.getElementById('altitude-program');
             if (anchor) anchor.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
         };
 

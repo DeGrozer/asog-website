@@ -50,6 +50,7 @@ let active = -1, zoomed = false;
 let R, scene, cam, oc, G;
 const pinHits = [], flags = [];
 let isClosingOverlay = false;
+let hArmL = null, hArmR = null;
 
 /* Hero state — module scope so zoomToFlag / overviewCamera can access */
 let hero, heroStage = -1, heroAnimState = 'idle', heroAnimTime = 0;
@@ -74,7 +75,7 @@ const MAIN_PEAK_CENTER = new THREE.Vector3(0.3, 0, -1.5);
 /* -- Stage data -- */
 const S = [
   { id:'00', n:'Awareness Caravan', p:'Program Entry', d:'Before Month 1',
-    x:'The program begins with an Awareness Caravan, which identifies potential startups and introduces innovators to the opportunities within ASOG TBI. Selected teams then proceed to the formal incubation stages.',
+    x:'Potential teams are identified and oriented before formal incubation begins.',
     m:[
       'Identifying potential startups and founder teams',
       'Introducing innovators to ASOG TBI opportunities',
@@ -115,9 +116,6 @@ const S = [
     ],
     pos: null },
 ];
-
-const ALTITUDE_OVERVIEW = 'ALTITUDE - Advancing Local Technology and Innovation through Transformative Upskilling, Development, and Entrepreneurship - is the official incubation program of the ASOG Technology Business Incubator.';
-const ALTITUDE_AWARENESS = 'Awareness Caravan: The program begins with an Awareness Caravan, which identifies potential startups and introduces innovators to the opportunities within ASOG TBI. Selected teams then proceed to the formal incubation stages.';
 
 /* =============================================================
    WILDERNESS-ZOOM TRANSITION
@@ -232,7 +230,10 @@ function openStepModal(i) {
   const milestones = Array.isArray(s.m)
     ? `<ul class="ci-list">${s.m.map(item => `<li>${item}</li>`).join('')}</ul>`
     : '';
-  ciStepDesc.innerHTML = `<p>${s.x}</p>${milestones}${i === SUMMIT_INDEX ? '<p class="ci-impact">Through the ALTITUDE Program, ASOG TBI gives startups a clear pathway from idea to impact.</p>' : ''}`;
+  const descText = (s.x && String(s.x).trim().length)
+    ? s.x
+    : 'This stage contains the key activities and milestones for startup progress.';
+  ciStepDesc.innerHTML = `<p>${descText}</p>${milestones}${i === SUMMIT_INDEX ? '<p class="ci-impact">Through the ALTITUDE Program, ASOG TBI gives startups a clear pathway from idea to impact.</p>' : ''}`;
   stepModal.hidden = false;
 }
 
@@ -261,8 +262,8 @@ if (infoModal) {
 }
 if (stepAboutBtn) {
   stepAboutBtn.addEventListener('click', () => {
-    if (active < 0) return;
-    openStepModal(active);
+    const targetStage = active >= 0 ? active : AWARENESS_INDEX;
+    openStepModal(targetStage);
   });
 }
 if (stepModalClose) stepModalClose.addEventListener('click', closeStepModal);
@@ -348,7 +349,7 @@ function initScene() {
   const mPants    = new THREE.MeshStandardMaterial({ color: 0x3a4a5a, roughness: 0.8 });
   const mBackpack = new THREE.MeshStandardMaterial({ color: 0xc06030, roughness: 0.75 });
   const mRed      = new THREE.MeshStandardMaterial({ color: 0xe85040, roughness: 0.45, side: THREE.DoubleSide });
-  const mGold     = new THREE.MeshStandardMaterial({ color: 0xF8AF21, roughness: 0.35, metalness: 0.25 });
+  const mGold     = new THREE.MeshStandardMaterial({ color: 0xF8AF21, roughness: 0.35, metalness: 0.25, side: THREE.DoubleSide });
 
   /* Master group */
   G = new THREE.Group();
@@ -681,6 +682,15 @@ function initScene() {
 
     g.position.copy(pos);
     g.position.y += isAwareness ? 0.06 : 0.14;
+    if (!isAwareness) {
+      /* Rotate flag group so its face (+Z) points outward from mountain center,
+         ensuring it's visible from the zoom camera which approaches from that direction. */
+      const fdx = pos.x - MAIN_PEAK_CENTER.x;
+      const fdz = pos.z - MAIN_PEAK_CENTER.z;
+      if (fdx * fdx + fdz * fdz > 1e-4) {
+        g.rotation.y = Math.atan2(fdx, fdz);
+      }
+    }
     if (isSummit) {
       summitFlagGroup = g;
       summitFlagGroup.visible = false;
@@ -987,10 +997,10 @@ function initScene() {
     new THREE.SphereGeometry(0.08, 8, 6), mHeroHair);
   hHairTop.position.set(0.02, 0.90, 0.04); hHairTop.scale.set(1.2, 0.6, 1.0); hero.add(hHairTop);
   /* Left arm */
-  const hArmL = new THREE.Mesh(new THREE.CapsuleGeometry(0.05, 0.18, 4, 6), mHeroBlazer);
+  hArmL = new THREE.Mesh(new THREE.CapsuleGeometry(0.05, 0.18, 4, 6), mHeroBlazer);
   hArmL.position.set(-0.22, 0.48, 0); hArmL.rotation.z = 0.25; hero.add(hArmL);
   /* Right arm */
-  const hArmR = new THREE.Mesh(new THREE.CapsuleGeometry(0.05, 0.18, 4, 6), mHeroBlazer);
+  hArmR = new THREE.Mesh(new THREE.CapsuleGeometry(0.05, 0.18, 4, 6), mHeroBlazer);
   hArmR.position.set(0.22, 0.48, 0); hArmR.rotation.z = -0.25; hero.add(hArmR);
   /* Legs — slacks */
   const hLegL = new THREE.Mesh(new THREE.CapsuleGeometry(0.06, 0.20, 4, 6), mHeroSlacks);
@@ -1087,7 +1097,7 @@ function initScene() {
     { dist: 5.2, y: 2.6, side: 0.75, lookUp: 0.28 },
     { dist: 5.9, y: 3.05, side: 0.95, lookUp: 0.34 },
     { dist: 6.6, y: 3.55, side: 1.05, lookUp: 0.46 },
-    { dist: 6.1, y: 3.45, side: 0.88, lookUp: 0.52 },
+    { dist: 6.1, y: 3.45, side: -1.15, lookUp: 0.52 },
   ];
 
   /* ====== CLOUDS — puffy cartoonish clouds ====== */
@@ -1236,6 +1246,8 @@ function initScene() {
       hLegR.rotation.x *= 0.9;
       hArmL.rotation.x *= 0.9;
       hArmR.rotation.x *= 0.9;
+      hArmL.rotation.z += (0.25 - hArmL.rotation.z) * 0.16;
+      hArmR.rotation.z += (-0.25 - hArmR.rotation.z) * 0.16;
       /* Gentle breathing */
       hBody.scale.y = 1.0 + Math.sin(et * 1.5) * 0.02;
     } else if (heroAnimState === 'looking') {
@@ -1340,6 +1352,8 @@ function zoomToFlag(i) {
     heroWalkTween.kill();
     heroWalkTween = null;
   }
+  if (hArmR) gsap.killTweensOf(hArmR.rotation);
+  if (hArmL) gsap.killTweensOf(hArmL.rotation);
   active = i; zoomed = true;
   overlay.classList.add('zoomed');
   oc.enabled = false;
@@ -1362,6 +1376,15 @@ function zoomToFlag(i) {
     wp.z + radial.z * sc.dist + sideVec.z * sc.side
   );
   const lk = wp.clone(); lk.y += sc.lookUp;
+  const isMobileView = window.matchMedia('(max-width: 768px)').matches;
+  if (isMobileView) {
+    /* Pull camera back/up on mobile so hero + flag remain visible above the bottom card. */
+    cp.x += radial.x * 1.2;
+    cp.z += radial.z * 1.2;
+    cp.y += 0.55;
+    lk.y += 0.35;
+  }
+  if (i === SUMMIT_INDEX) lk.x += 0.55;
 
   gsap.to(cam.position, { x: cp.x, y: cp.y, z: cp.z, duration: 1.4, ease: 'power2.inOut' });
   gsap.to(oc.target, { x: lk.x, y: lk.y, z: lk.z, duration: 1.4, ease: 'power2.inOut' });
@@ -1405,11 +1428,15 @@ function zoomToFlag(i) {
       if (i === SUMMIT_INDEX && endTang) {
         /* Summit: stop beside centered flag, not on top of it. */
         const side = new THREE.Vector3().crossVectors(endTang, new THREE.Vector3(0, 1, 0)).normalize();
-        finalX += side.x * 0.42;
-        finalZ += side.z * 0.42;
+        finalX -= side.x * 0.42;
+        finalZ -= side.z * 0.42;
       }
       hero.position.set(finalX, finalY, finalZ);
-      if (endTang) {
+      if (i === SUMMIT_INDEX) {
+        /* Face hero directly toward camera for the flag-plant reveal shot */
+        hero.rotation.y = Math.atan2(cam.position.x - finalX, cam.position.z - finalZ);
+        hero.rotation.x = 0;
+      } else if (endTang) {
         const dir = endT >= startT ? 1 : -1;
         hero.rotation.y = Math.atan2(endTang.x * dir, endTang.z * dir);
       }
@@ -1419,23 +1446,52 @@ function zoomToFlag(i) {
         heroAnimState = 'idle';
         hero.rotation.x = 0;
         hStick.visible = false;
+        heroFlagGroup.visible = false;
+        if (hArmR && hArmL) {
+          hArmR.rotation.x = 0;
+          hArmR.rotation.z = -0.25;
+          hArmL.rotation.x = 0;
+          hArmL.rotation.z = 0.25;
+        }
       } else if (i === TRAILHEAD_INDEX) {
         heroAnimState = 'idle'; // standing at trailhead
         hero.rotation.x = 0;
         hStick.visible = false;
+        heroFlagGroup.visible = false;
+        if (hArmR && hArmL) {
+          hArmR.rotation.x = 0;
+          hArmR.rotation.z = -0.25;
+          hArmL.rotation.x = 0;
+          hArmL.rotation.z = 0.25;
+        }
       } else if (i === BASECAMP_INDEX) {
         heroAnimState = 'looking'; // reading business plan at basecamp
         hero.rotation.x = 0;
         hStick.visible = false;
+        heroFlagGroup.visible = false;
+        if (hArmR) {
+          hArmR.rotation.x = 0;
+          hArmR.rotation.z = -0.25;
+        }
         hMapMesh.visible = true;
       } else if (i === ASCENT_INDEX) {
         heroAnimState = 'climbing'; // tired, climbing
         hero.rotation.x = 0.15; // leaning forward
+        heroFlagGroup.visible = false;
+        if (hArmR && hArmL) {
+          hArmR.rotation.z = -0.25;
+          hArmL.rotation.z = 0.25;
+        }
       } else if (i === SUMMIT_INDEX) {
-        heroAnimState = 'idle'; // summit plant and jump
+        heroAnimState = 'idle';
         hero.rotation.x = 0;
         hStick.visible = false;
-        heroFlagGroup.visible = false;
+        /* Show hero holding flag — raise right arm in plant pose */
+        heroFlagGroup.visible = true;
+        hArmR.rotation.z = -0.95;
+        hArmR.rotation.x = -0.55;
+        hArmL.rotation.z = 0.25;
+        hArmL.rotation.x = 0;
         if (summitFlagGroup && !summitFlagPlanted) {
           summitFlagGroup.visible = true;
           summitFlagGroup.position.y -= 0.36;
@@ -1447,9 +1503,11 @@ function zoomToFlag(i) {
           summitFlagPlanted = true;
         }
         const baseY = finalY;
+        /* Brief plant pose → bring arm down → jump + confetti */
         gsap.timeline()
-          .to(hero.position, { y: baseY + 0.48, duration: 0.28, ease: 'power2.out' })
-          .to(hero.position, { y: baseY, duration: 0.30, ease: 'bounce.out' });
+          .to(hArmR.rotation, { z: -0.25, x: 0, duration: 0.38, ease: 'power2.in' }, 0.25)
+          .to(hero.position, { y: baseY + 0.52, duration: 0.26, ease: 'power2.out' }, '+=0.08')
+          .to(hero.position, { y: baseY, duration: 0.32, ease: 'bounce.out' });
         spawnConfetti(new THREE.Vector3(finalX, finalY, finalZ));
       }
     }
@@ -1491,8 +1549,32 @@ function overviewCamera() {
 /* =============================================================
    INFO CARD
    ============================================================= */
+const infoCardPosClasses = [
+  'alt3d-info-pos-left',
+  'alt3d-info-pos-right',
+  'alt3d-info-pos-upper-left',
+  'alt3d-info-pos-lower-right',
+  'alt3d-info-pos-lower-right'
+];
+
+function isMobileViewport() {
+  return window.matchMedia('(max-width: 768px)').matches;
+}
+
+function getCardOffsetByStage(i) {
+  if (isMobileViewport()) return 28;
+  const cls = infoCardPosClasses[i] || 'alt3d-info-pos-right';
+  return cls.includes('left') ? -52 : 52;
+}
+
+function applyInfoCardPositionClass(i) {
+  infoCard.classList.remove(...infoCardPosClasses);
+  infoCard.classList.add(infoCardPosClasses[i] || 'alt3d-info-pos-right');
+}
+
 function showInfoCard(i) {
   const s = S[i];
+  applyInfoCardPositionClass(i);
   ciNum.textContent   = 'Stage ' + s.id;
   ciName.textContent  = s.n;
   ciPhase.textContent = s.p;
@@ -1500,10 +1582,7 @@ function showInfoCard(i) {
   const milestones = Array.isArray(s.m)
     ? `<ul class="ci-list">${s.m.map(item => `<li>${item}</li>`).join('')}</ul>`
     : '';
-  const showOverview = i === AWARENESS_INDEX;
   ciDesc.innerHTML = `
-    ${showOverview ? `<p class="ci-overview">${ALTITUDE_OVERVIEW}</p>` : ''}
-    ${showOverview ? `<p class="ci-awareness">${ALTITUDE_AWARENESS}</p>` : ''}
     <p>${s.x}</p>
     ${milestones}
     ${i === SUMMIT_INDEX ? '<p class="ci-impact">Through the ALTITUDE Program, ASOG TBI gives startups a clear pathway from idea to impact.</p>' : ''}
@@ -1511,11 +1590,14 @@ function showInfoCard(i) {
   btnPrev.disabled = i === 0;
   btnNext.disabled = i === S.length - 1;
   btnOvw.textContent = '\u00d7 Overview';
+  const enterOffset = getCardOffsetByStage(i);
+  gsap.set(infoCard, { x: enterOffset, y: isMobileViewport() ? 0 : 8, opacity: 0 });
   gsap.to(infoCard, { opacity: 1, x: 0, y: 0, duration: 0.52, delay: 0.42, ease: 'power3.out',
     onStart() { infoCard.classList.add('vis'); } });
 }
 function hideInfoCard() {
-  gsap.to(infoCard, { opacity: 0, x: 52, y: 8, duration: 0.24, ease: 'power2.in',
+  const leaveOffset = active >= 0 ? getCardOffsetByStage(active) : (isMobileViewport() ? 28 : 52);
+  gsap.to(infoCard, { opacity: 0, x: leaveOffset, y: isMobileViewport() ? 0 : 8, duration: 0.24, ease: 'power2.in',
     onComplete() { infoCard.classList.remove('vis'); } });
 }
 
