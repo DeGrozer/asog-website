@@ -21,8 +21,6 @@ class IncubateeModel extends Model
     protected $allowedFields = [
         'companyName',
         'slug',
-        'founderName',
-        'founderPosition',
         'shortDescription',
         'content',
         'logoPath',

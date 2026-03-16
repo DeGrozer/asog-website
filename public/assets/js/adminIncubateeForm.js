@@ -61,7 +61,7 @@
         if (!file) return;
         var reader = new FileReader();
         reader.onload = function(e) {
-            previewW.innerHTML = '<img src="' + e.target.result + '" alt="" style="background:#03355a;padding:.5rem;border-radius:.3rem">';
+            previewW.innerHTML = '<img src="' + e.target.result + '" alt="" style="background:#03355a;padding:.5rem;border-radius:.3rem;filter:brightness(0) invert(1)">';
             labelW.style.display = 'none';
         };
         reader.readAsDataURL(file);
@@ -88,52 +88,7 @@
     });
 
     /* ── Founder Photo Upload Zone ── */
-    var zoneF = document.getElementById('uploadZoneFounder');
-    var inputF = document.getElementById('founderPhotoInput');
-    var previewF = document.getElementById('uploadPreviewFounder');
-    var labelF = document.getElementById('uploadLabelFounder');
-
-    if (zoneF) {
-        if (previewF.querySelector('img')) labelF.style.display = 'none';
-
-        zoneF.addEventListener('click', function(e) {
-            if (e.target === inputF) return;
-            inputF.click();
-        });
-
-        inputF.addEventListener('change', function() {
-            var file = this.files[0];
-            if (!file) return;
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                previewF.innerHTML = '<img src="' + e.target.result + '" alt="" style="max-height:100px;border-radius:50%;aspect-ratio:1;object-fit:cover">';
-                labelF.style.display = 'none';
-            };
-            reader.readAsDataURL(file);
-        });
-
-        zoneF.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            zoneF.style.borderColor = '#03558C';
-            zoneF.style.background = '#fafcff';
-        });
-        zoneF.addEventListener('dragleave', function() {
-            zoneF.style.borderColor = '';
-            zoneF.style.background = '';
-        });
-        zoneF.addEventListener('drop', function(e) {
-            e.preventDefault();
-            zoneF.style.borderColor = '';
-            zoneF.style.background = '';
-            var files = e.dataTransfer.files;
-            if (files.length > 0 && files[0].type.startsWith('image/')) {
-                inputF.files = files;
-                inputF.dispatchEvent(new Event('change'));
-            }
-        });
-    }
-
-    /* ── Team Members Repeater ── */
+    /* ── Founders Repeater ── */
     var tmRows = document.getElementById('tmRows');
     var tmAdd = document.getElementById('tmAdd');
 
@@ -184,10 +139,10 @@
             '<label class="tm-photo-zone">' +
                 '<input type="hidden" name="tm_photo_existing[]" value="">' +
                 '<input type="file" name="tm_photo[]" class="tm-photo-input" accept="image/*">' +
-                '<span class="tm-photo-placeholder">Team<br>Photo</span>' +
+                '<span class="tm-photo-placeholder">Founder<br>Photo</span>' +
             '</label>' +
             '<input type="text" name="tm_name[]" placeholder="Name">' +
-            '<input type="text" name="tm_role[]" placeholder="Position (e.g. CTO, Marketing Lead)">' +
+            '<input type="text" name="tm_role[]" placeholder="Founder title (e.g. CEO, CTO)">' +
             '<button type="button" class="tm-remove" title="Remove">×</button>';
         tmRows.appendChild(row);
         bindTmPhotoInput(row.querySelector('.tm-photo-input'));
@@ -208,7 +163,7 @@
                     zone.innerHTML =
                         '<input type="hidden" name="tm_photo_existing[]" value="">' +
                         '<input type="file" name="tm_photo[]" class="tm-photo-input" accept="image/*">' +
-                        '<span class="tm-photo-placeholder">Team<br>Photo</span>';
+                        '<span class="tm-photo-placeholder">Founder<br>Photo</span>';
                     bindTmPhotoInput(zone.querySelector('.tm-photo-input'));
                 }
             }

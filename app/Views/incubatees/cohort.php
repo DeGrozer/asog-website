@@ -151,9 +151,6 @@ $sealUrl       = base_url('assets/img/ASOG%20TBI/PNG/Logo-white.png');
     window.__ibData = <?= json_encode(array_map(function($inc){
         return [
             'companyName'      => html_entity_decode($inc['companyName'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'founderName'      => html_entity_decode($inc['founderName'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'founderPosition'  => html_entity_decode($inc['founderPosition'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'founderPhoto'     => ! empty($inc['founderPhoto']) ? base_url($inc['founderPhoto']) : '',
             'shortDescription' => html_entity_decode($inc['shortDescription'] ?? '', ENT_QUOTES, 'UTF-8'),
             'content'          => $inc['content'] ?? '',
             'logoPath'         => ! empty($inc['logoPath']) ? base_url($inc['logoPath']) : '',

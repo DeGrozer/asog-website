@@ -325,13 +325,20 @@
   .alt3d-card-desc { font-size: .82rem; }
 
   .alt3d-info {
-    right: 50%; top: auto; bottom: 16px;
-    width: 92vw;
-    transform: translateX(50%) translateY(28px);
-    border-radius: 12px;
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    width: min(92vw, 420px);
+    max-height: min(68vh, 520px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transform: translateX(-50%) translateY(28px);
+    border-radius: 16px;
+    z-index: 70;
   }
   .alt3d-info.vis {
-    transform: translateX(50%) translateY(0);
+    transform: translateX(-50%) translateY(0);
   }
 
   .alt3d-close {

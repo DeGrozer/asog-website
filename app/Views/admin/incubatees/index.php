@@ -9,7 +9,6 @@
     .tbl-logo{width:44px;height:44px;border-radius:.35rem;object-fit:cover;background:#eceae6;vertical-align:middle;border:1px solid #eceae6}
     .tbl-logo-empty{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:.35rem;background:#edf5fc;color:#03558C;font-weight:700;font-size:.82rem;vertical-align:middle}
     .tbl-name{font-weight:600}
-    .tbl-founder{font-size:.7rem;color:#94a3b8;display:block}
     .tag{font-size:.52rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:.15rem .4rem;border-radius:.15rem;white-space:nowrap}
     .tag-live{background:#ecfdf5;color:#065f46}
     .tag-draft{background:#f1f5f9;color:#64748b}
@@ -227,9 +226,6 @@ function deleteCohort(id, name) {
                     </td>
                     <td>
                         <span class="tbl-name"><?= esc($inc['companyName']) ?></span>
-                        <?php if (! empty($inc['founderName'])): ?>
-                            <span class="tbl-founder"><?= esc($inc['founderName']) ?></span>
-                        <?php endif; ?>
                     </td>
                     <td>
                         <?php if (! empty($inc['cohort'])): ?>

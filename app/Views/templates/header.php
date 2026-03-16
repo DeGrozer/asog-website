@@ -34,6 +34,18 @@
     $navContact    = site_url('contact');
     $navCta        = site_url('incubatees/apply');
     $navCohorts    = $navCohorts ?? [];
+
+    $uriPath = trim(service('uri')->getPath(), '/');
+    $seg1 = service('uri')->getSegment(1) ?? '';
+
+    $isAbout         = $seg1 === 'about';
+    $isProgramsGroup = in_array($seg1, ['programs', 'services', 'facilities'], true);
+    $isIncubatees    = $seg1 === 'incubatees';
+    $isNews          = $seg1 === 'news';
+    $isContact       = $seg1 === 'contact';
+    $isOrg           = $seg1 === 'organization';
+
+    $activeClass = static fn(bool $isActive): string => $isActive ? ' is-active' : '';
     ?>
     <a class="sr-only focus:not-sr-only" href="#main">Skip to content</a>
 
@@ -54,22 +66,22 @@
             <div class="nav-left absolute left-10 flex items-center gap-1 lg:flex hidden">
                 <!-- About Us -->
                 <a href="<?= $navAbout ?>"
-                    class="nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">About
+                    class="nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold<?= $activeClass($isAbout) ?>">About
                     Us</a>
                 <!-- Programs & Services -->
-                <div class="nav-dd group">
+                <div class="nav-dd group<?= $activeClass($isProgramsGroup) ?>">
                     <span role="button" tabindex="0"
-                        class="nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold cursor-pointer select-none">Programs
+                        class="nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold cursor-pointer select-none<?= $activeClass($isProgramsGroup) ?>">Programs
                         &amp; Services</span>
                     <div class="dd-menu">
-                        <a href="<?= $navPrograms ?>" class="dd-item">The ALTITUDE Program</a>
-                        <a href="<?= $navServices ?>" class="dd-item">Services Offered</a>
-                        <a href="<?= $navFacilities ?>" class="dd-item">Facilities</a>
+                        <a href="<?= $navPrograms ?>" class="dd-item<?= $activeClass($seg1 === 'programs') ?>">The ALTITUDE Program</a>
+                        <a href="<?= $navServices ?>" class="dd-item<?= $activeClass($seg1 === 'services') ?>">Services Offered</a>
+                        <a href="<?= $navFacilities ?>" class="dd-item<?= $activeClass($seg1 === 'facilities') ?>">Facilities</a>
                     </div>
                 </div>
                 <!-- Incubatees -->
                 <a href="<?= $navIncubatees ?>"
-                    class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">Incubatees</a>
+                    class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold<?= $activeClass($isIncubatees) ?>">Incubatees</a>
             </div>
 
             <!-- CENTER LOGO -->
@@ -84,12 +96,12 @@
             <div id="navR" class="absolute right-10 lg:flex hidden items-center">
                 <!-- News & Insights -->
                 <a href="<?= $navNews ?>" data-order="4"
-                    class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">News
+                    class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold<?= $activeClass($isNews) ?>">News
                     &amp; Insights</a>
                 <!-- Contact Us -->
                 <div class="nav-dd group" data-order="5">
                     <a href="<?= $navContact ?>"
-                        class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold">Contact
+                        class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline px-4 border-b-2 border-transparent -mb-0.5 whitespace-nowrap transition-all duration-200 hover:text-off hover:border-gold<?= $activeClass($isContact) ?>">Contact
                         Us</a>
                 </div>
                 <!-- CTA Button -->
@@ -99,21 +111,21 @@
 
                 <!-- COLLAPSED DUPLICATES (appear on scroll via .lo) -->
                 <a href="<?= $navAbout ?>"
-                    class="nl nav-link lo text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold"
+                    class="nl nav-link lo text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold<?= $activeClass($isAbout) ?>"
                     data-order="1">About
                     Us</a>
-                <div class="nav-dd group lo" data-order="2">
+                <div class="nav-dd group lo<?= $activeClass($isProgramsGroup) ?>" data-order="2">
                     <span role="button" tabindex="0"
-                        class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold cursor-pointer select-none">Programs
+                        class="nl nav-link text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold cursor-pointer select-none<?= $activeClass($isProgramsGroup) ?>">Programs
                         &amp; Services</span>
                     <div class="dd-menu dd-right">
-                        <a href="<?= $navPrograms ?>" class="dd-item">The ALTITUDE Program</a>
-                        <a href="<?= $navServices ?>" class="dd-item">Services Offered</a>
-                        <a href="<?= $navFacilities ?>" class="dd-item">Facilities</a>
+                        <a href="<?= $navPrograms ?>" class="dd-item<?= $activeClass($seg1 === 'programs') ?>">The ALTITUDE Program</a>
+                        <a href="<?= $navServices ?>" class="dd-item<?= $activeClass($seg1 === 'services') ?>">Services Offered</a>
+                        <a href="<?= $navFacilities ?>" class="dd-item<?= $activeClass($seg1 === 'facilities') ?>">Facilities</a>
                     </div>
                 </div>
                 <a href="<?= $navIncubatees ?>"
-                    class="nl nav-link lo text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold"
+                    class="nl nav-link lo text-[.68rem] font-medium tracking-[.09em] uppercase text-white/60 no-underline items-center border-b-2 border-transparent -mb-0.5 whitespace-nowrap hover:text-off hover:border-gold<?= $activeClass($isIncubatees) ?>"
                     data-order="3">Incubatees</a>
             </div>
 
@@ -144,9 +156,9 @@
         </button>
         <nav class="flex flex-col gap-1">
             <a href="<?= base_url() ?>"
-                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Home</a>
+                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold<?= $activeClass($uriPath === '') ?>">Home</a>
             <a href="<?= $navAbout ?>"
-                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">About
+                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold<?= $activeClass($isAbout) ?>">About
                 Us</a>
             <button type="button" id="mobPsToggle"
                 class="w-full flex items-center justify-between text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 py-3 border-b border-white/[.06] bg-transparent cursor-pointer select-none transition-colors hover:text-gold">
@@ -157,24 +169,24 @@
             </button>
             <div id="mobPsSub" class="overflow-hidden" style="max-height:0;transition:max-height .3s ease">
                 <a href="<?= $navPrograms ?>"
-                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block">↳
+                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block<?= $activeClass($seg1 === 'programs') ?>">↳
                     The ALTITUDE Program</a>
                 <a href="<?= $navServices ?>"
-                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block">↳
+                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block<?= $activeClass($seg1 === 'services') ?>">↳
                     Services Offered</a>
                 <a href="<?= $navFacilities ?>"
-                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block">↳
+                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block<?= $activeClass($seg1 === 'facilities') ?>">↳
                     Facilities</a>
             </div>
             <a href="<?= $navIncubatees ?>"
-                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Incubatees</a>
+                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold<?= $activeClass($isIncubatees) ?>">Incubatees</a>
             <a href="<?= $navNews ?>"
-                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">News
+                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold<?= $activeClass($isNews) ?>">News
                 &amp; Insights</a>
             <a href="<?= $navOrg ?>"
-                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Organization</a>
+                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold<?= $activeClass($isOrg) ?>">Organization</a>
             <a href="<?= $navContact ?>"
-                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold">Contact
+                class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold<?= $activeClass($isContact) ?>">Contact
                 Us</a>
         </nav>
         <a href="<?= $navCta ?>"

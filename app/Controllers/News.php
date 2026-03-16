@@ -50,7 +50,7 @@ class News extends BaseController
         $data = [
             'title'       => esc($post['title']) . ' - ASOG-TBI',
             'post'        => $post,
-            'latestPosts' => $this->postModel->getPublished(3),
+            'latestPosts' => $this->postModel->getPublished(10),
         ];
 
         return view('templates/header', $data)

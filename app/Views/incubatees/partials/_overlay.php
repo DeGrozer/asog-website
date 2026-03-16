@@ -15,7 +15,6 @@
                     <div class="ib-bf-divider shrink-0 relative"></div>
                     <div class="ib-bf-nameplate text-center relative">
                         <h3 id="bfName" class="ib-bf-name"></h3>
-                        <p id="bfFounder" class="ib-bf-founder"></p>
                         <span id="bfCohort" class="ib-bf-cohort block"></span>
                     </div>
                     <span class="ib-big-flip-hint">Click to see the team</span>

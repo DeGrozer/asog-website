@@ -45,7 +45,7 @@ let stageCams = [];
 let hStick, hMapMesh, heroFlagGroup;
 let confettiGroup = null, confettiParts = [];
 let trailCurve = null;
-const stageTValues = [0.04, 0.31, 0.74, 1.0]; /* t on trailCurve for each stage */
+const stageTValues = [0.04, 0.24, 0.77, 1.0]; /* t on trailCurve for each stage */
 let heroTrailT = stageTValues[0];
 
 /* -- Stage data -- */
@@ -347,17 +347,19 @@ function initScene() {
     new THREE.Vector3( 1.0,  1.40,  4.4),   // across front — h1 crest
     new THREE.Vector3(-0.5,  1.42,  3.8),   // heading left
     new THREE.Vector3(-1.9,  1.40,  3.72),  // approaching basecamp
-    new THREE.Vector3(-2.7,  1.43,  3.60),  // basecamp lead-in
-    new THREE.Vector3(-3.15, 1.48,  3.35),  // basecamp marker zone
-    /* Smooth continuous turn from stage 2 into mountain climb */
-    new THREE.Vector3(-3.05, 1.56,  2.95),
-    new THREE.Vector3(-2.75, 1.64,  2.55),
-    new THREE.Vector3(-2.35, 1.72,  2.20),
-    new THREE.Vector3(-1.90, 1.80,  1.90),
-    new THREE.Vector3(-1.40, 1.90,  1.62),
-    new THREE.Vector3(-0.92, 1.98,  1.34),
-    new THREE.Vector3(-0.42, 2.03,  1.06),
-    new THREE.Vector3( 0.02, 2.08,  0.84),  // clean hand-off to circular staircase
+    new THREE.Vector3(-2.74, 1.43,  3.66),  // basecamp lead-in
+    new THREE.Vector3(-3.04, 1.48,  3.44),  // basecamp marker zone (before the turn)
+    /* Refined, gentler turn from stage 2 into the circular mountain climb */
+    new THREE.Vector3(-3.18, 1.55,  3.08),
+    new THREE.Vector3(-3.15, 1.62,  2.70),
+    new THREE.Vector3(-3.00, 1.70,  2.33),
+    new THREE.Vector3(-2.74, 1.79,  1.99),
+    new THREE.Vector3(-2.37, 1.88,  1.70),
+    new THREE.Vector3(-1.94, 1.96,  1.45),
+    new THREE.Vector3(-1.47, 2.03,  1.23),
+    new THREE.Vector3(-0.98, 2.09,  1.06),
+    new THREE.Vector3(-0.52, 2.13,  0.94),
+    new THREE.Vector3(-0.12, 2.16,  0.86),  // cleaner hand-off to circular staircase
   ];
 
   /* Stair-like mountain climb — spiral wrap around the main peak.
@@ -367,8 +369,8 @@ function initScene() {
     const cx = 0.3, cz = -1.5, bR = 3.5, H = 7.0;
     const start = trailPts[trailPts.length - 1];
     const startAng = Math.atan2(start.z - cz, start.x - cx);
-    const stepCount = 26;      /* fewer, more evenly-spaced points */
-    const turns = 0.62;        /* clean partial spiral — no self-overlap */
+    const stepCount = 36;      /* denser points for cleaner spiral interpolation */
+    const turns = 0.82;        /* clearer circular ascent without crossing */
     const startY = 2.05;
     const endY = 6.95;
 
@@ -380,7 +382,7 @@ function initScene() {
       const surfaceR = bR * Math.pow(Math.max(1 - y / H, 0), 0.7);
       /* Keep radius comfortably outside mountain — minimum 0.48 avoids
          compression near the summit that made the path look crumpled. */
-      const r = Math.max(0.48, surfaceR + 0.72 - 0.22 * e);
+      const r = Math.max(0.62, surfaceR + 0.84 - 0.16 * e);
       const x = cx + Math.cos(ang) * r;
       const z = cz + Math.sin(ang) * r;
 
@@ -418,7 +420,7 @@ function initScene() {
     });
   }
 
-  trailCurve = new THREE.CatmullRomCurve3(trailPts, false, 'centripetal', 0.4);
+  trailCurve = new THREE.CatmullRomCurve3(trailPts, false, 'centripetal', 0.28);
 
   /* ====== DIRT TRAIL SURFACE — thin ribbon that hugs terrain ====== */
   /* Only the top face is generated (no side walls). The surface sits
@@ -545,7 +547,7 @@ function initScene() {
     const tang = trailCurve.getTangent(t);
     const perp = new THREE.Vector3().crossVectors(tang, _up).normalize();
     for (const sd of [-1, 1]) {
-      if (Math.random() > 0.45) continue; /* quite sparse */
+      if (Math.random() > 0.72) continue; /* very sparse for clearer path */
       const stone = new THREE.Mesh(
         new THREE.DodecahedronGeometry(0.03 + Math.random() * 0.03, 0), mEdgeStone);
       stone.position.set(
@@ -591,7 +593,7 @@ function initScene() {
   function mkFlag(pos, stageIdx) {
     const g = new THREE.Group();
     const isSummit = stageIdx === 3;
-    const poleH = isSummit ? 1.4 : 1.0;
+    const poleH = isSummit ? 1.4 : (stageIdx === 1 ? 0.82 : 1.0);
     const flagMat = isSummit ? mGold : mRed;
 
     const pole = new THREE.Mesh(
@@ -871,7 +873,7 @@ function initScene() {
   /* Place founders along trail curve — grounded on trail surface */
   const blazerMats = [mBlazer1, mBlazer2, mBlazer3];
   const hairMats = [mHair1, mHair2, mHair1];
-  [0.06, 0.14, 0.22, 0.38, 0.52, 0.64, 0.80].forEach((t, i) => {
+  [0.08, 0.20, 0.44, 0.68].forEach((t, i) => {
     const pt = trailCurve.getPoint(t);
     const tang = trailCurve.getTangent(t);
     const faceAngle = Math.atan2(tang.x, tang.z);

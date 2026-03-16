@@ -73,8 +73,6 @@ class IncubateesAdmin extends BaseController
 
         $data = [
             'companyName'      => trim($this->request->getPost('companyName') ?? ''),
-            'founderName'      => trim($this->request->getPost('founderName') ?? '') ?: null,
-            'founderPosition'  => trim($this->request->getPost('founderPosition') ?? '') ?: null,
             'shortDescription' => trim($this->request->getPost('shortDescription') ?? '') ?: null,
             'content'          => $content,
             'websiteUrl'       => trim($this->request->getPost('websiteUrl') ?? '') ?: null,
@@ -148,14 +146,17 @@ class IncubateesAdmin extends BaseController
             return redirect()->back()->withInput();
         }
 
-        // Handle founder photo upload
         if (! $this->incubateeModel->insert($data)) {
             setToast('error', 'Validation failed: ' . implode(', ', $this->incubateeModel->errors()));
             return redirect()->back()->withInput();
         }
 
-        setToast('success', 'Incubatee created successfully.');
-        return redirect()->to(site_url('admin/incubatees'));
+        $newId = (int) $this->incubateeModel->getInsertID();
+        setToast('success', 'Incubatee saved successfully.');
+        if ($newId > 0) {
+            return redirect()->to(site_url('admin/incubatees/' . $newId . '/edit'));
+        }
+        return redirect()->back();
     }
 
     /**
@@ -216,8 +217,6 @@ class IncubateesAdmin extends BaseController
 
         $data = [
             'companyName'      => trim($this->request->getPost('companyName') ?? ''),
-            'founderName'      => trim($this->request->getPost('founderName') ?? '') ?: null,
-            'founderPosition'  => trim($this->request->getPost('founderPosition') ?? '') ?: null,
             'shortDescription' => trim($this->request->getPost('shortDescription') ?? '') ?: null,
             'content'          => $content,
             'websiteUrl'       => trim($this->request->getPost('websiteUrl') ?? '') ?: null,
@@ -301,7 +300,6 @@ class IncubateesAdmin extends BaseController
             return redirect()->back()->withInput();
         }
 
-        // Handle founder photo upload (optional on edit)
         // Remove deleted/replaced team-member photos
         $oldPhotos = array_values(array_filter(array_map(static function ($m) {
             return trim((string) ($m['photo'] ?? ''));
@@ -328,8 +326,8 @@ class IncubateesAdmin extends BaseController
             return redirect()->back()->withInput();
         }
 
-        setToast('success', 'Incubatee updated successfully.');
-        return redirect()->to(site_url('admin/incubatees'));
+        setToast('success', 'Incubatee saved successfully.');
+        return redirect()->to(site_url('admin/incubatees/' . $id . '/edit'));
     }
 
     // ──────────────────────────────────────────────

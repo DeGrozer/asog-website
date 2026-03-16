@@ -149,7 +149,7 @@ $formUrl = $isEdit
     margin-top: .25rem
 }
 
-/* Team members repeater */
+/* Founders repeater */
 .tm-section {
     margin-top: .25rem
 }
@@ -389,20 +389,8 @@ $formUrl = $isEdit
                     placeholder="Startup or company name">
             </div>
 
-            <!-- Founder + Position + Cohort -->
-            <div class="form-row-3">
-                <div class="field">
-                    <label for="founderName">Founder Name</label>
-                    <input type="text" id="founderName" name="founderName"
-                        value="<?= esc(old('founderName', $isEdit ? $incubatee['founderName'] : '')) ?>"
-                        placeholder="e.g. Teodoro Barte">
-                </div>
-                <div class="field">
-                    <label for="founderPosition">Founder Position</label>
-                    <input type="text" id="founderPosition" name="founderPosition"
-                        value="<?= esc(old('founderPosition', $isEdit ? ($incubatee['founderPosition'] ?? '') : '')) ?>"
-                        placeholder="e.g. CEO / Founder">
-                </div>
+            <!-- Cohort -->
+            <div class="form-row">
                 <div class="field">
                     <label for="cohortSelect">Cohort</label>
                     <?php
@@ -425,6 +413,7 @@ $formUrl = $isEdit
                     </div>
                     <input type="hidden" id="cohortHidden" name="cohort" value="<?= esc($currentCohort) ?>">
                 </div>
+                <div class="field"></div>
             </div>
 
             <!-- Website + Facebook -->
@@ -489,7 +478,7 @@ $formUrl = $isEdit
                     <div class="label" id="uploadLabelWhite"><strong>Click to upload</strong> white version of the logo</div>
                     <div class="upload-preview" id="uploadPreviewWhite">
                         <?php if ($isEdit && ! empty($incubatee['logoWhitePath'])): ?>
-                        <img src="<?= site_url($incubatee['logoWhitePath']) ?>" alt="" style="background:#03355a;padding:.5rem;border-radius:.3rem">
+                        <img src="<?= site_url($incubatee['logoWhitePath']) ?>" alt="" style="background:#03355a;padding:.5rem;border-radius:.3rem;filter:brightness(0) invert(1)">
                         <?php endif; ?>
                     </div>
                 </div>
@@ -498,7 +487,7 @@ $formUrl = $isEdit
                 <?php endif; ?>
             </div>
 
-            <!-- Team Members -->
+            <!-- Founders -->
             <?php
                 $existingMembers = [];
                 if ($isEdit && ! empty($incubatee['teamMembers'])) {
@@ -506,7 +495,7 @@ $formUrl = $isEdit
                 }
             ?>
             <div class="tm-section">
-                <span class="section-label">Team Members</span>
+                <span class="section-label">Founders</span>
                 <div class="tm-rows" id="tmRows">
                     <?php if (! empty($existingMembers)): ?>
                     <?php foreach ($existingMembers as $member): ?>
@@ -517,13 +506,13 @@ $formUrl = $isEdit
                             <?php if (! empty($member['photo'])): ?>
                                 <img class="tm-photo-preview" src="<?= site_url($member['photo']) ?>" alt="<?= esc($member['name'] ?? '') ?>">
                             <?php else: ?>
-                                <span class="tm-photo-placeholder">Team<br>Photo</span>
+                                <span class="tm-photo-placeholder">Founder<br>Photo</span>
                             <?php endif; ?>
                         </label>
                         <input type="text" name="tm_name[]" value="<?= esc($member['name'] ?? '') ?>"
                             placeholder="Name">
                         <input type="text" name="tm_role[]" value="<?= esc($member['role'] ?? '') ?>"
-                            placeholder="Position (e.g. CTO, Marketing Lead)">
+                            placeholder="Founder title (e.g. CEO, CTO)">
                         <button type="button" class="tm-remove" title="Remove">×</button>
                     </div>
                     <?php endforeach; ?>
@@ -532,15 +521,15 @@ $formUrl = $isEdit
                         <label class="tm-photo-zone">
                             <input type="hidden" name="tm_photo_existing[]" value="">
                             <input type="file" name="tm_photo[]" class="tm-photo-input" accept="image/*">
-                            <span class="tm-photo-placeholder">Team<br>Photo</span>
+                            <span class="tm-photo-placeholder">Founder<br>Photo</span>
                         </label>
                         <input type="text" name="tm_name[]" placeholder="Name">
-                        <input type="text" name="tm_role[]" placeholder="Position (e.g. CTO, Marketing Lead)">
+                        <input type="text" name="tm_role[]" placeholder="Founder title (e.g. CEO, CTO)">
                         <button type="button" class="tm-remove" title="Remove">×</button>
                     </div>
                     <?php endif; ?>
                 </div>
-                <button type="button" class="tm-add" id="tmAdd">+ Add team member</button>
+                <button type="button" class="tm-add" id="tmAdd">+ Add founder</button>
             </div>
 
             <!-- Toggle -->

@@ -153,7 +153,6 @@ $firstCohort    = $hasCohorts ? $cohorts[0]['name'] : '';
                         <div class="ib-bf-divider shrink-0 relative"></div>
                         <div class="ib-bf-nameplate text-center relative">
                             <h3 id="mpName" class="ib-bf-name"></h3>
-                            <p id="mpFounder" class="ib-bf-founder"></p>
                             <span id="mpCohort" class="ib-bf-cohort block"></span>
                         </div>
                         <span class="ib-mob-flip-cue">Tap to flip ↻</span>
@@ -188,9 +187,6 @@ $firstCohort    = $hasCohorts ? $cohorts[0]['name'] : '';
     window.__ibData = <?= json_encode(array_map(function($inc){
         return [
             'companyName'      => html_entity_decode($inc['companyName'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'founderName'      => html_entity_decode($inc['founderName'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'founderPosition'  => html_entity_decode($inc['founderPosition'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'founderPhoto'     => ! empty($inc['founderPhoto']) ? base_url($inc['founderPhoto']) : '',
             'shortDescription' => html_entity_decode($inc['shortDescription'] ?? '', ENT_QUOTES, 'UTF-8'),
             'content'          => $inc['content'] ?? '',
             'logoPath'         => ! empty($inc['logoPath']) ? base_url($inc['logoPath']) : '',

@@ -49,16 +49,28 @@
         <div class="h-px bg-dark/[.08] my-12"></div>
 
         <!-- Related posts -->
-        <?php if (! empty($latestPosts)): ?>
+        <?php
+            $relatedPosts = array_values(array_filter($latestPosts ?? [], static function ($related) use ($post) {
+                return (int) ($related['id'] ?? 0) !== (int) ($post['id'] ?? 0);
+            }));
+            $relatedPosts = array_slice($relatedPosts, 0, 8);
+            $cardVariants = [
+                ['wrap' => 'sm:col-span-2 lg:col-span-2', 'media' => 'h-[170px] md:h-[210px]'],
+                ['wrap' => '', 'media' => 'h-[130px] md:h-[150px]'],
+                ['wrap' => '', 'media' => 'h-[130px] md:h-[150px]'],
+                ['wrap' => '', 'media' => 'h-[155px] md:h-[185px]'],
+            ];
+        ?>
+        <?php if (! empty($relatedPosts)): ?>
         <div>
             <h3 class="font-display text-lg text-dark mb-5">More from <em class="italic text-gold">News &amp;
                     Insights</em></h3>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <?php foreach ($latestPosts as $related): ?>
-                <?php if ($related['id'] === $post['id']) continue; ?>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-fr">
+                <?php foreach ($relatedPosts as $i => $related): ?>
+                <?php $variant = $cardVariants[$i % count($cardVariants)]; ?>
                 <a href="<?= site_url('news/' . $related['slug']) ?>"
-                    class="group rounded-lg border border-dark/[.06] overflow-hidden no-underline block bg-white shadow-sm shadow-dark/[.04] transition-all duration-300 hover:shadow-md hover:shadow-dark/[.08]">
-                    <div class="h-[120px] bg-[#e9e6e1] flex items-center justify-center overflow-hidden">
+                    class="group rounded-lg border border-dark/[.06] overflow-hidden no-underline block bg-white shadow-sm shadow-dark/[.04] transition-all duration-300 hover:shadow-md hover:shadow-dark/[.08] <?= $variant['wrap'] ?>">
+                    <div class="<?= $variant['media'] ?> bg-[#e9e6e1] flex items-center justify-center overflow-hidden">
                         <?php if (! empty($related['imagePath'])): ?>
                         <img src="<?= site_url($related['imagePath']) ?>" alt=""
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -70,7 +82,7 @@
                         <span
                             class="text-[.48rem] font-semibold tracking-[.14em] uppercase text-gold block mb-1"><?= esc(ucfirst($related['category'])) ?></span>
                         <h4 class="font-display text-[.88rem] text-dark leading-snug">
-                            <?= esc(character_limiter($related['title'], 60)) ?></h4>
+                            <?= esc(character_limiter($related['title'], 70)) ?></h4>
                     </div>
                 </a>
                 <?php endforeach; ?>

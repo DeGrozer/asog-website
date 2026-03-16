@@ -67,7 +67,7 @@ $f  = $fg[$type]     ?? $fg['info'];
 $bd = $border[$type] ?? $border['info'];
 
 return <<<HTML
-<div id="toast" style="position:fixed;bottom:1.25rem;left:1.25rem;z-index:9999;background:{$b};border:1px solid {$bd};padding:.55rem .9rem;border-radius:.3rem;font-size:.78rem;font-family:'DM Sans',sans-serif;color:{$f};max-width:340px;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s">
+<div id="toast" style="position:fixed;top:1.1rem;right:1.1rem;z-index:9999;background:{$b};border:1px solid {$bd};padding:.55rem .9rem;border-radius:.3rem;font-size:.78rem;font-family:'DM Sans',sans-serif;color:{$f};max-width:340px;opacity:0;transform:translateY(-8px);transition:opacity .25s,transform .25s">
     {$message}
 </div>
 <script>
@@ -75,7 +75,7 @@ return <<<HTML
     var t=document.getElementById('toast');
     if(!t)return;
     requestAnimationFrame(function(){t.style.opacity='1';t.style.transform='translateY(0)'});
-    setTimeout(function(){t.style.opacity='0';t.style.transform='translateY(6px)';setTimeout(function(){t.remove()},250)},3500);
+    setTimeout(function(){t.style.opacity='0';t.style.transform='translateY(-8px)';setTimeout(function(){t.remove()},250)},3500);
 })();
 </script>
 HTML;

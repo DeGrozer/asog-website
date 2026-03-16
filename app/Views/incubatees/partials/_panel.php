@@ -13,7 +13,7 @@
         <div class="ib-p-divider" aria-hidden="true"></div>
 
         <div id="pTeamSection" class="ib-p-team-wrap" style="display:none">
-            <span class="ib-p-team-label">Team</span>
+            <span class="ib-p-team-label">Founders</span>
             <div id="pTeamList" class="ib-p-team-grid"></div>
         </div>
     </div>

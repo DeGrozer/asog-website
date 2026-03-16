@@ -21,7 +21,6 @@
     var bfNum     = $('bfNum'),
         bfLogo    = $('bfLogo'),
         bfName    = $('bfName'),
-        bfFounder = $('bfFounder'),
         bfCohort  = $('bfCohort');
 
     var bbName = $('bbName'),
@@ -51,7 +50,6 @@
     var mpLogo       = document.getElementById('mpLogo');
     var mpNum        = document.getElementById('mpNum');
     var mpName       = document.getElementById('mpName');
-    var mpFounder    = document.getElementById('mpFounder');
     var mpCohort     = document.getElementById('mpCohort');
     var mpBackName   = document.getElementById('mpBackName');
     var mpBackTeam   = document.getElementById('mpBackTeam');
@@ -61,26 +59,10 @@
     var mpFlipped    = false;
 
     function buildDisplayTeam(d) {
-        var members = [];
-        if (d.founderName) {
-            members.push({
-                name: d.founderName,
-                role: d.founderPosition || 'Founder',
-                photo: d.founderPhoto || ''
-            });
-        }
-        if (Array.isArray(d.teamMembers) && d.teamMembers.length) {
-            d.teamMembers.forEach(function (m) {
-                if (m && m.name) {
-                    members.push({
-                        name: m.name,
-                        role: m.role || '',
-                        photo: m.photo || ''
-                    });
-                }
-            });
-        }
-        return members;
+        if (!Array.isArray(d.teamMembers)) return [];
+        return d.teamMembers.filter(function (m) { return m && m.name; }).map(function (m) {
+            return { name: m.name, role: m.role || '', photo: m.photo || '' };
+        });
     }
 
     /* ── Entrance animation ── */
@@ -137,12 +119,11 @@
         var num = String(idx + 1).padStart(2, '0');
 
         /* ── Populate FRONT (navy) — same as desktop bfXxx ── */
-        mpNum.textContent     = num;
-        mpName.textContent    = d.companyName;
-        mpFounder.textContent = d.founderName ? 'Founder: ' + d.founderName : '';
-        mpCohort.textContent  = d.cohort;
-        /* Always use white-filter approach so any uploaded logo reads as white on navy */
-        var logoSrc = d.logoPath || d.logoWhitePath;
+        mpNum.textContent    = num;
+        mpName.textContent   = d.companyName;
+        mpCohort.textContent = d.cohort;
+        /* Prefer white-logo upload first, then fallback to regular logo with white filter */
+        var logoSrc = d.logoWhitePath || d.logoPath;
         mpLogo.innerHTML = logoSrc
             ? '<img src="' + logoSrc + '" alt="' + d.companyName + '">'
             : '<span class="ib-init" style="font-size:1.8rem;color:rgba(255,255,255,.5)">' + d.companyName.charAt(0).toUpperCase() + '</span>';
@@ -152,7 +133,7 @@
         var team = buildDisplayTeam(d);
         var html = '';
         if (team.length) {
-            html += '<span class="ib-bb-team-label">Members</span>';
+                html += '<span class="ib-bb-team-label">Founders</span>';
             team.forEach(function (m) {
                 html += '<div class="ib-bb-member flex flex-col items-center">';
                 html += '<span class="ib-bb-member-name">' + m.name + '</span>';
@@ -160,7 +141,7 @@
                 html += '</div>';
             });
         } else {
-            html = '<p class="ib-bb-no-team">Team info coming soon</p>';
+            html = '<p class="ib-bb-no-team">Founder info coming soon</p>';
         }
         mpBackTeam.innerHTML = html;
 
@@ -248,12 +229,11 @@
         var num = String(idx + 1).padStart(2, '0');
 
         /* Big front */
-        bfNum.textContent     = num;
-        bfName.textContent    = d.companyName;
-        bfFounder.textContent = d.founderName ? 'Founder: ' + d.founderName : '';
-        bfCohort.textContent  = d.cohort;
-        /* Always use white-filter — CSS already applies brightness(0) invert(1) */
-        var logoSrc = d.logoPath || d.logoWhitePath;
+        bfNum.textContent    = num;
+        bfName.textContent   = d.companyName;
+        bfCohort.textContent = d.cohort;
+        /* Prefer white-logo upload first, then fallback to regular logo with white filter */
+        var logoSrc = d.logoWhitePath || d.logoPath;
         bfLogo.innerHTML = logoSrc
             ? '<img src="' + logoSrc + '" alt="' + d.companyName + '">'
             : '<span class="ib-init" style="font-size:2.4rem;color:rgba(255,255,255,.5)">'
@@ -264,7 +244,7 @@
         var team = buildDisplayTeam(d);
         var html = '';
         if (team.length) {
-            html += '<span class="ib-bb-team-label">Members</span>';
+            html += '<span class="ib-bb-team-label">Founders</span>';
             team.forEach(function (m) {
                 html += '<div class="ib-bb-member flex flex-col items-center">';
                 html += '<span class="ib-bb-member-name">' + m.name + '</span>';
@@ -272,7 +252,7 @@
                 html += '</div>';
             });
         } else {
-            html = '<p class="ib-bb-no-team">Team info coming soon</p>';
+            html = '<p class="ib-bb-no-team">Founder info coming soon</p>';
         }
         bbTeam.innerHTML = html;
 

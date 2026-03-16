@@ -83,12 +83,20 @@
 .ib-front .ib-diamond.bl { bottom: 10px; left: 10px }
 .ib-front .ib-diamond.br { bottom: 10px; right: 10px }
 
-.ib-portrait { padding: .6rem; z-index: 2 }
+.ib-portrait {
+    padding: .6rem;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 /* Small card logo — invisible container, logo fills most of the card */
 .ib-logo-box {
     width: 80%; height: 80%;
     max-width: 190px; max-height: 190px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -102,6 +110,9 @@
 .ib-logo-box img {
     width: 100%; height: 100%;
     object-fit: contain;
+    object-position: center center;
+    display: block;
+    margin: 0 auto;
 }
 .ib-init {
     font-family: 'DM Serif Display', serif;
@@ -240,13 +251,23 @@
 }
 .ib-bf-portrait { z-index: 2 }
 
+.ib-bf-logo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .ib-bf-logo img {
-    width: 16vh; height: 16vh;
+    width: 18vh; height: 18vh;
     object-fit: contain;
+    object-position: center center;
     filter: brightness(0) invert(1);
     opacity: .85; transition: opacity .3s;
     background: transparent !important;
     border-radius: 0; padding: 0;
+    display: block;
+    margin: 0 auto;
 }
 .ib-bf-logo:hover img { opacity: 1 }
 /* is-white: keep same white-filter treatment so any uploaded logo reads as white on navy */
@@ -387,7 +408,9 @@
 }
 .ib-p-content {
     font-size: .84rem; font-weight: 400;
-    line-height: 1.8; color: rgba(2,13,24,.72);
+    line-height: 1.62;
+    color: rgba(2,13,24,.72);
+    text-align: justify;
 }
 .ib-p-content p { margin-bottom: .8rem }
 .ib-p-content p:last-child { margin-bottom: 0 }
@@ -409,34 +432,38 @@
     margin-bottom: .7rem;
 }
 .ib-p-team-grid {
-    display: flex;
-    flex-direction: column;
-    gap: .15rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .9rem;
 }
 .ib-p-member-card {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    text-align: left;
-    gap: .75rem;
-    padding: .55rem 0;
-    border-bottom: 1px solid rgba(2,13,24,.04);
+    text-align: center;
+    gap: .5rem;
+    padding: .25rem;
+    border-bottom: none;
 }
 .ib-p-member-card:last-child {
     border-bottom: none;
 }
 .ib-p-member-photo {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
+    width: 100%;
+    max-width: 108px;
+    aspect-ratio: 1;
+    height: auto;
+    border-radius: 12px;
     object-fit: cover;
     border: 1.5px solid rgba(2,13,24,.06);
     flex-shrink: 0;
 }
 .ib-p-member-photo-default {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
+    width: 100%;
+    max-width: 108px;
+    aspect-ratio: 1;
+    height: auto;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -445,8 +472,8 @@
     overflow: hidden;
 }
 .ib-p-member-photo-default svg {
-    width: 22px;
-    height: 22px;
+    width: 36px;
+    height: 36px;
     color: #b8b3aa;
 }
 .ib-p-member-name {
@@ -471,7 +498,7 @@
 }
 
 @media (max-width: 560px) {
-    .ib-p-team-grid { flex-direction: column; }
+    .ib-p-team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
 }
 
 .ib-p-foot {
@@ -744,8 +771,18 @@
     top: 10px; left: 12px;
 }
 .ib-mob-preview-card .ib-bf-logo img {
-    width: 10vh;
-    height: 10vh;
+    width: 11.5vh;
+    height: 11.5vh;
+}
+
+@media (max-width: 767px) {
+    .ib-portrait {
+        justify-content: center;
+    }
+    .ib-logo-box {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 .ib-mob-preview-card .ib-bf-divider {
     display: none;

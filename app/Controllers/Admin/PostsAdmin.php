@@ -135,8 +135,12 @@ class PostsAdmin extends BaseController
             return redirect()->back()->withInput();
         }
 
-        setToast('success', 'Post created successfully.');
-        return redirect()->to(site_url('admin/posts'));
+        $newId = (int) $this->postModel->getInsertID();
+        setToast('success', 'Post saved successfully.');
+        if ($newId > 0) {
+            return redirect()->to(site_url('admin/posts/' . $newId . '/edit'));
+        }
+        return redirect()->back();
     }
 
     public function edit(int $id)
@@ -235,8 +239,8 @@ class PostsAdmin extends BaseController
             return redirect()->back()->withInput();
         }
 
-        setToast('success', 'Post updated successfully.');
-        return redirect()->to(site_url('admin/posts'));
+        setToast('success', 'Post saved successfully.');
+        return redirect()->to(site_url('admin/posts/' . $id . '/edit'));
     }
 
     /**

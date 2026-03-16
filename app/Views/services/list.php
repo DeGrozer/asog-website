@@ -14,7 +14,7 @@
                 <span class="block w-[18px] h-[1.5px] bg-gold"></span>
             </div>
             <h2 class="font-display text-[2rem] md:text-[2.6rem] leading-[1.15] text-dark">Services Offered</h2>
-            <p class="text-[.95rem] font-normal leading-[1.8] text-dark/50 mt-4 max-w-[560px] mx-auto">
+            <p class="text-[.95rem] font-normal leading-[1.8] text-dark mt-4 max-w-[560px] mx-auto">
                 ASOG TBI provides a comprehensive range of capacity-building services designed to support startups and
                 MSMEs at every stage of their innovation journey.</p>
         </div>
@@ -26,18 +26,18 @@
                 class="rounded-lg border border-dark/[.08] bg-white p-8 md:p-10 transition-all duration-300 hover:shadow-md hover:shadow-dark/[.08]">
                 <div class="h-1 w-12 bg-gold rounded mb-6"></div>
                 <h3 class="font-display text-[1.4rem] text-dark mb-3">Design Thinking</h3>
-                <p class="text-[.82rem] font-light leading-[1.75] text-dark/55 mb-5 text-justify">Structured frameworks
+                <p class="text-[.82rem] font-light leading-[1.55] text-dark mb-4 text-justify" style="color:#000;">Structured frameworks
                     to help founders clarify problems, validate assumptions, and develop customer-centric solutions.
                     Design thinking workshops guide teams through ideation, prototyping, and user feedback loops.</p>
-                <ul class="space-y-2 list-none pl-0">
-                    <li class="flex gap-2 items-start text-[.78rem]"><span
-                            class="text-navy font-bold leading-none mt-0.5">›</span><span class="text-dark/50">Problem
+                <ul class="space-y-1 list-none pl-0">
+                        <li class="flex gap-2 items-start text-[.78rem]"><span
+                        class="text-dark font-bold leading-none mt-0.5" style="color:#000;">›</span><span class="text-dark" style="color:#000;">Problem
                             validation sessions</span></li>
                     <li class="flex gap-2 items-start text-[.78rem]"><span
-                            class="text-navy font-bold leading-none mt-0.5">›</span><span class="text-dark/50">Customer
+                        class="text-dark font-bold leading-none mt-0.5" style="color:#000;">›</span><span class="text-dark" style="color:#000;">Customer
                             discovery workshops</span></li>
                     <li class="flex gap-2 items-start text-[.78rem]"><span
-                            class="text-navy font-bold leading-none mt-0.5">›</span><span class="text-dark/50">Market
+                        class="text-dark font-bold leading-none mt-0.5" style="color:#000;">›</span><span class="text-dark" style="color:#000;">Market
                             pain point analysis</span></li>
                 </ul>
             </div>
@@ -47,18 +47,18 @@
                 class="rounded-lg border border-dark/[.08] bg-white p-8 md:p-10 transition-all duration-300 hover:shadow-md hover:shadow-dark/[.08]">
                 <div class="h-1 w-12 bg-gold rounded mb-6"></div>
                 <h3 class="font-display text-[1.4rem] text-dark mb-3">Prototyping &amp; Development</h3>
-                <p class="text-[.82rem] font-light leading-[1.75] text-dark/55 mb-5 text-justify">Access to cutting-edge
+                <p class="text-[.82rem] font-light leading-[1.55] text-dark mb-4 text-justify" style="color:#000;">Access to cutting-edge
                     fabrication labs, AI workstations, and engineering expertise to transform concepts into tangible
                     prototypes and minimum viable products (MVPs).</p>
-                <ul class="space-y-2 list-none pl-0">
+                <ul class="space-y-1 list-none pl-0">
                     <li class="flex gap-2 items-start text-[.78rem]"><span
-                            class="text-navy font-bold leading-none mt-0.5">›</span><span class="text-dark/50">FabLab
+                        class="text-dark font-bold leading-none mt-0.5" style="color:#000;">›</span><span class="text-dark" style="color:#000;">FabLab
                             equipment and tools</span></li>
                     <li class="flex gap-2 items-start text-[.78rem]"><span
-                            class="text-navy font-bold leading-none mt-0.5">›</span><span class="text-dark/50">AI
+                        class="text-dark font-bold leading-none mt-0.5" style="color:#000;">›</span><span class="text-dark" style="color:#000;">AI
                             research lab access (AIRCoDe)</span></li>
                     <li class="flex gap-2 items-start text-[.78rem]"><span
-                            class="text-navy font-bold leading-none mt-0.5">›</span><span class="text-dark/50">Technical
+                        class="text-dark font-bold leading-none mt-0.5" style="color:#000;">›</span><span class="text-dark" style="color:#000;">Technical
                             mentorship and code review</span></li>
                 </ul>
             </div>
@@ -68,19 +68,19 @@
                 class="rounded-lg border border-dark/[.08] bg-white p-8 md:p-10 transition-all duration-300 hover:shadow-md hover:shadow-dark/[.08]">
                 <div class="h-1 w-12 bg-gold rounded mb-6"></div>
                 <h3 class="font-display text-[1.4rem] text-dark mb-3">Market Validation &amp; Business Planning</h3>
-                <p class="text-[.82rem] font-light leading-[1.75] text-dark/55 mb-5 text-justify">Structured guidance on
+                <p class="text-[.82rem] font-light leading-[1.55] text-dark mb-4 text-justify" style="color:#000;">Structured guidance on
                     testing product-market fit, refining business models, and preparing comprehensive business plans
                     that attract investors and partners.</p>
-                <ul class="space-y-2 list-none pl-0">
+                <ul class="space-y-1 list-none pl-0">
                     <li class="flex gap-2 items-start text-[.78rem]"><span
-                            class="text-navy font-bold leading-none mt-0.5">›</span><span class="text-dark/50">Early
+                        class="text-dark font-bold leading-none mt-0.5" style="color:#000;">›</span><span class="text-dark" style="color:#000;">Early
                             adopter testing programs</span></li>
                     <li class="flex gap-2 items-start text-[.78rem]"><span
-                            class="text-navy font-bold leading-none mt-0.5">›</span><span class="text-dark/50">Financial
+                        class="text-dark font-bold leading-none mt-0.5" style="color:#000;">›</span><span class="text-dark" style="color:#000;">Financial
                             projections and modeling</span></li>
                     <li class="flex gap-2 items-start text-[.78rem]"><span
-                            class="text-navy font-bold leading-none mt-0.5">›</span><span
-                            class="text-dark/50">Go-to-market strategy development</span></li>
+                        class="text-dark font-bold leading-none mt-0.5" style="color:#000;">›</span><span
+                        class="text-dark" style="color:#000;">Go-to-market strategy development</span></li>
                 </ul>
             </div>
 
@@ -89,65 +89,65 @@
                 class="rounded-lg border border-dark/[.08] bg-white p-8 md:p-10 transition-all duration-300 hover:shadow-md hover:shadow-dark/[.08]">
                 <div class="h-1 w-12 bg-gold rounded mb-6"></div>
                 <h3 class="font-display text-[1.4rem] text-dark mb-3">IP Protection &amp; Legal Support</h3>
-                <p class="text-[.82rem] font-light leading-[1.75] text-dark/55 mb-5 text-justify">Expert guidance on
+                <p class="text-[.82rem] font-light leading-[1.55] text-dark mb-4 text-justify" style="color:#000;">Expert guidance on
                     patent applications, trademark registration, and intellectual property management to protect
                     innovations and facilitate technology transfer.</p>
-                <ul class="space-y-2 list-none pl-0">
+                <ul class="space-y-1 list-none pl-0">
                     <li class="flex gap-2 items-start text-[.78rem]"><span
-                            class="text-navy font-bold leading-none mt-0.5">›</span><span class="text-dark/50">Patent
+                            class="text-dark font-bold leading-none mt-0.5" style="color:#000;">›</span><span class="text-dark" style="color:#000;">Patent
                             and trademark drafting</span></li>
                     <li class="flex gap-2 items-start text-[.78rem]"><span
-                            class="text-navy font-bold leading-none mt-0.5">›</span><span class="text-dark/50">IP
+                            class="text-dark font-bold leading-none mt-0.5" style="color:#000;">›</span><span class="text-dark" style="color:#000;">IP
                             strategy consultation</span></li>
                     <li class="flex gap-2 items-start text-[.78rem]"><span
-                            class="text-navy font-bold leading-none mt-0.5">›</span><span
-                            class="text-dark/50">Technology commercialization guidance</span></li>
+                            class="text-dark font-bold leading-none mt-0.5" style="color:#000;">›</span><span
+                            class="text-dark" style="color:#000;">Technology commercialization guidance</span></li>
                 </ul>
             </div>
         </div>
 
         <!-- Additional Support -->
         <div class="mt-16 p-8 md:p-12 rounded-lg border border-gold/[.2] bg-white">
-            <h3 class="font-display text-[1.35rem] text-dark mb-6">Additional Support &amp; Resources</h3>
+            <h3 class="font-display text-[1.35rem] text-dark mb-6" style="color:#03355a;">Additional Support &amp; Resources</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                    <h4 class="text-[.78rem] font-semibold tracking-[.12em] uppercase text-gold/80 mb-4">Mentorship
+                    <h4 class="text-[.78rem] font-semibold tracking-[.12em] uppercase text-dark mb-4" style="color:#03355a;">Mentorship
                         &amp; Guidance</h4>
-                    <ul class="space-y-2.5 text-[.82rem] text-dark/60 font-light">
-                        <li>✦ One-on-one mentoring sessions</li>
-                        <li>✦ Expert clinics and technical reviews</li>
-                        <li>✦ Pitch rehearsal and presentation coaching</li>
-                        <li>✦ Industry immersion activities</li>
+                    <ul class="space-y-2.5 text-[.82rem] text-dark font-light" style="color:#000;">
+                        <li><span style="color:#F8AF21;">✦</span> One-on-one mentoring sessions</li>
+                        <li><span style="color:#F8AF21;">✦</span> Expert clinics and technical reviews</li>
+                        <li><span style="color:#F8AF21;">✦</span> Pitch rehearsal and presentation coaching</li>
+                        <li><span style="color:#F8AF21;">✦</span> Industry immersion activities</li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-[.78rem] font-semibold tracking-[.12em] uppercase text-gold/80 mb-4">Networking
+                    <h4 class="text-[.78rem] font-semibold tracking-[.12em] uppercase text-dark mb-4" style="color:#03355a;">Networking
                         &amp; Partnerships</h4>
-                    <ul class="space-y-2.5 text-[.82rem] text-dark/60 font-light">
-                        <li>✦ Investor and venture capital connections</li>
-                        <li>✦ Government agency linkages (DOST, DTI)</li>
-                        <li>✦ Industry partnership facilitation</li>
-                        <li>✦ Demo day and pitch event access</li>
+                    <ul class="space-y-2.5 text-[.82rem] text-dark font-light" style="color:#000;">
+                        <li><span style="color:#F8AF21;">✦</span> Investor and venture capital connections</li>
+                        <li><span style="color:#F8AF21;">✦</span> Government agency linkages (DOST, DTI)</li>
+                        <li><span style="color:#F8AF21;">✦</span> Industry partnership facilitation</li>
+                        <li><span style="color:#F8AF21;">✦</span> Demo day and pitch event access</li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-[.78rem] font-semibold tracking-[.12em] uppercase text-gold/80 mb-4">Resources &amp;
+                    <h4 class="text-[.78rem] font-semibold tracking-[.12em] uppercase text-dark mb-4" style="color:#03355a;">Resources &amp;
                         Tools</h4>
-                    <ul class="space-y-2.5 text-[.82rem] text-dark/60 font-light">
-                        <li>✦ Dataset repository and cloud storage</li>
-                        <li>✦ AI software suites and licenses</li>
-                        <li>✦ Co-working space access</li>
-                        <li>✦ Conference room and meeting facilities</li>
+                    <ul class="space-y-2.5 text-[.82rem] text-dark font-light" style="color:#000;">
+                        <li><span style="color:#F8AF21;">✦</span> Dataset repository and cloud storage</li>
+                        <li><span style="color:#F8AF21;">✦</span> AI software suites and licenses</li>
+                        <li><span style="color:#F8AF21;">✦</span> Co-working space access</li>
+                        <li><span style="color:#F8AF21;">✦</span> Conference room and meeting facilities</li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-[.78rem] font-semibold tracking-[.12em] uppercase text-gold/80 mb-4">Continuing
+                    <h4 class="text-[.78rem] font-semibold tracking-[.12em] uppercase text-dark mb-4" style="color:#03355a;">Continuing
                         Support</h4>
-                    <ul class="space-y-2.5 text-[.82rem] text-dark/60 font-light">
-                        <li>✦ Post-graduation mentorship</li>
-                        <li>✦ Ongoing network access</li>
-                        <li>✦ Grant and funding opportunities</li>
-                        <li>✦ Strategic partnership support</li>
+                    <ul class="space-y-2.5 text-[.82rem] text-dark font-light" style="color:#000;">
+                        <li><span style="color:#F8AF21;">✦</span> Post-graduation mentorship</li>
+                        <li><span style="color:#F8AF21;">✦</span> Ongoing network access</li>
+                        <li><span style="color:#F8AF21;">✦</span> Grant and funding opportunities</li>
+                        <li><span style="color:#F8AF21;">✦</span> Strategic partnership support</li>
                     </ul>
                 </div>
             </div>
