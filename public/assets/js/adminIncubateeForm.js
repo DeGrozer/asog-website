@@ -99,9 +99,36 @@
         var zone = fileInput.closest('.tm-photo-zone');
         if (!zone) return;
 
+        function applySelectedFile(file) {
+            if (!file || !file.type || file.type.indexOf('image/') !== 0) return;
+            var dt = new DataTransfer();
+            dt.items.add(file);
+            fileInput.files = dt.files;
+            fileInput.dispatchEvent(new Event('change'));
+        }
+
         zone.addEventListener('click', function(e) {
             if (e.target === fileInput) return;
+            /* Prevent label default activation from opening a second picker dialog. */
+            e.preventDefault();
             fileInput.click();
+        });
+
+        zone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            zone.classList.add('is-dragover');
+        });
+
+        zone.addEventListener('dragleave', function() {
+            zone.classList.remove('is-dragover');
+        });
+
+        zone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            zone.classList.remove('is-dragover');
+            var files = e.dataTransfer && e.dataTransfer.files;
+            if (!files || files.length === 0) return;
+            applySelectedFile(files[0]);
         });
 
         fileInput.addEventListener('change', function() {
@@ -169,4 +196,50 @@
             }
         }
     });
+
+    /* ── Contacts Repeater ── */
+    var contactRows = document.getElementById('contactRows');
+    var contactAdd = document.getElementById('contactAdd');
+
+    if (contactRows && contactAdd) {
+        function buildContactRow() {
+            var row = document.createElement('div');
+            row.className = 'contact-row';
+            row.innerHTML =
+                '<input type="text" name="contact_person[]" placeholder="Contact person">' +
+                '<input type="text" name="contact_number[]" placeholder="Number">' +
+                '<input type="text" name="contact_email[]" placeholder="Email">' +
+                '<button type="button" class="contact-remove" title="Remove">×</button>';
+            return row;
+        }
+
+        contactAdd.addEventListener('click', function() {
+            var row = buildContactRow();
+            contactRows.appendChild(row);
+            var firstInput = row.querySelector('input[name="contact_person[]"]');
+            if (firstInput) {
+                firstInput.focus();
+            }
+        });
+
+        contactRows.addEventListener('click', function(e) {
+            if (!e.target.classList.contains('contact-remove')) {
+                return;
+            }
+
+            var row = e.target.closest('.contact-row');
+            if (!row) {
+                return;
+            }
+
+            if (contactRows.querySelectorAll('.contact-row').length > 1) {
+                row.remove();
+                return;
+            }
+
+            row.querySelectorAll('input').forEach(function(input) {
+                input.value = '';
+            });
+        });
+    }
 })();

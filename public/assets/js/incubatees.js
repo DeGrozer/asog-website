@@ -26,12 +26,14 @@
     var bbName = $('bbName'),
         bbTeam = $('bbTeam');
 
-    var pAboutTitle  = $('pAboutTitle'),
-        pContent     = $('pContent'),
-        pTeamSection = $('pTeamSection'),
-        pTeamList    = $('pTeamList'),
-        pWebsite     = $('pWebsite'),
-        pFacebook    = $('pFacebook');
+    var pAboutTitle   = $('pAboutTitle'),
+        pContent      = $('pContent'),
+        pTeamSection  = $('pTeamSection'),
+        pTeamList     = $('pTeamList'),
+        pContactSection = $('pContactSection'),
+        pContactList  = $('pContactList'),
+        pWebsite      = $('pWebsite'),
+        pFacebook     = $('pFacebook');
 
     var cards      = document.querySelectorAll('.ib-card');
     var seeMoreBtns = document.querySelectorAll('.ib-see-more');
@@ -61,8 +63,67 @@
     function buildDisplayTeam(d) {
         if (!Array.isArray(d.teamMembers)) return [];
         return d.teamMembers.filter(function (m) { return m && m.name; }).map(function (m) {
-            return { name: m.name, role: m.role || '', photo: m.photo || '' };
+            return {
+                name: m.name,
+                role: m.role || '',
+                photo: m.photo || ''
+            };
         });
+    }
+
+    function decodeRichText(html) {
+        if (!html) return '';
+        if (!/&lt;\/?[a-z][\s\S]*?&gt;/i.test(html)) return html;
+        var textarea = document.createElement('textarea');
+        textarea.innerHTML = html;
+        return textarea.value;
+    }
+
+    function escapeHtml(value) {
+        return String(value || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function buildContacts(d) {
+        var contacts = [];
+
+        if (Array.isArray(d.contacts)) {
+            d.contacts.forEach(function (contact) {
+                if (!contact) return;
+
+                var person = (contact.person || contact.name || '').trim();
+                var number = (contact.number || contact.phone || '').trim();
+                var email = (contact.email || '').trim();
+
+                if (!person && !number && !email) return;
+
+                contacts.push({
+                    person: person,
+                    number: number,
+                    email: email
+                });
+            });
+        }
+
+        if (!contacts.length) {
+            var legacyPerson = (d.contactName || '').trim();
+            var legacyNumber = (d.contactNumber || '').trim();
+            var legacyEmail = (d.contactEmail || '').trim();
+
+            if (legacyPerson || legacyNumber || legacyEmail) {
+                contacts.push({
+                    person: legacyPerson,
+                    number: legacyNumber,
+                    email: legacyEmail
+                });
+            }
+        }
+
+        return contacts;
     }
 
     /* ── Entrance animation ── */
@@ -260,7 +321,7 @@
         if (pAboutTitle) {
             pAboutTitle.textContent = 'About ' + d.companyName;
         }
-        pContent.innerHTML   = d.content || '';
+        pContent.innerHTML   = decodeRichText(d.content || '');
 
         var team = buildDisplayTeam(d);
 
@@ -288,6 +349,37 @@
             } else {
                 pTeamList.innerHTML = '';
                 pTeamSection.style.display = 'none';
+            }
+        }
+
+        if (pContactSection && pContactList) {
+            var contacts = buildContacts(d);
+
+            if (contacts.length) {
+                var contactHtml = '';
+                contacts.forEach(function (contact) {
+                    contactHtml += '<div class="ib-p-contact-item">';
+                    contactHtml += '<span class="ib-p-contact-piece">';
+                    contactHtml += '<i class="fa-solid fa-user ib-p-contact-icon" aria-hidden="true"></i>';
+                    contactHtml += '<span>' + escapeHtml(contact.person || '-') + '</span>';
+                    contactHtml += '</span>';
+                    contactHtml += '<span class="ib-p-contact-sep">|</span>';
+                    contactHtml += '<span class="ib-p-contact-piece">';
+                    contactHtml += '<i class="fa-solid fa-phone ib-p-contact-icon" aria-hidden="true"></i>';
+                    contactHtml += '<span>' + escapeHtml(contact.number || '-') + '</span>';
+                    contactHtml += '</span>';
+                    contactHtml += '<span class="ib-p-contact-sep">|</span>';
+                    contactHtml += '<span class="ib-p-contact-piece">';
+                    contactHtml += '<i class="fa-solid fa-envelope ib-p-contact-icon" aria-hidden="true"></i>';
+                    contactHtml += '<span>' + escapeHtml(contact.email || '-') + '</span>';
+                    contactHtml += '</span>';
+                    contactHtml += '</div>';
+                });
+                pContactList.innerHTML = contactHtml;
+                pContactSection.style.display = '';
+            } else {
+                pContactList.innerHTML = '';
+                pContactSection.style.display = 'none';
             }
         }
 

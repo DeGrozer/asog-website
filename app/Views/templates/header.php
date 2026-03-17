@@ -170,14 +170,11 @@
             </button>
             <div id="mobPsSub" class="overflow-hidden" style="max-height:0;transition:max-height .3s ease">
                 <a href="<?= $navAltitude ?>"
-                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block<?= $activeClass($seg1 === 'programs') ?>">↳
-                    The ALTITUDE Program</a>
+                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block<?= $activeClass($seg1 === 'programs') ?>">The ALTITUDE Program</a>
                 <a href="<?= $navServices ?>"
-                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block<?= $activeClass($seg1 === 'services') ?>">↳
-                    Services Offered</a>
+                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block<?= $activeClass($seg1 === 'services') ?>">Services Offered</a>
                 <a href="<?= $navFacilities ?>"
-                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block<?= $activeClass($seg1 === 'facilities') ?>">↳
-                    Facilities</a>
+                    class="text-[.72rem] font-normal tracking-[.08em] uppercase text-white/40 no-underline py-2 pl-4 border-b border-white/[.04] transition-colors hover:text-gold block<?= $activeClass($seg1 === 'facilities') ?>">Facilities</a>
             </div>
             <a href="<?= $navIncubatees ?>"
                 class="text-[.8rem] font-medium tracking-[.1em] uppercase text-white/60 no-underline py-3 border-b border-white/[.06] transition-colors hover:text-gold<?= $activeClass($isIncubatees) ?>">Incubatees</a>

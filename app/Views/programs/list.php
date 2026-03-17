@@ -2,210 +2,48 @@
      ║  PROGRAMS & SERVICES — TOC + ALTITUDE, Services, Facilities         ║
      ╚══════════════════════════════════════════════════════════════════════╝ -->
 
-<!-- TOC wrapper for programs page -->
+<!-- Programs page wrapper -->
 <div class="relative bg-off">
-    <div class="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-14">
-        <div class="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-8 lg:gap-12">
+    <div class="max-w-[1320px] mx-auto px-6 md:px-10 lg:px-14">
+        <div class="min-w-0">
+            <!-- ╔════════════════════════════════════════════════════════════════════╗
+ ║  SECTION 1: ALTITUDE PROGRAM                                      ║
+ ╚════════════════════════════════════════════════════════════════════╝ -->
+            <section class="relative py-20 md:py-25">
 
-            <!-- ── TOC Sidebar ── -->
-            <div class="pt-16 md:pt-24 lg:pt-24 self-stretch">
-                <?php
-                    $tocTitle = 'Programs & Services';
-                    $tocItems = [
-                        ['id' => 'altitude-program', 'label' => 'ALTITUDE Program', 'children' => [
-                            ['id' => 'trailhead', 'label' => 'Trailhead'],
-                            ['id' => 'basecamp', 'label' => 'Basecamp'],
-                            ['id' => 'ascent', 'label' => 'Ascent'],
-                            ['id' => 'summit-launch', 'label' => 'Summit Launch'],
-                        ]],
-                        ['id' => 'faculty-partners', 'label' => 'Faculty & Industry Partners', 'children' => [
-                            ['id' => 'faculty-mentors', 'label' => 'Faculty Mentors'],
-                            ['id' => 'industry-partners', 'label' => 'Industry Partners'],
-                        ]],
-                    ];
-                ?>
-                <?= view('templates/toc', compact('tocTitle', 'tocItems')) ?>
-            </div>
+                <div id="altitude-program" class="scroll-mt-28"></div>
 
-            <!-- ── Main Content Column ── -->
-            <div class="min-w-0">
-
-                <!-- ╔════════════════════════════════════════════════════════════════════╗
-     ║  SECTION 1: ALTITUDE PROGRAM                                      ║
-     ╚════════════════════════════════════════════════════════════════════╝ -->
-                <section class="relative py-20 md:py-25">
-
-                    <div id="altitude-program" class="scroll-mt-28"></div>
-
-                    <div class="max-w-[820px] mx-auto relative z-[2]">
-                        <div id="altitudeExperienceRoot" class="altitude-exp-root">
-                            <div id="altitudeLandingPage" class="altitude-exp-page altitude-exp-landing is-active">
-                                <div class="altitude-exp-hero">
-                                    <div class="altitude-exp-mtn" aria-hidden="true">
-                                        <svg viewBox="0 0 720 360" fill="none" preserveAspectRatio="none">
-                                            <path d="M0 360L88 228L158 274L260 136L352 232L442 92L556 210L652 126L720 192V360H0Z" fill="rgba(255,255,255,.15)"/>
-                                            <path d="M0 360L64 252L146 292L236 176L330 248L436 122L530 214L630 152L720 206V360H0Z" fill="rgba(255,255,255,.28)"/>
-                                            <path d="M0 360L46 286L120 314L210 228L306 286L400 176L496 256L600 202L720 248V360H0Z" fill="rgba(255,255,255,.42)"/>
-                                        </svg>
-                                    </div>
-                                    <div class="altitude-exp-hero-content">
-                                        <p class="altitude-exp-kicker">ASOG TBI Incubation Program</p>
-                                        <h1 class="altitude-exp-title">ALTITUDE</h1>
-                                        <p class="altitude-exp-subtitle">Advancing Local Technology and Innovation through Transformative Upskilling, Development, and Entrepreneurship</p>
-                                        <button id="altitudeEnterProgram" type="button" class="altitude-exp-enter-btn">Go to ALTITUDE Experience</button>
-                                    </div>
+                <div class="max-w-[1120px] mx-auto relative z-[2]">
+                    <div id="altitudeExperienceRoot" class="altitude-exp-root">
+                        <div id="altitudeLandingPage" class="altitude-exp-page altitude-exp-landing is-active">
+                            <div class="altitude-exp-hero">
+                                <div class="altitude-exp-mtn" aria-hidden="true">
+                                    <svg viewBox="0 0 720 360" fill="none" preserveAspectRatio="none">
+                                        <path d="M0 360L88 228L158 274L260 136L352 232L442 92L556 210L652 126L720 192V360H0Z" fill="rgba(255,255,255,.15)"/>
+                                        <path d="M0 360L64 252L146 292L236 176L330 248L436 122L530 214L630 152L720 206V360H0Z" fill="rgba(255,255,255,.28)"/>
+                                        <path d="M0 360L46 286L120 314L210 228L306 286L400 176L496 256L600 202L720 248V360H0Z" fill="rgba(255,255,255,.42)"/>
+                                    </svg>
+                                </div>
+                                <div class="altitude-exp-hero-content">
+                                    <p class="altitude-exp-kicker">ASOG TBI Incubation Program</p>
+                                    <h1 class="altitude-exp-title">ALTITUDE</h1>
+                                    <p class="altitude-exp-subtitle">Advancing Local Technology and Innovation through Transformative Upskilling, Development, and Entrepreneurship</p>
+                                    <button id="altitudeEnterProgram" type="button" class="altitude-exp-enter-btn">Go to ALTITUDE Experience</button>
                                 </div>
                             </div>
+                        </div>
 
-                            <div id="altitudeProgramPage" class="altitude-exp-page altitude-exp-program" hidden>
-                                <!-- Ghost trigger keeps the 3D module's click handler alive -->
-                                <div id="altitudeExploreCard" role="button" tabindex="-1" aria-label="Open ALTITUDE interactive view" style="display:none"></div>
-                            </div>
+                        <div id="altitudeProgramPage" class="altitude-exp-page altitude-exp-program" hidden>
+                            <!-- Ghost trigger keeps the 3D module's click handler alive -->
+                            <div id="altitudeExploreCard" role="button" tabindex="-1" aria-label="Open ALTITUDE interactive view" style="display:none"></div>
                         </div>
                     </div>
+                </div>
 
-                </section>
-
-                <!-- ╔════════════════════════════════════════════════════════════════════╗
-     ║  SECTION 2: FACULTY & INDUSTRY PARTNERS                          ║
-     ╚════════════════════════════════════════════════════════════════════╝ -->
-                <section class="relative pt-2 pb-14 md:pt-10 md:pb-16 border-t" style="border-color:rgba(2,13,24,.07)">
-
-                    <div id="faculty-partners" class="scroll-mt-28"></div>
-
-                    <div class="max-w-[760px] mx-auto">
-
-                        <!-- Section header -->
-                        <div class="mb-10">
-                            <h2 class="font-display text-[1.8rem] md:text-[2.2rem] leading-[1.12] text-dark mb-5">
-                                Faculty &amp; Industry Partners</h2>
-                            <blockquote class="border-l-[3px] border-gold pl-5">
-                                <p class="text-[.88rem] italic leading-[1.7]" style="color:#020d18">The ALTITUDE Program
-                                    is strengthened by a network of academic mentors and industry partners who bring
-                                    domain expertise, industry connections, and ecosystem access to every incubation
-                                    journey.</p>
-                            </blockquote>
-                        </div>
-
-                        <div class="grid grid-cols-1 gap-y-8">
-
-                            <!-- Faculty Mentors -->
-                            <div>
-                                <div id="faculty-mentors" class="scroll-mt-28"></div>
-                                <p class="text-[.5rem] font-bold tracking-[.2em] uppercase mb-6"
-                                    style="color:rgba(2,13,24,.3)">Faculty Mentors</p>
-                                <ul class="list-none pl-0 space-y-3">
-                                    <li class="flex items-center gap-3">
-                                        <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-[.6rem] font-bold tracking-wide"
-                                            style="background:#03355a;color:#fff">MS</div>
-                                        <div>
-                                            <span class="block text-[.88rem] font-semibold leading-none"
-                                                style="color:#020d18">Dr. Maria Santos</span>
-                                            <span class="block text-[.5rem] tracking-[.1em] uppercase mt-1"
-                                                style="color:rgba(2,13,24,.35)">Technology Innovation</span>
-                                        </div>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-[.6rem] font-bold tracking-wide"
-                                            style="background:#03355a;color:#fff">JC</div>
-                                        <div>
-                                            <span class="block text-[.88rem] font-semibold leading-none"
-                                                style="color:#020d18">Prof. Juan dela Cruz</span>
-                                            <span class="block text-[.5rem] tracking-[.1em] uppercase mt-1"
-                                                style="color:rgba(2,13,24,.35)">Business Strategy</span>
-                                        </div>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-[.6rem] font-bold tracking-wide"
-                                            style="background:#03355a;color:#fff">AR</div>
-                                        <div>
-                                            <span class="block text-[.88rem] font-semibold leading-none"
-                                                style="color:#020d18">Engr. Anna Reyes</span>
-                                            <span class="block text-[.5rem] tracking-[.1em] uppercase mt-1"
-                                                style="color:rgba(2,13,24,.35)">Product Development</span>
-                                        </div>
-                                    </li>
-                                    <li class="flex items-center gap-3">
-                                        <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-[.6rem] font-bold tracking-wide"
-                                            style="background:#03355a;color:#fff">CM</div>
-                                        <div>
-                                            <span class="block text-[.88rem] font-semibold leading-none"
-                                                style="color:#020d18">Dr. Carlos Mendoza</span>
-                                            <span class="block text-[.5rem] tracking-[.1em] uppercase mt-1"
-                                                style="color:rgba(2,13,24,.35)">Agri-Tech Research</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!-- Industry Partners -->
-                            <div>
-                                <div id="industry-partners" class="scroll-mt-28"></div>
-                                <p class="text-[.5rem] font-bold tracking-[.2em] uppercase mb-6"
-                                    style="color:rgba(2,13,24,.3)">Industry Partners</p>
-                                <ul class="list-none pl-0 divide-y" style="border-color:rgba(2,13,24,.07)">
-                                    <li class="industry-mentor-item flex items-start gap-3 py-2.5">
-                                        <span class="w-[5px] h-[5px] rounded-full mt-[.45rem] shrink-0 block"
-                                            style="background:#F8AF21"></span>
-                                        <div>
-                                            <span class="block text-[.88rem] font-semibold leading-none"
-                                                style="color:#020d18">Agrilink Philippines</span>
-                                            <span class="block text-[.5rem] tracking-[.1em] uppercase mt-1"
-                                                style="color:rgba(2,13,24,.35)">Agri Supply Chain</span>
-                                        </div>
-                                    </li>
-                                    <li class="industry-mentor-item flex items-start gap-3 py-2.5">
-                                        <span class="w-[5px] h-[5px] rounded-full mt-[.45rem] shrink-0 block"
-                                            style="background:#F8AF21"></span>
-                                        <div>
-                                            <span class="block text-[.88rem] font-semibold leading-none"
-                                                style="color:#020d18">FoodTech Asia</span>
-                                            <span class="block text-[.5rem] tracking-[.1em] uppercase mt-1"
-                                                style="color:rgba(2,13,24,.35)">Food Innovation</span>
-                                        </div>
-                                    </li>
-                                    <li class="industry-mentor-item flex items-start gap-3 py-2.5">
-                                        <span class="w-[5px] h-[5px] rounded-full mt-[.45rem] shrink-0 block"
-                                            style="background:#F8AF21"></span>
-                                        <div>
-                                            <span class="block text-[.88rem] font-semibold leading-none"
-                                                style="color:#020d18">InnoHub PH</span>
-                                            <span class="block text-[.5rem] tracking-[.1em] uppercase mt-1"
-                                                style="color:rgba(2,13,24,.35)">Startup Ecosystem</span>
-                                        </div>
-                                    </li>
-                                    <li class="industry-mentor-item flex items-start gap-3 py-2.5">
-                                        <span class="w-[5px] h-[5px] rounded-full mt-[.45rem] shrink-0 block"
-                                            style="background:#F8AF21"></span>
-                                        <div>
-                                            <span class="block text-[.88rem] font-semibold leading-none"
-                                                style="color:#020d18">DOST-TAPI</span>
-                                            <span class="block text-[.5rem] tracking-[.1em] uppercase mt-1"
-                                                style="color:rgba(2,13,24,.35)">Technology Commercialization</span>
-                                        </div>
-                                    </li>
-                                    <li class="flex items-start gap-3 py-2.5">
-                                        <span class="w-[5px] h-[5px] rounded-full mt-[.45rem] shrink-0 block"
-                                            style="background:#F8AF21"></span>
-                                        <div>
-                                            <span class="block text-[.88rem] font-semibold leading-none"
-                                                style="color:#020d18">GoNegosyo Network</span>
-                                            <span class="block text-[.5rem] tracking-[.1em] uppercase mt-1"
-                                                style="color:rgba(2,13,24,.35)">Entrepreneurship Support</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </section>
-
-            </div><!-- end main content column -->
-        </div><!-- end grid -->
-    </div><!-- end max-w container -->
-</div><!-- end TOC wrapper -->
+            </section>
+        </div>
+    </div>
+</div>
 
 <!-- ╔══════════════════════════════════════════════════════════════════════╗
      ║  ALTITUDE 3D — Wilderness Zoom Overlay + Fullscreen 3D Scene      ║
@@ -300,6 +138,67 @@
 
     <!-- Hint -->
     <p id="alt3dHint" class="alt3d-hint">Click a checkpoint to explore the journey · Press ESC to exit</p>
+
+    <button id="alt3dShowPartners" class="alt3d-mentors-btn" type="button" aria-controls="alt3dPartnersPanel" aria-expanded="false">
+        Faculty &amp; Industry Partners <span class="alt3d-mentors-btn-arrow" aria-hidden="true">↓</span>
+    </button>
+
+    <section id="alt3dPartnersPanel" class="alt3d-mentors-overlay" aria-label="Faculty and industry partners">
+        <div class="alt3d-mentors-inner">
+            <button id="alt3dPartnersUp" class="alt3d-mentors-close" type="button">↑ Back to Interactive</button>
+            <p class="alt3d-mentors-kicker">ALTITUDE Partner Network</p>
+            <h2>Faculty &amp; Industry Partners</h2>
+            <p>The ALTITUDE Program is strengthened by a network of academic mentors and industry partners who bring domain expertise, industry connections, and ecosystem access to every incubation journey.</p>
+
+            <div class="alt3d-mentors-block">
+                <h3>Faculty Mentors</h3>
+                <div class="alt3d-mentor-grid">
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Dr. Maria Santos</h4>
+                        <p class="alt3d-mentor-role">Technology Innovation</p>
+                    </article>
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Prof. Juan dela Cruz</h4>
+                        <p class="alt3d-mentor-role">Business Strategy</p>
+                    </article>
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Engr. Anna Reyes</h4>
+                        <p class="alt3d-mentor-role">Product Development</p>
+                    </article>
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Dr. Carlos Mendoza</h4>
+                        <p class="alt3d-mentor-role">Agri-Tech Research</p>
+                    </article>
+                </div>
+            </div>
+
+            <div class="alt3d-mentors-block">
+                <h3>Industry Partners</h3>
+                <div class="alt3d-industry-list">
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Agrilink Philippines</h4>
+                        <p class="alt3d-mentor-role">Agri Supply Chain</p>
+                    </article>
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">FoodTech Asia</h4>
+                        <p class="alt3d-mentor-role">Food Innovation</p>
+                    </article>
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">InnoHub PH</h4>
+                        <p class="alt3d-mentor-role">Startup Ecosystem</p>
+                    </article>
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">DOST-TAPI</h4>
+                        <p class="alt3d-mentor-role">Technology Commercialization</p>
+                    </article>
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">GoNegosyo Network</h4>
+                        <p class="alt3d-mentor-role">Entrepreneurship Support</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 <div id="altitudeProgramModal" class="alt3d-info-modal" hidden>
@@ -379,11 +278,18 @@
             const targetHash = (hashValue || '').replace('#', '');
             if (!['altitude-program', 'altitude-3d', 'trailhead', 'basecamp', 'ascent', 'summit-launch'].includes(targetHash)) return;
 
-            /* Always land on ALTITUDE intro screen; user enters 3D explicitly from button. */
+            /* ALTITUDE TOC link should open landing first, then user enters interactive. */
             showLandingPage();
 
             const anchor = document.getElementById('altitude-program');
             if (anchor) anchor.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+
+            /* If altitude-3d hash, auto-enter the 3D experience after landing page shows */
+            if (targetHash === 'altitude-3d') {
+                setTimeout(() => {
+                    showProgramPage();
+                }, 300);
+            }
         };
 
         const showProgramModal = () => {

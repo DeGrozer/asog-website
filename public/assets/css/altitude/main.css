@@ -1,0 +1,1394 @@
+/* ╔══════════════════════════════════════════════════════════════════════╗
+   ║  ALTITUDE 3D INTERACTIVE — Card + Wilderness-Zoom + 3D Overlay    ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
+/* ─── 0. ALTITUDE PROGRAM PAGE FLOW ─── */
+.altitude-exp-root {
+  position: relative;
+}
+
+.altitude-exp-page {
+  display: none;
+}
+
+.altitude-exp-page.is-active {
+  display: block;
+}
+
+.altitude-exp-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  padding: 48px 42px 40px;
+  background: radial-gradient(circle at 75% 10%, #5ca2c9 0%, #1f567b 45%, #102d45 100%);
+  box-shadow: 0 12px 30px rgba(16, 45, 69, .18);
+  color: #f6f7f8;
+}
+
+.altitude-exp-mtn {
+  position: absolute;
+  inset: 0;
+  opacity: .62;
+  pointer-events: none;
+}
+
+.altitude-exp-mtn svg {
+  width: 100%;
+  height: 100%;
+}
+
+.altitude-exp-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 860px;
+}
+
+.altitude-exp-kicker {
+  margin: 0 0 10px;
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: rgba(255, 255, 255, .78);
+  font-weight: 700;
+}
+
+.altitude-exp-title {
+  margin: 0;
+  font-family: 'DM Serif Display', serif;
+  line-height: 1;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+}
+
+.altitude-exp-subtitle {
+  margin: 14px 0 0;
+  max-width: 860px;
+  font-size: 1.02rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, .95);
+}
+
+.altitude-exp-enter-btn {
+  margin-top: 20px;
+  border: 0;
+  border-radius: 999px;
+  background: #F8AF21;
+  color: #173149;
+  padding: 12px 20px;
+  font-size: .66rem;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+  box-shadow: 0 8px 20px rgba(248, 175, 33, .35);
+}
+
+.altitude-exp-enter-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(248, 175, 33, .42);
+}
+
+.altitude-exp-toolbar {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 14px;
+}
+
+.altitude-exp-back-btn {
+  border: 1px solid rgba(2, 13, 24, .12);
+  background: #fff;
+  color: rgba(2, 13, 24, .78);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: .58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .11em;
+  cursor: pointer;
+}
+
+.altitude-exp-callout {
+  border: 1px solid rgba(11, 47, 73, .12);
+  border-left: 4px solid #F8AF21;
+  border-radius: 10px;
+  padding: 14px 15px;
+  background: rgba(235, 246, 251, .75);
+}
+
+.altitude-exp-stages {
+  display: grid;
+  gap: 12px;
+}
+
+.altitude-stage-card {
+  border-radius: 12px;
+  border: 1px solid rgba(2, 13, 24, .09);
+  background: #fff;
+  overflow: hidden;
+}
+
+.altitude-stage-head {
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+  padding: 15px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: transparent;
+  text-align: left;
+}
+
+.altitude-stage-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.24rem;
+  color: #10263a;
+}
+
+.altitude-stage-meta {
+  font-size: .58rem;
+  text-transform: uppercase;
+  letter-spacing: .13em;
+  color: rgba(2, 13, 24, .5);
+  font-weight: 700;
+}
+
+.altitude-stage-panel {
+  padding: 0 16px 16px;
+  border-top: 1px solid rgba(2, 13, 24, .07);
+}
+
+.altitude-stage-topic {
+  margin: 10px 0;
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: .13em;
+  font-weight: 700;
+}
+
+.altitude-stage-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.altitude-stage-list li {
+  position: relative;
+  padding-left: 15px;
+  margin-top: 5px;
+}
+
+.altitude-stage-list li::before {
+  content: '';
+  position: absolute;
+  top: .58em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.stage-trailhead {
+  border-left: 4px solid #f0a90f;
+}
+
+.stage-trailhead .altitude-stage-topic,
+.stage-trailhead .altitude-stage-list li::before {
+  color: #ce8f08;
+  background: #ce8f08;
+}
+
+.stage-basecamp {
+  border-left: 4px solid #2878b5;
+}
+
+.stage-basecamp .altitude-stage-topic,
+.stage-basecamp .altitude-stage-list li::before {
+  color: #246ca2;
+  background: #246ca2;
+}
+
+.stage-ascent {
+  border-left: 4px solid #6f5da9;
+}
+
+.stage-ascent .altitude-stage-topic,
+.stage-ascent .altitude-stage-list li::before {
+  color: #5f4d95;
+  background: #5f4d95;
+}
+
+.stage-summit {
+  border-left: 4px solid #2f8a62;
+}
+
+.stage-summit .altitude-stage-topic,
+.stage-summit .altitude-stage-list li::before {
+  color: #2a7a57;
+  background: #2a7a57;
+}
+
+@media (max-width: 640px) {
+  .altitude-exp-hero {
+    padding: 30px 18px 26px;
+  }
+
+  .altitude-stage-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
+/* ─── 1.  EXPLORE CARD (HORIZONTAL) ─── */
+.alt3d-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,.05);
+  max-width: 100%;
+}
+
+.alt3d-card-flat {
+  border: 1px solid rgba(2, 13, 24, .12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .96) 0%, rgba(244, 249, 253, .94) 100%),
+    repeating-linear-gradient(-45deg, rgba(3, 53, 90, .03) 0 10px, rgba(248, 175, 33, .02) 10px 20px);
+  box-shadow: 0 6px 16px rgba(2, 13, 24, .06);
+}
+
+.alt3d-card-flat:hover {
+  transform: none;
+  box-shadow: 0 8px 18px rgba(2, 13, 24, .08);
+}
+
+.alt3d-card-flat .alt3d-card-body {
+  padding: 18px 20px;
+}
+
+.alt3d-card-flat .alt3d-card-tag {
+  color: rgba(3, 53, 90, .55);
+  border-color: rgba(3, 53, 90, .2);
+}
+
+.alt3d-card-flat .alt3d-card-title {
+  margin-bottom: 8px;
+  color: #0d2d45;
+}
+
+.alt3d-card-flat .alt3d-card-sub {
+  color: rgba(2, 13, 24, .6);
+}
+
+.alt3d-card-flat .alt3d-card-cta {
+  color: #0b4f7a;
+}
+
+.alt3d-card-flat:hover .alt3d-card-cta {
+  color: #0b4f7a;
+  gap: 6px;
+}
+.alt3d-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(0,0,0,.1);
+}
+.alt3d-card:active { transform: scale(.997); }
+
+/* Mountain preview illustration */
+.alt3d-card-preview {
+  flex: 0 0 200px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #d9edf5 0%, #eef6fa 100%);
+  border-radius: 14px 0 0 14px;
+  align-self: stretch;
+}
+.alt3d-card-svg {
+  width: 100%;
+  height: auto;
+  transition: transform .5s cubic-bezier(.22,1,.36,1);
+}
+.alt3d-card:hover .alt3d-card-svg {
+  transform: scale(1.05) translateY(-2px);
+}
+
+/* Card body text */
+.alt3d-card-body {
+  padding: 20px 24px;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+}
+.alt3d-card-tag {
+  display: inline-block;
+  font-size: .44rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(26,48,64,.3);
+  border: 1px solid rgba(26,48,64,.1);
+  border-radius: 3px;
+  padding: 2px 8px;
+  margin-bottom: 8px;
+}
+.alt3d-card-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.25rem;
+  font-weight: 400; color: #1a2a2a;
+  line-height: 1.2; margin-bottom: 6px;
+}
+.alt3d-card-sub {
+  font-size: .76rem; font-weight: 400;
+  line-height: 1.55; color: rgba(26,26,26,.4);
+  margin: 0 0 12px;
+}
+
+/* CTA */
+.alt3d-card-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .52rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(248,175,33,.7);
+  transition: color .25s, gap .25s;
+}
+.alt3d-card:hover .alt3d-card-cta { color: #F8AF21; gap: 9px; }
+.alt3d-card-cta svg { transition: transform .25s; }
+.alt3d-card:hover .alt3d-card-cta svg { transform: translate(2px,-2px); }
+
+/* Mobile: stack vertical */
+@media (max-width: 540px) {
+  .alt3d-card { flex-direction: column; }
+  .alt3d-card-preview { flex: none; width: 100%; border-radius: 14px 14px 0 0; }
+  .alt3d-card-body { text-align: center; padding: 16px 20px 18px; }
+  .alt3d-card-title { font-size: 1.1rem; }
+}
+
+
+/* ─── 2.  WILDERNESS ZOOM TRANSITION ─── */
+.alt3d-zoom-overlay {
+  position: fixed; inset: 0; z-index: 9998;
+  background: #1a3040;
+  pointer-events: none;
+  opacity: 0;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.alt3d-zoom-overlay.active { pointer-events: auto; }
+
+.alt3d-zoom-mountains {
+  position: absolute; inset: 0;
+  overflow: hidden;
+}
+.alt3d-zoom-mountains svg {
+  position: absolute; bottom: 0; width: 100%; height: 100%;
+}
+/* Parallax mountain layers */
+.alt3d-mtn-far  { fill: rgba(255,255,255,.03); }
+.alt3d-mtn-mid  { fill: rgba(255,255,255,.05); }
+.alt3d-mtn-near { fill: rgba(255,255,255,.08); }
+
+/* Snowflake particles during zoom */
+.alt3d-particle {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: rgba(255,255,255,.15);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Loading text in zoom */
+.alt3d-zoom-text {
+  position: relative; z-index: 2;
+  text-align: center; color: #eef6fa;
+  opacity: 0;
+}
+.alt3d-zoom-text .zt-eyebrow {
+  font-size: .48rem; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.25);
+  margin-bottom: 8px;
+}
+.alt3d-zoom-text .zt-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 400; line-height: 1.1;
+}
+
+
+/* ─── 3.  FULLSCREEN 3D OVERLAY ─── */
+.alt3d-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #c4dff0;
+  opacity: 0; pointer-events: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.alt3d-overlay::-webkit-scrollbar {
+  display: none;
+}
+.alt3d-overlay.active {
+  pointer-events: auto;
+}
+
+.alt3d-overlay canvas {
+  display: block; width: 100%; height: 100vh;
+  cursor: grab;
+}
+.alt3d-overlay canvas:active { cursor: grabbing; }
+
+/* Mini info button + tooltip */
+.alt3d-mini-info-wrap {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 65;
+}
+
+.alt3d-program-chip {
+  position: fixed;
+  top: 19px;
+  left: 64px;
+  z-index: 65;
+  border: 1px solid rgba(14, 35, 49, .2);
+  background: #f5f2e8;
+  color: #1a3448;
+  border-radius: 999px;
+  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alt3d-program-chip-title {
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.alt3d-program-chip-link {
+  border: 0;
+  background: transparent;
+  color: #0f4f73;
+  font-size: .58rem;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.alt3d-mini-info-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(3, 31, 46, .22);
+  background: #f5f2e8;
+  color: #193246;
+  font-weight: 700;
+  font-size: .95rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .12);
+}
+
+.alt3d-info-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 115;
+  background: rgba(13, 34, 47, .56);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.alt3d-info-modal-card {
+  width: min(480px, 82vw);
+  max-height: min(56vh, 460px);
+  overflow-y: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(20, 40, 56, .16);
+  background: #f7f3e8;
+  color: #112838;
+  box-shadow: 0 20px 56px rgba(0, 0, 0, .34);
+  padding: 14px 14px 10px;
+  position: relative;
+}
+
+.alt3d-info-modal-card::-webkit-scrollbar {
+  width: 5px;
+}
+
+.alt3d-info-modal-card::-webkit-scrollbar-thumb {
+  background: rgba(17, 40, 56, .35);
+  border-radius: 999px;
+}
+
+.alt3d-info-modal-card h3 {
+  margin: 0 0 10px;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+}
+
+.alt3d-info-modal-card p {
+  margin: 0 0 8px;
+  line-height: 1.56;
+  font-size: .78rem;
+  color: rgba(17, 40, 56, .84);
+}
+
+.alt3d-partner-showcase {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(17, 40, 56, .14);
+}
+
+.alt3d-partner-kicker {
+  margin: 0 0 6px;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(17, 40, 56, .58);
+}
+
+.alt3d-partner-intro {
+  margin: 0 0 14px;
+  font-size: .82rem;
+  line-height: 1.62;
+  color: rgba(17, 40, 56, .78);
+}
+
+.alt3d-partner-heading {
+  margin: 0 0 8px;
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(17, 40, 56, .74);
+}
+
+.alt3d-partner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.alt3d-partner-card {
+  border-radius: 12px;
+  border: 1px solid rgba(15, 42, 61, .15);
+  background: linear-gradient(160deg, rgba(255, 255, 255, .92) 0%, rgba(236, 246, 251, .86) 100%);
+  padding: 10px 11px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .62);
+}
+
+.alt3d-partner-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #18384f;
+  color: #f7f3e8;
+  font-size: .56rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  margin-bottom: 8px;
+}
+
+.alt3d-partner-card h5 {
+  margin: 0;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: #17374e;
+}
+
+.alt3d-partner-card p {
+  margin: 4px 0 0;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(17, 40, 56, .62);
+}
+
+.alt3d-industry-pills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 9px;
+}
+
+.alt3d-industry-pill {
+  border-radius: 999px;
+  border: 1px solid rgba(20, 51, 71, .2);
+  background: rgba(255, 255, 255, .7);
+  padding: 8px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.alt3d-industry-pill strong {
+  font-size: .72rem;
+  color: #16374d;
+  line-height: 1.25;
+}
+
+.alt3d-industry-pill span {
+  font-size: .52rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: rgba(17, 40, 56, .62);
+}
+
+.alt3d-info-modal-close {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  border: 0;
+  background: transparent;
+  color: rgba(17, 40, 56, .66);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Close button */
+.alt3d-close {
+  position: fixed; top: 20px; right: 24px; z-index: 60;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.85);
+  border: 1px solid rgba(0,0,0,.06);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,.06);
+  transition: all .2s;
+  backdrop-filter: blur(8px);
+}
+.alt3d-close:hover {
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(0,0,0,.1);
+  transform: scale(1.06);
+}
+.alt3d-close svg { width: 16px; height: 16px; color: #1a3040; }
+
+/* Info card */
+.alt3d-info {
+  position: fixed; right: 26px; top: 50%;
+  width: min(500px, 43vw);
+  background: #f8f6f0;
+  border: 1px solid rgba(20, 40, 56, .14);
+  border-radius: 16px;
+  box-shadow: 0 18px 54px rgba(0,0,0,.22);
+  padding: 24px 24px 18px;
+  z-index: 50;
+  opacity: 0; pointer-events: none;
+  transform: translateY(-50%) translateX(52px);
+}
+.alt3d-info.vis { pointer-events: auto; }
+
+@media (min-width: 769px) {
+  .alt3d-info.alt3d-info-pos-right {
+    left: auto;
+    right: clamp(72px, 9vw, 170px);
+    top: clamp(140px, 32vh, 280px);
+    bottom: auto;
+    transform: translateY(0);
+  }
+
+  .alt3d-info.alt3d-info-pos-left {
+    left: clamp(72px, 9vw, 170px);
+    right: auto;
+    top: clamp(140px, 32vh, 280px);
+    bottom: auto;
+    transform: translateY(0);
+  }
+
+  .alt3d-info.alt3d-info-pos-upper-left {
+    left: clamp(72px, 9vw, 170px);
+    right: auto;
+    top: clamp(120px, 26vh, 230px);
+    bottom: auto;
+    transform: translateY(0);
+  }
+
+  .alt3d-info.alt3d-info-pos-upper-right {
+    left: auto;
+    right: clamp(72px, 9vw, 170px);
+    top: clamp(120px, 26vh, 230px);
+    bottom: auto;
+    transform: translateY(0);
+  }
+
+  .alt3d-info.alt3d-info-pos-lower-right {
+    left: auto;
+    right: clamp(72px, 9vw, 170px);
+    top: clamp(200px, 46vh, 430px);
+    bottom: auto;
+    transform: translateY(0);
+  }
+
+  .alt3d-info.alt3d-info-pos-lower-left {
+    left: clamp(72px, 9vw, 170px);
+    right: auto;
+    top: clamp(200px, 46vh, 430px);
+    bottom: auto;
+    transform: translateY(0);
+  }
+}
+
+.alt3d-info .ci-prestep {
+  border-left: 3px solid rgba(248, 175, 33, .9);
+  background: rgba(236, 245, 251, .65);
+  color: rgba(22, 41, 55, .84);
+  padding: 8px 9px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-size: .72rem;
+  line-height: 1.45;
+}
+
+.alt3d-info .ci-btn-about {
+  display: none;
+  border: 1px solid rgba(24, 52, 71, .22);
+  background: #f8f3e7;
+  color: #1a3a52;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: .56rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.alt3d-info .ci-num {
+  font-size: .50rem; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: #c18a10; margin-bottom: 6px;
+}
+.alt3d-info .ci-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.78rem; color: #13232d;
+  line-height: 1.12; margin-bottom: 2px;
+}
+.alt3d-info .ci-phase {
+  font-size: .68rem; font-weight: 700;
+  letter-spacing: .11em; text-transform: uppercase;
+  color: #2f7ca3; margin-bottom: 13px;
+}
+.alt3d-info .ci-dur {
+  display: inline-block; font-size: .50rem;
+  font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase;
+  background: #e5ecef; color: rgba(23,46,59,.56);
+  padding: 4px 11px; border-radius: 4px;
+  margin-bottom: 10px;
+}
+.alt3d-info .ci-desc {
+  font-size: .95rem; font-weight: 400;
+  line-height: 1.78; color: rgba(22,33,40,.92);
+  margin-bottom: 12px;
+  max-height: min(52vh, 430px);
+  overflow-y: auto;
+  padding: 4px 6px 2px 0;
+}
+
+.alt3d-info .ci-desc::-webkit-scrollbar {
+  width: 5px;
+}
+
+.alt3d-info .ci-desc::-webkit-scrollbar-track {
+  background: rgba(12, 33, 48, .08);
+  border-radius: 999px;
+}
+
+.alt3d-info .ci-desc::-webkit-scrollbar-thumb {
+  background: rgba(23, 51, 70, .35);
+  border-radius: 999px;
+}
+
+.alt3d-info .ci-desc p {
+  margin: 0 0 10px;
+}
+
+.alt3d-info .ci-desc .ci-overview {
+  color: rgba(26, 26, 26, .62);
+}
+
+.alt3d-info .ci-desc .ci-awareness {
+  border-left: 3px solid rgba(248, 175, 33, .75);
+  padding-left: 10px;
+  color: rgba(26, 48, 64, .68);
+}
+
+.alt3d-info .ci-desc .ci-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.alt3d-step-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 116;
+  background: rgba(10, 31, 44, .5);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.alt3d-step-modal-card {
+  width: min(100%, 420px);
+  max-height: 38vh;
+  overflow-y: auto;
+  border-radius: 14px;
+  background: #f8f6f0;
+  color: #182933;
+  border: 1px solid rgba(18, 39, 54, .12);
+  padding: 10px 10px 8px;
+  position: relative;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .15);
+}
+
+.alt3d-step-modal-card::-webkit-scrollbar {
+  width: 5px;
+}
+
+.alt3d-step-modal-card::-webkit-scrollbar-thumb {
+  background: rgba(22, 46, 62, .35);
+  border-radius: 999px;
+}
+
+.alt3d-step-modal-close {
+  position: absolute;
+  right: 8px;
+  top: 4px;
+  border: 0;
+  background: transparent;
+  color: rgba(23, 43, 57, .65);
+  font-size: 1.7rem;
+}
+
+.alt3d-step-modal-card .ci-num {
+  font-size: .48rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #c18a10 !important;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.alt3d-step-modal-card .ci-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.05rem;
+  color: #182933 !important;
+  line-height: 1.1;
+  margin-bottom: 2px;
+  letter-spacing: .01em;
+}
+
+.alt3d-step-modal-card .ci-phase {
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  color: #3f88ad !important;
+  margin-bottom: 10px;
+}
+
+.alt3d-step-modal-card .ci-dur {
+  display: inline-block;
+  font-size: .5rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  background: #e5ecef;
+  color: rgba(23, 46, 59, .82) !important;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.alt3d-step-modal-card .ci-desc {
+  display: block;
+  font-size: .74rem;
+  line-height: 1.62;
+  letter-spacing: .01em;
+  word-spacing: .02em;
+  color: rgba(22, 33, 40, .92) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.alt3d-step-modal-card .ci-desc,
+.alt3d-step-modal-card .ci-desc p,
+.alt3d-step-modal-card .ci-desc li,
+.alt3d-step-modal-card .ci-desc span,
+.alt3d-step-modal-card .ci-desc strong {
+  color: rgba(22, 33, 40, .92) !important;
+}
+
+.alt3d-step-modal-card .ci-desc p {
+  margin: 0 0 10px;
+  text-align: left;
+}
+
+.alt3d-step-modal-card .ci-desc strong {
+  font-weight: 600;
+}
+
+.alt3d-step-modal-card .ci-desc .ci-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.alt3d-step-modal-card .ci-desc .ci-list li {
+  position: relative;
+  margin: 0 0 6px;
+  padding-left: 14px;
+}
+
+.alt3d-step-modal-card .ci-desc .ci-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .7em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #F8AF21;
+}
+
+.alt3d-step-modal-card .ci-desc .ci-impact {
+  margin-top: 12px;
+  color: rgba(26, 48, 64, .86);
+  font-style: italic;
+}
+
+.alt3d-info .ci-desc .ci-list li {
+  position: relative;
+  margin: 0 0 6px;
+  padding-left: 14px;
+}
+
+.alt3d-info .ci-desc .ci-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .7em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #F8AF21;
+}
+
+.alt3d-info .ci-desc .ci-impact {
+  margin-top: 12px;
+  color: rgba(26, 48, 64, .86);
+  font-style: italic;
+}
+.alt3d-info .ci-nav {
+  display: flex; gap: 8px; align-items: center;
+  padding-top: 11px;
+  border-top: 1px solid rgba(0,0,0,.05);
+}
+
+/* Hide scene HUD while user is scrolled to the section below the 3D viewport */
+.alt3d-overlay.is-below-scene .alt3d-info,
+.alt3d-overlay.is-below-scene .alt3d-labels,
+.alt3d-overlay.is-below-scene .alt3d-dots,
+.alt3d-overlay.is-below-scene .alt3d-hint,
+.alt3d-overlay.is-below-scene .alt3d-mini-info-wrap,
+.alt3d-overlay.is-below-scene .alt3d-mentors-btn,
+.alt3d-overlay.is-below-scene .alt3d-program-chip,
+.alt3d-overlay.is-below-scene .alt3d-close {
+  opacity: 0;
+  pointer-events: none;
+}
+.alt3d-info .ci-nav button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: .52rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  border: none; cursor: pointer;
+  padding: 7px 14px; border-radius: 5px;
+  transition: all .2s;
+}
+.alt3d-info .ci-btn-main {
+  background: #183447; color: #eef6fa;
+}
+.alt3d-info .ci-btn-main:hover { background: #2a4050; }
+.alt3d-info .ci-btn-main:disabled {
+  background: #ddd; color: #aaa; cursor: not-allowed;
+}
+.alt3d-info .ci-btn-close {
+  background: transparent; color: rgba(26,26,26,.46);
+  margin-left: auto;
+}
+.alt3d-info .ci-btn-close:hover { color: rgba(26,26,26,.6); }
+
+/* Mentors entry button */
+.alt3d-mentors-btn {
+  position: fixed;
+  left: 18px;
+  bottom: 24px;
+  z-index: 62;
+  border: 1px solid rgba(21, 42, 57, .22);
+  background: #f5f2e8;
+  color: #173446;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: .56rem;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.alt3d-mentors-btn-arrow {
+  font-size: .9rem;
+  line-height: 1;
+  color: #f0a400;
+}
+
+/* Mentors section style aligned with 3D scene look */
+.alt3d-mentors-overlay {
+  position: relative;
+  z-index: 30;
+  background: linear-gradient(180deg, #8ac2dc 0%, #bfe0ef 26%, #d5eee0 100%);
+  color: #17384c;
+  overflow-y: auto;
+  min-height: 100vh;
+  margin-top: 0;
+  padding: 28px 24px 30px;
+}
+
+.alt3d-mentors-overlay::-webkit-scrollbar {
+  width: 6px;
+}
+
+.alt3d-mentors-overlay::-webkit-scrollbar-thumb {
+  background: rgba(20, 57, 79, .33);
+  border-radius: 999px;
+}
+
+.alt3d-mentors-close {
+  position: sticky;
+  right: 0;
+  top: 0;
+  border: 1px solid rgba(15, 49, 69, .22);
+  background: #f6f3e9;
+  color: #18384f;
+  font-size: .58rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  border-radius: 999px;
+  padding: 7px 10px;
+  cursor: pointer;
+  float: right;
+  margin-bottom: 8px;
+}
+
+.alt3d-mentors-inner {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.alt3d-mentors-kicker {
+  margin: 0 0 8px;
+  font-size: .62rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(23, 59, 80, .72);
+}
+
+.alt3d-mentors-inner h2 {
+  margin: 0 0 18px;
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.7rem, 5vw, 2.6rem);
+  line-height: 1.08;
+}
+
+.alt3d-mentors-inner > p {
+  margin: 0 0 14px;
+  font-size: .92rem;
+  line-height: 1.7;
+  color: rgba(23, 56, 76, .88);
+  max-width: 760px;
+}
+
+.alt3d-mentors-block {
+  margin-top: 16px;
+}
+
+.alt3d-mentors-block h3 {
+  margin: 0 0 10px;
+  font-size: .82rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(20, 56, 76, .88);
+}
+
+.alt3d-mentor-grid,
+.alt3d-industry-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.alt3d-mentor-card {
+  background: #f7f3e8;
+  border: 1px solid rgba(19, 48, 66, .14);
+  border-radius: 10px;
+  padding: 12px 12px;
+}
+
+.alt3d-mentor-name {
+  margin: 0;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1rem;
+  color: #17374e;
+}
+
+.alt3d-mentor-role {
+  margin: 0;
+  font-size: .78rem;
+  color: rgba(23, 55, 78, .68);
+}
+
+/* ═════════════════════════════════════════════════════════════
+   INPUT VALIDATION STYLES
+   ═════════════════════════════════════════════════════════════ */
+
+input.is-invalid,
+textarea.is-invalid,
+select.is-invalid {
+  border-color: #d73a47 !important;
+  background-color: rgba(215, 58, 71, .04) !important;
+}
+
+.validation-error {
+  display: block;
+  margin-top: 6px;
+  font-size: .72rem;
+  font-weight: 500;
+  color: #d73a47;
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: .03em;
+}
+
+/* Form input focus states */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #0f4f73 !important;
+  box-shadow: 0 0 0 3px rgba(15, 79, 115, .1);
+}
+
+input.is-invalid:focus,
+textarea.is-invalid:focus,
+select.is-invalid:focus {
+  border-color: #d73a47 !important;
+  box-shadow: 0 0 0 3px rgba(215, 58, 71, .1);
+  margin: 4px 0 0;
+  font-size: .67rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(22, 54, 73, .68);
+}
+
+.alt3d-industry-toggle {
+  border: 1px solid rgba(20, 51, 71, .2);
+  background: #f3eee0;
+  color: #15374d;
+  border-radius: 10px;
+  padding: 10px 12px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .64rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.alt3d-industry-toggle[aria-expanded='true'] .alt3d-industry-arrow {
+  transform: rotate(180deg);
+}
+
+.alt3d-industry-arrow {
+  transition: transform .24s ease;
+}
+
+/* Flag labels */
+.alt3d-labels { position: fixed; inset: 0; pointer-events: none; z-index: 15; }
+.alt3d-flag-label {
+  position: absolute; white-space: nowrap;
+  transition: opacity .3s;
+}
+.alt3d-flag-label span {
+  font-size: .46rem; font-weight: 700;
+  letter-spacing: .15em; text-transform: uppercase;
+  color: #e8524a; background: #fff;
+  padding: 2px 8px; border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  cursor: pointer; pointer-events: auto;
+}
+.alt3d-flag-label span:hover { color: #F8AF21; }
+
+/* Progress dots */
+.alt3d-dots {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 9px; z-index: 20;
+}
+.alt3d-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(26,48,64,.12);
+  border: none; cursor: pointer;
+  transition: all .3s; padding: 0;
+}
+.alt3d-dot.active { background: #F8AF21; transform: scale(1.3); }
+.alt3d-dot:hover { background: rgba(248,175,33,.5); }
+
+/* Hint text */
+.alt3d-hint {
+  position: fixed; bottom: 70px; left: 50%;
+  transform: translateX(-50%);
+  font-size: .46rem; letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(26,48,64,.16);
+  pointer-events: none; z-index: 20;
+  transition: opacity .4s;
+}
+.alt3d-overlay.zoomed .alt3d-hint { opacity: 0; }
+
+
+/* ─── 4. MOBILE ─── */
+@media (max-width: 768px) {
+  .alt3d-card { padding: 32px 24px; min-height: 180px; }
+  .alt3d-card-desc { font-size: .82rem; }
+
+  .altitude-exp-hero {
+    padding: 34px 22px 30px;
+  }
+
+  .altitude-exp-subtitle {
+    font-size: .92rem;
+    line-height: 1.68;
+  }
+
+  .alt3d-info {
+    left: 12px;
+    right: 12px;
+    top: clamp(88px, 18vh, 160px);
+    bottom: auto;
+    width: auto;
+    max-height: min(54vh, 440px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transform: translateY(28px);
+    border-radius: 16px;
+    z-index: 70;
+  }
+  .alt3d-info.vis {
+    transform: translateY(0);
+  }
+
+  .alt3d-step-modal {
+    place-items: end center;
+    padding: 0;
+  }
+
+  .alt3d-step-modal-card {
+    width: 100%;
+    max-height: min(72vh, 560px);
+    border-radius: 16px 16px 0 0;
+    padding: 14px 14px 12px;
+    animation: alt3dStepSheetIn .28s ease-out;
+  }
+
+  .alt3d-close {
+    top: 14px; right: 14px;
+    width: 36px; height: 36px;
+  }
+
+  .alt3d-mini-info-wrap {
+    top: 12px;
+    left: 12px;
+  }
+
+  .alt3d-program-chip {
+    top: 12px;
+    left: 54px;
+    max-width: calc(100vw - 120px);
+    padding: 5px 8px;
+    gap: 7px;
+  }
+
+  .alt3d-program-chip-title {
+    font-size: .52rem;
+  }
+
+  .alt3d-program-chip-link {
+    font-size: .52rem;
+  }
+
+  .alt3d-mentors-btn {
+    left: 12px;
+    bottom: 12px;
+    font-size: .5rem;
+    padding: 7px 9px;
+    letter-spacing: .08em;
+  }
+
+  .alt3d-info .ci-desc {
+    display: none;
+  }
+
+  .alt3d-info .ci-btn-about {
+    display: inline-block;
+  }
+
+  .alt3d-info .ci-prestep {
+    font-size: .66rem;
+    line-height: 1.38;
+  }
+}
+
+@keyframes alt3dStepSheetIn {
+  from {
+    transform: translateY(28px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

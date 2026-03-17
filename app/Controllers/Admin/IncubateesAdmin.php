@@ -71,12 +71,19 @@ class IncubateesAdmin extends BaseController
             return redirect()->back()->withInput();
         }
 
+        $contacts = $this->buildContactsFromRequest();
+        $primaryContact = $contacts[0] ?? ['person' => null, 'number' => null, 'email' => null];
+
         $data = [
             'companyName'      => trim($this->request->getPost('companyName') ?? ''),
             'shortDescription' => trim($this->request->getPost('shortDescription') ?? '') ?: null,
             'content'          => $content,
             'websiteUrl'       => trim($this->request->getPost('websiteUrl') ?? '') ?: null,
             'facebookUrl'      => trim($this->request->getPost('facebookUrl') ?? '') ?: null,
+            'contactDetails'   => ! empty($contacts) ? json_encode($contacts) : null,
+            'contactName'      => $primaryContact['person'],
+            'contactNumber'    => $primaryContact['number'],
+            'contactEmail'     => $primaryContact['email'],
             'cohort'           => trim($this->request->getPost('cohort') ?? '') ?: null,
             'teamMembers'      => ! empty($teamMembers) ? json_encode($teamMembers) : null,
             'sortOrder'        => (int) ($this->request->getPost('sortOrder') ?: 0),
@@ -215,12 +222,19 @@ class IncubateesAdmin extends BaseController
             return redirect()->back()->withInput();
         }
 
+        $contacts = $this->buildContactsFromRequest();
+        $primaryContact = $contacts[0] ?? ['person' => null, 'number' => null, 'email' => null];
+
         $data = [
             'companyName'      => trim($this->request->getPost('companyName') ?? ''),
             'shortDescription' => trim($this->request->getPost('shortDescription') ?? '') ?: null,
             'content'          => $content,
             'websiteUrl'       => trim($this->request->getPost('websiteUrl') ?? '') ?: null,
             'facebookUrl'      => trim($this->request->getPost('facebookUrl') ?? '') ?: null,
+            'contactDetails'   => ! empty($contacts) ? json_encode($contacts) : null,
+            'contactName'      => $primaryContact['person'],
+            'contactNumber'    => $primaryContact['number'],
+            'contactEmail'     => $primaryContact['email'],
             'cohort'           => trim($this->request->getPost('cohort') ?? '') ?: null,
             'teamMembers'      => ! empty($teamMembers) ? json_encode($teamMembers) : null,
             'sortOrder'        => (int) ($this->request->getPost('sortOrder') ?: 0),
@@ -422,6 +436,60 @@ class IncubateesAdmin extends BaseController
         }
 
         return $teamMembers;
+    }
+
+    /**
+     * Build contacts payload from repeater fields.
+     *
+     * Output format:
+     * [
+     *   ['person' => '...', 'number' => '...', 'email' => '...'],
+     *   ...
+     * ]
+     */
+    private function buildContactsFromRequest(): array
+    {
+        $persons = $this->request->getPost('contact_person') ?? [];
+        $numbers = $this->request->getPost('contact_number') ?? [];
+        $emails  = $this->request->getPost('contact_email') ?? [];
+
+        if (! is_array($persons)) {
+            $persons = [$persons];
+        }
+        if (! is_array($numbers)) {
+            $numbers = [$numbers];
+        }
+        if (! is_array($emails)) {
+            $emails = [$emails];
+        }
+
+        // Backward compatibility for older form payloads using single-value fields.
+        if ($persons === [] && $numbers === [] && $emails === []) {
+            $persons[] = $this->request->getPost('contactName') ?? '';
+            $numbers[] = $this->request->getPost('contactNumber') ?? '';
+            $emails[]  = $this->request->getPost('contactEmail') ?? '';
+        }
+
+        $max = max(count($persons), count($numbers), count($emails));
+        $contacts = [];
+
+        for ($i = 0; $i < $max; $i++) {
+            $person = trim((string) ($persons[$i] ?? ''));
+            $number = trim((string) ($numbers[$i] ?? ''));
+            $email  = trim((string) ($emails[$i] ?? ''));
+
+            if ($person === '' && $number === '' && $email === '') {
+                continue;
+            }
+
+            $contacts[] = [
+                'person' => $person !== '' ? $person : null,
+                'number' => $number !== '' ? $number : null,
+                'email'  => $email !== '' ? $email : null,
+            ];
+        }
+
+        return $contacts;
     }
 
     // ──────────────────────────────────────────────

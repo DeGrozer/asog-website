@@ -16,6 +16,11 @@
             <span class="ib-p-team-label">Founders</span>
             <div id="pTeamList" class="ib-p-team-grid"></div>
         </div>
+
+        <div id="pContactSection" class="ib-p-contact-wrap" style="display:none">
+            <span class="ib-p-contact-label">Contact Details</span>
+            <div id="pContactList" class="ib-p-contact-grid"></div>
+        </div>
     </div>
 
     <div class="ib-p-foot flex items-center flex-wrap" style="gap:.8rem">

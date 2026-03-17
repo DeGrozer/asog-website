@@ -12,6 +12,63 @@ $isEdit  = isset($incubatee);
 $formUrl = $isEdit
     ? site_url('admin/incubatees/' . $incubatee['id'] . '/update')
     : site_url('admin/incubatees');
+
+$contactRows = [];
+
+if ($isEdit && ! empty($incubatee['contactDetails'])) {
+    $decodedContacts = json_decode((string) $incubatee['contactDetails'], true);
+    if (is_array($decodedContacts)) {
+        foreach ($decodedContacts as $contact) {
+            if (! is_array($contact)) {
+                continue;
+            }
+
+            $contactRows[] = [
+                'person' => trim((string) ($contact['person'] ?? $contact['name'] ?? '')),
+                'number' => trim((string) ($contact['number'] ?? $contact['phone'] ?? '')),
+                'email'  => trim((string) ($contact['email'] ?? '')),
+            ];
+        }
+    }
+}
+
+$oldPersons = old('contact_person');
+$oldNumbers = old('contact_number');
+$oldEmails  = old('contact_email');
+
+if (is_array($oldPersons) || is_array($oldNumbers) || is_array($oldEmails)) {
+    $oldPersons = is_array($oldPersons) ? $oldPersons : [];
+    $oldNumbers = is_array($oldNumbers) ? $oldNumbers : [];
+    $oldEmails  = is_array($oldEmails) ? $oldEmails : [];
+
+    $contactRows = [];
+    $maxOldRows = max(count($oldPersons), count($oldNumbers), count($oldEmails));
+    for ($i = 0; $i < $maxOldRows; $i++) {
+        $contactRows[] = [
+            'person' => trim((string) ($oldPersons[$i] ?? '')),
+            'number' => trim((string) ($oldNumbers[$i] ?? '')),
+            'email'  => trim((string) ($oldEmails[$i] ?? '')),
+        ];
+    }
+}
+
+if (empty($contactRows)) {
+    $fallbackPerson = old('contactName', $isEdit ? ($incubatee['contactName'] ?? '') : '');
+    $fallbackNumber = old('contactNumber', $isEdit ? ($incubatee['contactNumber'] ?? '') : '');
+    $fallbackEmail  = old('contactEmail', $isEdit ? ($incubatee['contactEmail'] ?? '') : '');
+
+    if ($fallbackPerson !== '' || $fallbackNumber !== '' || $fallbackEmail !== '') {
+        $contactRows[] = [
+            'person' => (string) $fallbackPerson,
+            'number' => (string) $fallbackNumber,
+            'email'  => (string) $fallbackEmail,
+        ];
+    }
+}
+
+if (empty($contactRows)) {
+    $contactRows[] = ['person' => '', 'number' => '', 'email' => ''];
+}
 ?>
 
 <style>
@@ -197,13 +254,19 @@ $formUrl = $isEdit
     border: 1px dashed #d4d0ca;
     border-radius: .35rem;
     background: #fff;
-    min-height: 84px;
+    width: 92px;
+    min-height: 92px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     cursor: pointer;
     overflow: hidden;
+}
+
+.tm-photo-zone.is-dragover {
+    border-color: #03558C;
+    background: #f0f9ff;
 }
 
 .tm-photo-zone input[type=file] {
@@ -219,7 +282,7 @@ $formUrl = $isEdit
 
 .tm-photo-preview {
     width: 100%;
-    height: 84px;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -277,9 +340,108 @@ $formUrl = $isEdit
     background: #f0f9ff
 }
 
+/* Contacts repeater */
+.contact-section {
+    margin-top: .25rem
+}
+
+.contact-section .section-label {
+    font-size: .62rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: .5rem;
+    display: block
+}
+
+.contact-rows {
+    display: flex;
+    flex-direction: column;
+    gap: .45rem
+}
+
+.contact-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 32px;
+    gap: .5rem;
+    align-items: center
+}
+
+.contact-row input {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .82rem;
+    color: #1e293b;
+    padding: .45rem .6rem;
+    border: 1px solid #ddd;
+    border-radius: .25rem;
+    background: #fff;
+    outline: none;
+    transition: border .15s
+}
+
+.contact-row input:focus {
+    border-color: #03558C
+}
+
+.contact-remove {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #e8e5df;
+    border-radius: .25rem;
+    background: #fff;
+    color: #94a3b8;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all .15s
+}
+
+.contact-remove:hover {
+    border-color: #ef4444;
+    color: #ef4444
+}
+
+.contact-add {
+    margin-top: .45rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .3rem;
+    padding: .38rem .68rem;
+    border-radius: .25rem;
+    border: 1px dashed #cfd8e3;
+    background: #fff;
+    color: #64748b;
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .03em;
+    cursor: pointer;
+    transition: all .15s
+}
+
+.contact-add:hover {
+    border-color: #03558C;
+    color: #03558C
+}
+
 @media (max-width: 900px) {
     .tm-row {
         grid-template-columns: 1fr;
+    }
+
+    .contact-row {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-remove {
+        margin-left: auto;
+    }
+
+    .tm-photo-zone {
+        width: min(180px, 100%);
+        min-height: auto;
+        aspect-ratio: 1 / 1;
     }
 
     .tm-row .tm-remove {
@@ -430,6 +592,22 @@ $formUrl = $isEdit
                         value="<?= esc(old('facebookUrl', $isEdit ? ($incubatee['facebookUrl'] ?? '') : '')) ?>"
                         placeholder="https://facebook.com/yourpage">
                 </div>
+            </div>
+
+            <!-- Startup contacts -->
+            <div class="contact-section">
+                <span class="section-label">Contacts</span>
+                <div class="contact-rows" id="contactRows">
+                    <?php foreach ($contactRows as $contact): ?>
+                    <div class="contact-row">
+                        <input type="text" name="contact_person[]" value="<?= esc($contact['person'] ?? '') ?>" placeholder="Contact person">
+                        <input type="text" name="contact_number[]" value="<?= esc($contact['number'] ?? '') ?>" placeholder="Number">
+                        <input type="text" name="contact_email[]" value="<?= esc($contact['email'] ?? '') ?>" placeholder="Email">
+                        <button type="button" class="contact-remove" title="Remove">×</button>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <button type="button" class="contact-add" id="contactAdd">+ Add contact</button>
             </div>
 
             <!-- Sort order -->

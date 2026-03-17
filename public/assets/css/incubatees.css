@@ -501,6 +501,79 @@
     .ib-p-team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
 }
 
+.ib-p-contact-wrap {
+    margin-top: .85rem;
+}
+.ib-p-contact-label {
+    display: block;
+    font-size: .58rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(2,13,24,.45);
+    margin-bottom: .55rem;
+}
+.ib-p-contact-grid {
+    display: grid;
+    gap: .55rem;
+}
+.ib-p-contact-item {
+    display: grid;
+    grid-template-columns: minmax(120px, 1fr) auto minmax(120px, 1fr) auto minmax(160px, 1.25fr);
+    align-items: center;
+    gap: .45rem;
+    padding: .18rem 0 .34rem;
+    border: 0;
+    border-bottom: 1px solid rgba(2,13,24,.1);
+    border-radius: 0;
+    background: transparent;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: .7rem;
+    font-weight: 500;
+    letter-spacing: .01em;
+    line-height: 1.45;
+    color: rgba(2,13,24,.82);
+    max-width: 100%;
+    word-break: break-word;
+}
+
+.ib-p-contact-piece {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    min-width: 0;
+}
+
+.ib-p-contact-piece span {
+    overflow-wrap: anywhere;
+}
+
+.ib-p-contact-icon {
+    color: #03558C;
+    font-size: .64rem;
+    width: 12px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.ib-p-contact-sep {
+    color: rgba(2,13,24,.3);
+    font-size: .58rem;
+    line-height: 1;
+}
+
+@media (max-width: 640px) {
+    .ib-p-contact-item {
+        grid-template-columns: 1fr;
+        gap: .3rem;
+        padding: .2rem 0 .38rem;
+    }
+
+    .ib-p-contact-sep {
+        display: none;
+    }
+}
+
 .ib-p-foot {
     padding: 1rem 2rem 1.4rem;
     border-top: 1px solid rgba(2,13,24,.04);
