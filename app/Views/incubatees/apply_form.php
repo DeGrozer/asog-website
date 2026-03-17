@@ -26,10 +26,10 @@
                 </div>
                 <h2 class="font-display text-[1.4rem] md:text-[1.7rem] text-dark leading-snug mb-2">Startup Application Form</h2>
                 <p class="text-[.92rem] font-medium text-dark/85 mb-3">Welcome, Future Innovator!</p>
-                <p class="text-[.84rem] font-normal leading-[1.65] text-dark max-w-[640px] mb-2 text-justify">
+                <p class="text-[.84rem] font-normal leading-[1.65] text-black max-w-[640px] mb-2 text-justify">
                     Thank you for your interest in joining the ASOG Technology Business Incubator (TBI). We're excited to support passionate startups like yours in turning bold ideas into real-world solutions — especially those rooted in AI, engineering, and food value chain innovation.
                 </p>
-                <p class="text-[.84rem] font-normal leading-[1.65] text-dark max-w-[640px] text-justify">
+                <p class="text-[.84rem] font-normal leading-[1.65] text-black max-w-[640px] text-justify">
                     Please fill out this form carefully so we can get to know your team, your idea, and how we can best support your startup journey. We're looking forward to discovering the next big thing — and it might just be you!
                 </p>
             </div>
@@ -232,12 +232,12 @@
                 <div class="border border-navy/10 rounded-md overflow-hidden bg-white">
                     <!-- Description row -->
                     <div class="border-b border-navy/10 p-4 md:p-5 bg-navy/[.02]">
-                        <p class="text-[.78rem] text-dark/70 leading-[1.75] m-0">
-                            A <strong class="font-semibold text-dark/85">Lean Canvas</strong> is a one-page diagram
+                        <p class="text-[.78rem] text-black leading-[1.75] m-0">
+                            A <strong class="font-semibold text-black">Lean Canvas</strong> is a one-page diagram
                             designed for entrepreneurs to use when developing, evaluating, and validating a scalable
                             startup business idea.
                         </p>
-                        <p class="text-[.75rem] text-dark/55 leading-[1.7] mt-2 mb-0">
+                        <p class="text-[.75rem] text-black leading-[1.7] mt-2 mb-0">
                             Download the template first, fill out all the fields, and upload it below.
                             To download, go to <strong class="font-semibold">File</strong> → <strong
                                 class="font-semibold">Download</strong> → <strong class="font-semibold">Microsoft Word

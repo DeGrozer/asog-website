@@ -230,8 +230,8 @@ window.__ibData = <?= json_encode(array_map(function($inc){
             'teamMembers'      => array_map(static function ($m) {
                 return [
                     'name'  => html_entity_decode($m['name'] ?? '', ENT_QUOTES, 'UTF-8'),
-                    // 'role'  => html_entity_decode($m['role'] ?? '', ENT_QUOTES, 'UTF-8'),
-                    // 'photo' => ! empty($m['photo']) ? base_url($m['photo']) : '',
+                    'role'  => html_entity_decode($m['role'] ?? '', ENT_QUOTES, 'UTF-8'),
+                    'photo' => ! empty($m['photo']) ? base_url($m['photo']) : '',
                 ];
             }, ! empty($inc['teamMembers']) ? (json_decode($inc['teamMembers'], true) ?: []) : []),
         ];

@@ -1306,7 +1306,7 @@ select.is-invalid:focus {
   .alt3d-info {
     left: 12px;
     right: 12px;
-    top: clamp(88px, 18vh, 160px);
+    top: clamp(60px, 12vh, 110px);
     bottom: auto;
     width: auto;
     max-height: min(54vh, 440px);

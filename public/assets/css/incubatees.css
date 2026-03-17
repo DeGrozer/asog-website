@@ -387,26 +387,39 @@
     box-shadow: -8px 0 40px rgba(0,0,0,.1);
 }
 .ib-close {
-    top: 20px; right: 20px; z-index: 5;
     width: 40px; height: 40px;
     border: none;
     background: transparent;
     border-radius: 8px;
     color: rgba(2,13,24,.22);
     transition: color .2s, background .2s;
+    flex-shrink: 0;
 }
 .ib-close:hover { color: #020d18; background: rgba(2,13,24,.05) }
 
-.ib-p-body { padding: 2rem 2rem 1.4rem; scrollbar-width: none; -ms-overflow-style: none }
+.ib-p-body { padding: 0 2rem 1.4rem; scrollbar-width: none; -ms-overflow-style: none }
 .ib-p-body::-webkit-scrollbar { display: none }
+.ib-p-head {
+    position: sticky;
+    top: 0;
+    z-index: 8;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: .9rem;
+    padding: 1.35rem 0 .95rem;
+    background: #fff;
+    border-bottom: 1px solid rgba(2,13,24,.08);
+}
 .ib-p-about-title {
     font-family: 'DM Serif Display', serif;
     font-size: 2rem;
     line-height: 1.15;
     color: #020d18;
-    margin: 0 0 1.5rem;
+    margin: 0;
 }
 .ib-p-content {
+    padding-top: 1rem;
     font-size: .84rem; font-weight: 400;
     line-height: 1.62;
     color: rgba(2,13,24,.72);

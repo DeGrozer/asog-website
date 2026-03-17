@@ -17,16 +17,16 @@
 
         <div class="reveal space-y-0">
             <div class="flex items-start gap-5 py-4 border-t border-dark/[.07]">
-                <span class="text-[.9rem] font-normal leading-[1.65] text-dark">Early-stage startups or MSMEs with innovative food value chain solutions — agriculture, fisheries, food tech, food processing, and related areas.</span>
+                <span class="text-[.9rem] font-normal leading-[1.65] text-black">Early-stage startups or MSMEs with innovative food value chain solutions — agriculture, fisheries, food tech, food processing, and related areas.</span>
             </div>
             <div class="flex items-start gap-5 py-4 border-t border-dark/[.07]">
-                <span class="text-[.9rem] font-normal leading-[1.65] text-dark">Must be based in or willing to operate in the Bicol Region.</span>
+                <span class="text-[.9rem] font-normal leading-[1.65] text-black">Must be based in or willing to operate in the Bicol Region.</span>
             </div>
             <div class="flex items-start gap-5 py-4 border-t border-dark/[.07]">
-                <span class="text-[.9rem] font-normal leading-[1.65] text-dark">Must have at least a working prototype or proof of concept.</span>
+                <span class="text-[.9rem] font-normal leading-[1.65] text-black">Must have at least a working prototype or proof of concept.</span>
             </div>
             <div class="flex items-start gap-5 py-4 border-t border-b border-dark/[.07]">
-                <span class="text-[.9rem] font-normal leading-[1.65] text-dark">Team must be willing to participate in the full ALTITUDE incubation program.</span>
+                <span class="text-[.9rem] font-normal leading-[1.65] text-black">Team must be willing to participate in the full ALTITUDE incubation program.</span>
             </div>
         </div>
     </div>
@@ -178,28 +178,28 @@
                     <h2 class="font-display text-[1.5rem] md:text-[1.8rem] text-dark leading-[1.15]">What you'll receive</h2>
                 </div>
                 <ul class="reveal list-none p-0 m-0 space-y-0">
-                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-dark">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-black">
                         <span class="text-gold text-[.7rem]">✓</span> Co-working space &amp; lab access
                     </li>
-                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-dark">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-black">
                         <span class="text-gold text-[.7rem]">✓</span> Technical mentorship &amp; advisory
                     </li>
-                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-dark">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-black">
                         <span class="text-gold text-[.7rem]">✓</span> Business model development support
                     </li>
-                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-dark">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-black">
                         <span class="text-gold text-[.7rem]">✓</span> IP &amp; legal guidance
                     </li>
-                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-dark">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-black">
                         <span class="text-gold text-[.7rem]">✓</span> Investor readiness &amp; pitch coaching
                     </li>
-                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-dark">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-black">
                         <span class="text-gold text-[.7rem]">✓</span> Networking &amp; partnership opportunities
                     </li>
-                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-dark">
+                    <li class="flex items-center gap-3 py-3 border-t border-dark/[.06] text-[.88rem] text-black">
                         <span class="text-gold text-[.7rem]">✓</span> Training workshops &amp; seminars
                     </li>
-                    <li class="flex items-center gap-3 py-3 border-t border-b border-dark/[.06] text-[.88rem] text-dark">
+                    <li class="flex items-center gap-3 py-3 border-t border-b border-dark/[.06] text-[.88rem] text-black">
                         <span class="text-gold text-[.7rem]">✓</span> Demo day &amp; showcase events
                     </li>
                 </ul>
@@ -208,7 +208,7 @@
             <!-- Right — CTA block -->
             <div class="reveal flex flex-col justify-center">
                 <h3 class="font-display text-[1.3rem] md:text-[1.5rem] text-dark leading-[1.2] mb-4">Ready to get started?</h3>
-                <p class="text-[.88rem] font-normal leading-[1.65] text-dark mb-6">Fill out our application form and the ASOG-TBI team will reach out to schedule your screening and next steps.</p>
+                <p class="text-[.88rem] font-normal leading-[1.65] text-black mb-6">Fill out our application form and the ASOG-TBI team will reach out to schedule your screening and next steps.</p>
                 <a href="<?= site_url('incubatees/apply/form') ?>"
                    class="inline-block self-start font-body text-[.62rem] font-bold tracking-[.14em] uppercase text-dark bg-gold px-8 py-3.5 rounded-sm no-underline transition-colors duration-200 hover:bg-gold-dk">
                     Apply Now →

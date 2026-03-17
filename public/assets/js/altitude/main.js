@@ -1742,7 +1742,7 @@ const infoCardPosClasses = [
   'alt3d-info-pos-right',
   'alt3d-info-pos-left',
   'alt3d-info-pos-lower-right',
-  'alt3d-info-pos-lower-right'
+  'alt3d-info-pos-left'
 ];
 
 function isMobileViewport() {
