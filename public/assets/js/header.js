@@ -1,45 +1,55 @@
 /* ═══ NAVBAR SCROLL TOGGLE (desktop) ═══ */
 const navbar = document.getElementById('navbar');
+const hasHero = !!document.getElementById('hero');
 let lastScrollY = window.scrollY;
 let ticking = false;
 const SCROLL_THRESHOLD = 60;
 const isMobile = () => window.innerWidth < 1024;
 
 // Detect if the section behind the navbar has a light background
-function isLightBackground() {
+function getNavTheme() {
     const navBottom = navbar.getBoundingClientRect().bottom;
 
-    // 1. Prefer explicit data-navhint="dark" or "light" on the element behind the navbar
     const hinted = document.querySelectorAll('[data-navhint]');
     for (const el of hinted) {
         const r = el.getBoundingClientRect();
         if (r.top <= navBottom && r.bottom >= navBottom) {
-            return el.dataset.navhint === 'light';
+            const hint = (el.dataset.navhint ?? '').trim();
+            if (hint) {
+                return hint;
+            }
         }
     }
 
-    // 2. Fallback: compute from background color of sections/divs
     const candidates = document.querySelectorAll('section, main, div[class*="bg-"]');
-    let best = null;
+    let bestTheme = 'dark';
     let bestZ = -Infinity;
     for (const el of candidates) {
         const r = el.getBoundingClientRect();
         if (r.top <= navBottom && r.bottom >= navBottom) {
-            const bg  = window.getComputedStyle(el).backgroundColor;
-            const m   = bg.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?\)/);
+            const bg = window.getComputedStyle(el).backgroundColor;
+            const m = bg.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?\)/);
             if (m) {
                 const alpha = m[4] !== undefined ? parseFloat(m[4]) : 1;
                 if (alpha < 0.15) continue;
                 const depth = getDepth(el);
                 if (depth > bestZ) {
                     bestZ = depth;
-                    const lum = (0.299 * m[1] + 0.587 * m[2] + 0.114 * m[3]) / 255;
-                    best = lum > 0.55;
+                    const rVal = parseFloat(m[1]);
+                    const gVal = parseFloat(m[2]);
+                    const bVal = parseFloat(m[3]);
+                    const lum = (0.299 * rVal + 0.587 * gVal + 0.114 * bVal) / 255;
+                    const isBlue = bVal > 110 && gVal < 130 && rVal < 90;
+                    if (isBlue) {
+                        bestTheme = 'blue';
+                    } else {
+                        bestTheme = lum > 0.55 ? 'light' : 'dark';
+                    }
                 }
             }
         }
     }
-    return best ?? false;
+    return bestTheme;
 }
 
 function getDepth(el) {
@@ -51,6 +61,21 @@ function getDepth(el) {
 function updateNavbar() {
     const currentY = window.scrollY;
     const delta = currentY - lastScrollY;
+    const navTheme = getNavTheme();
+
+    if (!hasHero) {
+        // Non-hero pages start in full/unscrolled mode, then compact after threshold.
+        if (currentY <= SCROLL_THRESHOLD) {
+            navbar.classList.remove('scrolled', 'nav-hidden');
+        } else {
+            navbar.classList.add('scrolled');
+            navbar.classList.remove('nav-hidden');
+        }
+        navbar.classList.toggle('on-light', navTheme === 'light');
+        navbar.classList.toggle('on-blue', navTheme === 'blue');
+        lastScrollY = currentY;
+        return;
+    }
 
     if (currentY <= SCROLL_THRESHOLD) {
         // At the very top — centered logo, full navbar
@@ -64,7 +89,8 @@ function updateNavbar() {
         navbar.classList.add('nav-hidden');
     }
 
-    navbar.classList.toggle('on-light', isLightBackground());
+    navbar.classList.toggle('on-light', navTheme === 'light');
+    navbar.classList.toggle('on-blue', navTheme === 'blue');
     lastScrollY = currentY;
 }
 

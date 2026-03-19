@@ -205,5 +205,9 @@
     letter-spacing: .15em;
     text-transform: uppercase;
     color: rgba(248,175,33,.32);
+    transition: color .2s;
+}
+.ft-funded:hover {
+    color: rgba(248,175,33,.85);
 }
 

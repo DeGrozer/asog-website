@@ -40,27 +40,16 @@
                     <!-- Floating gold detail card -->
                     <div
                         class="absolute bottom-4 left-4 right-4 md:right-auto md:max-w-[320px] z-10 bg-gold rounded-lg p-4 md:p-5 shadow-lg">
-                        <h3 class="font-display text-[1rem] md:text-[1.1rem] text-white leading-tight mb-2">ASOG
+                        <h3 class="font-display text-[1rem] md:text-[1.1rem] text-white leading-tight mb-3">ASOG
                             Technology Business Incubator</h3>
-                        <div class="flex items-start gap-2 mb-2">
-                            <svg class="w-3.5 h-3.5 text-dark/50 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                            <span
-                                class="text-[.78rem] text-dark/70 font-normal leading-snug"><?= esc($contactAddr) ?></span>
-                        </div>
                         <div class="flex items-center gap-2">
-                            <svg class="w-3.5 h-3.5 text-dark/50 shrink-0" fill="none" viewBox="0 0 24 24"
+                            <svg class="w-3.5 h-3.5 text-black shrink-0" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
                             <a href="mailto:<?= esc($contactEmail) ?>"
-                                class="text-[.78rem] text-dark/70 font-medium no-underline hover:text-dark transition-colors"><?= esc($contactEmail) ?></a>
+                                class="text-[.78rem] text-black font-medium no-underline hover:text-black transition-colors"><?= esc($contactEmail) ?></a>
                         </div>
                     </div>
                 </div>

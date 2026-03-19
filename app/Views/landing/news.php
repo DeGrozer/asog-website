@@ -121,6 +121,16 @@
                             <span class="text-[.45rem] font-semibold tracking-[.15em] uppercase text-dark/10">IMG</span>
                         </div>
                     </div>
+                    <div class="rc flex gap-5 py-5 border-t border-dark/[.06]">
+                        <div class="flex-1 min-w-0 border-l-2 border-dark/[.04] pl-4">
+                            <span class="text-[.44rem] font-bold tracking-[.2em] uppercase text-navy/35 mb-1.5 block">Updates</span>
+                            <h3 class="font-display text-[.95rem] text-dark leading-snug mb-1">Startup Progress Notes</h3>
+                            <p class="text-[.74rem] font-light leading-[1.65] text-dark/50">More incubation milestones and partner activities will be posted here soon.</p>
+                        </div>
+                        <div class="w-[100px] h-[78px] shrink-0 bg-[#e5e2dc] flex items-center justify-center">
+                            <span class="text-[.45rem] font-semibold tracking-[.15em] uppercase text-dark/10">IMG</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         <?php endif; ?>

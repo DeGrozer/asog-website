@@ -21,6 +21,7 @@ class Incubatees extends BaseController
             'heroSubtitle'   => 'Our Startups',
             'heroTitle'      => 'Incubatees',
             'heroDesc'       => 'Meet the startups and MSMEs building the future of food value chain management through engineering and AI.',
+            'heroBg'         => 'bg-navy',
             'cohorts'        => $cohorts,
             'allIncubatees'  => $allIncubatees,
         ];

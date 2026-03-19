@@ -11,8 +11,13 @@ if (empty($all)) return;
 <style>
 /* ── Incubatee Logo Carousel ─────────────────────────────── */
 @keyframes logo-scroll {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 .inc-carousel {
@@ -28,6 +33,7 @@ if (empty($all)) return;
     width: max-content;
     animation: logo-scroll 30s linear infinite;
 }
+
 .inc-track:hover {
     animation-play-state: paused;
 }
@@ -45,30 +51,42 @@ if (empty($all)) return;
     transition: all .4s ease;
     cursor: default;
 }
+
 .inc-logo-item:hover {
     opacity: 1;
     filter: grayscale(0);
     transform: scale(1.08);
 }
+
 .inc-logo-item img {
     max-width: 160px;
     max-height: 95px;
     object-fit: contain;
 }
+
 .inc-logo-item .inc-initials {
     font-family: 'DM Serif Display', serif;
     font-size: 1.6rem;
-    color: rgba(3,85,140,.25);
+    color: rgba(3, 85, 140, .25);
     letter-spacing: .04em;
     transition: color .4s;
 }
+
 .inc-logo-item:hover .inc-initials {
-    color: rgba(3,85,140,.7);
+    color: rgba(3, 85, 140, .7);
 }
 
 @media(min-width: 768px) {
-    .inc-logo-item { width: 220px; height: 130px; margin: 0 3rem }
-    .inc-logo-item img { max-width: 190px; max-height: 110px }
+    .inc-logo-item {
+        width: 220px;
+        height: 130px;
+        margin: 0 3rem
+    }
+
+    .inc-logo-item img {
+        max-width: 190px;
+        max-height: 110px
+    }
 }
 </style>
 
@@ -80,10 +98,10 @@ if (empty($all)) return;
             <div>
                 <div class="flex items-center gap-2 mb-3">
                     <span class="block w-[18px] h-[1.5px] bg-navy"></span>
-                    <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-navy">Our Portfolio</span>
+                    <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-navy">Incubatees</span>
                 </div>
                 <h2 class="font-display text-3xl md:text-[2.1rem] leading-[1.12] text-dark">
-                    Featured <em class="italic text-gold">Incubatees</em>
+                    Cohort <em class=" text-gold">1</em>
                 </h2>
             </div>
             <a href="<?= site_url('incubatees') ?>"
@@ -94,24 +112,24 @@ if (empty($all)) return;
         <!-- Scrolling Logo Carousel -->
         <div class="reveal reveal-d1">
             <div class="inc-carousel">
-                    <div class="inc-track">
-                        <?php for ($loop = 0; $loop < 2; $loop++): ?>
-                        <?php foreach ($all as $inc): ?>
-                        <div class="inc-logo-item"
-                            title="<?= esc(html_entity_decode($inc['companyName'], ENT_QUOTES, 'UTF-8')) ?>">
-                            <?php if (! empty($inc['logoPath'])): ?>
-                            <img src="<?= base_url(esc($inc['logoPath'])) ?>"
-                                alt="<?= esc(html_entity_decode($inc['companyName'], ENT_QUOTES, 'UTF-8')) ?>">
-                            <?php else: ?>
-                            <span
-                                class="inc-initials"><?= strtoupper(substr(html_entity_decode($inc['companyName'], ENT_QUOTES, 'UTF-8'), 0, 2)) ?></span>
-                            <?php endif; ?>
-                        </div>
-                        <?php endforeach; ?>
-                        <?php endfor; ?>
+                <div class="inc-track">
+                    <?php for ($loop = 0; $loop < 2; $loop++): ?>
+                    <?php foreach ($all as $inc): ?>
+                    <div class="inc-logo-item"
+                        title="<?= esc(html_entity_decode($inc['companyName'], ENT_QUOTES, 'UTF-8')) ?>">
+                        <?php if (! empty($inc['logoPath'])): ?>
+                        <img src="<?= base_url(esc($inc['logoPath'])) ?>"
+                            alt="<?= esc(html_entity_decode($inc['companyName'], ENT_QUOTES, 'UTF-8')) ?>">
+                        <?php else: ?>
+                        <span
+                            class="inc-initials"><?= strtoupper(substr(html_entity_decode($inc['companyName'], ENT_QUOTES, 'UTF-8'), 0, 2)) ?></span>
+                        <?php endif; ?>
                     </div>
+                    <?php endforeach; ?>
+                    <?php endfor; ?>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>

@@ -13,8 +13,8 @@ $dotCount   = $hasSlides ? count($heroSlides) : 3;
     <!-- ── Background Slides ──────────────────────────────────── -->
     <?php if ($hasSlides): ?>
     <?php foreach ($heroSlides as $i => $s): ?>
-    <div class="slide <?= $i === 0 ? 'active' : '' ?>"
-        style="background-image:url('<?= base_url(esc($s['imagePath'])) ?>');background-size:cover;background-position:center 30%;">
+    <div class="slide slide-post slide-idx-<?= $i ?> <?= $i === 0 ? 'active' : '' ?>"
+        style="background-image:url('<?= base_url(esc($s['imagePath'])) ?>');">
     </div>
     <?php endforeach; ?>
     <?php else: ?>
@@ -26,8 +26,9 @@ $dotCount   = $hasSlides ? count($heroSlides) : 3;
     <!-- ── Overlay: heavy bottom + left fade so text is always readable ── -->
     <div class="absolute inset-0 z-[2]"
         style="background:
-           linear-gradient(to top,  rgba(2,13,24,1) 0%, rgba(2,13,24,.95) 18%, rgba(2,13,24,.65) 42%, rgba(2,13,24,.15) 70%, transparent 100%),
-           linear-gradient(to right, rgba(2,13,24,.88) 0%, rgba(2,13,24,.52) 42%, rgba(2,13,24,.1) 68%, transparent 100%)">
+            linear-gradient(to bottom, rgba(2,13,24,.99) 0%, rgba(2,13,24,.90) 10%, rgba(2,13,24,.74) 18%, rgba(2,13,24,.48) 30%, rgba(2,13,24,.22) 42%, rgba(2,13,24,0) 58%),
+            linear-gradient(to top, rgba(2,13,24,.96) 0%, rgba(2,13,24,.76) 19%, rgba(2,13,24,.50) 42%, rgba(2,13,24,.14) 72%, transparent 100%),
+            linear-gradient(to top, rgba(2,13,24,.92) 0%, rgba(2,13,24,0) 45%)">
     </div>
 
     <!-- ── Content: pinned to bottom-left ────────────────────── -->
@@ -42,7 +43,7 @@ $dotCount   = $hasSlides ? count($heroSlides) : 3;
         </div>
 
         <!-- ── Headline stack ── -->
-        <div class="relative min-h-[10px] md:min-h-[50px] mb-4">
+        <div id="heroTitleWrap" class="relative min-h-[10px] md:min-h-[50px] mb-4">
             <?php if ($hasSlides): ?>
             <?php foreach ($heroSlides as $i => $s): ?>
             <h1
@@ -59,18 +60,6 @@ $dotCount   = $hasSlides ? count($heroSlides) : 3;
                 From <em class="italic text-gold">Concept</em> to Market-Ready Solutions</h1>
             <?php endif; ?>
         </div>
-
-        <!-- ── Short description stack ── -->
-        <?php if ($hasSlides): ?>
-        <div class="relative min-h-[40px] mb-5 max-w-[540px]">
-            <?php foreach ($heroSlides as $i => $s): ?>
-            <p class="hl-desc <?= $i === 0 ? 'active' : '' ?> text-white/50 text-[.78rem] leading-[1.75]">
-            </p>
-            <?php endforeach; ?>
-        </div>
-        <?php else: ?>
-        <div class="mb-8"></div>
-        <?php endif; ?>
 
         <!-- ── CTA + Dots (stacked vertically) ── -->
         <div class="flex flex-col gap-4 mt-3">
@@ -98,4 +87,3 @@ $dotCount   = $hasSlides ? count($heroSlides) : 3;
     </div><!-- /content -->
 </section>
 
-<script src="<?= base_url('assets/js/hero.js') ?>" defer></script>

@@ -43,17 +43,13 @@
             <div class="mt-8 mb-6">
                 <span class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/80 block mb-4">Supported by</span>
                 <div class="flex flex-wrap items-end gap-5 md:gap-6">
-                    <a href="https://www.dost.gov.ph/" target="_blank" rel="noopener" title="DOST"
+                    <a href="https://pcieerd.dost.gov.ph/" target="_blank" rel="noopener" title="PCIEERD"
                         class="inline-flex items-center justify-center w-[72px] h-[56px] md:w-[88px] md:h-[68px] transition-all duration-400 hover:scale-105">
-                        <img src="<?= base_url('assets/img/partners/dost.png') ?>" alt="DOST" class="max-w-full max-h-full w-auto h-auto object-contain">
+                        <img src="<?= base_url('assets/img/partners/pcieerd.png') ?>" alt="PCIEERD" class="max-w-full max-h-full w-auto h-auto object-contain">
                     </a>
                     <a href="https://region5.dost.gov.ph/" target="_blank" rel="noopener" title="DOST Region V"
                         class="inline-flex items-center justify-center w-[72px] h-[56px] md:w-[88px] md:h-[68px] transition-all duration-400 hover:scale-105">
                         <img src="<?= base_url('assets/img/partners/dost-region5.png') ?>" alt="DOST Region V" class="max-w-full max-h-full w-auto h-auto object-contain scale-105">
-                    </a>
-                    <a href="https://pcieerd.dost.gov.ph/" target="_blank" rel="noopener" title="PCIEERD"
-                        class="inline-flex items-center justify-center w-[72px] h-[56px] md:w-[88px] md:h-[68px] transition-all duration-400 hover:scale-105">
-                        <img src="<?= base_url('assets/img/partners/pcieerd.png') ?>" alt="PCIEERD" class="max-w-full max-h-full w-auto h-auto object-contain">
                     </a>
                     <a href="https://cspc.edu.ph/" target="_blank" rel="noopener" title="CSPC"
                         class="inline-flex items-center justify-center w-[72px] h-[56px] md:w-[88px] md:h-[68px] transition-all duration-400 hover:scale-105">
