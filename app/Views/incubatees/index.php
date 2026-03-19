@@ -7,7 +7,7 @@ $cohorts        = $cohorts ?? [];
 $allIncubatees  = $allIncubatees ?? [];
 $hasIncubatees  = ! empty($allIncubatees);
 $hasCohorts     = ! empty($cohorts);
-$sealUrl        = base_url('assets/img/ASOG%20TBI/PNG/Logo-white.png');
+$sealUrl        = base_url('assets/img/ASOG TBI/PNG/ASOG-TBI-stacked-v2.png');
 $firstCohort    = $hasCohorts ? $cohorts[0]['name'] : '';
 ?>
 

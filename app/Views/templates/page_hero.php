@@ -5,7 +5,7 @@
 -->
 <?php
     $heroBgClass = $heroBg ?? 'bg-dark';
-    $defaultNavHint = str_contains($heroBgClass, 'bg-navy') ? 'blue' : 'dark';
+    $defaultNavHint = (str_contains($heroBgClass, 'bg-navy') || str_contains($heroBgClass, 'bg-dark')) ? 'blue' : 'dark';
     $navHint = $heroNavHint ?? $defaultNavHint;
 ?>
 <section class="<?= esc($heroBgClass) ?> pt-[88px] pb-12 md:pt-32 md:pb-16" data-navhint="<?= esc($navHint) ?>">

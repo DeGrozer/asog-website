@@ -43,8 +43,12 @@
     $isProgramsGroup = in_array($seg1, ['programs', 'services', 'facilities'], true);
     $isIncubatees    = $seg1 === 'incubatees';
     $isNews          = $seg1 === 'news';
+    $isNewsDetail    = $seg1 === 'news' && (service('uri')->getSegment(2) ?? '') !== '';
     $isContact       = $seg1 === 'contact';
     $isOrg           = $seg1 === 'organization';
+
+    // $forceWhiteLogoPages = in_array($seg1, ['about', 'programs', 'services', 'facilities', 'news', 'organization', 'contact'], true)
+    //     || str_starts_with($uriPath, 'incubatees/apply');
 
     $activeClass = static fn(bool $isActive): string => $isActive ? ' is-active' : '';
     ?>
@@ -60,7 +64,7 @@
     -->
 
 
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-[500]">
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-[500]<?= $isNewsDetail ? ' logo-color-exception' : '' ?>">
         <div id="navIn" class="flex items-center px-4 lg:px-10 h-20 ">
 
             <!-- desktop left links -->

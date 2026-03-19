@@ -63,30 +63,20 @@ function updateNavbar() {
     const delta = currentY - lastScrollY;
     const navTheme = getNavTheme();
 
-    if (!hasHero) {
-        // Non-hero pages start in full/unscrolled mode, then compact after threshold.
-        if (currentY <= SCROLL_THRESHOLD) {
-            navbar.classList.remove('scrolled', 'nav-hidden');
-        } else {
-            navbar.classList.add('scrolled');
-            navbar.classList.remove('nav-hidden');
-        }
-        navbar.classList.toggle('on-light', navTheme === 'light');
-        navbar.classList.toggle('on-blue', navTheme === 'blue');
-        lastScrollY = currentY;
-        return;
-    }
-
     if (currentY <= SCROLL_THRESHOLD) {
-        // At the very top — centered logo, full navbar
+        // At the very top: full navbar, no hide
         navbar.classList.remove('scrolled', 'nav-hidden');
     } else if (delta < -3) {
-        // Scrolling UP — show compact horizontal navbar
+        // Scrolling up: show compact navbar
         navbar.classList.add('scrolled');
         navbar.classList.remove('nav-hidden');
     } else if (delta > 3) {
-        // Scrolling DOWN — hide the navbar
+        // Scrolling down: hide navbar
         navbar.classList.add('nav-hidden');
+    } else if (!navbar.classList.contains('scrolled') && !navbar.classList.contains('nav-hidden')) {
+        // Initial / low-movement fallback when already below threshold
+        navbar.classList.add('scrolled');
+        navbar.classList.remove('nav-hidden');
     }
 
     navbar.classList.toggle('on-light', navTheme === 'light');
