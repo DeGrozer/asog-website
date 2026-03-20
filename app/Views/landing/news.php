@@ -40,7 +40,7 @@
                         </span>
                         <h3 class="font-display text-[1.2rem] md:text-[1.35rem] text-dark leading-snug mb-2"><?= esc($featured['title']) ?></h3>
                         <?php if (! empty($featured['shortDescription'])): ?>
-                            <p class="text-[.8rem] font-light leading-[1.75] text-dark/55 group-hover:text-dark/75 transition-colors duration-200"><?= esc(character_limiter($featured['shortDescription'], 150)) ?></p>
+                            <p class="text-[.8rem] font-light leading-[1.75] text-black"><?= esc(character_limiter($featured['shortDescription'], 150)) ?></p>
                         <?php endif; ?>
                     </div>
                 </a>
@@ -57,7 +57,7 @@
                                     </span>
                                     <h3 class="font-display text-[.95rem] text-dark leading-snug mb-1"><?= esc($post['title']) ?></h3>
                                     <?php if (! empty($post['shortDescription'])): ?>
-                                        <p class="text-[.74rem] font-light leading-[1.65] text-dark/50 line-clamp-2 group-hover:text-dark/70 transition-colors duration-200"><?= esc(character_limiter($post['shortDescription'], 90)) ?></p>
+                                        <p class="text-[.74rem] font-light leading-[1.65] text-black line-clamp-2"><?= esc(character_limiter($post['shortDescription'], 90)) ?></p>
                                     <?php endif; ?>
                                 </div>
                                 <div class="w-[100px] h-[78px] shrink-0 bg-[#e5e2dc] overflow-hidden">
@@ -85,7 +85,7 @@
                     <div class="pt-5 pb-5 border-b-2 border-dark/[.06]">
                         <span class="text-[.46rem] font-bold tracking-[.2em] uppercase text-navy/40 mb-2.5 block">Coming Soon</span>
                         <h3 class="font-display text-[1.2rem] md:text-[1.35rem] text-dark leading-snug mb-2">Stay Tuned for Updates</h3>
-                        <p class="text-[.8rem] font-light leading-[1.75] text-dark/55">News articles and insights will appear here once published through the admin panel.</p>
+                        <p class="text-[.8rem] font-light leading-[1.75] text-black">News articles and insights will appear here once published through the admin panel.</p>
                     </div>
                 </div>
 
@@ -95,7 +95,7 @@
                         <div class="flex-1 min-w-0 border-l-2 border-dark/[.04] pl-4">
                             <span class="text-[.44rem] font-bold tracking-[.2em] uppercase text-navy/35 mb-1.5 block">Events</span>
                             <h3 class="font-display text-[.95rem] text-dark leading-snug mb-1">Upcoming Events</h3>
-                            <p class="text-[.74rem] font-light leading-[1.65] text-dark/50">Watch this space for workshops, seminars, and incubation updates.</p>
+                            <p class="text-[.74rem] font-light leading-[1.65] text-black">Watch this space for workshops, seminars, and incubation updates.</p>
                         </div>
                         <div class="w-[100px] h-[78px] shrink-0 bg-[#e5e2dc] flex items-center justify-center">
                             <span class="text-[.45rem] font-semibold tracking-[.15em] uppercase text-dark/10">IMG</span>
@@ -105,7 +105,7 @@
                         <div class="flex-1 min-w-0 border-l-2 border-dark/[.04] pl-4">
                             <span class="text-[.44rem] font-bold tracking-[.2em] uppercase text-navy/35 mb-1.5 block">Features</span>
                             <h3 class="font-display text-[.95rem] text-dark leading-snug mb-1">Feature Stories</h3>
-                            <p class="text-[.74rem] font-light leading-[1.65] text-dark/50">In-depth stories about our incubatees and the Bicol innovation ecosystem.</p>
+                            <p class="text-[.74rem] font-light leading-[1.65] text-black">In-depth stories about our incubatees and the Bicol innovation ecosystem.</p>
                         </div>
                         <div class="w-[100px] h-[78px] shrink-0 bg-[#e5e2dc] flex items-center justify-center">
                             <span class="text-[.45rem] font-semibold tracking-[.15em] uppercase text-dark/10">IMG</span>
@@ -115,7 +115,7 @@
                         <div class="flex-1 min-w-0 border-l-2 border-dark/[.04] pl-4">
                             <span class="text-[.44rem] font-bold tracking-[.2em] uppercase text-navy/35 mb-1.5 block">Community</span>
                             <h3 class="font-display text-[.95rem] text-dark leading-snug mb-1">Community Highlights</h3>
-                            <p class="text-[.74rem] font-light leading-[1.65] text-dark/50">Milestones from founders, mentors, and partners across the ecosystem.</p>
+                            <p class="text-[.74rem] font-light leading-[1.65] text-black">Milestones from founders, mentors, and partners across the ecosystem.</p>
                         </div>
                         <div class="w-[100px] h-[78px] shrink-0 bg-[#e5e2dc] flex items-center justify-center">
                             <span class="text-[.45rem] font-semibold tracking-[.15em] uppercase text-dark/10">IMG</span>
@@ -125,7 +125,7 @@
                         <div class="flex-1 min-w-0 border-l-2 border-dark/[.04] pl-4">
                             <span class="text-[.44rem] font-bold tracking-[.2em] uppercase text-navy/35 mb-1.5 block">Updates</span>
                             <h3 class="font-display text-[.95rem] text-dark leading-snug mb-1">Startup Progress Notes</h3>
-                            <p class="text-[.74rem] font-light leading-[1.65] text-dark/50">More incubation milestones and partner activities will be posted here soon.</p>
+                            <p class="text-[.74rem] font-light leading-[1.65] text-black">More incubation milestones and partner activities will be posted here soon.</p>
                         </div>
                         <div class="w-[100px] h-[78px] shrink-0 bg-[#e5e2dc] flex items-center justify-center">
                             <span class="text-[.45rem] font-semibold tracking-[.15em] uppercase text-dark/10">IMG</span>

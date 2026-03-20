@@ -111,7 +111,7 @@
                 <a href="<?= site_url('news/' . $post['slug']) ?>"
                     class="group no-underline flex gap-6 py-6 border-t border-dark/[.06] last:border-b last:border-dark/[.06]">
                     <!-- Thumbnail -->
-                    <div class="w-[140px] md:w-[180px] h-[100px] md:h-[120px] shrink-0 bg-[#e5e2dc] overflow-hidden hidden sm:block">
+                    <div class="w-[100px] md:w-[140px] lg:w-[180px] h-[80px] md:h-[100px] lg:h-[120px] shrink-0 bg-[#e5e2dc] overflow-hidden">
                         <?php if (! empty($post['imagePath'])): ?>
                         <img src="<?= site_url($post['imagePath']) ?>" alt="<?= esc($post['title']) ?>"
                             class="w-full h-full object-cover" />
