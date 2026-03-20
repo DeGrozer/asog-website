@@ -30,7 +30,7 @@
 
             <!-- ── Main Content ── -->
             <div class="min-w-0">
-                <div class="max-w-[760px] text-[.95rem] font-normal leading-[1.72] text-justify" style="color:#020d18">
+                <div class="max-w-[760px] text-[.95rem] font-normal leading-[1.72] text-left" style="color:#020d18">
 
                     <!-- ── OUR STORY ── -->
                     <h2 id="our-story"

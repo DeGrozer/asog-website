@@ -3939,7 +3939,144 @@
     border-radius: calc(infinity * 1px);
     background-color: var(--color-gold);
   }
+  .hero-mobile-gradient {
+    display: none;
+  }
   @media (max-width: 1023px) {
+    #hero {
+      --hero-mobile-image-h: clamp(250px, 72vw, 360px);
+      --hero-mobile-info-h: 122px;
+      width: 100%;
+      margin-inline: 0;
+      margin-top: 68px;
+      height: calc(var(--hero-mobile-image-h) + var(--hero-mobile-info-h)) !important;
+      aspect-ratio: auto;
+      max-height: none;
+      min-height: 0 !important;
+      border-radius: 0;
+      overflow: hidden;
+      background: #020d18;
+    }
+    #hero .hero-overlay {
+      bottom: var(--hero-mobile-info-h);
+      background: linear-gradient(to top, rgba(2,13,24,.52) 0%, rgba(2,13,24,.20) 34%, rgba(2,13,24,.05) 68%, rgba(2,13,24,0) 100%) !important;
+    }
+    #hero .slide {
+      bottom: var(--hero-mobile-info-h);
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-color: #020d18;
+    }
+    #hero .hero-mobile-gradient {
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: var(--hero-mobile-info-h);
+      height: 42px;
+      z-index: 2;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(2,13,24,0) 0%, rgba(2,13,24,.80) 100%);
+    }
+    #hero .hero-content {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      max-width: 100%;
+      padding-left: .9rem;
+      padding-right: .9rem;
+      padding-top: .42rem;
+      padding-bottom: .28rem;
+      min-height: var(--hero-mobile-info-h);
+      background: linear-gradient(to bottom, rgba(2,13,24,0) 0%, rgba(2,13,24,.62) 34%, rgba(2,13,24,.96) 100%);
+    }
+    #hero .z-\[3\] {
+      max-width: 100%;
+      padding-bottom: .75rem;
+    }
+    #hero #heroTitleWrap {
+      min-height: 34px !important;
+      margin-bottom: 0;
+    }
+    #hero .hl {
+      position: relative;
+      inset: auto;
+      max-width: 92%;
+      display: none;
+      opacity: 0;
+      transform: none;
+      font-size: clamp(.78rem, 2.7vw, .95rem);
+      line-height: 1.12;
+    }
+    #hero .hl.active {
+      display: block;
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+    #hero .hero-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .04rem;
+      margin-top: 0;
+    }
+    #hero .hero-read-wrap {
+      order: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 16px;
+      width: 116px;
+      min-height: 16px;
+    }
+    #hero .hl-link {
+      position: absolute;
+      left: 0;
+      top: 0;
+      inset: auto;
+      display: none !important;
+      opacity: 0;
+      white-space: nowrap;
+      font-size: .44rem;
+      letter-spacing: .1em;
+      transition: none;
+    }
+    #hero .hl-link.active {
+      display: inline-flex !important;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #hero .hero-kicker {
+      display: none !important;
+      height: 0 !important;
+      margin: 0 !important;
+      overflow: hidden !important;
+    }
+    #hero .hero-dots {
+      order: 2;
+      display: flex;
+      position: static !important;
+      left: auto;
+      bottom: auto;
+      transform: none;
+      gap: .28rem;
+      margin-top: .16rem;
+      padding: 0 0 .05rem;
+      background: transparent;
+    }
+    #hero .ind {
+      height: 4px;
+      width: 4px;
+      box-shadow: none;
+    }
+    #hero .ind.active {
+      width: 14px;
+    }
     .nav-left, #navR, .lo {
       display: none !important;
     }
@@ -3951,7 +4088,7 @@
       position: relative;
       justify-content: center !important;
       height: auto !important;
-      padding: .75rem !important;
+      padding: 1rem !important;
     }
     #navLogo {
       position: relative !important;
@@ -3971,6 +4108,7 @@
       max-height: 80px !important;
       opacity: 1 !important;
       overflow: visible !important;
+      filter: brightness(0) invert(1) contrast(1.02) !important;
       transition: all .3s ease;
     }
     #navImgLandscape {
@@ -3988,8 +4126,8 @@
       top: 50%;
       transform: translateY(-50%);
       margin-left: 0 !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
       transition: opacity .3s ease;
     }
     #navbar.scrolled {
@@ -4026,7 +4164,7 @@
       opacity: 1 !important;
       overflow: visible !important;
       object-fit: contain;
-      filter: none;
+      filter: brightness(0) invert(1) !important;
     }
     #navbar.scrolled #menuBtn {
       opacity: 1 !important;

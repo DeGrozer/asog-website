@@ -36,14 +36,18 @@
     $navCta        = site_url('incubatees/apply');
     $navCohorts    = $navCohorts ?? [];
 
-    $uriPath = trim(service('uri')->getPath(), '/');
-    $seg1 = service('uri')->getSegment(1) ?? '';
+    $uri = service('uri');
+    $uriPath = trim($uri->getPath(), '/');
+    $seg1 = $uri->getSegment(1, '');
+    if ($seg1 === 'index.php') {
+        $seg1 = $uri->getSegment(2, '');
+    }
 
     $isAbout         = $seg1 === 'about';
     $isProgramsGroup = in_array($seg1, ['programs', 'services', 'facilities'], true);
     $isIncubatees    = $seg1 === 'incubatees';
     $isNews          = $seg1 === 'news';
-    $isNewsDetail    = $seg1 === 'news' && (service('uri')->getSegment(2) ?? '') !== '';
+    $isNewsDetail    = preg_match('#(?:^|/)news/[^/]+$#', $uriPath) === 1;
     $isContact       = $seg1 === 'contact';
     $isOrg           = $seg1 === 'organization';
 

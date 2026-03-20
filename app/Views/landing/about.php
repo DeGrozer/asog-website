@@ -28,7 +28,7 @@
         <!-- Right body -->
 
         <div class="reveal reveal-d2">
-            <div class="text-sm md:text-base font-light leading-[2.0] mb-5 text-justify" style="color:#020d18;">
+            <div class="text-sm md:text-base font-light leading-[2.0] mb-5 text-left" style="color:#020d18;">
                 <p>The ASOG Technology Business Incubator (TBI) is an initiative of Camarines Sur Polytechnic
                     Colleges (CSPC), funded by DOST-PCIEERD in coordination with DOST Region V,
                     aimed at fostering Engineering and AI-based innovations for food value chain management.
