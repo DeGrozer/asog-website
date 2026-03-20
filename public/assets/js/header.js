@@ -63,6 +63,15 @@ function updateNavbar() {
     const delta = currentY - lastScrollY;
     const navTheme = getNavTheme();
 
+    if (isMobile()) {
+        navbar.classList.remove('nav-hidden');
+        navbar.classList.toggle('scrolled', currentY > SCROLL_THRESHOLD);
+        navbar.classList.toggle('on-light', navTheme === 'light');
+        navbar.classList.toggle('on-blue', navTheme === 'blue');
+        lastScrollY = currentY;
+        return;
+    }
+
     if (currentY <= SCROLL_THRESHOLD) {
         // At the very top: full navbar, no hide
         navbar.classList.remove('scrolled', 'nav-hidden');
