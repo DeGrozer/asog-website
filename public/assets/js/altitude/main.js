@@ -54,8 +54,6 @@ let R, scene, cam, oc, G;
 const pinHits = [], flags = [];
 let isClosingOverlay = false;
 let hArmL = null, hArmR = null;
-let allowOverlayScroll = false;
-let overlayLockTimer = null;
 
 /* Hero state — module scope so zoomToFlag / overviewCamera can access */
 let hero, heroStage = -1, heroAnimState = 'idle', heroAnimTime = 0;
@@ -236,27 +234,15 @@ function syncOverlayScrollState() {
   if (partnersBtn) partnersBtn.setAttribute('aria-expanded', belowScene ? 'true' : 'false');
 }
 
-function unlockOverlayScrollFor(ms) {
-  allowOverlayScroll = true;
-  if (overlayLockTimer) {
-    clearTimeout(overlayLockTimer);
-    overlayLockTimer = null;
-  }
-  overlayLockTimer = setTimeout(() => {
-    allowOverlayScroll = false;
-    overlayLockTimer = null;
-  }, ms);
-}
-
 function scrollToPartners() {
   if (!overlay || !partnersPanel) return;
-  unlockOverlayScrollFor(700);
+
+
   overlay.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
 }
 
 function scrollToScene() {
   if (!overlay) return;
-  unlockOverlayScrollFor(700);
   overlay.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -438,15 +424,6 @@ if (partnersUpBtn) {
 }
 
 if (overlay) {
-  const blockManualOverlayScroll = (event) => {
-    if (!overlay.classList.contains('active')) return;
-    if (allowOverlayScroll) return;
-    event.preventDefault();
-  };
-
-  overlay.addEventListener('wheel', blockManualOverlayScroll, { passive: false });
-  overlay.addEventListener('touchmove', blockManualOverlayScroll, { passive: false });
-
   overlay.addEventListener('scroll', () => {
     syncOverlayScrollState();
   }, { passive: true });
@@ -1350,9 +1327,7 @@ function initScene() {
   document.addEventListener('keydown', e => {
     if (!overlay.classList.contains('active')) return;
 
-    if (!allowOverlayScroll && (e.key === 'PageDown' || e.key === 'PageUp' || e.key === 'Home' || e.key === 'End')) {
-      e.preventDefault();
-    }
+
 
     if (e.key === 'Escape') {
       if (overlay.scrollTop > 40) {

@@ -38,7 +38,7 @@
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
 
                     <!-- Floating gold detail card -->
-                    <div
+                    <!-- <div
                         class="absolute bottom-4 left-4 right-4 md:right-auto md:max-w-[320px] z-10 bg-gold rounded-lg p-4 md:p-5 shadow-lg">
                         <h3 class="font-display text-[1rem] md:text-[1.1rem] text-white leading-tight mb-3">ASOG
                             Technology Business Incubator</h3>
@@ -51,7 +51,7 @@
                             <a href="mailto:<?= esc($contactEmail) ?>"
                                 class="text-[.78rem] text-black font-medium no-underline hover:text-black transition-colors"><?= esc($contactEmail) ?></a>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- Social — plain icons, no boxes -->

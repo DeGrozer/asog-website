@@ -157,61 +157,106 @@
 
     <button id="alt3dShowPartners" class="alt3d-mentors-btn" type="button" aria-controls="alt3dPartnersPanel"
         aria-expanded="false">
-        Faculty &amp; Industry Partners <span class="alt3d-mentors-btn-arrow" aria-hidden="true">↓</span>
+        Industry Partners <span class="alt3d-mentors-btn-arrow" aria-hidden="true">↓</span>
     </button>
 
     <section id="alt3dPartnersPanel" class="alt3d-mentors-overlay" aria-label="Faculty and industry partners">
         <div class="alt3d-mentors-inner">
             <button id="alt3dPartnersUp" class="alt3d-mentors-close" type="button">↑ Back to Interactive</button>
             <p class="alt3d-mentors-kicker">ALTITUDE Partner Network</p>
-            <h2>Faculty &amp; Industry Partners</h2>
-            <p>The ALTITUDE Program is strengthened by a network of academic mentors and industry partners who bring
+            <!-- <h2>Faculty &amp; Industry Partners</h2> -->
+            <p>The ALTITUDE Program is strengthened by a network of mentors who bring
                 domain expertise, industry connections, and ecosystem access to every incubation journey.</p>
 
             <div class="alt3d-mentors-block">
-                <h3>Faculty Mentors</h3>
+                <h3>Business</h3>
                 <div class="alt3d-mentor-grid">
                     <article class="alt3d-mentor-card">
-                        <h4 class="alt3d-mentor-name">Dr. Maria Santos</h4>
-                        <p class="alt3d-mentor-role">Technology Innovation</p>
+                        <h4 class="alt3d-mentor-name">Ms. Cherry Lyn M. Odsinada</h4>
                     </article>
                     <article class="alt3d-mentor-card">
-                        <h4 class="alt3d-mentor-name">Prof. Juan dela Cruz</h4>
-                        <p class="alt3d-mentor-role">Business Strategy</p>
+                        <h4 class="alt3d-mentor-name">Dr. Niño Martin P. Obrero</h4>
                     </article>
                     <article class="alt3d-mentor-card">
-                        <h4 class="alt3d-mentor-name">Engr. Anna Reyes</h4>
-                        <p class="alt3d-mentor-role">Product Development</p>
+                        <h4 class="alt3d-mentor-name">Ms. Anjelica N. Ampongan</h4>
                     </article>
                     <article class="alt3d-mentor-card">
-                        <h4 class="alt3d-mentor-name">Dr. Carlos Mendoza</h4>
-                        <p class="alt3d-mentor-role">Agri-Tech Research</p>
+                        <h4 class="alt3d-mentor-name">Dr. Crezel B. Obrero</h4>
                     </article>
                 </div>
             </div>
 
             <div class="alt3d-mentors-block">
-                <h3>Industry Partners</h3>
-                <div class="alt3d-industry-list">
+                <h3>Artificial Intelligence</h3>
+                <div class="alt3d-mentor-grid">
                     <article class="alt3d-mentor-card">
-                        <h4 class="alt3d-mentor-name">Agrilink Philippines</h4>
-                        <p class="alt3d-mentor-role">Agri Supply Chain</p>
+                        <h4 class="alt3d-mentor-name">Dr. Challiz D. Omorog</h4>
                     </article>
                     <article class="alt3d-mentor-card">
-                        <h4 class="alt3d-mentor-name">FoodTech Asia</h4>
-                        <p class="alt3d-mentor-role">Food Innovation</p>
+                        <h4 class="alt3d-mentor-name">Ms. Rosel O. Onesa</h4>
                     </article>
                     <article class="alt3d-mentor-card">
-                        <h4 class="alt3d-mentor-name">InnoHub PH</h4>
-                        <p class="alt3d-mentor-role">Startup Ecosystem</p>
+                        <h4 class="alt3d-mentor-name">Ms. Kaela Marie N. Fortuno</h4>
                     </article>
                     <article class="alt3d-mentor-card">
-                        <h4 class="alt3d-mentor-name">DOST-TAPI</h4>
-                        <p class="alt3d-mentor-role">Technology Commercialization</p>
+                        <h4 class="alt3d-mentor-name">Mr. Joseph Jessie S. Oñate</h4>
                     </article>
                     <article class="alt3d-mentor-card">
-                        <h4 class="alt3d-mentor-name">GoNegosyo Network</h4>
-                        <p class="alt3d-mentor-role">Entrepreneurship Support</p>
+                        <h4 class="alt3d-mentor-name">Ms. Tiffany Lyn O. Pandes</h4>
+                    </article>
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Mr. Allan O. Ibo, Jr.</h4>
+                    </article>
+                </div>
+            </div>
+
+            <div class="alt3d-mentors-block">
+                <h3>Engineering</h3>
+                <div class="alt3d-mentor-grid">
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Dr. Harold Jan R. Terano</h4>
+                    </article>
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Engr. Rizza T. Loquias</h4>
+                    </article>
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Engr. Keith Marlon R. Tabal</h4>
+                    </article>
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Engr. Jose Eduardo II B. Cerillo</h4>
+                    </article>
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Engr. Roner P. Abanil</h4>
+                    </article>
+                </div>
+            </div>
+
+            <div class="alt3d-mentors-block">
+                <h3>Financial Management</h3>
+                <div class="alt3d-mentor-grid">
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Mr. Roque B. Cruz II</h4>
+                    </article>
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Ms. Christine Margoux M. Sirios</h4>
+                    </article>
+                </div>
+            </div>
+
+            <div class="alt3d-mentors-block">
+                <h3>Prototyping</h3>
+                <div class="alt3d-mentor-grid">
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Dr. Lalaine M. Lastrollo</h4>
+                    </article>
+                </div>
+            </div>
+
+            <div class="alt3d-mentors-block">
+                <h3>Value Chain</h3>
+                <div class="alt3d-mentor-grid">
+                    <article class="alt3d-mentor-card">
+                        <h4 class="alt3d-mentor-name">Ms. Rosalie R. Axinto</h4>
                     </article>
                 </div>
             </div>

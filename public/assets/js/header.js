@@ -64,8 +64,21 @@ function updateNavbar() {
     const navTheme = getNavTheme();
 
     if (isMobile()) {
-        navbar.classList.remove('nav-hidden');
-        navbar.classList.toggle('scrolled', currentY > SCROLL_THRESHOLD);
+        if (currentY <= SCROLL_THRESHOLD) {
+            navbar.classList.remove('scrolled', 'nav-hidden');
+        } else if (delta < -3) {
+            // Scrolling up: reveal compact navbar
+            navbar.classList.add('scrolled');
+            navbar.classList.remove('nav-hidden');
+        } else if (delta > 3) {
+            // Scrolling down: hide navbar
+            navbar.classList.add('scrolled');
+            navbar.classList.add('nav-hidden');
+        } else if (!navbar.classList.contains('scrolled') && !navbar.classList.contains('nav-hidden')) {
+            navbar.classList.add('scrolled');
+            navbar.classList.remove('nav-hidden');
+        }
+
         navbar.classList.toggle('on-light', navTheme === 'light');
         navbar.classList.toggle('on-blue', navTheme === 'blue');
         lastScrollY = currentY;
