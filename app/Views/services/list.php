@@ -13,18 +13,18 @@
                     Support</span>
                 <span class="block w-[18px] h-[1.5px] bg-gold"></span>
             </div>
-            <h2 class="font-display text-[2rem] md:text-[2.6rem] leading-[1.15]" style="color:#111;">Supporting startups
+            <h2 class="font-display text-[2rem] md:text-[2.6rem] leading-[1.15] text-dark">Supporting startups
                 from idea to scale</h2>
             <!-- <p class="text-[1rem] font-semibold leading-[1.7] mt-4 max-w-[720px] mx-auto" style="color:#03355a;">
                 Supporting startups from idea to scale
             </p> -->
-            <p class="text-[.95rem] sm:text-[1rem] font-normal leading-[1.8] mt-4 max-w-[920px] mx-auto"
+            <p class="text-[.95rem] sm:text-[1rem] font-normal leading-[1.8] mt-4 max-w-[760px] mx-auto"
                 style="color:#000;">
                 The ASOG Technology Business Incubator (ASOG TBI) provides structured support for early-stage startups,
                 innovators, and technology-driven ventures through a range of incubation services designed to help ideas
                 move toward real-world application.
             </p>
-            <p class="text-[.95rem] sm:text-[1rem] font-normal leading-[1.8] mt-3 max-w-[920px] mx-auto"
+            <p class="text-[.95rem] sm:text-[1rem] font-normal leading-[1.8] mt-3 max-w-[760px] mx-auto"
                 style="color:#000;">
                 Our services focus on strengthening technical development, business readiness, and strategic
                 connections,

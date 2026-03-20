@@ -89,7 +89,8 @@ $firstCohort    = $hasCohorts ? $cohorts[0]['name'] : '';
         <div id="ibComingSoon" class="text-center py-16"
             style="display:<?= ($hasCohorts && $cohorts[0]['_count'] === 0) ? 'block' : 'none' ?>">
             <div class="mb-6">
-                <img src="<?= site_url('assets/img/icons8-rocket-launch-94.png') ?>" alt="Coming Soon" class="w-24 h-24 mx-auto opacity-50" />
+                <img src="<?= site_url('assets/img/icons8-rocket-launch-94.png') ?>" alt="Coming Soon"
+                    class="w-128 h-128 mx-auto opacity-50" />
             </div>
             <h3 class="font-display text-2xl text-dark mb-3">
                 <span id="ibCSLabel"><?= esc($firstCohort) ?></span> — Coming Soon

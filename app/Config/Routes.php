@@ -16,6 +16,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Landing::index');
 $routes->get('/landing', 'Landing::index');
 $routes->get('/about', 'About::index');
+$routes->get('/about/logo', 'About::logo');
 
 /*
  * ────────────────────────────────────────────────────────────────────────────

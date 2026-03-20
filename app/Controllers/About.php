@@ -20,4 +20,19 @@ class About extends BaseController
             . view('about/index', $data)
             . view('templates/footer');
     }
+
+    public function logo(): string
+    {
+        $data = [
+            'title'        => 'ASOG-TBI Logo',
+            'heroSubtitle' => 'Brand Identity',
+            'heroTitle'    => 'ASOG-TBI Logo',
+            'heroDesc'     => 'Official logo variants and visual identity of the ASOG Technology Business Incubator.',
+        ];
+
+        return view('templates/header', $data)
+            . view('templates/page_hero', $data)
+            . view('about/logo', $data)
+            . view('templates/footer');
+    }
 }
