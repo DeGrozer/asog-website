@@ -9,22 +9,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const slides = Array.from(track.children);
         if (slides.length <= 1) return;
 
-        const prevBtn = root.querySelector('[data-carousel-prev]');
-        const nextBtn = root.querySelector('[data-carousel-next]');
         const dots = Array.from(root.querySelectorAll('[data-carousel-dot]'));
 
         let index = 0;
         let timer = null;
+        let isVisible = true;
 
         function render() {
             track.style.transform = 'translateX(-' + (index * 100) + '%)';
             dots.forEach(function (dot, i) {
-                dot.style.width = '10px';
-                dot.style.height = '10px';
-                dot.style.borderRadius = '999px';
-                dot.style.border = '1px solid rgba(255,255,255,.9)';
-                dot.style.backgroundColor = 'rgba(255,255,255,' + (i === index ? '0.98' : '0.42') + ')';
-                dot.style.boxShadow = i === index ? '0 0 0 2px rgba(3,53,90,.22)' : 'none';
+                dot.classList.toggle('is-active', i === index);
             });
         }
 
@@ -33,12 +27,9 @@ document.addEventListener('DOMContentLoaded', function () {
             render();
         }
 
-        function prev() {
-            index = (index - 1 + slides.length) % slides.length;
-            render();
-        }
-
         function startAuto() {
+            if (!isVisible) return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             stopAuto();
             timer = window.setInterval(next, 4500);
         }
@@ -50,13 +41,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        if (prevBtn) prevBtn.addEventListener('click', prev);
-        if (nextBtn) nextBtn.addEventListener('click', next);
-
         dots.forEach(function (dot, i) {
             dot.addEventListener('click', function () {
                 index = i;
                 render();
+                startAuto();
             });
         });
 
@@ -64,6 +53,20 @@ document.addEventListener('DOMContentLoaded', function () {
         root.addEventListener('mouseleave', startAuto);
         root.addEventListener('focusin', stopAuto);
         root.addEventListener('focusout', startAuto);
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    isVisible = entry.isIntersecting;
+                    if (isVisible) {
+                        startAuto();
+                    } else {
+                        stopAuto();
+                    }
+                });
+            }, { threshold: 0.2 });
+            observer.observe(root);
+        }
 
         render();
         startAuto();
