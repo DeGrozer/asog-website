@@ -171,3 +171,22 @@ if (psToggle && psSub) {
         }
     });
 }
+
+/* ═══ MOBILE ABOUT COLLAPSIBLE ═══ */
+const aboutToggle = document.getElementById('mobAboutToggle');
+const aboutSub = document.getElementById('mobAboutSub');
+const aboutChevron = document.getElementById('mobAboutChevron');
+let aboutOpen = false;
+
+if (aboutToggle && aboutSub) {
+    aboutToggle.addEventListener('click', () => {
+        aboutOpen = !aboutOpen;
+        if (aboutOpen) {
+            aboutSub.style.maxHeight = aboutSub.scrollHeight + 'px';
+            if (aboutChevron) aboutChevron.style.transform = 'rotate(180deg)';
+        } else {
+            aboutSub.style.maxHeight = '0';
+            if (aboutChevron) aboutChevron.style.transform = 'rotate(0)';
+        }
+    });
+}

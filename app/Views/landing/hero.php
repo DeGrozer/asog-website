@@ -44,7 +44,7 @@ $dotCount   = $hasSlides ? count($heroSlides) : 3;
         </div>
 
         <!-- ── Headline stack ── -->
-        <div id="heroTitleWrap" class="relative min-h-[10px] md:min-h-[50px] mb-1">
+        <div id="heroTitleWrap" class="relative min-h-[10px] md:min-h-[50px] mb-1 lg:mb-2">
             <?php if ($hasSlides): ?>
             <?php foreach ($heroSlides as $i => $s): ?>
             <h1

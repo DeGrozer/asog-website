@@ -17,7 +17,7 @@
                 <span class="block w-[18px] h-[1.5px] bg-gold"></span>
             </div>
             <h2 class="font-display text-[1.8rem] md:text-[2.4rem] leading-[1.15] text-dark">The Core Team</h2>
-            <p class="text-[.88rem] font-light leading-[1.8] text-dark/40 mt-3 max-w-[520px] mx-auto">The leadership
+            <p class="text-[.88rem] font-light leading-[1.8] text-dark mt-1.5 max-w-[520px] mx-auto">The leadership
                 guiding ASOG TBI's mission of empowering startups through AI and engineering innovation.</p>
         </div>
 
@@ -74,8 +74,8 @@
     </div>
 </section>
 
-<!-- ── FACULTY MENTORS ── -->
-<section id="faculty-mentors" class="relative bg-off py-20 md:py-28 px-6 md:px-10 lg:px-14">
+<!-- ── MENTORS ── -->
+<section id="mentors" class="relative bg-off py-20 md:py-28 px-6 md:px-10 lg:px-14">
     <div class="ai-grid"></div>
     <div class="ai-grid-fade"></div>
 
@@ -83,63 +83,69 @@
         <div class="text-center mb-14 reveal">
             <div class="flex items-center justify-center gap-2 mb-4">
                 <span class="block w-[18px] h-[1.5px] bg-sky"></span>
-                <span class="text-[.55rem] font-semibold tracking-[.2em] uppercase text-sky">Academic Partners</span>
+                <span class="text-[.55rem] font-semibold tracking-[.2em] uppercase text-sky">Mentors</span>
                 <span class="block w-[18px] h-[1.5px] bg-sky"></span>
             </div>
-            <h2 class="font-display text-[1.8rem] md:text-[2.4rem] leading-[1.15] text-dark">Faculty Mentors</h2>
-            <p class="text-[.88rem] font-light leading-[1.8] text-dark/40 mt-3 max-w-[520px] mx-auto">CSPC faculty
-                members providing academic guidance and research expertise to our incubatees.</p>
+            <h2 class="font-display text-[1.8rem] md:text-[2.4rem] leading-[1.15] text-dark">Mentors</h2>
+            <p class="text-[.88rem] font-light leading-[1.8] text-dark/40 mt-3 max-w-[520px] mx-auto">Mentors who
+                provide domain expertise, industry connections, and ecosystem access to every incubation journey.</p>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 reveal-group">
-            <?php for ($i = 0; $i < 4; $i++): ?>
-            <div class="rc text-center">
-                <div class="w-full aspect-square rounded-lg bg-[#e2dfd9] mb-4 flex items-center justify-center">
-                    <svg class="w-12 h-12 text-dark/20" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                    </svg>
-                </div>
-                <h4 class="font-display text-[1.05rem] font-semibold text-dark leading-tight">Faculty Mentor</h4>
-                <span class="text-[.64rem] font-semibold tracking-[.08em] uppercase text-sky mt-1.5 block">Faculty
-                    Mentor</span>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 reveal-group justify-items-center">
+            <div class="rc w-full max-w-[340px] text-center mx-auto">
+                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-3">Business</h3>
+                <ul class="space-y-2 text-[.92rem] text-dark/85 leading-[1.7] list-none p-0 m-0">
+                    <li>Ms. Cherry Lyn M. Odsinada</li>
+                    <li>Dr. Niño Martin P. Obrero</li>
+                    <li>Ms. Anjelica N. Ampongan</li>
+                    <li>Dr. Crezel B. Obrero</li>
+                </ul>
             </div>
-            <?php endfor; ?>
-        </div>
-    </div>
-</section>
 
-<!-- ── INDUSTRY MENTORS ── -->
-<section id="industry-mentors" class="relative bg-white py-20 md:py-28 px-6 md:px-10 lg:px-14">
-    <div class="ai-grid"></div>
-    <div class="ai-grid-fade"></div>
-
-    <div class="max-w-[1100px] mx-auto relative z-[2]">
-        <div class="text-center mb-14 reveal">
-            <div class="flex items-center justify-center gap-2 mb-4">
-                <span class="block w-[18px] h-[1.5px] bg-sky"></span>
-                <span class="text-[.55rem] font-semibold tracking-[.2em] uppercase text-sky">Industry Partners</span>
-                <span class="block w-[18px] h-[1.5px] bg-sky"></span>
+            <div class="rc w-full max-w-[340px] text-center mx-auto">
+                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-3">Artificial Intelligence</h3>
+                <ul class="space-y-2 text-[.92rem] text-dark/85 leading-[1.7] list-none p-0 m-0">
+                    <li>Dr. Challiz D. Omorog</li>
+                    <li>Ms. Rosel O. Onesa</li>
+                    <li>Ms. Kaela Marie N. Fortuno</li>
+                    <li>Mr. Joseph Jessie S. Oñate</li>
+                    <li>Ms. Tiffany Lyn O. Pandes</li>
+                    <li>Mr. Allan O. Ibo, Jr.</li>
+                </ul>
             </div>
-            <h2 class="font-display text-[1.8rem] md:text-[2.4rem] leading-[1.15] text-dark">Industry Mentors</h2>
-            <p class="text-[.88rem] font-light leading-[1.8] text-dark/40 mt-3 max-w-[520px] mx-auto">Experts from the
-                private sector bringing real-world business and technical mentorship to our startups.</p>
-        </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 reveal-group">
-            <?php for ($i = 0; $i < 4; $i++): ?>
-            <div class="rc text-center">
-                <div class="w-full aspect-square rounded-lg bg-[#e2dfd9] mb-4 flex items-center justify-center">
-                    <svg class="w-12 h-12 text-dark/20" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                    </svg>
-                </div>
-                <h4 class="font-display text-[1.05rem] font-semibold text-dark leading-tight">Industry Mentor</h4>
-                <span class="text-[.64rem] font-semibold tracking-[.08em] uppercase text-sky mt-1.5 block">Industry
-                    Mentor</span>
+            <div class="rc w-full max-w-[340px] text-center mx-auto">
+                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-3">Engineering</h3>
+                <ul class="space-y-2 text-[.92rem] text-dark/85 leading-[1.7] list-none p-0 m-0">
+                    <li>Dr. Harold Jan R. Terano</li>
+                    <li>Engr. Rizza T. Loquias</li>
+                    <li>Engr. Keith Marlon R. Tabal</li>
+                    <li>Engr. Jose Eduardo II B. Cerillo</li>
+                    <li>Engr. Roner P. Abanil</li>
+                </ul>
             </div>
-            <?php endfor; ?>
+
+            <div class="rc w-full max-w-[340px] text-center mx-auto">
+                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-3">Financial Management</h3>
+                <ul class="space-y-2 text-[.92rem] text-dark/85 leading-[1.7] list-none p-0 m-0">
+                    <li>Mr. Roque B. Cruz II</li>
+                    <li>Ms. Christine Margoux M. Sirios</li>
+                </ul>
+            </div>
+
+            <div class="rc w-full max-w-[340px] text-center mx-auto">
+                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-3">Prototyping</h3>
+                <ul class="space-y-2 text-[.92rem] text-dark/85 leading-[1.7] list-none p-0 m-0">
+                    <li>Dr. Lalaine M. Lastrollo</li>
+                </ul>
+            </div>
+
+            <div class="rc w-full max-w-[340px] text-center mx-auto">
+                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-3">Value Chain</h3>
+                <ul class="space-y-2 text-[.92rem] text-dark/85 leading-[1.7] list-none p-0 m-0">
+                    <li>Ms. Rosalie R. Axinto</li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
