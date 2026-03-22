@@ -48,7 +48,7 @@
             <?php endforeach; ?>
             <?php else: ?>
             <!-- Fallback static cards -->
-            <?php foreach (['AIRCoDe Lab', 'FabLab', 'Co-Working Space', 'Conference Room'] as $name): ?>
+            <?php foreach (['AIRCoDe', 'FabLab', 'Co-Working Space', 'Conference Room'] as $name): ?>
             <div class="rc rounded-lg border border-dark/[.06] overflow-hidden bg-white shadow-sm shadow-dark/[.04]">
                 <div class="h-[180px] md:h-[200px] bg-[#e9e6e1] flex items-center justify-center">
                     <span class="text-[.6rem] font-semibold tracking-[.2em] uppercase text-dark/15">Photo

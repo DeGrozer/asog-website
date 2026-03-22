@@ -59,10 +59,10 @@
                         style="width:220px;max-width:100%;background:linear-gradient(160deg, rgba(3,85,140,.58), rgba(3,85,140,.2));">
                         <div class="w-full h-full rounded-[7px] flex items-center justify-center"
                             style="background:linear-gradient(to top, rgba(3,85,140,.30), rgba(3,85,140,.10));">
-                            <svg class="w-12 h-12 text-[#03558c]/30" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                            </svg>
+                            <div class="w-full h-full rounded-[7px] overflow-hidden">
+                                <img src="<?= base_url('assets/img/team/Fortuno.png') ?>"
+                                    alt="Ms. Kaela Marie N. Fortuno" class="w-full h-full object-cover object-center" />
+                            </div>
                         </div>
                     </div>
                     <h4 class="font-display text-[1.05rem] font-semibold text-dark leading-tight">Ms. Kaela Marie N.
@@ -79,10 +79,10 @@
                         style="width:220px;max-width:100%;background:linear-gradient(160deg, rgba(3,85,140,.58), rgba(3,85,140,.2));">
                         <div class="w-full h-full rounded-[7px] flex items-center justify-center"
                             style="background:linear-gradient(to top, rgba(3,85,140,.30), rgba(3,85,140,.10));">
-                            <svg class="w-12 h-12 text-[#03558c]/30" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                            </svg>
+                            <div class="w-full h-full rounded-[7px] overflow-hidden">
+                                <img src="<?= base_url('assets/img/team/Gavino.png') ?>" alt="Eng. Wenceslao D. Gavino"
+                                    class="w-full h-full object-cover object-center" />
+                            </div>
                         </div>
                     </div>
                     <h4 class="font-display text-[1.05rem] font-semibold text-dark leading-tight">Eng. Wenceslao D.
@@ -119,12 +119,9 @@
             <div class="rc text-center w-full max-w-[320px] mx-auto">
                 <div class="mx-auto aspect-square rounded-lg mb-4 p-[2px]"
                     style="width:220px;max-width:100%;background:linear-gradient(to top, rgba(236,155,64,.45), rgba(236,155,64,.12));">
-                    <div class="w-full h-full rounded-[7px] flex items-center justify-center"
-                        style="background:linear-gradient(to top, rgba(236,155,64,.35), rgba(236,155,64,.10));">
-                        <svg class="w-12 h-12 text-[#03558c]/30" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                        </svg>
+                    <div class="w-full h-full rounded-[7px] overflow-hidden">
+                        <img src="<?= base_url('assets/img/team/Hernando.png') ?>" alt="Ms. Racelle Hernando"
+                            class="w-full h-full object-cover object-center" />
                     </div>
                 </div>
                 <h4 class="font-display text-[1.05rem] font-semibold text-dark leading-tight">Ms. Racelle Hernando</h4>

@@ -11,14 +11,13 @@
                 <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-gold">The Team</span>
                 <span class="block w-[18px] h-[1.5px] bg-gold"></span>
             </div>
-                    <h2 class="font-display text-3xl md:text-[2.1rem] leading-[1.12] text-off">Our <em
-                        class="italic text-gold">Organization</em></h2>
+            <h2 class="font-display text-3xl md:text-[2.1rem] leading-[1.12] text-off">Our <em
+                    class="italic text-gold">Organization</em></h2>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 reveal-group">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 reveal-group">
             <div class="rc text-center">
-                <div
-                    class="mx-auto aspect-square rounded-lg mb-3 p-[2px]"
+                <div class="mx-auto aspect-square rounded-lg mb-3 p-[2px]"
                     style="width:165px;max-width:100%;background:linear-gradient(160deg, rgba(150,208,255,.7), rgba(3,85,140,.5));">
                     <div class="w-full h-full rounded-[7px] overflow-hidden"
                         style="background:linear-gradient(160deg, rgba(150,208,255,.2), rgba(3,85,140,.25));">
@@ -34,8 +33,7 @@
                     Project Leader</span>
             </div>
             <div class="rc text-center">
-                <div
-                    class="mx-auto aspect-square rounded-lg mb-3 p-[2px]"
+                <div class="mx-auto aspect-square rounded-lg mb-3 p-[2px]"
                     style="width:165px;max-width:100%;background:linear-gradient(160deg, rgba(150,208,255,.7), rgba(3,85,140,.5));">
                     <div class="w-full h-full rounded-[7px] overflow-hidden"
                         style="background:linear-gradient(160deg, rgba(150,208,255,.2), rgba(3,85,140,.25));">
@@ -51,15 +49,12 @@
                 </span>
             </div>
             <div class="rc text-center">
-                <div
-                    class="mx-auto aspect-square rounded-lg mb-3 p-[2px]"
+                <div class="mx-auto aspect-square rounded-lg mb-3 p-[2px]"
                     style="width:165px;max-width:100%;background:linear-gradient(160deg, rgba(150,208,255,.7), rgba(3,85,140,.5));">
-                    <div class="w-full h-full rounded-[7px] flex items-center justify-center"
+                    <div class="w-full h-full rounded-[7px] overflow-hidden"
                         style="background:linear-gradient(160deg, rgba(150,208,255,.2), rgba(3,85,140,.25));">
-                    <svg class="w-12 h-12 text-white/75" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path
-                            d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                    </svg>
+                        <img src="<?= base_url('assets/img/team/Fortuno.png') ?>" alt="Ms. Kaela Marie N. Fortuno"
+                            class="w-full h-full object-contain object-center" />
                     </div>
                 </div>
                 <h4 class="font-display text-[.95rem] md:text-[1.05rem] text-off leading-tight">Ms. Kaela Marie N.
@@ -70,15 +65,12 @@
                 </span>
             </div>
             <div class="rc text-center">
-                <div
-                    class="mx-auto aspect-square rounded-lg mb-3 p-[2px]"
+                <div class="mx-auto aspect-square rounded-lg mb-3 p-[2px]"
                     style="width:165px;max-width:100%;background:linear-gradient(160deg, rgba(150,208,255,.7), rgba(3,85,140,.5));">
-                    <div class="w-full h-full rounded-[7px] flex items-center justify-center"
+                    <div class="w-full h-full rounded-[7px] overflow-hidden"
                         style="background:linear-gradient(160deg, rgba(150,208,255,.2), rgba(3,85,140,.25));">
-                    <svg class="w-12 h-12 text-white/75" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path
-                            d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                    </svg>
+                        <img src="<?= base_url('assets/img/team/Gavino.png') ?>" alt="Eng. Wenceslao D. Gavino"
+                            class="w-full h-full object-contain object-center" />
                     </div>
                 </div>
                 <h4 class="font-display text-[.95rem] md:text-[1.05rem] text-off leading-tight">Eng. Wenceslao D. Gavino

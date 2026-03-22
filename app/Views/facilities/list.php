@@ -23,10 +23,13 @@
 <!-- 1 · The Co-Lab -->
 <section id="co-lab" class="scroll-mt-28 bg-white">
     <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-[420px] facility-row">
-        <div class="bg-white h-[320px] md:h-[360px] lg:h-[420px] relative overflow-hidden facility-carousel" data-carousel>
-            <div class="flex h-full transition-transform duration-500 ease-out facility-carousel-track" data-carousel-track>
+        <div class="bg-white h-[320px] md:h-[360px] lg:h-[420px] relative overflow-hidden facility-carousel"
+            data-carousel>
+            <div class="flex h-full transition-transform duration-500 ease-out facility-carousel-track"
+                data-carousel-track>
                 <img src="<?= base_url('assets/img/facilities/colab/Screenshot 2026-03-22 132942.png') ?>"
-                    alt="Co-Lab workspace view 1" class="w-full h-full object-contain shrink-0 facility-carousel-image"
+                    alt="Co-Lab workspace view 1"
+                    class="w-full h-full object-contain shrink-0 facility-carousel-image colab-feature-fill"
                     loading="lazy" decoding="async" fetchpriority="low" />
                 <img src="<?= base_url('assets/img/facilities/colab/631024645_122153032628726868_1817243571050694947_n.jpg') ?>"
                     alt="Co-Lab workspace view 2" class="w-full h-full object-contain shrink-0 facility-carousel-image"
@@ -68,7 +71,8 @@
 <!-- 2 · The Innovators' Suite -->
 <section id="innovators-suite" class="scroll-mt-28 bg-off">
     <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-[420px] facility-row">
-        <div class="flex flex-col justify-center px-8 md:px-14 lg:px-20 py-12 lg:py-14 order-2 lg:order-1 facility-copy">
+        <div
+            class="flex flex-col justify-center px-8 md:px-14 lg:px-20 py-12 lg:py-14 order-2 lg:order-1 facility-copy">
             <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-gold mb-3">Incubation Center</span>
             <h3 class="font-display text-[1.8rem] md:text-[2.2rem] leading-[1.15] text-dark mb-5">The Innovators' Suite
             </h3>
@@ -81,14 +85,16 @@
                 <li class="flex gap-2 items-start"><span class="text-gold mt-0.5">✦</span> Meeting facilities</li>
             </ul>
         </div>
-        <div class="bg-white h-[320px] md:h-[360px] lg:h-[420px] relative overflow-hidden order-1 lg:order-2 facility-carousel" data-carousel>
-            <div class="flex h-full transition-transform duration-500 ease-out facility-carousel-track" data-carousel-track>
-                <img src="<?= base_url('assets/img/facilities/suite/IMG_0373.JPG') ?>"
-                    alt="Innovators' Suite view 1" class="w-full h-full object-contain shrink-0 facility-carousel-image"
-                    loading="lazy" decoding="async" fetchpriority="low" />
-                <img src="<?= base_url('assets/img/facilities/suite/IMG_0374.JPG') ?>"
-                    alt="Innovators' Suite view 2" class="w-full h-full object-contain shrink-0 facility-carousel-image"
-                    loading="lazy" decoding="async" fetchpriority="low" />
+        <div class="bg-white h-[320px] md:h-[360px] lg:h-[420px] relative overflow-hidden order-1 lg:order-2 facility-carousel"
+            data-carousel>
+            <div class="flex h-full transition-transform duration-500 ease-out facility-carousel-track"
+                data-carousel-track>
+                <img src="<?= base_url('assets/img/facilities/suite/IMG_0373.JPG') ?>" alt="Innovators' Suite view 1"
+                    class="w-full h-full object-contain shrink-0 facility-carousel-image" loading="lazy"
+                    decoding="async" fetchpriority="low" />
+                <img src="<?= base_url('assets/img/facilities/suite/IMG_0374.JPG') ?>" alt="Innovators' Suite view 2"
+                    class="w-full h-full object-contain shrink-0 facility-carousel-image" loading="lazy"
+                    decoding="async" fetchpriority="low" />
             </div>
             <div class="facility-carousel-dots" data-carousel-dots>
                 <button type="button" class="facility-carousel-dot is-active" aria-label="Innovators' Suite photo 1"
@@ -103,17 +109,22 @@
 <!-- 3 · AIRCoDe Lab -->
 <section id="aircode" class="scroll-mt-28 bg-white">
     <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-[420px] facility-row">
-        <div class="bg-white h-[320px] md:h-[360px] lg:h-[420px] relative overflow-hidden facility-carousel aircode-carousel" data-carousel>
-            <div class="flex h-full transition-transform duration-500 ease-out facility-carousel-track" data-carousel-track>
+        <div class="bg-white h-[320px] md:h-[360px] lg:h-[420px] relative overflow-hidden facility-carousel aircode-carousel"
+            data-carousel>
+            <div class="flex h-full transition-transform duration-500 ease-out facility-carousel-track"
+                data-carousel-track>
                 <img src="<?= base_url('assets/img/facilities/aircode/IMG_0728 (1).JPG') ?>"
-                    alt="AIRCoDe laboratory facility view 1" class="w-full h-full object-contain shrink-0 facility-carousel-image aircode-fill"
-                    loading="lazy" decoding="async" fetchpriority="low" />
+                    alt="AIRCoDe laboratory facility view 1"
+                    class="w-full h-full object-contain shrink-0 facility-carousel-image aircode-fill" loading="lazy"
+                    decoding="async" fetchpriority="low" />
                 <img src="<?= base_url('assets/img/facilities/aircode/IMG_0727.JPG') ?>"
-                    alt="AIRCoDe laboratory facility view 2" class="w-full h-full object-contain shrink-0 facility-carousel-image aircode-fill"
-                    loading="lazy" decoding="async" fetchpriority="low" />
+                    alt="AIRCoDe laboratory facility view 2"
+                    class="w-full h-full object-contain shrink-0 facility-carousel-image aircode-fill" loading="lazy"
+                    decoding="async" fetchpriority="low" />
                 <img src="<?= base_url('assets/img/facilities/aircode/IMG_0723.JPG') ?>"
-                    alt="AIRCoDe laboratory facility view 3" class="w-full h-full object-contain shrink-0 facility-carousel-image aircode-fill"
-                    loading="lazy" decoding="async" fetchpriority="low" />
+                    alt="AIRCoDe laboratory facility view 3"
+                    class="w-full h-full object-contain shrink-0 facility-carousel-image aircode-fill" loading="lazy"
+                    decoding="async" fetchpriority="low" />
             </div>
             <div class="facility-carousel-dots" data-carousel-dots>
                 <button type="button" class="facility-carousel-dot is-active" aria-label="AIRCoDe photo 1"
@@ -126,7 +137,7 @@
         </div>
         <div class="flex flex-col justify-center px-8 md:px-14 lg:px-20 py-12 lg:py-14 facility-copy">
             <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-navy mb-3">Partner Facility</span>
-            <h3 class="font-display text-[1.8rem] md:text-[2.2rem] leading-[1.15] text-dark mb-5">AIRCoDe Lab</h3>
+            <h3 class="font-display text-[1.8rem] md:text-[2.2rem] leading-[1.15] text-dark mb-5">AIRCoDe</h3>
             <p class="text-[.95rem] font-normal leading-[1.8] text-black mb-4">AIRCoDe is a research center intended
                 for research studies implementing Artificial Intelligence Technology. The establishment of AIRCoDe is
                 funded by the Department of Science and Technology – Philippine Council for Industry, Energy, and
@@ -148,7 +159,8 @@
 <!-- 4 · Fabrication Laboratory -->
 <section id="fablab" class="scroll-mt-28 bg-off">
     <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-[420px] facility-row">
-        <div class="flex flex-col justify-center px-8 md:px-14 lg:px-20 py-12 lg:py-14 order-2 lg:order-1 facility-copy">
+        <div
+            class="flex flex-col justify-center px-8 md:px-14 lg:px-20 py-12 lg:py-14 order-2 lg:order-1 facility-copy">
             <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-navy mb-3">Partner Facility</span>
             <h3 class="font-display text-[1.8rem] md:text-[2.2rem] leading-[1.15] text-dark mb-5">Fabrication Laboratory
             </h3>
@@ -162,8 +174,10 @@
                 <li class="flex gap-2 items-start"><span class="text-navy mt-0.5">✦</span> Electronics workstations</li>
             </ul>
         </div>
-        <div class="bg-white h-[320px] md:h-[360px] lg:h-[420px] relative overflow-hidden order-1 lg:order-2 facility-carousel" data-carousel>
-            <div class="flex h-full transition-transform duration-500 ease-out facility-carousel-track" data-carousel-track>
+        <div class="bg-white h-[320px] md:h-[360px] lg:h-[420px] relative overflow-hidden order-1 lg:order-2 facility-carousel"
+            data-carousel>
+            <div class="flex h-full transition-transform duration-500 ease-out facility-carousel-track"
+                data-carousel-track>
                 <img src="<?= base_url('assets/img/facilities/fablab/IMG_0968.JPG') ?>" alt="FabLab facility view 1"
                     class="w-full h-full object-contain shrink-0 facility-carousel-image" loading="lazy"
                     decoding="async" fetchpriority="low" />
@@ -189,15 +203,20 @@
 <!-- 5 · Shared Service Facility -->
 <section id="ssf" class="scroll-mt-28 bg-white">
     <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-[420px] facility-row">
-        <div class="bg-white h-[320px] md:h-[360px] lg:h-[420px] relative overflow-hidden facility-carousel" data-carousel>
-            <div class="flex h-full transition-transform duration-500 ease-out facility-carousel-track" data-carousel-track>
-                <img src="<?= base_url('assets/img/facilities/ssf/IMG_0984.JPG') ?>" alt="Shared Service Facility view 1"
+        <div class="bg-white h-[320px] md:h-[360px] lg:h-[420px] relative overflow-hidden facility-carousel"
+            data-carousel>
+            <div class="flex h-full transition-transform duration-500 ease-out facility-carousel-track"
+                data-carousel-track>
+                <img src="<?= base_url('assets/img/facilities/ssf/IMG_0984.JPG') ?>"
+                    alt="Shared Service Facility view 1"
                     class="w-full h-full object-contain shrink-0 facility-carousel-image" loading="lazy"
                     decoding="async" fetchpriority="low" />
-                <img src="<?= base_url('assets/img/facilities/ssf/IMG_0987.JPG') ?>" alt="Shared Service Facility view 2"
+                <img src="<?= base_url('assets/img/facilities/ssf/IMG_0987.JPG') ?>"
+                    alt="Shared Service Facility view 2"
                     class="w-full h-full object-contain shrink-0 facility-carousel-image" loading="lazy"
                     decoding="async" fetchpriority="low" />
-                <img src="<?= base_url('assets/img/facilities/ssf/IMG_0990.JPG') ?>" alt="Shared Service Facility view 3"
+                <img src="<?= base_url('assets/img/facilities/ssf/IMG_0990.JPG') ?>"
+                    alt="Shared Service Facility view 3"
                     class="w-full h-full object-contain shrink-0 facility-carousel-image" loading="lazy"
                     decoding="async" fetchpriority="low" />
             </div>
@@ -229,7 +248,8 @@
 <!-- 6 · IPMD Division -->
 <section id="ip-unit" class="scroll-mt-28 bg-off">
     <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-[420px] facility-row">
-        <div class="flex flex-col justify-center px-8 md:px-14 lg:px-20 py-12 lg:py-14 order-2 lg:order-1 facility-copy">
+        <div
+            class="flex flex-col justify-center px-8 md:px-14 lg:px-20 py-12 lg:py-14 order-2 lg:order-1 facility-copy">
             <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-navy mb-3">Partner Facility</span>
             <h3 class="font-display text-[1.8rem] md:text-[2.2rem] leading-[1.15] text-dark mb-5">Intellectual Property
                 Management
@@ -244,8 +264,10 @@
                 <li class="flex gap-2 items-start"><span class="text-navy mt-0.5">✦</span> Licensing facilitation</li>
             </ul>
         </div>
-        <div class="bg-white h-[320px] md:h-[360px] lg:h-[420px] relative overflow-hidden order-1 lg:order-2 facility-carousel" data-carousel>
-            <div class="flex h-full transition-transform duration-500 ease-out facility-carousel-track" data-carousel-track>
+        <div class="bg-white h-[320px] md:h-[360px] lg:h-[420px] relative overflow-hidden order-1 lg:order-2 facility-carousel"
+            data-carousel>
+            <div class="flex h-full transition-transform duration-500 ease-out facility-carousel-track"
+                data-carousel-track>
                 <img src="<?= base_url('assets/img/facilities/ipmd/IMG_0975.JPG') ?>" alt="IPMD facility view 1"
                     class="w-full h-full object-contain shrink-0 facility-carousel-image" loading="lazy"
                     decoding="async" fetchpriority="low" />
