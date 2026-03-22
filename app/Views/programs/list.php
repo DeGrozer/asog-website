@@ -6,7 +6,6 @@
 <div class="relative bg-off">
     <div class="max-w-[1320px] mx-auto px-6 md:px-10 lg:px-14">
         <div class="min-w-0">
-
             <!-- ╔═══════════════════════════════════════════════════════════════════╗
  ║  SECTION 1: ALTITUDE PROGRAM                                      ║
  ╚════════════════════════════════════════════════════════════════════╝ -->
@@ -22,22 +21,30 @@
                                     <svg viewBox="0 0 720 360" fill="none" preserveAspectRatio="none">
                                         <path
                                             d="M0 360L88 228L158 274L260 136L352 232L442 92L556 210L652 126L720 192V360H0Z"
-                                            fill="rgba(255,255,255,.15)" />
+                                            fill="rgba(6,34,56,.34)" />
                                         <path
                                             d="M0 360L64 252L146 292L236 176L330 248L436 122L530 214L630 152L720 206V360H0Z"
-                                            fill="rgba(255,255,255,.28)" />
+                                            fill="rgba(8,44,70,.42)" />
                                         <path
                                             d="M0 360L46 286L120 314L210 228L306 286L400 176L496 256L600 202L720 248V360H0Z"
-                                            fill="rgba(255,255,255,.42)" />
+                                            fill="rgba(14,61,90,.5)" />
                                     </svg>
                                 </div>
                                 <div class="altitude-exp-hero-content">
-                                    <p class="altitude-exp-kicker">ASOG TBI Incubation Program</p>
-                                    <h1 class="altitude-exp-title">ALTITUDE</h1>
-                                    <p class="altitude-exp-subtitle">Advancing Local Technology and Innovation through
-                                        Transformative Upskilling, Development, and Entrepreneurship</p>
-                                    <button id="altitudeEnterProgram" type="button" class="altitude-exp-enter-btn">Go to
-                                        ALTITUDE Experience</button>
+                                    <!-- <p class="altitude-exp-kicker">ASOG TBI Incubation Program</p> -->
+                                    <h1 class="altitude-exp-title">ALTITUDE Program</h1>
+                                    <p class="altitude-exp-subtitle">ALTITUDE (Advancing Local Technology and
+                                        Innovation through Transformative Upskilling, Development, and
+                                        Entrepreneurship) is the official incubation program of the ASOG Technology
+                                        Business Incubator. The program supports early-stage startups by providing
+                                        structured guidance, mentorship, and resources that help transform innovative
+                                        ideas into viable ventures.
+                                        ALTITUDE follows a staged incubation approach designed to guide startups from
+                                        idea development to scaling. Each stage focuses on specific milestones that help
+                                        founders refine their technology, validate market demand, and prepare for
+                                        sustainable growth.</p>
+                                    <button id="altitudeEnterProgram" type="button"
+                                        class="altitude-exp-enter-btn">Explore the Program</button>
                                 </div>
                             </div>
                         </div>
@@ -155,10 +162,10 @@
     <!-- Hint -->
     <p id="alt3dHint" class="alt3d-hint">Click a checkpoint to explore the journey · Press ESC to exit</p>
 
-    <button id="alt3dShowPartners" class="alt3d-mentors-btn" type="button" aria-controls="alt3dPartnersPanel"
+    <!-- <button id="alt3dShowPartners" class="alt3d-mentors-btn" type="button" aria-controls="alt3dPartnersPanel"
         aria-expanded="false">
         Industry Partners <span class="alt3d-mentors-btn-arrow" aria-hidden="true">↓</span>
-    </button>
+    </button> -->
 
     <section id="alt3dPartnersPanel" class="alt3d-mentors-overlay" aria-label="Faculty and industry partners">
         <div class="alt3d-mentors-inner">

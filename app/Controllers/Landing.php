@@ -12,7 +12,7 @@ class Landing extends BaseController
         $postModel = new PostModel();
 
         $data = [
-            'title'              => 'ASOG-TBI - Home',
+            'title'              => 'DOST-CSPC ASOG TBI',
             'isLanding'          => true,
             'heroSlides'         => $postModel->getFeaturedSlides(5),
             'featuredPost'       => $postModel->getFeatured(),

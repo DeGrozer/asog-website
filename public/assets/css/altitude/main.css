@@ -20,7 +20,7 @@
   overflow: hidden;
   border-radius: 18px;
   padding: 48px 42px 40px;
-  background: radial-gradient(circle at 75% 10%, #5ca2c9 0%, #1f567b 45%, #102d45 100%);
+  background: radial-gradient(circle at 75% 10%, #4f91ba 0%, #18496d 45%, #0b2539 100%);
   box-shadow: 0 12px 30px rgba(16, 45, 69, .18);
   color: #f6f7f8;
 }
@@ -63,8 +63,9 @@
   margin: 14px 0 0;
   max-width: 860px;
   font-size: 1.02rem;
-  line-height: 1.8;
+  line-height: 25px;
   color: rgba(255, 255, 255, .95);
+  letter-spacing: .5px;
 }
 
 .altitude-exp-enter-btn {

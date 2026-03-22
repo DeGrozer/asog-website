@@ -3644,6 +3644,17 @@
     transform: translateY(-100%);
     pointer-events: none;
   }
+  @media (width >= 64rem) {
+    #navbar.nav-programs-desktop:not(.scrolled) {
+      background-color: color-mix(in srgb, #03558C 88%, transparent);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-dark) 88%, transparent);
+      }
+      --tw-backdrop-blur: blur(18px);
+      -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+      backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+    }
+  }
   #navbar.scrolled {
     background-color: color-mix(in srgb, #03558C 60%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -4369,9 +4380,9 @@
     }
     #navImg {
       display: block !important;
-      width: 50px !important;
+      width: 80px !important;
       height: auto !important;
-      max-height: 64px !important;
+      max-height: 80px !important;
       opacity: 1 !important;
       overflow: visible !important;
       filter: brightness(0) invert(1) contrast(1.02) !important;
@@ -4516,15 +4527,15 @@
       }
 
       #about .mt-8.mb-6 .flex.flex-wrap.items-end a {
-        width: 56px !important;
+        width: 58px !important;
         height: 40px !important;
       }
 
       #about .mt-8.mb-6 .flex.flex-wrap.items-end a img {
         width: auto !important;
         height: auto !important;
-        max-width: 44px !important;
-        max-height: 28px !important;
+        max-width: 58px !important;
+        max-height: 40px !important;
         transform: none !important;
       }
 
@@ -4536,9 +4547,9 @@
       /* Keep a visible brand mark in mobile scrolled navbar. */
       #navbar.scrolled #navImg {
         display: block !important;
-        width: 50px !important;
+        width: 92px !important;
         height: auto !important;
-        max-height: 64px !important;
+        max-height: 92px !important;
         opacity: 1 !important;
       }
 
@@ -4707,10 +4718,16 @@
   filter: brightness(0) invert(1) !important;
 }
 
-#navbar.on-blue.scrolled {
-  background-color: transparent !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
+@media (width >= 64rem) {
+  #navbar.on-blue {
+    background-color: color-mix(in srgb, #03558C 88%, transparent) !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-dark) 88%, transparent) !important;
+    }
+    --tw-backdrop-blur: blur(18px);
+    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,) !important;
+    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,) !important;
+  }
 }
 @property --tw-scale-x {
   syntax: "*";

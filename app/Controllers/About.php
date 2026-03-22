@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class About extends BaseController
 {
@@ -21,18 +22,8 @@ class About extends BaseController
             . view('templates/footer');
     }
 
-    public function logo(): string
+    public function logo(): RedirectResponse
     {
-        $data = [
-            'title'        => 'ASOG-TBI Logo',
-            'heroSubtitle' => 'Brand Identity',
-            'heroTitle'    => 'ASOG-TBI Logo',
-            'heroDesc'     => 'Official logo variants and visual identity of the ASOG Technology Business Incubator.',
-        ];
-
-        return view('templates/header', $data)
-            . view('templates/page_hero', $data)
-            . view('about/logo', $data)
-            . view('templates/footer');
+        return redirect()->to(site_url('about') . '#about-panel-4');
     }
 }

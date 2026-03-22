@@ -23,8 +23,31 @@
 <!-- 1 · The Co-Lab -->
 <section id="co-lab" class="scroll-mt-28 bg-white">
     <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-[420px] facility-row">
-        <div class="bg-[#e9e6e1] flex items-center justify-center min-h-[320px] lg:min-h-full">
-            <span class="text-[.6rem] font-semibold tracking-[.2em] uppercase text-dark/15">Co-Lab Photo</span>
+        <div class="bg-white h-[320px] md:h-[360px] lg:h-[420px] relative overflow-hidden facility-carousel" data-carousel>
+            <div class="flex h-full transition-transform duration-500 ease-out facility-carousel-track" data-carousel-track>
+                <img src="<?= base_url('assets/img/facilities/colab/Screenshot 2026-03-22 132942.png') ?>"
+                    alt="Co-Lab workspace view 1" class="w-full h-full object-contain shrink-0 facility-carousel-image"
+                    loading="lazy" decoding="async" fetchpriority="low" />
+                <img src="<?= base_url('assets/img/facilities/colab/631024645_122153032628726868_1817243571050694947_n.jpg') ?>"
+                    alt="Co-Lab workspace view 2" class="w-full h-full object-contain shrink-0 facility-carousel-image"
+                    loading="lazy" decoding="async" fetchpriority="low" />
+                <img src="<?= base_url('assets/img/facilities/colab/629242075_122153033786726868_6564736108685044598_n.jpg') ?>"
+                    alt="Co-Lab workspace view 3" class="w-full h-full object-contain shrink-0 facility-carousel-image"
+                    loading="lazy" decoding="async" fetchpriority="low" />
+                <img src="<?= base_url('assets/img/facilities/colab/646373070_122154971300726868_3603227365186403952_n (2).jpg') ?>"
+                    alt="Co-Lab workspace view 4" class="w-full h-full object-contain shrink-0 facility-carousel-image"
+                    loading="lazy" decoding="async" fetchpriority="low" />
+            </div>
+            <div class="facility-carousel-dots" data-carousel-dots>
+                <button type="button" class="facility-carousel-dot is-active" aria-label="Co-Lab photo 1"
+                    data-carousel-dot="0"></button>
+                <button type="button" class="facility-carousel-dot" aria-label="Co-Lab photo 2"
+                    data-carousel-dot="1"></button>
+                <button type="button" class="facility-carousel-dot" aria-label="Co-Lab photo 3"
+                    data-carousel-dot="2"></button>
+                <button type="button" class="facility-carousel-dot" aria-label="Co-Lab photo 4"
+                    data-carousel-dot="3"></button>
+            </div>
         </div>
         <div class="flex flex-col justify-center px-8 md:px-14 lg:px-20 py-12 lg:py-14 facility-copy">
             <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-gold mb-3">Incubation Center</span>
@@ -58,9 +81,21 @@
                 <li class="flex gap-2 items-start"><span class="text-gold mt-0.5">✦</span> Meeting facilities</li>
             </ul>
         </div>
-        <div class="bg-[#e9e6e1] flex items-center justify-center min-h-[320px] lg:min-h-full order-1 lg:order-2">
-            <span class="text-[.6rem] font-semibold tracking-[.2em] uppercase text-dark/15">Innovators' Suite
-                Photo</span>
+        <div class="bg-white h-[320px] md:h-[360px] lg:h-[420px] relative overflow-hidden order-1 lg:order-2 facility-carousel" data-carousel>
+            <div class="flex h-full transition-transform duration-500 ease-out facility-carousel-track" data-carousel-track>
+                <img src="<?= base_url('assets/img/facilities/suite/IMG_0373.JPG') ?>"
+                    alt="Innovators' Suite view 1" class="w-full h-full object-contain shrink-0 facility-carousel-image"
+                    loading="lazy" decoding="async" fetchpriority="low" />
+                <img src="<?= base_url('assets/img/facilities/suite/IMG_0374.JPG') ?>"
+                    alt="Innovators' Suite view 2" class="w-full h-full object-contain shrink-0 facility-carousel-image"
+                    loading="lazy" decoding="async" fetchpriority="low" />
+            </div>
+            <div class="facility-carousel-dots" data-carousel-dots>
+                <button type="button" class="facility-carousel-dot is-active" aria-label="Innovators' Suite photo 1"
+                    data-carousel-dot="0"></button>
+                <button type="button" class="facility-carousel-dot" aria-label="Innovators' Suite photo 2"
+                    data-carousel-dot="1"></button>
+            </div>
         </div>
     </div>
 </section>

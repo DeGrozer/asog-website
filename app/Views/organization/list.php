@@ -5,95 +5,193 @@
 -->
 
 <!-- ── THE CORE TEAM ── -->
-<section id="core-team" class="relative bg-off py-20 md:py-28 px-6 md:px-10 lg:px-14">
+<section id="core-team" class="relative bg-off py-16 md:py-20 px-6 md:px-10 lg:px-14">
     <div class="ai-grid"></div>
     <div class="ai-grid-fade"></div>
 
     <div class="max-w-[1100px] mx-auto relative z-[2]">
-        <div class="text-center mb-14 reveal">
+        <div class="text-center mb-12 md:mb-16 reveal">
             <div class="flex items-center justify-center gap-2 mb-4">
                 <span class="block w-[18px] h-[1.5px] bg-gold"></span>
                 <span class="text-[.55rem] font-semibold tracking-[.2em] uppercase text-gold">Leadership</span>
                 <span class="block w-[18px] h-[1.5px] bg-gold"></span>
             </div>
             <h2 class="font-display text-[1.8rem] md:text-[2.4rem] leading-[1.15] text-dark">The Core Team</h2>
-            <p class="text-[.88rem] font-light leading-[1.8] text-dark mt-1.5 max-w-[520px] mx-auto">The leadership
+            <p class="text-[.88rem] font-light leading-[1.8] text-black mt-3 max-w-[520px] mx-auto">The leadership
                 guiding ASOG TBI's mission of empowering startups through AI and engineering innovation.</p>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 reveal-group">
-            <?php for ($i = 0; $i < 4; $i++): ?>
-            <div class="rc text-center">
-                <div class="w-full aspect-square rounded-lg bg-[#e2dfd9] mb-4 flex items-center justify-center">
-                    <svg class="w-12 h-12 text-dark/20" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                    </svg>
+        <div class="reveal-group max-w-[980px] mx-auto flex flex-col items-center gap-10 md:gap-10">
+            <div class="rc text-center w-full max-w-[280px] mx-auto">
+                <div class="mx-auto aspect-square rounded-lg mb-4 p-[2px]"
+                    style="width:220px;max-width:100%;background:linear-gradient(160deg, rgba(3,85,140,.58), rgba(3,85,140,.2));">
+                    <div class="w-full h-full rounded-[7px] overflow-hidden">
+                        <img src="<?= base_url('assets/img/team/Odsinada.png') ?>" alt="Ms. Cherry Lyn M. Odsinada"
+                            class="w-full h-full object-cover object-center" />
+                    </div>
                 </div>
-                <h4 class="font-display text-[1.1rem] font-semibold text-dark leading-tight">Team Member</h4>
-                <span class="text-[.68rem] font-semibold tracking-[.08em] uppercase text-gold mt-1.5 block">Position
-                    Title</span>
+                <h4 class="font-display text-[1.05rem] font-semibold text-dark leading-tight">Ms. Cherry Lyn M. Odsinada
+                </h4>
+                <span class="text-[.68rem] font-semibold tracking-[.08em] uppercase text-dark mt-1.5 block">Project
+                    Leader</span>
             </div>
-            <?php endfor; ?>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8 w-full justify-items-center">
+                <div class="rc text-center w-full max-w-[280px] mx-auto">
+                    <div class="mx-auto aspect-square rounded-lg mb-4 p-[2px]"
+                        style="width:220px;max-width:100%;background:linear-gradient(160deg, rgba(3,85,140,.58), rgba(3,85,140,.2));">
+                        <div class="w-full h-full rounded-[7px] overflow-hidden">
+                            <img src="<?= base_url('assets/img/team/Onesa.png') ?>" alt="Ms. Rosel O. Onesa"
+                                class="w-full h-full object-cover object-center" />
+                        </div>
+                    </div>
+                    <h4 class="font-display text-[1.05rem] font-semibold text-dark leading-tight">Ms. Rosel O. Onesa
+                    </h4>
+                    <span class="text-[.6rem] font-semibold tracking-[.1em] uppercase text-dark mt-1 block">Team
+                        Member</span>
+                    <span
+                        class="text-[.68rem] font-semibold tracking-[.08em] uppercase text-dark/70 mt-1 block">Marketing
+                        &amp; Communications Lead</span>
+                </div>
+
+                <div class="rc text-center w-full max-w-[280px] mx-auto">
+                    <div class="mx-auto aspect-square rounded-lg mb-4 p-[2px]"
+                        style="width:220px;max-width:100%;background:linear-gradient(160deg, rgba(3,85,140,.58), rgba(3,85,140,.2));">
+                        <div class="w-full h-full rounded-[7px] flex items-center justify-center"
+                            style="background:linear-gradient(to top, rgba(3,85,140,.30), rgba(3,85,140,.10));">
+                            <svg class="w-12 h-12 text-[#03558c]/30" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <h4 class="font-display text-[1.05rem] font-semibold text-dark leading-tight">Ms. Kaela Marie N.
+                        Fortuno
+                    </h4>
+                    <span class="text-[.6rem] font-semibold tracking-[.1em] uppercase text-dark mt-1 block">Team
+                        Member</span>
+                    <span class="text-[.68rem] font-semibold tracking-[.08em] uppercase text-dark/70 mt-1 block">AI
+                        Expert</span>
+                </div>
+
+                <div class="rc text-center w-full max-w-[280px] mx-auto">
+                    <div class="mx-auto aspect-square rounded-lg mb-4 p-[2px]"
+                        style="width:220px;max-width:100%;background:linear-gradient(160deg, rgba(3,85,140,.58), rgba(3,85,140,.2));">
+                        <div class="w-full h-full rounded-[7px] flex items-center justify-center"
+                            style="background:linear-gradient(to top, rgba(3,85,140,.30), rgba(3,85,140,.10));">
+                            <svg class="w-12 h-12 text-[#03558c]/30" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <h4 class="font-display text-[1.05rem] font-semibold text-dark leading-tight">Eng. Wenceslao D.
+                        Gavino
+                    </h4>
+                    <span class="text-[.6rem] font-semibold tracking-[.1em] uppercase text-dark mt-1 block">Team
+                        Member</span>
+                    <span class="text-[.68rem] font-semibold tracking-[.08em] uppercase text-dark/70 mt-1 block">ITSO
+                        Manager</span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- ── TBI STAFF ── -->
-<section id="tbi-staff" class="relative bg-white py-20 md:py-28 px-6 md:px-10 lg:px-14">
+<section id="tbi-staff" class="relative bg-white py-16 md:py-20 px-6 md:px-10 lg:px-14">
     <div class="ai-grid"></div>
     <div class="ai-grid-fade"></div>
 
     <div class="max-w-[1100px] mx-auto relative z-[2]">
-        <div class="text-center mb-14 reveal">
+        <div class="text-center mb-12 md:mb-16 reveal">
             <div class="flex items-center justify-center gap-2 mb-4">
                 <span class="block w-[18px] h-[1.5px] bg-navy"></span>
                 <span class="text-[.55rem] font-semibold tracking-[.2em] uppercase text-navy">Operations</span>
                 <span class="block w-[18px] h-[1.5px] bg-navy"></span>
             </div>
             <h2 class="font-display text-[1.8rem] md:text-[2.4rem] leading-[1.15] text-dark">TBI Staff</h2>
-            <p class="text-[.88rem] font-light leading-[1.8] text-dark/40 mt-3 max-w-[520px] mx-auto">The dedicated
-                staff running the day-to-day operations and supporting our incubatees.</p>
+            <p class="text-[.88rem] font-light leading-[1.8] text-black mt-3 max-w-[520px] mx-auto">The dedicated staff
+                running the day-to-day operations and supporting our incubatees.</p>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-8 reveal-group">
-            <?php for ($i = 0; $i < 5; $i++): ?>
-            <div class="rc text-center">
-                <div class="w-full aspect-square rounded-lg bg-[#e2dfd9] mb-4 flex items-center justify-center">
-                    <svg class="w-12 h-12 text-dark/20" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                    </svg>
+        <div class="flex flex-col items-center gap-8 md:gap-10 reveal-group max-w-[800px] mx-auto">
+            <div class="rc text-center w-full max-w-[320px] mx-auto">
+                <div class="mx-auto aspect-square rounded-lg mb-4 p-[2px]"
+                    style="width:220px;max-width:100%;background:linear-gradient(to top, rgba(236,155,64,.45), rgba(236,155,64,.12));">
+                    <div class="w-full h-full rounded-[7px] flex items-center justify-center"
+                        style="background:linear-gradient(to top, rgba(236,155,64,.35), rgba(236,155,64,.10));">
+                        <svg class="w-12 h-12 text-[#03558c]/30" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                        </svg>
+                    </div>
                 </div>
-                <h4 class="font-display text-[1.05rem] font-semibold text-dark leading-tight">Staff Member</h4>
-                <span class="text-[.64rem] font-semibold tracking-[.08em] uppercase text-navy mt-1.5 block">Staff
-                    Role</span>
+                <h4 class="font-display text-[1.05rem] font-semibold text-dark leading-tight">Ms. Racelle Hernando</h4>
+                <span class="text-[.64rem] font-semibold tracking-[.08em] uppercase text-navy mt-1.5 block">TBI
+                    Manager</span>
+                <span class="text-[.58rem] font-semibold tracking-[.08em] uppercase text-dark/70 mt-1 block">Project
+                    Development Officer</span>
             </div>
-            <?php endfor; ?>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 w-full max-w-[640px] justify-items-center">
+                <div class="rc text-center w-full max-w-[320px] mx-auto sm:col-start-1 sm:row-start-1">
+                    <div class="mx-auto aspect-square rounded-lg mb-4 p-[2px]"
+                        style="width:220px;max-width:100%;background:linear-gradient(to top, rgba(236,155,64,.45), rgba(236,155,64,.12));">
+                        <div class="w-full h-full rounded-[7px] overflow-hidden">
+                            <img src="<?= base_url('assets/img/team/Pontanal.png') ?>"
+                                alt="Mr. Mark Andrian D. Pontanal" class="w-full h-full object-cover object-center" />
+                        </div>
+                    </div>
+                    <h4 class="font-display text-[1.05rem] font-semibold text-dark leading-tight">Mr. Mark Andrian D.
+                        Pontanal</h4>
+                    <span
+                        class="text-[.64rem] font-semibold tracking-[.08em] uppercase text-navy mt-1.5 block">Innovation
+                        and Community Officer</span>
+                    <span class="text-[.58rem] font-semibold tracking-[.08em] uppercase text-dark/70 mt-1 block">Project
+                        Technical Assistant</span>
+                </div>
+
+                <div class="rc text-center w-full max-w-[320px] mx-auto sm:col-start-2 sm:row-start-1">
+                    <div class="mx-auto aspect-square rounded-lg mb-4 p-[2px]"
+                        style="width:220px;max-width:100%;background:linear-gradient(to top, rgba(236,155,64,.45), rgba(236,155,64,.12));">
+                        <div class="w-full h-full rounded-[7px] overflow-hidden">
+                            <img src="<?= base_url('assets/img/team/Sanglay.png') ?>" alt="Mr. Vencel Angelo R. Sanglay"
+                                class="w-full h-full object-cover object-center" />
+                        </div>
+                    </div>
+                    <h4 class="font-display text-[1.05rem] font-semibold text-dark leading-tight">Mr. Vencel Angelo R.
+                        Sanglay</h4>
+                    <span class="text-[.64rem] font-semibold tracking-[.08em] uppercase text-navy mt-1.5 block">Creative
+                        Technologies and Digital Engagement Officer</span>
+                    <span class="text-[.58rem] font-semibold tracking-[.08em] uppercase text-dark/70 mt-1 block">Project
+                        Technical Assistant</span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- ── MENTORS ── -->
-<section id="mentors" class="relative bg-off py-20 md:py-28 px-6 md:px-10 lg:px-14">
+<section id="mentors" class="relative bg-off py-16 md:py-20 px-6 md:px-10 lg:px-14">
     <div class="ai-grid"></div>
     <div class="ai-grid-fade"></div>
 
     <div class="max-w-[1100px] mx-auto relative z-[2]">
-        <div class="text-center mb-14 reveal">
+        <div class="text-center mb-12 md:mb-16 reveal">
             <div class="flex items-center justify-center gap-2 mb-4">
                 <span class="block w-[18px] h-[1.5px] bg-sky"></span>
-                <span class="text-[.55rem] font-semibold tracking-[.2em] uppercase text-sky">Mentors</span>
+                <span class="text-[.55rem] font-semibold tracking-[.2em] uppercase text-sky">Experts</span>
                 <span class="block w-[18px] h-[1.5px] bg-sky"></span>
             </div>
             <h2 class="font-display text-[1.8rem] md:text-[2.4rem] leading-[1.15] text-dark">Mentors</h2>
-            <p class="text-[.88rem] font-light leading-[1.8] text-dark/40 mt-3 max-w-[520px] mx-auto">Mentors who
-                provide domain expertise, industry connections, and ecosystem access to every incubation journey.</p>
+            <p class="text-[.88rem] font-light leading-[1.8] text-black mt-3 max-w-[520px] mx-auto">Mentors who provide
+                domain expertise, industry connections, and ecosystem access to every incubation journey.</p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 reveal-group justify-items-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 reveal-group justify-items-center">
             <div class="rc w-full max-w-[340px] text-center mx-auto">
-                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-3">Business</h3>
+                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-4">Business</h3>
                 <ul class="space-y-2 text-[.92rem] text-dark/85 leading-[1.7] list-none p-0 m-0">
                     <li>Ms. Cherry Lyn M. Odsinada</li>
                     <li>Dr. Niño Martin P. Obrero</li>
@@ -103,7 +201,7 @@
             </div>
 
             <div class="rc w-full max-w-[340px] text-center mx-auto">
-                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-3">Artificial Intelligence</h3>
+                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-4">Artificial Intelligence</h3>
                 <ul class="space-y-2 text-[.92rem] text-dark/85 leading-[1.7] list-none p-0 m-0">
                     <li>Dr. Challiz D. Omorog</li>
                     <li>Ms. Rosel O. Onesa</li>
@@ -115,7 +213,7 @@
             </div>
 
             <div class="rc w-full max-w-[340px] text-center mx-auto">
-                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-3">Engineering</h3>
+                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-4">Engineering</h3>
                 <ul class="space-y-2 text-[.92rem] text-dark/85 leading-[1.7] list-none p-0 m-0">
                     <li>Dr. Harold Jan R. Terano</li>
                     <li>Engr. Rizza T. Loquias</li>
@@ -126,7 +224,14 @@
             </div>
 
             <div class="rc w-full max-w-[340px] text-center mx-auto">
-                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-3">Financial Management</h3>
+                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-4">Prototyping</h3>
+                <ul class="space-y-2 text-[.92rem] text-dark/85 leading-[1.7] list-none p-0 m-0">
+                    <li>Dr. Lalaine M. Lastrollo</li>
+                </ul>
+            </div>
+
+            <div class="rc w-full max-w-[340px] text-center mx-auto">
+                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-4">Financial Management</h3>
                 <ul class="space-y-2 text-[.92rem] text-dark/85 leading-[1.7] list-none p-0 m-0">
                     <li>Mr. Roque B. Cruz II</li>
                     <li>Ms. Christine Margoux M. Sirios</li>
@@ -134,14 +239,7 @@
             </div>
 
             <div class="rc w-full max-w-[340px] text-center mx-auto">
-                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-3">Prototyping</h3>
-                <ul class="space-y-2 text-[.92rem] text-dark/85 leading-[1.7] list-none p-0 m-0">
-                    <li>Dr. Lalaine M. Lastrollo</li>
-                </ul>
-            </div>
-
-            <div class="rc w-full max-w-[340px] text-center mx-auto">
-                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-3">Value Chain</h3>
+                <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-4">Value Chain</h3>
                 <ul class="space-y-2 text-[.92rem] text-dark/85 leading-[1.7] list-none p-0 m-0">
                     <li>Ms. Rosalie R. Axinto</li>
                 </ul>

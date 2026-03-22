@@ -30,9 +30,13 @@
             <ol class="toc-list space-y-0.5 list-none pl-0 m-0">
                 <?php foreach ($tocItems as $i => $item): ?>
                     <li>
-                        <a href="#<?= esc($item['id']) ?>"
+                        <?php
+                            $itemHref = $item['href'] ?? ('#' . ($item['id'] ?? ''));
+                            $itemTarget = $item['id'] ?? null;
+                        ?>
+                        <a href="<?= esc($itemHref) ?>"
                            class="toc-link flex items-baseline gap-2 py-1.5 text-[.78rem] font-semibold text-dark/45 no-underline rounded-sm px-2 -mx-2 transition-all duration-200 hover:text-gold hover:bg-gold/[.04]"
-                           data-toc-target="<?= esc($item['id']) ?>">
+                           <?= $itemTarget ? 'data-toc-target="' . esc($itemTarget) . '"' : '' ?>>
                             <span class="text-[.6rem] font-semibold text-dark/20 tabular-nums shrink-0"><?= $i + 1 ?></span>
                             <span><?= esc($item['label']) ?></span>
                         </a>
@@ -40,9 +44,13 @@
                             <ol class="toc-children space-y-0.5 list-none pl-5 m-0">
                                 <?php foreach ($item['children'] as $j => $child): ?>
                                     <li>
-                                        <a href="#<?= esc($child['id']) ?>"
+                                        <?php
+                                            $childHref = $child['href'] ?? ('#' . ($child['id'] ?? ''));
+                                            $childTarget = $child['id'] ?? null;
+                                        ?>
+                                        <a href="<?= esc($childHref) ?>"
                                            class="toc-link flex items-baseline gap-2 py-1 text-[.72rem] font-semibold text-dark/35 no-underline rounded-sm px-2 -mx-2 transition-all duration-200 hover:text-gold hover:bg-gold/[.04]"
-                                           data-toc-target="<?= esc($child['id']) ?>">
+                                           <?= $childTarget ? 'data-toc-target="' . esc($childTarget) . '"' : '' ?>>
                                             <span class="text-[.55rem] font-medium text-dark/15 tabular-nums shrink-0"><?= ($i + 1) ?>.<?= ($j + 1) ?></span>
                                             <span><?= esc($child['label']) ?></span>
                                         </a>
