@@ -6,33 +6,49 @@
 
         <!-- Category Filter — funnel + select -->
         <div class="flex items-center gap-4 mb-10">
-            <label class="relative flex items-center gap-2 bg-white border rounded-sm pl-3 pr-8 py-2 cursor-pointer transition-colors duration-200 hover:border-dark/25 focus-within:border-dark/30" style="border-color:rgba(2,13,24,.12)">
+            <label
+                class="relative flex items-center gap-2 bg-white border rounded-sm pl-3 pr-8 py-2 cursor-pointer transition-colors duration-200 hover:border-dark/25 focus-within:border-dark/30"
+                style="border-color:rgba(2,13,24,.12)">
                 <!-- Funnel -->
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:rgba(2,13,24,.28);flex-shrink:0" aria-hidden="true">
-                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" style="color:rgba(2,13,24,.28);flex-shrink:0"
+                    aria-hidden="true">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
                 </svg>
-                <span class="text-[.5rem] font-bold tracking-[.18em] uppercase select-none" style="color:rgba(2,13,24,.28);white-space:nowrap">Filter</span>
+                <span class="text-[.5rem] font-bold tracking-[.18em] uppercase select-none"
+                    style="color:rgba(2,13,24,.28);white-space:nowrap">Filter</span>
                 <div class="w-px h-3 shrink-0" style="background:rgba(2,13,24,.08)"></div>
-                <select
-                    id="newsFilter"
-                    onchange="window.location=this.value"
+                <select id="newsFilter" onchange="window.location=this.value"
                     class="appearance-none bg-transparent text-[.58rem] font-semibold tracking-[.1em] uppercase focus:outline-none cursor-pointer border-0 min-w-[80px]"
                     style="color:rgba(2,13,24,.7)">
-                    <option value="<?= site_url('news') ?>" <?= empty($activeCategory ?? '') ? 'selected' : '' ?>>All Posts</option>
-                    <option value="<?= site_url('news?category=news') ?>" <?= ($activeCategory ?? '') === 'news' ? 'selected' : '' ?>>News</option>
-                    <option value="<?= site_url('news?category=features') ?>" <?= ($activeCategory ?? '') === 'features' ? 'selected' : '' ?>>Features</option>
-                    <option value="<?= site_url('news?category=opinions') ?>" <?= ($activeCategory ?? '') === 'opinions' ? 'selected' : '' ?>>Stories</option>
+                    <option value="<?= site_url('news') ?>" <?= empty($activeCategory ?? '') ? 'selected' : '' ?>>All
+                        Posts</option>
+                    <option value="<?= site_url('news?category=news') ?>"
+                        <?= ($activeCategory ?? '') === 'news' ? 'selected' : '' ?>>News</option>
+                    <option value="<?= site_url('news?category=features') ?>"
+                        <?= ($activeCategory ?? '') === 'features' ? 'selected' : '' ?>>Features</option>
+                    <option value="<?= site_url('news?category=opinions') ?>"
+                        <?= ($activeCategory ?? '') === 'opinions' ? 'selected' : '' ?>>Stories</option>
                 </select>
                 <!-- Caret -->
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);color:rgba(2,13,24,.3);pointer-events:none" aria-hidden="true">
-                    <polyline points="6 9 12 15 18 9"/>
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    style="position:absolute;right:10px;top:50%;transform:translateY(-50%);color:rgba(2,13,24,.3);pointer-events:none"
+                    aria-hidden="true">
+                    <polyline points="6 9 12 15 18 9" />
                 </svg>
             </label>
             <?php if (!empty($activeCategory ?? '')): ?>
             <div class="flex items-center gap-2 px-3 py-2 rounded-sm" style="background:rgba(3,53,90,.06)">
-                <span class="text-[.56rem] font-semibold tracking-[.1em] uppercase" style="color:#03355a"><?= esc(ucfirst($activeCategory)) ?></span>
-                <a href="<?= site_url('news') ?>" class="no-underline transition-colors" style="color:rgba(2,13,24,.3)" title="Clear filter">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                <span class="text-[.56rem] font-semibold tracking-[.1em] uppercase"
+                    style="color:#03355a"><?= esc(ucfirst($activeCategory)) ?></span>
+                <a href="<?= site_url('news') ?>" class="no-underline transition-colors" style="color:rgba(2,13,24,.3)"
+                    title="Clear filter">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6 6 18" />
+                        <path d="m6 6 12 12" />
+                    </svg>
                 </a>
             </div>
             <?php endif; ?>
@@ -48,8 +64,7 @@
                     Release</span>
             </div>
 
-            <a href="<?= site_url('news/' . $latestPost['slug']) ?>"
-                class="group no-underline block">
+            <a href="<?= site_url('news/' . $latestPost['slug']) ?>" class="group no-underline block">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
                     <!-- Image -->
                     <div class="aspect-[16/11] lg:aspect-auto lg:h-full bg-[#e5e2dc] overflow-hidden">
@@ -65,7 +80,8 @@
                     </div>
 
                     <!-- Content -->
-                    <div class="bg-white border-b-2 border-dark/[.06] group-hover:border-dark/20 transition-colors duration-300 p-7 md:p-10 lg:p-12 flex flex-col justify-center">
+                    <div
+                        class="bg-white border-b-2 border-dark/[.06] group-hover:border-dark/20 transition-colors duration-300 p-7 md:p-10 lg:p-12 flex flex-col justify-center">
                         <div class="flex items-center gap-3 mb-4">
                             <span
                                 class="text-[.5rem] font-bold tracking-[.18em] uppercase text-navy/40"><?= esc(ucfirst($latestPost['category'])) ?></span>
@@ -79,7 +95,8 @@
                             class="font-display text-[1.3rem] md:text-[1.6rem] lg:text-[1.8rem] leading-[1.18] text-dark mb-4">
                             <?= esc($latestPost['title']) ?></h2>
                         <?php if (! empty($latestPost['shortDescription'])): ?>
-                        <p class="text-[.9rem] font-light leading-[1.6] mb-3 transition-colors duration-200" style="color:#1a1a1a;">
+                        <p class="text-[.9rem] font-light leading-[1.6] mb-3 transition-colors duration-200"
+                            style="color:#1a1a1a;">
                             <?= html_entity_decode(esc(character_limiter($latestPost['shortDescription'], 180))) ?></p>
                         <?php endif; ?>
                         <?php if (! empty($latestPost['authorName'])): ?>
@@ -111,7 +128,8 @@
                 <a href="<?= site_url('news/' . $post['slug']) ?>"
                     class="group no-underline flex gap-6 py-6 border-t border-dark/[.06] last:border-b last:border-dark/[.06]">
                     <!-- Thumbnail -->
-                    <div class="w-[100px] md:w-[140px] lg:w-[180px] h-[80px] md:h-[100px] lg:h-[120px] shrink-0 bg-[#e5e2dc] overflow-hidden">
+                    <div
+                        class="w-[100px] md:w-[140px] lg:w-[180px] h-[80px] md:h-[100px] lg:h-[120px] shrink-0 bg-[#e5e2dc] overflow-hidden">
                         <?php if (! empty($post['imagePath'])): ?>
                         <img src="<?= site_url($post['imagePath']) ?>" alt="<?= esc($post['title']) ?>"
                             class="w-full h-full object-cover" />
@@ -132,11 +150,11 @@
                                 class="text-[.46rem] font-medium text-dark/35"><?= date('M j, Y', strtotime($post['publishedAt'])) ?></span>
                             <?php endif; ?>
                         </div>
-                        <h3
-                            class="font-display text-[1rem] md:text-[1.08rem] text-dark leading-snug mb-1.5">
+                        <h3 class="font-display text-[1rem] md:text-[1.08rem] text-dark leading-snug mb-1.5">
                             <?= esc($post['title']) ?></h3>
                         <?php if (! empty($post['shortDescription'])): ?>
-                        <p class="text-[.88rem] font-light leading-[1.7] transition-colors duration-200 line-clamp-2" style="color:#1a1a1a;">
+                        <p class="text-[.88rem] font-light leading-[1.7] transition-colors duration-200 line-clamp-2"
+                            style="color:#1a1a1a;">
                             <?= html_entity_decode(esc(character_limiter($post['shortDescription'], 120))) ?></p>
                         <?php endif; ?>
                     </div>
@@ -164,4 +182,3 @@
 
     </div><!-- end max-w -->
 </section>
-
