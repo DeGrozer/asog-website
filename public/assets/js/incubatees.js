@@ -139,13 +139,12 @@
             ids.forEach(function (id) {
                 var info = catalog[id] || {};
                 var name = info.name || ('Goal ' + id);
-                var color = info.color || '#03558C';
                 var goalUrl = info.goalUrl || ('https://sdgs.un.org/goals/goal' + id);
                 var iconWebp = info.iconWebp || '';
                 var iconPng = info.iconPng || '';
 
                 html += '<a class="ib-p-sdg-badge" href="' + goalUrl + '" target="_blank" rel="noopener noreferrer" title="Open UN SDG Goal ' + id + '">';
-                html += '<span class="ib-p-sdg-icon" style="background:' + color + '">';
+                html += '<span class="ib-p-sdg-icon">';
                 html += '<picture>';
                 if (iconWebp) {
                     html += '<source srcset="' + iconWebp + '" type="image/webp">';
