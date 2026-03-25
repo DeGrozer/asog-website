@@ -78,6 +78,7 @@ class IncubateesAdmin extends BaseController
             'companyName'      => trim($this->request->getPost('companyName') ?? ''),
             'shortDescription' => trim($this->request->getPost('shortDescription') ?? '') ?: null,
             'content'          => $content,
+            'sdgNumbers'       => $this->normalizeSdgNumbers($this->request->getPost('sdgNumbers')),
             'websiteUrl'       => trim($this->request->getPost('websiteUrl') ?? '') ?: null,
             'facebookUrl'      => trim($this->request->getPost('facebookUrl') ?? '') ?: null,
             'contactDetails'   => ! empty($contacts) ? json_encode($contacts) : null,
@@ -229,6 +230,7 @@ class IncubateesAdmin extends BaseController
             'companyName'      => trim($this->request->getPost('companyName') ?? ''),
             'shortDescription' => trim($this->request->getPost('shortDescription') ?? '') ?: null,
             'content'          => $content,
+            'sdgNumbers'       => $this->normalizeSdgNumbers($this->request->getPost('sdgNumbers')),
             'websiteUrl'       => trim($this->request->getPost('websiteUrl') ?? '') ?: null,
             'facebookUrl'      => trim($this->request->getPost('facebookUrl') ?? '') ?: null,
             'contactDetails'   => ! empty($contacts) ? json_encode($contacts) : null,
@@ -333,10 +335,10 @@ class IncubateesAdmin extends BaseController
         // Use a clean DB builder for the update to avoid any residual
         // query-builder state from find() or generateSlug().
         $db = \Config\Database::connect();
-        $db->table('incubatees')->where('id', $id)->update($data);
+        $ok = $db->table('incubatees')->where('id', $id)->update($data);
 
-        if ($db->affectedRows() === 0) {
-            setToast('error', 'Update failed — no rows were changed.');
+        if (! $ok) {
+            setToast('error', 'Update failed. Please try again.');
             return redirect()->back()->withInput();
         }
 
@@ -490,6 +492,35 @@ class IncubateesAdmin extends BaseController
         }
 
         return $contacts;
+    }
+
+    /**
+     * Normalize SDG checkbox values to CSV (example: "1,9,12").
+     *
+     * @param array|string|null $raw
+     */
+    private function normalizeSdgNumbers($raw): ?string
+    {
+        if ($raw === null || $raw === '') {
+            return null;
+        }
+
+        $values = is_array($raw) ? $raw : explode(',', (string) $raw);
+        $numbers = [];
+
+        foreach ($values as $value) {
+            $id = (int) $value;
+            if ($id >= 1 && $id <= 17) {
+                $numbers[$id] = $id;
+            }
+        }
+
+        if ($numbers === []) {
+            return null;
+        }
+
+        ksort($numbers);
+        return implode(',', array_values($numbers));
     }
 
     // ──────────────────────────────────────────────

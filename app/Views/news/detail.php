@@ -22,6 +22,7 @@
                 class="text-[.55rem] font-medium tracking-[.08em] text-dark/30"><?= date('F j, Y', strtotime($post['publishedAt'])) ?></span>
             <?php endif; ?>
         </div>
+        <div data-sdg-numbers="<?= esc($post['sdgNumbers'] ?? '') ?>" style="margin-bottom:1rem"></div>
 
         <!-- Title -->
         <h1 class="font-display text-[clamp(1.6rem,3vw,2.6rem)] leading-[1.14] text-dark mb-5">
@@ -168,3 +169,5 @@
 })();
 </script>
 <?php endif; ?>
+
+<script src="<?= base_url('assets/js/sdgBadges.js') ?>"></script>

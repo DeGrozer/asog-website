@@ -39,6 +39,9 @@ $routes->get('/organization', 'Organization::index');
 $routes->get('/contact', 'Contact::index');
 $routes->post('/contact/send', 'Contact::send');
 
+// Lightweight API endpoints used by frontend components
+$routes->get('/api/sdgs', 'Api\Sdgs::index');
+
 /*
  * ────────────────────────────────────────────────────────────────────────────
  * Uploaded File Serving (writable/uploads → /uploads/...)

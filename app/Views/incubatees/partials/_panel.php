@@ -11,6 +11,11 @@
         </div>
         <div id="pContent" class="ib-p-content"></div>
 
+        <div id="pSdgSection" class="ib-p-sdg-wrap" style="display:none">
+            <span class="ib-p-sdg-label">SDGs</span>
+            <div id="pSdgList" class="ib-p-sdg-grid"></div>
+        </div>
+
         <div class="ib-p-divider" aria-hidden="true"></div>
 
         <div id="pTeamSection" class="ib-p-team-wrap" style="display:none">
@@ -22,6 +27,7 @@
             <span class="ib-p-contact-label">Contact Details</span>
             <div id="pContactList" class="ib-p-contact-grid"></div>
         </div>
+
     </div>
 
     <div class="ib-p-foot flex items-center flex-wrap" style="gap:.8rem">

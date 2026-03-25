@@ -234,13 +234,13 @@
                     <li>Ms. Christine Margoux M. Sirios</li>
                 </ul>
             </div>
-
             <div class="rc w-full max-w-[340px] text-center mx-auto">
                 <h3 class="font-display text-[1.05rem] font-semibold text-dark mb-4">Value Chain</h3>
                 <ul class="space-y-2 text-[.92rem] text-dark/85 leading-[1.7] list-none p-0 m-0">
                     <li>Ms. Rosalie R. Axinto</li>
                 </ul>
             </div>
+
         </div>
     </div>
 </section>

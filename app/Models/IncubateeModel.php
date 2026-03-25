@@ -23,6 +23,7 @@ class IncubateeModel extends Model
         'slug',
         'shortDescription',
         'content',
+        'sdgNumbers',
         'logoPath',
         'logoWhitePath',
         'websiteUrl',

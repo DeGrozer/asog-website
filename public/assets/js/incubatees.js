@@ -32,6 +32,8 @@
         pTeamList     = $('pTeamList'),
         pContactSection = $('pContactSection'),
         pContactList  = $('pContactList'),
+        pSdgSection   = $('pSdgSection'),
+        pSdgList      = $('pSdgList'),
         pWebsite      = $('pWebsite'),
         pFacebook     = $('pFacebook');
 
@@ -59,6 +61,107 @@
     var mpReadMore   = document.getElementById('mpReadMore');
     var previewIdx   = null;
     var mpFlipped    = false;
+    var sdgCatalogById = null;
+
+    function parseSdgNumbers(raw) {
+        if (!raw) return [];
+        return String(raw)
+            .split(',')
+            .map(function (value) { return parseInt(value, 10); })
+            .filter(function (id) { return Number.isInteger(id) && id >= 1 && id <= 17; })
+            .filter(function (id, index, arr) { return arr.indexOf(id) === index; })
+            .sort(function (a, b) { return a - b; });
+    }
+
+    function extractSdgNumbersFromText(text) {
+        if (!text) return [];
+
+        var ids = [];
+        var regex = /\bSDG\s*([1-9]|1[0-7])\b/gi;
+        var match;
+
+        while ((match = regex.exec(text)) !== null) {
+            var id = parseInt(match[1], 10);
+            if (Number.isInteger(id) && id >= 1 && id <= 17 && ids.indexOf(id) === -1) {
+                ids.push(id);
+            }
+        }
+
+        return ids.sort(function (a, b) { return a - b; });
+    }
+
+    function getSdgCatalog() {
+        if (sdgCatalogById) {
+            return Promise.resolve(sdgCatalogById);
+        }
+
+        return fetch('/api/sdgs', { headers: { Accept: 'application/json' } })
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Failed to load SDGs');
+                }
+                return response.json();
+            })
+            .then(function (payload) {
+                var items = Array.isArray(payload.data) ? payload.data : [];
+                sdgCatalogById = {};
+                items.forEach(function (item) {
+                    var id = Number(item.id);
+                    if (Number.isInteger(id)) {
+                        sdgCatalogById[id] = item;
+                    }
+                });
+                return sdgCatalogById;
+            })
+            .catch(function () {
+                sdgCatalogById = {};
+                return sdgCatalogById;
+            });
+    }
+
+    function renderSdgBadges(d) {
+        if (!pSdgSection || !pSdgList) return;
+
+        var ids = parseSdgNumbers(d.sdgNumbers);
+        if (!ids.length) {
+            var contentText = decodeRichText(d.content || '');
+            ids = extractSdgNumbersFromText(contentText);
+        }
+
+        if (!ids.length) {
+            pSdgList.innerHTML = '';
+            pSdgSection.style.display = 'none';
+            return;
+        }
+
+        getSdgCatalog().then(function (catalog) {
+            var html = '';
+            ids.forEach(function (id) {
+                var info = catalog[id] || {};
+                var name = info.name || ('Goal ' + id);
+                var color = info.color || '#03558C';
+                var goalUrl = info.goalUrl || ('https://sdgs.un.org/goals/goal' + id);
+                var iconWebp = info.iconWebp || '';
+                var iconPng = info.iconPng || '';
+
+                html += '<a class="ib-p-sdg-badge" href="' + goalUrl + '" target="_blank" rel="noopener noreferrer" title="Open UN SDG Goal ' + id + '">';
+                html += '<span class="ib-p-sdg-icon" style="background:' + color + '">';
+                html += '<picture>';
+                if (iconWebp) {
+                    html += '<source srcset="' + iconWebp + '" type="image/webp">';
+                }
+                html += '<img src="' + (iconPng || iconWebp) + '" alt="SDG ' + id + '" loading="lazy" onerror="this.style.display=\'none\';this.parentElement.parentElement.querySelector(\'.ib-p-sdg-icon-fallback\').style.display=\'flex\';">';
+                html += '</picture>';
+                html += '<span class="ib-p-sdg-icon-fallback">SDG ' + id + '</span>';
+                html += '</span>';
+                html += '<span class="ib-p-sdg-text">SDG ' + id + '</span>';
+                html += '</a>';
+            });
+
+            pSdgList.innerHTML = html;
+            pSdgSection.style.display = '';
+        });
+    }
 
     function buildDisplayTeam(d) {
         if (!Array.isArray(d.teamMembers)) return [];
@@ -322,6 +425,7 @@
             pAboutTitle.textContent = 'About ' + d.companyName;
         }
         pContent.innerHTML   = decodeRichText(d.content || '');
+        renderSdgBadges(d);
 
         var team = buildDisplayTeam(d);
 

@@ -214,6 +214,7 @@ window.__ibData = <?= json_encode(array_map(function($inc){
             'companyName'      => html_entity_decode($inc['companyName'] ?? '', ENT_QUOTES, 'UTF-8'),
             'shortDescription' => html_entity_decode($inc['shortDescription'] ?? '', ENT_QUOTES, 'UTF-8'),
             'content'          => $inc['content'] ?? '',
+            'sdgNumbers'       => html_entity_decode($inc['sdgNumbers'] ?? '', ENT_QUOTES, 'UTF-8'),
             'logoPath'         => ! empty($inc['logoPath']) ? base_url($inc['logoPath']) : '',
             'logoWhitePath'    => ! empty($inc['logoWhitePath']) ? base_url($inc['logoWhitePath']) : '',
             'websiteUrl'       => html_entity_decode($inc['websiteUrl'] ?? '', ENT_QUOTES, 'UTF-8'),

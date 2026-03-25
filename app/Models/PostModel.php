@@ -21,6 +21,7 @@ class PostModel extends Model
         'shortDescription',
         'content',
         'category',
+        'sdgNumbers',
         'imagePath',
         'isPublished',
         'isFeatured',
@@ -36,6 +37,7 @@ class PostModel extends Model
         'shortDescription' => 'permit_empty|max_length[500]',
         'content'          => 'permit_empty',
         'category'         => 'required|in_list[news,events,features,opinions]',
+        'sdgNumbers'       => 'permit_empty|max_length[120]',
     ];
 
     protected $validationMessages = [

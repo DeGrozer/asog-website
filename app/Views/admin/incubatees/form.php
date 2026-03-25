@@ -69,6 +69,13 @@ if (empty($contactRows)) {
 if (empty($contactRows)) {
     $contactRows[] = ['person' => '', 'number' => '', 'email' => ''];
 }
+
+$selectedSdgs = old('sdgNumbers');
+if (! is_array($selectedSdgs)) {
+    $rawSelectedSdgs = $isEdit ? ($incubatee['sdgNumbers'] ?? '') : '';
+    $selectedSdgs = $rawSelectedSdgs !== '' ? explode(',', (string) $rawSelectedSdgs) : [];
+}
+$selectedSdgs = array_map('intval', $selectedSdgs);
 ?>
 
 <style>
@@ -132,6 +139,42 @@ if (empty($contactRows)) {
 .field textarea {
     resize: vertical;
     min-height: 70px
+}
+
+.sdg-select-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+    gap: .45rem
+}
+
+.sdg-check {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    border: 1px solid #e2e8f0;
+    border-radius: .25rem;
+    padding: .38rem .45rem;
+    background: #fff;
+    color: #334155;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    transition: border-color .15s, background .15s
+}
+
+.sdg-check:hover {
+    border-color: #03558C;
+    background: #f8fbff
+}
+
+.sdg-check input {
+    accent-color: #03558C
+}
+
+.sdg-help {
+    margin-top: .45rem;
+    font-size: .62rem;
+    color: #94a3b8
 }
 
 .editor-wrap {
@@ -608,6 +651,25 @@ if (empty($contactRows)) {
                     <?php endforeach; ?>
                 </div>
                 <button type="button" class="contact-add" id="contactAdd">+ Add contact</button>
+            </div>
+
+            <!-- SDGs -->
+            <div class="field">
+                <label>SDGs</label>
+                <div class="sdg-select-grid">
+                    <?php for ($sdgId = 1; $sdgId <= 17; $sdgId++): ?>
+                    <label class="sdg-check">
+                        <input
+                            type="checkbox"
+                            name="sdgNumbers[]"
+                            value="<?= $sdgId ?>"
+                            <?= in_array($sdgId, $selectedSdgs, true) ? 'checked' : '' ?>
+                        >
+                        <span>SDG <?= $sdgId ?></span>
+                    </label>
+                    <?php endfor; ?>
+                </div>
+                <p class="sdg-help">Choose SDG goals for this incubatee. They will appear as clickable SDG squares in the incubatee detail panel.</p>
             </div>
 
             <!-- Sort order -->

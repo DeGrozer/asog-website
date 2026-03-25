@@ -519,6 +519,114 @@
 .ib-p-contact-wrap {
     margin-top: .85rem;
 }
+
+.ib-p-sdg-wrap {
+    margin-top: 1rem;
+}
+
+.ib-p-sdg-label {
+    display: block;
+    font-size: .58rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(2,13,24,.45);
+    margin-bottom: .55rem;
+}
+
+.ib-p-sdg-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: .65rem;
+}
+
+.ib-p-sdg-badge {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    text-decoration: none;
+    padding: .6rem .55rem;
+    border-radius: .45rem;
+    border: 1px solid rgba(2,13,24,.06);
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    background: #fff;
+    color: #020d18;
+    width: 100%;
+    min-width: 0;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.ib-p-sdg-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(2,13,24,.15);
+}
+
+.ib-p-sdg-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: .3rem;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.ib-p-sdg-icon picture,
+.ib-p-sdg-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.ib-p-sdg-icon-fallback {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: .55rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+}
+
+.ib-p-sdg-text {
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    color: rgba(2,13,24,.68);
+}
+
+@media (max-width: 640px) {
+    .ib-p-sdg-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .ib-p-sdg-badge {
+        width: 100%;
+        padding: .45rem .4rem;
+    }
+
+    .ib-p-sdg-icon {
+        width: 58px;
+        height: 58px;
+    }
+}
+
+@media (max-width: 420px) {
+    .ib-p-sdg-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
 .ib-p-contact-label {
     display: block;
     font-size: .58rem;
