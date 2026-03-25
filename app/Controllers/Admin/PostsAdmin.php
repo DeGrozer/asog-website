@@ -23,7 +23,8 @@ class PostsAdmin extends BaseController
         $data = [
             'pageTitle'  => 'Posts',
             'activePage' => 'posts',
-            'posts'      => $this->postModel->orderBy('createdAt', 'DESC')->findAll(),
+            'supportsSortOrder' => $this->postModel->supportsSortOrder(),
+            'posts'      => $this->postModel->getAdminList(),
         ];
 
         return view('admin/layout/header', $data)
@@ -65,6 +66,7 @@ class PostsAdmin extends BaseController
         $data = [
             'pageTitle'  => 'New Post',
             'activePage' => 'posts',
+            'supportsSortOrder' => $this->postModel->supportsSortOrder(),
         ];
 
         return view('admin/layout/header', $data)
@@ -84,6 +86,11 @@ class PostsAdmin extends BaseController
             'isFeatured'       => $this->request->getPost('isFeatured') ? 1 : 0,
             'authorName'       => $this->request->getPost('authorName') ?: 'ASOG TBI',
         ];
+
+        $sortOrderInput = $this->request->getPost('sortOrder');
+        if ($this->postModel->supportsSortOrder() && $sortOrderInput !== null && $sortOrderInput !== '') {
+            $data['sortOrder'] = (int) $sortOrderInput;
+        }
 
         // Generate slug
         $data['slug'] = $this->postModel->generateSlug($data['title']);
@@ -157,6 +164,7 @@ class PostsAdmin extends BaseController
             'pageTitle'  => 'Edit Post',
             'activePage' => 'posts',
             'post'       => $post,
+            'supportsSortOrder' => $this->postModel->supportsSortOrder(),
         ];
 
         return view('admin/layout/header', $data)
@@ -184,6 +192,11 @@ class PostsAdmin extends BaseController
             'isFeatured'       => $this->request->getPost('isFeatured') ? 1 : 0,
             'authorName'       => $this->request->getPost('authorName') ?: 'ASOG TBI',
         ];
+
+        $sortOrderInput = $this->request->getPost('sortOrder');
+        if ($this->postModel->supportsSortOrder() && $sortOrderInput !== null && $sortOrderInput !== '') {
+            $data['sortOrder'] = (int) $sortOrderInput;
+        }
 
         // Regenerate slug only if title changed
         if ($data['title'] !== $post['title']) {
@@ -265,6 +278,64 @@ class PostsAdmin extends BaseController
         $this->postModel->delete($id);
 
         setToast('success', 'Post deleted.');
+        return redirect()->to(site_url('admin/posts'));
+    }
+
+    /**
+     * Save featured post order from admin modal drag-and-drop list.
+     */
+    public function saveFeaturedOrder()
+    {
+        if (! $this->postModel->supportsSortOrder()) {
+            setToast('error', 'Featured ordering is unavailable because posts.sortOrder is missing.');
+            return redirect()->to(site_url('admin/posts'));
+        }
+
+        $rawOrder = $this->request->getPost('featuredOrder');
+        if (! is_array($rawOrder)) {
+            $rawOrder = [];
+        }
+
+        $ids = [];
+        foreach ($rawOrder as $value) {
+            $id = (int) $value;
+            if ($id > 0 && ! in_array($id, $ids, true)) {
+                $ids[] = $id;
+            }
+        }
+
+        if ($ids === []) {
+            setToast('error', 'No featured stories were provided.');
+            return redirect()->to(site_url('admin/posts'));
+        }
+
+        $currentFeatured = $this->postModel
+            ->where('isFeatured', 1)
+            ->findAll();
+
+        $currentFeaturedIds = array_map(static function (array $post): int {
+            return (int) $post['id'];
+        }, $currentFeatured);
+
+        // Keep any currently featured post not present in the submitted list at the end.
+        foreach ($currentFeaturedIds as $featuredId) {
+            if (! in_array($featuredId, $ids, true)) {
+                $ids[] = $featuredId;
+            }
+        }
+
+        $position = 0;
+        foreach ($ids as $postId) {
+            $post = $this->postModel->find($postId);
+            if (! $post || (int) ($post['isFeatured'] ?? 0) !== 1) {
+                continue;
+            }
+
+            $this->postModel->update($postId, ['sortOrder' => $position]);
+            $position++;
+        }
+
+        setToast('success', 'Featured stories order updated.');
         return redirect()->to(site_url('admin/posts'));
     }
 

@@ -4,9 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-/**  
- * PostModel — handles CRUD operations for the `posts` table.
-**/
+/**
+ * PostModel - handles CRUD operations for the posts table.
+ */
 class PostModel extends Model
 {
     protected $table         = 'posts';
@@ -21,6 +21,7 @@ class PostModel extends Model
         'shortDescription',
         'content',
         'category',
+        'sortOrder',
         'sdgNumbers',
         'imagePath',
         'isPublished',
@@ -31,12 +32,15 @@ class PostModel extends Model
 
     protected $returnType = 'array';
 
-    // ─── Validation ───────────────────────────────────────────
+    protected ?bool $supportsSortOrderCache = null;
+
+    // Validation
     protected $validationRules = [
         'title'            => 'required|min_length[3]|max_length[255]',
         'shortDescription' => 'permit_empty|max_length[500]',
         'content'          => 'permit_empty',
         'category'         => 'required|in_list[news,events,features,opinions]',
+        'sortOrder'        => 'permit_empty|integer',
         'sdgNumbers'       => 'permit_empty|max_length[120]',
     ];
 
@@ -50,11 +54,9 @@ class PostModel extends Model
         ],
     ];
 
-    // ─── Query Helpers ────────────────────────────────────────
-
-    /**  
+    /**
      * Return summary counts for the dashboard.
-    **/
+     */
     public function getCounts(): array
     {
         $total     = $this->countAllResults();
@@ -65,9 +67,9 @@ class PostModel extends Model
         return compact('total', 'published', 'drafts', 'featured');
     }
 
-    /**  
+    /**
      * Return only published posts, newest first.
-    **/
+     */
     public function getPublished(int $limit = 0)
     {
         $builder = $this->where('isPublished', 1)
@@ -76,9 +78,9 @@ class PostModel extends Model
         return $limit > 0 ? $builder->findAll($limit) : $builder->findAll();
     }
 
-    /**  
+    /**
      * Return published posts filtered by category.
-    **/
+     */
     public function getByCategory(string $category, int $limit = 0)
     {
         $builder = $this->where('isPublished', 1)
@@ -88,34 +90,44 @@ class PostModel extends Model
         return $limit > 0 ? $builder->findAll($limit) : $builder->findAll();
     }
 
-    /**  
-     * Return the single featured post (latest if multiple are flagged).
-    **/
+    /**
+     * Return the single featured post (lowest sortOrder first, then newest).
+     */
     public function getFeatured(): ?array
     {
-        return $this->where('isPublished', 1)
-                    ->where('isFeatured', 1)
-                    ->orderBy('publishedAt', 'DESC')
-                    ->first();
+        $builder = $this->where('isPublished', 1)
+                        ->where('isFeatured', 1);
+
+        if ($this->supportsSortOrder()) {
+            $builder->orderBy('sortOrder', 'ASC');
+        }
+
+        return $builder->orderBy('publishedAt', 'DESC')
+                       ->first();
     }
 
-    /**  
-     * Return up to $limit published+featured posts that have a cover image.
-     * Used by the landing-page hero slideshow.
-    **/
+    /**
+     * Return up to $limit published+featured posts with a cover image.
+     * Used by the landing page hero slideshow.
+     */
     public function getFeaturedSlides(int $limit = 5): array
     {
-        return $this->where('isPublished', 1)
-                    ->where('isFeatured', 1)
-                    ->where('imagePath !=', '')
-                    ->where('imagePath IS NOT NULL', null, false)
-                    ->orderBy('publishedAt', 'DESC')
-                    ->findAll($limit);
+        $builder = $this->where('isPublished', 1)
+                        ->where('isFeatured', 1)
+                        ->where('imagePath !=', '')
+                        ->where('imagePath IS NOT NULL', null, false);
+
+        if ($this->supportsSortOrder()) {
+            $builder->orderBy('sortOrder', 'ASC');
+        }
+
+        return $builder->orderBy('publishedAt', 'DESC')
+                       ->findAll($limit);
     }
 
-    /**  
-     * Return the latest published posts for the hero slideshow.
-    **/
+    /**
+     * Return latest published posts for generic hero fallback.
+     */
     public function getHeroSlides(int $limit = 5): array
     {
         return $this->where('isPublished', 1)
@@ -123,9 +135,23 @@ class PostModel extends Model
                     ->findAll($limit);
     }
 
-    /**  
+    /**
+     * Return posts in admin-friendly order.
+     */
+    public function getAdminList(): array
+    {
+        $builder = $this;
+
+        if ($this->supportsSortOrder()) {
+            $builder = $builder->orderBy('sortOrder', 'ASC');
+        }
+
+        return $builder->orderBy('createdAt', 'DESC')->findAll();
+    }
+
+    /**
      * Find a post by its slug.
-    **/
+     */
     public function getBySlug(string $slug): ?array
     {
         return $this->where('slug', $slug)
@@ -133,10 +159,9 @@ class PostModel extends Model
                     ->first();
     }
 
-    /**  
-     * Clear the featured flag on ALL posts (so only one can be featured).
-     * Optionally exclude a specific post ID.
-    **/
+    /**
+     * Clear the featured flag on all posts.
+     */
     public function clearFeatured(?int $excludeId = null): void
     {
         $builder = $this->builder();
@@ -146,14 +171,14 @@ class PostModel extends Model
         $builder->set('isFeatured', 0)->update();
     }
 
-    /**  
+    /**
      * Generate a URL-safe slug from the title, ensuring uniqueness.
-    **/
+     */
     public function generateSlug(string $title, ?int $excludeId = null): string
     {
         $slug = url_title($title, '-', true);
-        // Use an independent builder so we don't pollute the model's
-        // internal query state (which would break a subsequent update()).
+
+        // Use an independent builder so we don't pollute model query state.
         $builder = $this->db->table($this->table)->where('slug', $slug);
 
         if ($excludeId !== null) {
@@ -165,5 +190,23 @@ class PostModel extends Model
         }
 
         return $slug;
+    }
+
+    /**
+     * Detect whether posts.sortOrder exists in the current database.
+     */
+    public function supportsSortOrder(): bool
+    {
+        if ($this->supportsSortOrderCache !== null) {
+            return $this->supportsSortOrderCache;
+        }
+
+        try {
+            $this->supportsSortOrderCache = $this->db->fieldExists('sortOrder', $this->table);
+        } catch (\Throwable $e) {
+            $this->supportsSortOrderCache = false;
+        }
+
+        return $this->supportsSortOrderCache;
     }
 }

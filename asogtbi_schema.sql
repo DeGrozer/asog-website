@@ -31,6 +31,7 @@ CREATE TABLE `posts` (
     `shortDescription` VARCHAR(500)  NULL,
     `content`          TEXT          NULL,
     `category`         VARCHAR(50)   NOT NULL DEFAULT 'news',
+    `sortOrder`        INT UNSIGNED  NOT NULL DEFAULT 0,
     `sdgNumbers`       VARCHAR(120)  NULL,
     `imagePath`        VARCHAR(500)  NULL,
     `isPublished`      TINYINT(1)    NOT NULL DEFAULT 0,

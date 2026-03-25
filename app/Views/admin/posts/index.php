@@ -2,8 +2,54 @@
 
 <div class="toolbar">
     <span class="count"><?= count($posts ?? []) ?> posts</span>
-    <a href="<?= site_url('admin/posts/create') ?>" class="btn btn-p">New post</a>
+    <div class="toolbar-actions">
+        <?php if (!empty($supportsSortOrder)): ?>
+            <button type="button" class="btn btn-o" id="featuredOrderBtn">Order featured</button>
+        <?php endif; ?>
+        <a href="<?= site_url('admin/posts/create') ?>" class="btn btn-p">New post</a>
+    </div>
 </div>
+
+<?php
+$featuredStories = array_values(array_filter($posts ?? [], static function ($post) {
+    return ! empty($post['isFeatured']);
+}));
+?>
+
+<?php if (!empty($supportsSortOrder)): ?>
+<div class="feature-order-modal" id="featureOrderModal" aria-hidden="true">
+    <div class="feature-order-backdrop" data-close-modal="true"></div>
+    <div class="feature-order-dialog" role="dialog" aria-modal="true" aria-labelledby="featureOrderTitle">
+        <div class="feature-order-head">
+            <h3 id="featureOrderTitle">Featured Stories Order</h3>
+            <button type="button" class="feature-order-close" data-close-modal="true" aria-label="Close">&times;</button>
+        </div>
+        <p class="feature-order-help">Drag stories to reorder. Top item appears first on the landing featured slider.</p>
+
+        <form action="<?= site_url('admin/posts/featured-order') ?>" method="POST" id="featureOrderForm">
+            <?= csrf_field() ?>
+            <ul class="feature-order-list" id="featureOrderList">
+                <?php if (empty($featuredStories)): ?>
+                    <li class="feature-order-empty">No featured stories yet.</li>
+                <?php else: ?>
+                    <?php foreach ($featuredStories as $story): ?>
+                        <li class="feature-order-item" draggable="true" data-id="<?= (int) $story['id'] ?>">
+                            <span class="feature-order-grip" aria-hidden="true">::</span>
+                            <span class="feature-order-title"><?= esc($story['title']) ?></span>
+                            <input type="hidden" name="featuredOrder[]" value="<?= (int) $story['id'] ?>">
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </ul>
+
+            <div class="feature-order-actions">
+                <button type="button" class="btn btn-o" data-close-modal="true">Cancel</button>
+                <button type="submit" class="btn btn-p" <?= empty($featuredStories) ? 'disabled' : '' ?>>Save order</button>
+            </div>
+        </form>
+    </div>
+</div>
+<?php endif; ?>
 
 <?php if (empty($posts)): ?>
     <div class="empty-row">No posts yet. <a href="<?= site_url('admin/posts/create') ?>">Create one.</a></div>
@@ -67,4 +113,72 @@
         </tbody>
     </table>
 
+<?php endif; ?>
+
+<?php if (!empty($supportsSortOrder)): ?>
+<script>
+(function () {
+    var modal = document.getElementById('featureOrderModal');
+    var openBtn = document.getElementById('featuredOrderBtn');
+    var list = document.getElementById('featureOrderList');
+    if (!modal || !openBtn || !list) return;
+
+    function openModal() {
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    modal.addEventListener('click', function (event) {
+        if (event.target.matches('[data-close-modal="true"]')) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+            closeModal();
+        }
+    });
+
+    var dragging = null;
+
+    list.addEventListener('dragstart', function (event) {
+        var item = event.target.closest('.feature-order-item');
+        if (!item) return;
+        dragging = item;
+        item.classList.add('is-dragging');
+        event.dataTransfer.effectAllowed = 'move';
+    });
+
+    list.addEventListener('dragend', function () {
+        if (dragging) {
+            dragging.classList.remove('is-dragging');
+        }
+        dragging = null;
+    });
+
+    list.addEventListener('dragover', function (event) {
+        if (!dragging) return;
+        event.preventDefault();
+        var over = event.target.closest('.feature-order-item');
+        if (!over || over === dragging) return;
+
+        var rect = over.getBoundingClientRect();
+        var before = event.clientY < rect.top + rect.height / 2;
+        if (before) {
+            list.insertBefore(dragging, over);
+        } else {
+            list.insertBefore(dragging, over.nextSibling);
+        }
+    });
+})();
+</script>
 <?php endif; ?>

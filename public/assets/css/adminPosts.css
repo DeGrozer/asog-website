@@ -3,6 +3,23 @@
 .toolbar-actions{display:flex;align-items:center;gap:.5rem}
 .btn-disabled{opacity:.55;cursor:not-allowed;pointer-events:none}
 
+.feature-order-modal{position:fixed;inset:0;display:none;z-index:120;align-items:center;justify-content:center;padding:1rem}
+.feature-order-modal.is-open{display:flex}
+.feature-order-backdrop{position:absolute;inset:0;background:rgba(2,13,24,.56)}
+.feature-order-dialog{position:relative;width:min(920px,calc(100vw - 2rem));max-height:calc(100vh - 2rem);overflow:auto;margin:0;background:#fff;border:1px solid #e5e7eb;border-radius:.6rem;box-shadow:0 22px 50px rgba(2,13,24,.28);padding:1.15rem}
+.feature-order-head{display:flex;align-items:center;justify-content:space-between;gap:.8rem}
+.feature-order-head h3{font-size:.84rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1e293b}
+.feature-order-close{border:none;background:transparent;font-size:1.25rem;line-height:1;color:#64748b;cursor:pointer}
+.feature-order-help{margin:.55rem 0 .8rem;font-size:.74rem;color:#64748b}
+.feature-order-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.45rem}
+.feature-order-item{display:flex;align-items:center;gap:.7rem;padding:.65rem .7rem;border:1px solid #e5e7eb;border-radius:.35rem;background:#fff;cursor:grab}
+.feature-order-item:active{cursor:grabbing}
+.feature-order-item.is-dragging{opacity:.5;background:#f8fafc}
+.feature-order-grip{font-size:.8rem;letter-spacing:.04em;color:#94a3b8;font-weight:700;user-select:none}
+.feature-order-title{font-size:.76rem;color:#1e293b;font-weight:600;line-height:1.35}
+.feature-order-empty{border:1px dashed #d1d5db;border-radius:.35rem;padding:.9rem .8rem;font-size:.74rem;color:#64748b;background:#fafafa;text-align:center}
+.feature-order-actions{display:flex;align-items:center;justify-content:flex-end;gap:.5rem;margin-top:.9rem}
+
 .hero-slots-panel{background:#fff;border:1px solid #eceae6;border-radius:.4rem;padding:.85rem 1rem;margin-bottom:1rem}
 .hero-slots-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem}
 .hero-slots-head h3{font-size:.72rem;font-weight:700;color:#1e293b;letter-spacing:.05em;text-transform:uppercase}
