@@ -75,7 +75,6 @@
                                 class="text-[.5rem] font-medium tracking-[.06em] text-dark/40"><?= date('F j, Y', strtotime($latestPost['publishedAt'])) ?></span>
                             <?php endif; ?>
                         </div>
-                        <div data-sdg-numbers="<?= esc($latestPost['sdgNumbers'] ?? '') ?>" style="margin-bottom:.75rem"></div>
                         <h2
                             class="font-display text-[1.3rem] md:text-[1.6rem] lg:text-[1.8rem] leading-[1.18] text-dark mb-4">
                             <?= esc($latestPost['title']) ?></h2>
@@ -133,7 +132,6 @@
                                 class="text-[.46rem] font-medium text-dark/35"><?= date('M j, Y', strtotime($post['publishedAt'])) ?></span>
                             <?php endif; ?>
                         </div>
-                        <div data-sdg-numbers="<?= esc($post['sdgNumbers'] ?? '') ?>" style="margin-bottom:.5rem"></div>
                         <h3
                             class="font-display text-[1rem] md:text-[1.08rem] text-dark leading-snug mb-1.5">
                             <?= esc($post['title']) ?></h3>
@@ -167,4 +165,3 @@
     </div><!-- end max-w -->
 </section>
 
-<script src="<?= base_url('assets/js/sdgBadges.js') ?>"></script>

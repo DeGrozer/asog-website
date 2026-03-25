@@ -81,7 +81,6 @@ class PostsAdmin extends BaseController
             'shortDescription' => $this->request->getPost('shortDescription'),
             'content'          => $this->request->getPost('content'),
             'category'         => $this->request->getPost('category'),
-            'sdgNumbers'       => $this->normalizeSdgNumbers($this->request->getPost('sdgNumbers')),
             'isPublished'      => $this->request->getPost('isPublished') ? 1 : 0,
             'isFeatured'       => $this->request->getPost('isFeatured') ? 1 : 0,
             'authorName'       => $this->request->getPost('authorName') ?: 'ASOG TBI',
@@ -187,7 +186,6 @@ class PostsAdmin extends BaseController
             'shortDescription' => $this->request->getPost('shortDescription'),
             'content'          => $this->request->getPost('content'),
             'category'         => $this->request->getPost('category'),
-            'sdgNumbers'       => $this->normalizeSdgNumbers($this->request->getPost('sdgNumbers')),
             'isPublished'      => $this->request->getPost('isPublished') ? 1 : 0,
             'isFeatured'       => $this->request->getPost('isFeatured') ? 1 : 0,
             'authorName'       => $this->request->getPost('authorName') ?: 'ASOG TBI',
@@ -339,32 +337,4 @@ class PostsAdmin extends BaseController
         return redirect()->to(site_url('admin/posts'));
     }
 
-    /**
-     * Normalize SDG values from form input to a stable CSV like "1,3,12".
-     *
-     * @param array|string|null $raw
-     */
-    private function normalizeSdgNumbers($raw): ?string
-    {
-        if ($raw === null || $raw === '') {
-            return null;
-        }
-
-        $values = is_array($raw) ? $raw : explode(',', (string) $raw);
-        $numbers = [];
-
-        foreach ($values as $value) {
-            $id = (int) $value;
-            if ($id >= 1 && $id <= 17) {
-                $numbers[$id] = $id;
-            }
-        }
-
-        if ($numbers === []) {
-            return null;
-        }
-
-        ksort($numbers);
-        return implode(',', array_values($numbers));
-    }
 }

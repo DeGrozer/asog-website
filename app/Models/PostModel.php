@@ -22,7 +22,6 @@ class PostModel extends Model
         'content',
         'category',
         'sortOrder',
-        'sdgNumbers',
         'imagePath',
         'isPublished',
         'isFeatured',
@@ -41,7 +40,6 @@ class PostModel extends Model
         'content'          => 'permit_empty',
         'category'         => 'required|in_list[news,events,features,opinions]',
         'sortOrder'        => 'permit_empty|integer',
-        'sdgNumbers'       => 'permit_empty|max_length[120]',
     ];
 
     protected $validationMessages = [

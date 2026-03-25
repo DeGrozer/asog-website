@@ -12,13 +12,6 @@ $isEdit  = isset($post);
 $formUrl = $isEdit
     ? site_url('admin/posts/' . $post['id'])
     : site_url('admin/posts');
-
-$selectedSdgs = old('sdgNumbers');
-if (! is_array($selectedSdgs)) {
-    $rawSelectedSdgs = $isEdit ? ($post['sdgNumbers'] ?? '') : '';
-    $selectedSdgs = $rawSelectedSdgs !== '' ? explode(',', (string) $rawSelectedSdgs) : [];
-}
-$selectedSdgs = array_map('intval', $selectedSdgs);
 ?>
 
 <link rel="stylesheet" href="<?= base_url('assets/css/adminPostForm.css') ?>">
@@ -72,25 +65,6 @@ $selectedSdgs = array_map('intval', $selectedSdgs);
                 <label for="shortDescription">Short description</label>
                 <textarea id="shortDescription" name="shortDescription" rows="2"
                     placeholder="A brief summary shown in previews"><?= esc($isEdit ? $post['shortDescription'] : old('shortDescription')) ?></textarea>
-            </div>
-
-            <!-- SDGs -->
-            <div class="field">
-                <label>SDGs</label>
-                <div class="sdg-select-grid">
-                    <?php for ($sdgId = 1; $sdgId <= 17; $sdgId++): ?>
-                    <label class="sdg-check">
-                        <input
-                            type="checkbox"
-                            name="sdgNumbers[]"
-                            value="<?= $sdgId ?>"
-                            <?= in_array($sdgId, $selectedSdgs, true) ? 'checked' : '' ?>
-                        >
-                        <span>SDG <?= $sdgId ?></span>
-                    </label>
-                    <?php endfor; ?>
-                </div>
-                <p class="sdg-help">Select one or more SDG numbers. These are rendered on the public news pages as SDG badge boxes.</p>
             </div>
 
             <!-- Content (Quill) -->
