@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Sign in — ASOG TBI</title>
+    <link rel="icon" href="<?= base_url('icon.png') ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
     <style>
@@ -37,7 +38,7 @@
 <body>
 
     <div class="brand">
-        <img src="<?= base_url('assets/img/ASOG TBI/PNG/ASOG-TBI-stacked-v2.png') ?>" alt="ASOG TBI" style="width:160px;margin-bottom:1.4rem">
+        <img src="<?= base_url('assets/img/ASOG TBI/PNG/ASOG-TBI_full-colored_stacked-white.png') ?>" alt="ASOG TBI" style="width:160px;margin-bottom:1.4rem">
         <h1>ASOG Technology<br>Business Incubator</h1>
         <p>Content management system for the ASOG TBI website. Sign in to manage posts and site content.</p>
     </div>

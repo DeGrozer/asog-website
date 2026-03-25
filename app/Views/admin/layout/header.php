@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title><?= esc($pageTitle ?? 'Admin') ?> — ASOG TBI</title>
+    <link rel="icon" href="<?= base_url('icon.png') ?>">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet"/>
     <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet"/>
     <style>
