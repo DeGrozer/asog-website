@@ -11,8 +11,10 @@
     var dots   = toArray(document.querySelectorAll('#hero .ind'));
     var titleWrap = document.getElementById('heroTitleWrap');
     var descWrap  = document.getElementById('heroDescWrap');
+    var hero      = document.getElementById('hero');
     if (slides.length < 2) return;
 
+    var mobileRectQuery = window.matchMedia('(max-width: 767px)');
     var cur   = 0;
     var DELAY = 5500;
     var timer;
@@ -57,6 +59,28 @@
         }
     }
 
+    function syncHeroViewportHeight() {
+        if (!hero) return;
+        var isMobileRect = hero.classList.contains('hero-rect-mobile') && mobileRectQuery.matches;
+        if (isMobileRect) {
+            hero.style.removeProperty('--hero-vh');
+            return;
+        }
+        var vv = window.visualViewport;
+        var viewportHeight =
+            (vv && vv.height) ||
+            document.documentElement.clientHeight ||
+            window.innerHeight;
+
+        // Desktop Safari can briefly report a smaller visual viewport while UI animates.
+        if (!mobileRectQuery.matches) {
+            viewportHeight = Math.max(viewportHeight || 0, window.innerHeight || 0);
+        }
+
+        if (!viewportHeight) return;
+        hero.style.setProperty('--hero-vh', Math.round(viewportHeight) + 'px');
+    }
+
     function go(n) {
         var max = slides.length;
         if (!max) return;
@@ -87,10 +111,24 @@
 
     /* Boot */
     go(0);
+    syncHeroViewportHeight();
     syncStackHeights();
     startTimer();
 
+    window.addEventListener('resize', syncHeroViewportHeight);
     window.addEventListener('resize', syncStackHeights);
+    window.addEventListener('orientationchange', syncHeroViewportHeight);
+    window.addEventListener('pageshow', syncHeroViewportHeight);
+
+    if (mobileRectQuery.addEventListener) {
+        mobileRectQuery.addEventListener('change', syncHeroViewportHeight);
+    } else if (mobileRectQuery.addListener) {
+        mobileRectQuery.addListener(syncHeroViewportHeight);
+    }
+
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', syncHeroViewportHeight);
+    }
 
     if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(syncStackHeights).catch(function () {});

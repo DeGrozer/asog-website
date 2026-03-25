@@ -44,26 +44,26 @@
             <div class="mt-8 mb-6">
                 <span class="text-[.52rem] font-bold tracking-[.18em] uppercase text-navy/80 block mb-4">Supported
                     by</span>
-                <div class="flex flex-wrap items-end gap-5 md:gap-6">
+                <div class="flex flex-wrap items-end gap-4 sm:gap-5 md:gap-6">
                     <a href="https://pcieerd.dost.gov.ph/" target="_blank" rel="noopener" title="PCIEERD"
-                        class="inline-flex items-center justify-center w-[60px] h-[44px] md:w-[88px] md:h-[68px] transition-all duration-400 hover:scale-105">
+                        class="inline-flex items-center justify-center touch-manipulation w-16 h-11 sm:w-[72px] sm:h-[50px] md:w-[88px] md:h-[62px] transition-transform duration-300 md:hover:scale-105">
                         <img src="<?= base_url('assets/img/partners/pcieerd.png') ?>" alt="PCIEERD"
-                            class="w-[46px] h-[32px] md:max-w-full md:max-h-full md:w-auto md:h-auto object-contain">
+                            class="w-full h-full object-contain">
                     </a>
                     <a href="https://region5.dost.gov.ph/" target="_blank" rel="noopener" title="DOST Region V"
-                        class="inline-flex items-center justify-center w-[60px] h-[44px] md:w-[88px] md:h-[68px] transition-all duration-400 hover:scale-105">
+                        class="inline-flex items-center justify-center touch-manipulation w-16 h-11 sm:w-[72px] sm:h-[50px] md:w-[88px] md:h-[62px] transition-transform duration-300 md:hover:scale-105">
                         <img src="<?= base_url('assets/img/partners/dost-region5.png') ?>" alt="DOST Region V"
-                            class="w-[46px] h-[32px] md:max-w-full md:max-h-full md:w-auto md:h-auto object-contain md:scale-105">
+                            class="w-full h-full object-contain">
                     </a>
                     <a href="https://cspc.edu.ph/" target="_blank" rel="noopener" title="CSPC"
-                        class="inline-flex items-center justify-center w-[60px] h-[44px] md:w-[88px] md:h-[68px] transition-all duration-400 hover:scale-105">
+                        class="inline-flex items-center justify-center touch-manipulation w-16 h-11 sm:w-[72px] sm:h-[50px] md:w-[88px] md:h-[62px] transition-transform duration-300 md:hover:scale-105">
                         <img src="<?= base_url('assets/img/partners/cspc.png') ?>" alt="CSPC"
-                            class="w-[46px] h-[32px] md:max-w-full md:max-h-full md:w-auto md:h-auto object-contain">
+                            class="w-full h-full object-contain">
                     </a>
                 </div>
             </div>
             <a href="<?= site_url('about') ?>"
-                class="group inline-flex items-center gap-1.5 mt-5 text-[.65rem] font-bold tracking-[.13em] uppercase text-navy no-underline transition-all duration-200 hover:text-gold hover:gap-3">
+                class="group inline-flex items-center gap-1.5 md:gap-2 mt-5 text-[.65rem] font-bold tracking-[.13em] uppercase text-navy no-underline transition-[gap,color] duration-200 hover:text-gold md:hover:gap-3">
                 Read More <span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
             </a>
         </div>

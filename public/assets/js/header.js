@@ -4,7 +4,14 @@ const hasHero = !!document.getElementById('hero');
 let lastScrollY = window.scrollY;
 let ticking = false;
 const SCROLL_THRESHOLD = 60;
-const isMobile = () => window.innerWidth < 1024;
+
+function getViewportWidth() {
+    return (window.visualViewport && window.visualViewport.width)
+        || document.documentElement.clientWidth
+        || window.innerWidth;
+}
+
+const isMobile = () => getViewportWidth() < 1024;
 
 // Detect if the section behind the navbar has a light background
 function getNavTheme() {
@@ -59,6 +66,7 @@ function getDepth(el) {
 }
 
 function updateNavbar() {
+    if (!navbar) return;
     const currentY = window.scrollY;
     const delta = currentY - lastScrollY;
     const navTheme = getNavTheme();
@@ -117,6 +125,10 @@ window.addEventListener('scroll', function () {
 }, { passive: true });
 updateNavbar();
 
+if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', updateNavbar);
+}
+
 /* ═══ MOBILE MENU TOGGLE ═══ */
 const menuBtn = document.getElementById('menuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -126,6 +138,7 @@ const bar3 = document.getElementById('bar3');
 let menuOpen = false;
 
 function toggleMenu(open) {
+    if (!mobileMenu || !bar1 || !bar2 || !bar3) return;
     menuOpen = open;
     mobileMenu.classList.toggle('open', menuOpen);
     if (menuOpen) {
@@ -141,17 +154,25 @@ function toggleMenu(open) {
     }
 }
 
-menuBtn.addEventListener('click', () => toggleMenu(!menuOpen));
+if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => toggleMenu(!menuOpen));
 
-document.getElementById('closeMenuBtn').addEventListener('click', () => toggleMenu(false));
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+    if (closeMenuBtn) {
+        closeMenuBtn.addEventListener('click', () => toggleMenu(false));
+    }
 
-mobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => toggleMenu(false));
-});
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => toggleMenu(false));
+    });
 
-document.getElementById('navLogo').addEventListener('click', () => {
-    if (menuOpen) toggleMenu(false);
-});
+    const navLogo = document.getElementById('navLogo');
+    if (navLogo) {
+        navLogo.addEventListener('click', () => {
+            if (menuOpen) toggleMenu(false);
+        });
+    }
+}
 
 /* ═══ MOBILE PROGRAMS & SERVICES COLLAPSIBLE ═══ */
 const psToggle = document.getElementById('mobPsToggle');
@@ -190,3 +211,74 @@ if (aboutToggle && aboutSub) {
         }
     });
 }
+
+/* ═══ DESKTOP DROPDOWN FALLBACK (Safari-friendly click/keyboard) ═══ */
+const desktopDropdowns = Array.from(document.querySelectorAll('#navbar .nav-dd'));
+
+function isDesktopWidth() {
+    return window.innerWidth >= 1024;
+}
+
+function closeDesktopDropdowns(except = null) {
+    desktopDropdowns.forEach(function (dd) {
+        if (except && dd === except) return;
+        dd.classList.remove('show');
+    });
+}
+
+desktopDropdowns.forEach(function (dd) {
+    const trigger = dd.querySelector('[role="button"]');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', function (e) {
+        if (!isDesktopWidth()) return;
+        e.preventDefault();
+        e.stopPropagation();
+
+        const willOpen = !dd.classList.contains('show');
+        closeDesktopDropdowns(dd);
+        dd.classList.toggle('show', willOpen);
+    });
+
+    trigger.addEventListener('keydown', function (e) {
+        if (!isDesktopWidth()) return;
+
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const willOpen = !dd.classList.contains('show');
+            closeDesktopDropdowns(dd);
+            dd.classList.toggle('show', willOpen);
+        } else if (e.key === 'Escape') {
+            dd.classList.remove('show');
+            trigger.blur();
+        }
+    });
+
+    dd.addEventListener('focusout', function () {
+        if (!isDesktopWidth()) return;
+        window.setTimeout(function () {
+            if (!dd.contains(document.activeElement)) {
+                dd.classList.remove('show');
+            }
+        }, 0);
+    });
+});
+
+document.addEventListener('click', function (e) {
+    if (!isDesktopWidth()) return;
+    if (!e.target.closest('#navbar .nav-dd')) {
+        closeDesktopDropdowns();
+    }
+});
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+        closeDesktopDropdowns();
+    }
+});
+
+window.addEventListener('resize', function () {
+    if (!isDesktopWidth()) {
+        closeDesktopDropdowns();
+    }
+});

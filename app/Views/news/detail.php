@@ -45,6 +45,46 @@
             <?= $post['content'] ?? '' ?>
         </div>
 
+        <?php
+            $postCategory = strtolower((string) ($post['category'] ?? ''));
+            $showStoryShare = $postCategory !== 'features';
+            $shareUrl = current_url();
+            $shareTitle = trim((string) ($post['title'] ?? '')) . ' | ASOG-TBI';
+            $encodedUrl = rawurlencode($shareUrl);
+            $encodedTitle = rawurlencode($shareTitle);
+        ?>
+        <?php if ($showStoryShare): ?>
+        <div class="mt-10 rounded-lg border border-dark/[.08] bg-white p-4 md:p-5">
+            <div class="text-[.56rem] font-semibold tracking-[.16em] uppercase text-dark/45 mb-3">Share This Story</div>
+            <div class="flex flex-wrap items-center gap-2.5">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=<?= $encodedUrl ?>" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center rounded-sm border border-dark/[.16] px-3 py-2 text-[.58rem] font-semibold tracking-[.08em] uppercase no-underline text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
+                    Facebook
+                </a>
+                <a href="https://wa.me/?text=<?= $encodedTitle . '%20' . $encodedUrl ?>" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center rounded-sm border border-dark/[.16] px-3 py-2 text-[.58rem] font-semibold tracking-[.08em] uppercase no-underline text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
+                    WhatsApp
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?= $encodedUrl ?>" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center rounded-sm border border-dark/[.16] px-3 py-2 text-[.58rem] font-semibold tracking-[.08em] uppercase no-underline text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
+                    LinkedIn
+                </a>
+                <a href="https://x.com/intent/tweet?url=<?= $encodedUrl ?>&text=<?= $encodedTitle ?>" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center rounded-sm border border-dark/[.16] px-3 py-2 text-[.58rem] font-semibold tracking-[.08em] uppercase no-underline text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
+                    X
+                </a>
+                <button type="button" id="copyStoryLink"
+                    class="inline-flex items-center rounded-sm border border-dark/[.16] px-3 py-2 text-[.58rem] font-semibold tracking-[.08em] uppercase text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
+                    Copy Link
+                </button>
+                <button type="button" id="nativeStoryShare"
+                    class="inline-flex items-center rounded-sm border border-dark/[.16] px-3 py-2 text-[.58rem] font-semibold tracking-[.08em] uppercase text-dark/70 transition-colors hover:text-dark hover:border-dark/35 hidden">
+                    Share
+                </button>
+            </div>
+        </div>
+        <?php endif; ?>
+
         <!-- Divider -->
         <div class="h-px bg-dark/[.08] my-12"></div>
 
@@ -84,3 +124,47 @@
         <?php endif; ?>
     </div>
 </section>
+
+<?php if ($showStoryShare): ?>
+<script>
+(() => {
+    const copyBtn = document.getElementById('copyStoryLink');
+    const nativeBtn = document.getElementById('nativeStoryShare');
+    const shareUrl = <?= json_encode($shareUrl) ?>;
+    const shareTitle = <?= json_encode($shareTitle) ?>;
+
+    if (nativeBtn && navigator.share) {
+        nativeBtn.classList.remove('hidden');
+        nativeBtn.addEventListener('click', async () => {
+            try {
+                await navigator.share({ title: shareTitle, url: shareUrl });
+            } catch (err) {
+                // Ignore cancellation errors from native share sheets.
+            }
+        });
+    }
+
+    if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(shareUrl);
+                copyBtn.textContent = 'Copied';
+                setTimeout(() => { copyBtn.textContent = 'Copy Link'; }, 1400);
+            } catch (err) {
+                const temp = document.createElement('textarea');
+                temp.value = shareUrl;
+                temp.setAttribute('readonly', '');
+                temp.style.position = 'absolute';
+                temp.style.left = '-9999px';
+                document.body.appendChild(temp);
+                temp.select();
+                document.execCommand('copy');
+                document.body.removeChild(temp);
+                copyBtn.textContent = 'Copied';
+                setTimeout(() => { copyBtn.textContent = 'Copy Link'; }, 1400);
+            }
+        });
+    }
+})();
+</script>
+<?php endif; ?>

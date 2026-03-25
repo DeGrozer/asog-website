@@ -14,8 +14,21 @@ document.addEventListener('DOMContentLoaded', function () {
         let index = 0;
         let timer = null;
         let isVisible = true;
+        let fadeTimer = null;
 
-        function render() {
+        function render(withFade = false) {
+            const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+            if (withFade && isDesktop && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                track.classList.add('is-fading');
+                if (fadeTimer !== null) {
+                    window.clearTimeout(fadeTimer);
+                }
+                fadeTimer = window.setTimeout(function () {
+                    track.classList.remove('is-fading');
+                    fadeTimer = null;
+                }, 240);
+            }
+
             track.style.transform = 'translateX(-' + (index * 100) + '%)';
             dots.forEach(function (dot, i) {
                 dot.classList.toggle('is-active', i === index);
@@ -24,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function next() {
             index = (index + 1) % slides.length;
-            render();
+            render(true);
         }
 
         function startAuto() {
@@ -44,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dots.forEach(function (dot, i) {
             dot.addEventListener('click', function () {
                 index = i;
-                render();
+                render(true);
                 startAuto();
             });
         });

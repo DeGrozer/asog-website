@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="ASOG Technology Business Incubator">
     <title>
         <?= isset($title) ? $title : 'ASOG Technology Business Incubator' ?>
@@ -52,6 +52,7 @@
     $isContact       = $seg1 === 'contact';
     $isOrg           = $seg1 === 'organization';
     $isProgramsPage  = $seg1 === 'programs';
+    $isLandingPage   = ! empty($isLanding);
 
     // $forceWhiteLogoPages = in_array($seg1, ['about', 'programs', 'services', 'facilities', 'news', 'organization', 'contact'], true)
     //     || str_starts_with($uriPath, 'incubatees/apply');
@@ -71,8 +72,8 @@
 
 
     <nav id="navbar"
-        class="fixed top-0 left-0 right-0 z-[500]<?= $isNewsDetail ? ' logo-color-exception' : '' ?><?= $isProgramsPage ? ' nav-programs-desktop' : '' ?>">
-        <div id="navIn" class="flex items-center px-4 lg:px-10 h-20 ">
+        class="fixed top-0 left-0 right-0 z-[500]<?= $isNewsDetail ? ' logo-color-exception' : '' ?><?= $isProgramsPage ? ' nav-programs-desktop' : '' ?><?= $isLandingPage ? ' landing-nav' : '' ?>">
+        <div id="navIn" class="flex items-center px-4 lg:px-10 min-h-20 py-2 lg:py-3">
 
             <!-- desktop left links -->
             <div class="nav-left absolute left-10 flex items-center gap-1 lg:flex hidden">
@@ -102,8 +103,8 @@
             <!-- CENTER LOGO -->
             <a href="<?= base_url() ?>" id="navLogo" class="flex no-underline">
                 <img src="<?= base_url('assets/img/ASOG TBI/PNG/ASOG-TBI-stacked-v2.png') ?>" alt="ASOG TBI" id="navImg"
-                    class="w-[106px] md:w-[88px] h-auto" />
-                <img src="<?= base_url('assets/img/ASOG TBI/PNG/ASOG-TBI_full-colored_landscape.png') ?>" alt="ASOG TBI"
+                    class="h-auto" />
+                <img src="<?= base_url('assets/img/ASOG TBI/PNG/ASOG-TBI-stacked-v2.png') ?>" alt="ASOG TBI"
                     id="navImgLandscape" class="object-contain" />
             </a>
 

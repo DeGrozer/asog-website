@@ -40,12 +40,12 @@ if (empty($all)) return;
 
 .inc-logo-item {
     flex-shrink: 0;
-    width: 180px;
-    height: 110px;
+    width: clamp(132px, 42vw, 220px);
+    height: clamp(82px, 24vw, 130px);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 2.2rem;
+    margin: 0 clamp(.65rem, 4vw, 3rem);
     opacity: .45;
     filter: grayscale(1);
     transition: all .4s ease;
@@ -59,8 +59,8 @@ if (empty($all)) return;
 }
 
 .inc-logo-item img {
-    max-width: 160px;
-    max-height: 95px;
+    max-width: clamp(112px, 35vw, 190px);
+    max-height: clamp(68px, 20vw, 110px);
     object-fit: contain;
 }
 
@@ -76,16 +76,10 @@ if (empty($all)) return;
     color: rgba(3, 85, 140, .7);
 }
 
-@media(min-width: 768px) {
-    .inc-logo-item {
-        width: 220px;
-        height: 130px;
-        margin: 0 3rem
-    }
-
-    .inc-logo-item img {
-        max-width: 190px;
-        max-height: 110px
+@media(max-width: 640px) {
+    .inc-carousel {
+        -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+        mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
     }
 }
 </style>
