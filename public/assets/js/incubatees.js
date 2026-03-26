@@ -30,6 +30,7 @@
         pContent      = $('pContent'),
         pTeamSection  = $('pTeamSection'),
         pTeamList     = $('pTeamList'),
+        pTeamLabel    = document.querySelector('#pTeamSection .ib-p-team-label'),
         pContactSection = $('pContactSection'),
         pContactList  = $('pContactList'),
         pSdgSection   = $('pSdgSection'),
@@ -190,6 +191,61 @@
             .replace(/'/g, '&#39;');
     }
 
+    function formatPlainTextToHtml(text) {
+        var lines = String(text || '').replace(/\r\n?/g, '\n').split('\n');
+        var out = [];
+        var bulletBuffer = [];
+
+        function flushBullets() {
+            if (!bulletBuffer.length) return;
+            var items = bulletBuffer.map(function (item) {
+                return '<li>' + escapeHtml(item) + '</li>';
+            }).join('');
+            out.push('<ul>' + items + '</ul>');
+            bulletBuffer = [];
+        }
+
+        lines.forEach(function (line) {
+            var trimmed = line.trim();
+            var bulletMatch = trimmed.match(/^(?:[-*•])\s+(.+)$/);
+
+            if (!trimmed) {
+                flushBullets();
+                out.push('');
+                return;
+            }
+
+            if (bulletMatch) {
+                bulletBuffer.push(bulletMatch[1]);
+                return;
+            }
+
+            flushBullets();
+            out.push('<p>' + escapeHtml(line).replace(/\s{2,}/g, ' ') + '</p>');
+        });
+
+        flushBullets();
+
+        return out.filter(function (chunk) { return chunk !== ''; }).join('');
+    }
+
+    function formatIncubateeContent(d) {
+        var rich = decodeRichText((d && d.content) || '').trim();
+        var shortDescription = String((d && d.shortDescription) || '').trim();
+        var hasHtmlTags = /<\/?[a-z][\s\S]*?>/i.test(rich);
+
+        if (hasHtmlTags && rich) {
+            return rich;
+        }
+
+        var plainText = rich || shortDescription;
+        if (!plainText) {
+            return '<p class="ib-p-empty">No details available yet.</p>';
+        }
+
+        return formatPlainTextToHtml(plainText);
+    }
+
     function buildContacts(d) {
         var contacts = [];
 
@@ -296,7 +352,7 @@
         var team = buildDisplayTeam(d);
         var html = '';
         if (team.length) {
-                html += '<span class="ib-bb-team-label">Founders</span>';
+                html += '<span class="ib-bb-team-label">' + (team.length === 1 ? 'Founder' : 'Founders') + '</span>';
             team.forEach(function (m) {
                 html += '<div class="ib-bb-member flex flex-col items-center">';
                 html += '<span class="ib-bb-member-name">' + m.name + '</span>';
@@ -407,7 +463,7 @@
         var team = buildDisplayTeam(d);
         var html = '';
         if (team.length) {
-            html += '<span class="ib-bb-team-label">Founders</span>';
+            html += '<span class="ib-bb-team-label">' + (team.length === 1 ? 'Founder' : 'Founders') + '</span>';
             team.forEach(function (m) {
                 html += '<div class="ib-bb-member flex flex-col items-center">';
                 html += '<span class="ib-bb-member-name">' + m.name + '</span>';
@@ -423,13 +479,17 @@
         if (pAboutTitle) {
             pAboutTitle.textContent = 'About ' + d.companyName;
         }
-        pContent.innerHTML   = decodeRichText(d.content || '');
+        pContent.innerHTML = formatIncubateeContent(d);
         renderSdgBadges(d);
 
         var team = buildDisplayTeam(d);
 
         if (pTeamList && pTeamSection) {
             if (team.length) {
+                if (pTeamLabel) {
+                    pTeamLabel.textContent = team.length === 1 ? 'Founder' : 'Founders';
+                }
+
                 var teamHtml = '';
                 team.forEach(function (m) {
                     var initial = (m.name || '?').trim().charAt(0).toUpperCase();

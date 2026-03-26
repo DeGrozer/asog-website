@@ -57,9 +57,12 @@ class ImageUpload
             return null;
         }
 
+        // Resolve MIME once before move() because temp upload path is removed after moving.
+        $mimeType = $file->getMimeType() ?: $file->getClientMimeType();
+
         // Validate MIME
-        if (! in_array($file->getMimeType(), $this->allowedTypes, true)) {
-            $this->error = 'Invalid file type (' . $file->getMimeType() . '). Allowed: JPG, PNG, GIF, WEBP.';
+        if (! in_array($mimeType, $this->allowedTypes, true)) {
+            $this->error = 'Invalid file type (' . $mimeType . '). Allowed: JPG, PNG, GIF, WEBP.';
             log_message('error', '[ImageUpload] ' . $this->error);
             return null;
         }
@@ -113,11 +116,11 @@ class ImageUpload
         $relativePath = 'uploads/' . $subfolder . '/' . $newName;
 
         // Convert to WebP when possible; keep original as fallback.
-        if ($this->convertToWebp && $this->shouldConvertToWebp($file->getMimeType())) {
+        if ($this->convertToWebp && $this->shouldConvertToWebp($mimeType)) {
             $webpName = pathinfo($newName, PATHINFO_FILENAME) . '.webp';
             $webpPath = $destination . DIRECTORY_SEPARATOR . $webpName;
 
-            if ($this->convertImageToWebp($finalPath, $webpPath, $file->getMimeType())) {
+            if ($this->convertImageToWebp($finalPath, $webpPath, $mimeType)) {
                 if ($webpPath !== $finalPath && is_file($finalPath)) {
                     @unlink($finalPath);
                 }

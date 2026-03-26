@@ -422,13 +422,38 @@
 }
 .ib-p-content {
     padding-top: 1rem;
-    font-size: .84rem; font-weight: 400;
-    line-height: 1.62;
+    font-size: .86rem; font-weight: 400;
+    line-height: 1.58;
     color: rgba(2,13,24,.72);
-    text-align: justify;
+    text-align: left;
 }
-.ib-p-content p { margin-bottom: .8rem }
+.ib-p-content p { margin: 0 0 .55rem }
 .ib-p-content p:last-child { margin-bottom: 0 }
+
+.ib-p-content ul,
+.ib-p-content ol {
+    margin: .15rem 0 .75rem 1.15rem;
+    padding-left: .6rem;
+    list-style-position: outside;
+}
+
+.ib-p-content ul { list-style-type: disc; }
+.ib-p-content ol { list-style-type: decimal; }
+
+.ib-p-content li {
+    display: list-item;
+    margin: 0 0 .28rem;
+    line-height: 1.55;
+}
+
+.ib-p-content li::marker {
+    color: rgba(3,85,140,.85);
+}
+
+.ib-p-content .ib-p-empty {
+    font-style: italic;
+    color: rgba(2,13,24,.42);
+}
 
 .ib-p-divider {
     height: 1px;

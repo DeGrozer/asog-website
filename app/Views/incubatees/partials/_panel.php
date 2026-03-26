@@ -12,6 +12,7 @@
         <div id="pContent" class="ib-p-content"></div>
 
         <div id="pSdgSection" class="ib-p-sdg-wrap" style="display:none">
+            <div class="ib-p-divider" aria-hidden="true"></div>
             <span class="ib-p-sdg-label">Sustainable Development Goals(SDGs)</span>
             <div id="pSdgList" class="ib-p-sdg-grid"></div>
         </div>

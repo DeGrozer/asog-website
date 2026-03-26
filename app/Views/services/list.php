@@ -92,9 +92,6 @@ $services = [
                     class="svc-hero-title svc-theme-title font-display text-[2rem] leading-[1.12] sm:text-[2.35rem] md:text-[2.85rem] lg:text-[3.1rem] text-navy max-w-[18ch]">
                     Supporting startups from idea to scale
                 </h1>
-
-                <div class="svc-hero-divider mt-5 w-full max-w-[820px]"></div>
-
                 <p class="svc-hero-copy mt-5 max-w-[80ch] text-[1rem] md:text-[1.06rem] leading-[1.8] text-black">
                     The ASOG Technology Business Incubator (ASOG TBI) provides structured support for early-stage
                     startups, innovators, and technology-driven ventures through a range of incubation services designed
