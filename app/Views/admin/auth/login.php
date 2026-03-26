@@ -1,44 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Sign in — ASOG TBI</title>
     <link rel="icon" href="<?= base_url('icon.png') ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap"
+        rel="stylesheet">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'DM Sans',sans-serif;height:100vh;display:flex;background:#f4f3f0;color:#1e293b}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box
+    }
 
-        /* Brand panel */
-        .brand{display:none}
-        @media(min-width:900px){
-            .brand{display:flex;flex-direction:column;justify-content:center;width:380px;flex-shrink:0;background:#03558C;padding:3rem;color:#fff}
-            .brand h1{font-family:'DM Serif Display',serif;font-size:1.7rem;line-height:1.25;margin-bottom:.6rem}
-            .brand p{font-size:.82rem;opacity:.7;line-height:1.6}
+    body {
+        font-family: 'DM Sans', sans-serif;
+        height: 100vh;
+        display: flex;
+        background: #f4f3f0;
+        color: #1e293b
+    }
+
+    /* Brand panel */
+    .brand {
+        display: none
+    }
+
+    @media(min-width:900px) {
+        .brand {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 380px;
+            flex-shrink: 0;
+            background: #03558C;
+            padding: 3rem;
+            color: #fff
         }
 
-        /* Form panel */
-        .form-panel{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem}
-        .form-box{width:100%;max-width:340px}
-        .form-box h2{font-family:'DM Serif Display',serif;font-size:1.35rem;margin-bottom:.25rem}
-        .form-box .sub{font-size:.78rem;color:#94a3b8;margin-bottom:1.6rem}
-        .field{margin-bottom:.9rem}
-        .field label{display:block;font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;margin-bottom:.3rem}
-        .field input{width:100%;font-family:inherit;font-size:.82rem;color:#1e293b;padding:.55rem .7rem;border:1px solid #ddd;border-radius:.25rem;background:#fff;outline:none;transition:border .15s}
-        .field input:focus{border-color:#03558C}
-        .btn{width:100%;font-family:inherit;font-size:.78rem;font-weight:600;color:#fff;background:#F8AF21;border:none;border-radius:.25rem;padding:.6rem;cursor:pointer;margin-top:.4rem;transition:background .15s}
-        .btn:hover{background:#e9a01b}
-        .err{font-size:.72rem;color:#be123c;margin-bottom:.8rem}
-        .back{display:block;text-align:center;margin-top:1.2rem;font-size:.72rem;color:#94a3b8;text-decoration:none}
-        .back:hover{color:#03558C}
+        .brand h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.7rem;
+            line-height: 1.25;
+            margin-bottom: .6rem
+        }
+
+        .brand p {
+            font-size: .82rem;
+            opacity: .7;
+            line-height: 1.6
+        }
+    }
+
+    /* Form panel */
+    .form-panel {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem
+    }
+
+    .form-box {
+        width: 100%;
+        max-width: 340px
+    }
+
+    .form-box h2 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 1.35rem;
+        margin-bottom: .25rem
+    }
+
+    .form-box .sub {
+        font-size: .78rem;
+        color: #94a3b8;
+        margin-bottom: 1.6rem
+    }
+
+    .field {
+        margin-bottom: .9rem
+    }
+
+    .field label {
+        display: block;
+        font-size: .62rem;
+        font-weight: 600;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        color: #94a3b8;
+        margin-bottom: .3rem
+    }
+
+    .field input {
+        width: 100%;
+        font-family: inherit;
+        font-size: .82rem;
+        color: #1e293b;
+        padding: .55rem .7rem;
+        border: 1px solid #ddd;
+        border-radius: .25rem;
+        background: #fff;
+        outline: none;
+        transition: border .15s
+    }
+
+    .field input:focus {
+        border-color: #03558C
+    }
+
+    .btn {
+        width: 100%;
+        font-family: inherit;
+        font-size: .78rem;
+        font-weight: 600;
+        color: #fff;
+        background: #F8AF21;
+        border: none;
+        border-radius: .25rem;
+        padding: .6rem;
+        cursor: pointer;
+        margin-top: .4rem;
+        transition: background .15s
+    }
+
+    .btn:hover {
+        background: #e9a01b
+    }
+
+    .err {
+        font-size: .72rem;
+        color: #be123c;
+        margin-bottom: .8rem
+    }
+
+    .back {
+        display: block;
+        text-align: center;
+        margin-top: 1.2rem;
+        font-size: .72rem;
+        color: #94a3b8;
+        text-decoration: none
+    }
+
+    .back:hover {
+        color: #03558C
+    }
     </style>
 </head>
+
 <body>
 
     <div class="brand">
-        <img src="<?= base_url('assets/img/ASOG TBI/PNG/ASOG-TBI_full-colored_stacked-white.png') ?>" alt="ASOG TBI" style="width:160px;margin-bottom:1.4rem">
+        <img src="<?= base_url('assets/img/ASOG TBI/PNG/ASOG-TBI_full-colored_stacked-white.png') ?>" alt="ASOG TBI"
+            style="width:160px;margin-bottom:1.4rem">
         <h1>ASOG Technology<br>Business Incubator</h1>
         <p>Content management system for the ASOG TBI website. Sign in to manage posts and site content.</p>
     </div>
@@ -49,7 +167,7 @@
             <p class="sub">Enter your credentials to continue</p>
 
             <?php if (session()->getFlashdata('error')): ?>
-                <div class="err"><?= esc(session()->getFlashdata('error')) ?></div>
+            <div class="err"><?= esc(session()->getFlashdata('error')) ?></div>
             <?php endif; ?>
 
             <form action="<?= site_url('asog-admin') ?>" method="POST">
@@ -73,4 +191,5 @@
     </div>
 
 </body>
+
 </html>

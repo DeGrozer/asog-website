@@ -1,231 +1,147 @@
-<!-- ╔══════════════════════════════════════════════════════════════════════╗
-     ║  SERVICES OFFERED — Full-page showcase                              ║
-     ╚══════════════════════════════════════════════════════════════════════╝ -->
+<?php
+$services = [
+    [
+        'title' => 'Startup Incubation',
+        'kicker' => 'Support includes:',
+        'desc' => 'ASOG TBI offers a staged incubation pathway through the ALTITUDE Program, guiding startups from early idea validation to market readiness and long-term growth.',
+        'items' => ['Problem and solution validation', 'Startup readiness assessment', 'Business model development', 'Product development guidance', 'Market preparation and scaling support'],
+        'image' => 'assets/img/offered/incubation.webp',
+        'alt' => 'Startup incubation workspace',
+        'tone' => 'tone-blue',
+    ],
+    [
+        'title' => 'Mentorship and Expert Guidance',
+        'kicker' => 'Mentorship formats include:',
+        'desc' => 'Startups receive access to mentors from industry, academe, and government who provide technical and business advice throughout the incubation journey.',
+        'items' => ['One-on-one mentoring', 'Expert clinics', 'Technical consultations', 'Pitch rehearsals', 'Demo day coaching'],
+        'image' => 'assets/img/offered/activity.webp',
+        'alt' => 'Mentorship and advisory session',
+        'tone' => 'tone-sand',
+    ],
+    [
+        'title' => 'Prototype Development Support',
+        'kicker' => 'Support includes:',
+        'desc' => 'ASOG TBI helps startup teams refine product concepts into working prototypes through technical guidance and access to fabrication resources.',
+        'items' => ['Prototype planning and refinement', 'Product modeling assistance', 'Access to CSPC fabrication resources', 'Technical review sessions'],
+        'image' => 'assets/img/offered/prototype.webp',
+        'alt' => 'Prototype development laboratory',
+        'tone' => 'tone-ice',
+    ],
+    [
+        'title' => 'Business Development Support',
+        'kicker' => 'Services include:',
+        'desc' => 'The incubator helps founders strengthen their market strategy and prepare for commercial viability.',
+        'items' => ['Customer discovery support', 'Market validation', 'Pricing and positioning guidance', 'Go to market preparation', 'Partnership building'],
+        'image' => 'assets/img/offered/support.webp',
+        'alt' => 'Business development consultation',
+        'tone' => 'tone-blue',
+    ],
+    [
+        'title' => 'Intellectual Property and Innovation Support',
+        'kicker' => 'This includes:',
+        'desc' => 'Startups receive guidance on protecting innovations and understanding intellectual property pathways.',
+        'items' => ['Patent search orientation', 'IP awareness sessions', 'Referral for intellectual property support', 'Innovation documentation guidance'],
+        'image' => 'assets/img/offered/ip.webp',
+        'alt' => 'Intellectual property support center',
+        'tone' => 'tone-sand',
+    ],
+    [
+        'title' => 'Capacity Building Activities',
+        'kicker' => 'Topics may include:',
+        'desc' => 'ASOG TBI regularly conducts workshops, huddles, and learning sessions that build entrepreneurial and technical capability.',
+        'items' => ['Branding essentials', 'Startup pitching', 'Product validation', 'Technology trends', 'Business communication'],
+        'image' => 'assets/img/offered/activity.webp',
+        'alt' => 'Capacity building workshop',
+        'tone' => 'tone-ice',
+    ],
+    [
+        'title' => 'Networking and Ecosystem Linkages',
+        'kicker' => 'This includes access to:',
+        'desc' => 'The incubator connects startups to opportunities beyond the campus through engagement with partners and innovation networks.',
+        'items' => ['Government innovation programs', 'Startup events and conferences', 'Industry consultations', 'Local ecosystem partnerships'],
+        'image' => 'assets/img/offered/networking.webp',
+        'alt' => 'Networking and ecosystem event',
+        'tone' => 'tone-blue',
+    ],
+    [
+        'title' => 'Funding Readiness Support',
+        'kicker' => 'Support includes:',
+        'desc' => 'For startups entering advanced stages, ASOG TBI helps founders prepare for grants, investor discussions, and strategic funding opportunities.',
+        'items' => ['Pitch deck review', 'Grant preparation guidance', 'Funding document support', 'Investor readiness coaching'],
+        'image' => 'assets/img/offered/funding.webp',
+        'alt' => 'Funding readiness and pitching',
+        'tone' => 'tone-sand',
+    ],
+];
+?>
 
-<div class="relative bg-off">
-    <div class="max-w-[1160px] mx-auto px-4 sm:px-6 md:px-10 lg:px-14 py-14 sm:py-16 md:py-24">
+<link rel="stylesheet" href="<?= base_url('assets/css/services.css') ?>">
 
-        <!-- Section heading -->
-        <div class="text-center mb-12 md:mb-14">
-            <div class="flex items-center justify-center gap-2 mb-4">
-                <span class="block w-[18px] h-[1.5px] bg-gold"></span>
-                <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-gold">Comprehensive
-                    Support</span>
-                <span class="block w-[18px] h-[1.5px] bg-gold"></span>
+<section class="svc-experience relative text-black">
+    <div class="mx-auto max-w-[1120px] px-6 sm:px-9 md:px-12 lg:px-16">
+        <header class="svc-hero pt-12 pb-9 md:pt-14 md:pb-10 lg:pt-16 lg:pb-12 text-left">
+            <div class="max-w-[940px]">
+                <div class="mb-4 flex items-center gap-2">
+                    <span class="svc-kicker-line block h-[1.5px] w-7 bg-gold"></span>
+                    <span class="text-[.58rem] font-semibold tracking-[.24em] uppercase text-navy">Services
+                        Offered</span>
+                    <span class="svc-kicker-line block h-[1.5px] w-7 bg-gold"></span>
+                </div>
+
+                <h1
+                    class="svc-hero-title svc-theme-title font-display text-[2rem] leading-[1.12] sm:text-[2.35rem] md:text-[2.85rem] lg:text-[3.1rem] text-navy max-w-[18ch]">
+                    Supporting startups from idea to scale
+                </h1>
+
+                <div class="svc-hero-divider mt-5 w-full max-w-[820px]"></div>
+
+                <p class="svc-hero-copy mt-5 max-w-[80ch] text-[1rem] md:text-[1.06rem] leading-[1.8] text-black">
+                    The ASOG Technology Business Incubator (ASOG TBI) provides structured support for early-stage
+                    startups, innovators, and technology-driven ventures through a range of incubation services designed
+                    to help ideas move toward real-world application.
+                </p>
+                <p class="svc-hero-copy mt-3 max-w-[80ch] text-[1rem] md:text-[1.06rem] leading-[1.8] text-black">
+                    Our services focus on strengthening technical development, business readiness, and strategic
+                    connections, particularly in engineering, artificial intelligence, and food value chain innovation.
+                </p>
             </div>
-            <h2 class="font-display text-[2rem] md:text-[2.6rem] leading-[1.15] text-dark">Supporting startups
-                from idea to scale</h2>
-            <!-- <p class="text-[1rem] font-semibold leading-[1.7] mt-4 max-w-[720px] mx-auto" style="color:#03355a;">
-                Supporting startups from idea to scale
-            </p> -->
-            <p class="text-[.95rem] sm:text-[1rem] font-normal leading-[1.8] mt-4 max-w-[760px] mx-auto"
-                style="color:#000;">
-                The ASOG Technology Business Incubator (ASOG TBI) provides structured support for early-stage startups,
-                innovators, and technology-driven ventures through a range of incubation services designed to help ideas
-                move toward real-world application.
-            </p>
-            <p class="text-[.95rem] sm:text-[1rem] font-normal leading-[1.8] mt-3 max-w-[760px] mx-auto"
-                style="color:#000;">
-                Our services focus on strengthening technical development, business readiness, and strategic
-                connections,
-                particularly in engineering, artificial intelligence, and food value chain innovation.
-            </p>
+        </header>
+
+        <div class="space-y-0 pb-14 md:pb-16">
+            <?php foreach ($services as $index => $service): ?>
+            <article class="svc-panel" data-ix="<?= $index + 1 ?>">
+                <div class="svc-row grid gap-5 py-6 md:grid-cols-12 md:items-center md:gap-7 md:py-8">
+                    <div class="svc-media md:col-span-6 <?= $index % 2 === 1 ? 'md:order-2' : '' ?>">
+                        <img src="<?= base_url($service['image']) ?>" alt="<?= esc($service['alt']) ?>"
+                            class="svc-image w-full" loading="lazy" decoding="async" />
+                    </div>
+
+                    <div class="svc-copy md:col-span-6 <?= $index % 2 === 1 ? 'md:order-1' : '' ?>">
+                        <p class="text-[.62rem] font-semibold tracking-[.12em] uppercase text-navy/80">
+                            <?= esc($service['kicker']) ?></p>
+                        <h2
+                            class="svc-section-title mt-1 font-display text-[1.45rem] leading-[1.16] text-navy sm:text-[1.75rem] md:text-[2rem]">
+                            <?= esc($service['title']) ?>
+                        </h2>
+                        <p class="mt-3 max-w-[58ch] text-[.95rem] leading-[1.78] text-black sm:text-[1rem]">
+                            <?= esc($service['desc']) ?>
+                        </p>
+
+                        <ul class="mt-4 grid gap-x-6 gap-y-2 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-1">
+                            <?php foreach ($service['items'] as $item): ?>
+                            <li class="svc-bullet text-[.84rem] leading-[1.6] text-black">
+                                <span class="svc-bullet-dot" aria-hidden="true"></span>
+                                <span><?= esc($item) ?></span>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+            <?php endforeach; ?>
         </div>
+    </div>
+</section>
 
-        <!-- Services cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 md:gap-7">
-            <article
-                class="h-full rounded-md border border-[#d6d6d6] bg-white p-5 sm:p-6 md:p-7 shadow-[0_3px_14px_rgba(0,0,0,.04)]">
-                <div class="h-[3px] w-12 bg-gold rounded mb-4"></div>
-                <h3 class="font-display text-[1.2rem] sm:text-[1.28rem] leading-[1.35] mb-3" style="color:#03355a;">
-                    Startup Incubation</h3>
-                <p class="text-[.95rem] font-normal leading-[1.7] mb-4" style="color:#000;">
-                    ASOG TBI offers a staged incubation pathway through the ALTITUDE Program, guiding startups from
-                    early idea validation to market readiness and long-term growth.
-                </p>
-                <p class="text-[.8rem] uppercase tracking-[.11em] font-semibold mb-2" style="color:#03355a;">Support
-                    includes:</p>
-                <ul class="space-y-2 list-none pl-0 text-[.93rem]" style="color:#000;">
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Problem and solution
-                            validation</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Startup readiness
-                            assessment</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Business model
-                            development</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Product development
-                            guidance</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Market preparation and
-                            scaling support</span></li>
-                </ul>
-            </article>
-
-            <article
-                class="h-full rounded-md border border-[#d6d6d6] bg-white p-5 sm:p-6 md:p-7 shadow-[0_3px_14px_rgba(0,0,0,.04)]">
-                <div class="h-[3px] w-12 bg-gold rounded mb-4"></div>
-                <h3 class="font-display text-[1.2rem] sm:text-[1.28rem] leading-[1.35] mb-3" style="color:#03355a;">
-                    Mentorship and Expert Guidance</h3>
-                <p class="text-[.95rem] font-normal leading-[1.7] mb-4" style="color:#000;">
-                    Startups receive access to mentors from industry, academe, and government who provide technical
-                    and business advice throughout the incubation journey.
-                </p>
-                <p class="text-[.8rem] uppercase tracking-[.11em] font-semibold mb-2" style="color:#03355a;">Mentorship
-                    formats include:</p>
-                <ul class="space-y-2 list-none pl-0 text-[.93rem]" style="color:#000;">
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>One-on-one
-                            mentoring</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Expert clinics</span>
-                    </li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Technical
-                            consultations</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Pitch rehearsals</span>
-                    </li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Demo day coaching</span>
-                    </li>
-                </ul>
-            </article>
-
-            <article
-                class="h-full rounded-md border border-[#d6d6d6] bg-white p-5 sm:p-6 md:p-7 shadow-[0_3px_14px_rgba(0,0,0,.04)]">
-                <div class="h-[3px] w-12 bg-gold rounded mb-4"></div>
-                <h3 class="font-display text-[1.2rem] sm:text-[1.28rem] leading-[1.35] mb-3" style="color:#03355a;">
-                    Prototype Development Support</h3>
-                <p class="text-[.95rem] font-normal leading-[1.7] mb-4" style="color:#000;">
-                    ASOG TBI helps startup teams refine product concepts into working prototypes through technical
-                    guidance and access to fabrication resources.
-                </p>
-                <p class="text-[.8rem] uppercase tracking-[.11em] font-semibold mb-2" style="color:#03355a;">Support
-                    includes:</p>
-                <ul class="space-y-2 list-none pl-0 text-[.93rem]" style="color:#000;">
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Prototype planning and
-                            refinement</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Product modeling
-                            assistance</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Access to the CSPC
-                            Fabrication Laboratory</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Technical review
-                            sessions</span></li>
-                </ul>
-            </article>
-
-            <article
-                class="h-full rounded-md border border-[#d6d6d6] bg-white p-5 sm:p-6 md:p-7 shadow-[0_3px_14px_rgba(0,0,0,.04)]">
-                <div class="h-[3px] w-12 bg-gold rounded mb-4"></div>
-                <h3 class="font-display text-[1.2rem] sm:text-[1.28rem] leading-[1.35] mb-3" style="color:#03355a;">
-                    Business Development Support</h3>
-                <p class="text-[.95rem] font-normal leading-[1.7] mb-4" style="color:#000;">
-                    The incubator helps founders strengthen their market strategy and prepare for commercial viability.
-                </p>
-                <p class="text-[.8rem] uppercase tracking-[.11em] font-semibold mb-2" style="color:#03355a;">Services
-                    include:</p>
-                <ul class="space-y-2 list-none pl-0 text-[.93rem]" style="color:#000;">
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Customer discovery
-                            support</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Market validation</span>
-                    </li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Pricing and positioning
-                            guidance</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Go to market
-                            preparation</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Partnership
-                            building</span></li>
-                </ul>
-            </article>
-
-            <article
-                class="h-full rounded-md border border-[#d6d6d6] bg-white p-5 sm:p-6 md:p-7 shadow-[0_3px_14px_rgba(0,0,0,.04)]">
-                <div class="h-[3px] w-12 bg-gold rounded mb-4"></div>
-                <h3 class="font-display text-[1.2rem] sm:text-[1.28rem] leading-[1.35] mb-3" style="color:#03355a;">
-                    Intellectual Property and Innovation Support</h3>
-                <p class="text-[.95rem] font-normal leading-[1.7] mb-4" style="color:#000;">
-                    Startups receive guidance on protecting innovations and understanding intellectual property
-                    pathways.
-                </p>
-                <p class="text-[.8rem] uppercase tracking-[.11em] font-semibold mb-2" style="color:#03355a;">This
-                    includes:</p>
-                <ul class="space-y-2 list-none pl-0 text-[.93rem]" style="color:#000;">
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Patent search
-                            orientation</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>IP awareness
-                            sessions</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Referral for intellectual
-                            property support</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Innovation documentation
-                            guidance</span></li>
-                </ul>
-            </article>
-
-            <article
-                class="h-full rounded-md border border-[#d6d6d6] bg-white p-5 sm:p-6 md:p-7 shadow-[0_3px_14px_rgba(0,0,0,.04)]">
-                <div class="h-[3px] w-12 bg-gold rounded mb-4"></div>
-                <h3 class="font-display text-[1.2rem] sm:text-[1.28rem] leading-[1.35] mb-3" style="color:#03355a;">
-                    Capacity Building Activities</h3>
-                <p class="text-[.95rem] font-normal leading-[1.7] mb-4" style="color:#000;">
-                    ASOG TBI regularly conducts workshops, huddles, and learning sessions that build entrepreneurial
-                    and technical capability.
-                </p>
-                <p class="text-[.8rem] uppercase tracking-[.11em] font-semibold mb-2" style="color:#03355a;">Topics may
-                    include:</p>
-                <ul class="space-y-2 list-none pl-0 text-[.93rem]" style="color:#000;">
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Branding
-                            essentials</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Startup pitching</span>
-                    </li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Product validation</span>
-                    </li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Technology trends</span>
-                    </li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Business
-                            communication</span></li>
-                </ul>
-            </article>
-
-            <article
-                class="h-full rounded-md border border-[#d6d6d6] bg-white p-5 sm:p-6 md:p-7 shadow-[0_3px_14px_rgba(0,0,0,.04)]">
-                <div class="h-[3px] w-12 bg-gold rounded mb-4"></div>
-                <h3 class="font-display text-[1.2rem] sm:text-[1.28rem] leading-[1.35] mb-3" style="color:#03355a;">
-                    Networking and Ecosystem Linkages</h3>
-                <p class="text-[.95rem] font-normal leading-[1.7] mb-4" style="color:#000;">
-                    The incubator connects startups to opportunities beyond the campus through engagement with partners
-                    and innovation networks.
-                </p>
-                <p class="text-[.8rem] uppercase tracking-[.11em] font-semibold mb-2" style="color:#03355a;">This
-                    includes access to:</p>
-                <ul class="space-y-2 list-none pl-0 text-[.93rem]" style="color:#000;">
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Government innovation
-                            programs</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Startup events and
-                            conferences</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Industry
-                            consultations</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Local ecosystem
-                            partnerships</span></li>
-                </ul>
-            </article>
-
-            <article
-                class="h-full rounded-md border border-[#d6d6d6] bg-white p-5 sm:p-6 md:p-7 shadow-[0_3px_14px_rgba(0,0,0,.04)] md:col-span-2">
-                <div class="h-[3px] w-12 bg-gold rounded mb-4"></div>
-                <h3 class="font-display text-[1.2rem] sm:text-[1.28rem] leading-[1.35] mb-3" style="color:#03355a;">
-                    Funding Readiness Support</h3>
-                <p class="text-[.95rem] font-normal leading-[1.7] mb-4 max-w-[980px]" style="color:#000;">
-                    For startups entering advanced stages, ASOG TBI helps founders prepare for grants, investor
-                    discussions, and strategic funding opportunities.
-                </p>
-                <p class="text-[.8rem] uppercase tracking-[.11em] font-semibold mb-2" style="color:#03355a;">Support
-                    includes:</p>
-                <ul class="space-y-2 list-none pl-0 text-[.93rem] md:grid md:grid-cols-2 md:gap-x-8"
-                    style="color:#000;">
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Pitch deck review</span>
-                    </li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Grant preparation
-                            guidance</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Funding document
-                            support</span></li>
-                    <li class="flex gap-2"><span class="font-semibold text-gold">•</span><span>Investor readiness
-                            coaching</span></li>
-                </ul>
-            </article>
-        </div>
-
-    </div><!-- end max-w container -->
-</div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="<?= base_url('assets/js/services.js') ?>" defer></script>
