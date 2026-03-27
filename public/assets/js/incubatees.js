@@ -64,6 +64,43 @@
     var mpFlipped    = false;
     var sdgCatalogById = null;
 
+    function buildFallbackSdgCatalog() {
+        var namesById = {
+            1: 'No Poverty',
+            2: 'Zero Hunger',
+            3: 'Good Health and Well-Being',
+            4: 'Quality Education',
+            5: 'Gender Equality',
+            6: 'Clean Water and Sanitation',
+            7: 'Affordable and Clean Energy',
+            8: 'Decent Work and Economic Growth',
+            9: 'Industry, Innovation and Infrastructure',
+            10: 'Reduced Inequalities',
+            11: 'Sustainable Cities and Communities',
+            12: 'Responsible Consumption and Production',
+            13: 'Climate Action',
+            14: 'Life Below Water',
+            15: 'Life on Land',
+            16: 'Peace, Justice and Strong Institutions',
+            17: 'Partnerships for the Goals'
+        };
+
+        var catalog = {};
+        Object.keys(namesById).forEach(function (idText) {
+            var id = parseInt(idText, 10);
+            var number = String(id).padStart(2, '0');
+            catalog[id] = {
+                id: id,
+                name: namesById[id],
+                iconWebp: '/assets/img/sdg/sdg-' + number + '.webp',
+                iconPng: '/assets/img/sdg/sdg-' + number + '.png',
+                goalUrl: 'https://sdgs.un.org/goals/goal' + id
+            };
+        });
+
+        return catalog;
+    }
+
     function parseSdgNumbers(raw) {
         if (!raw) return [];
         return String(raw)
@@ -96,26 +133,44 @@
             return Promise.resolve(sdgCatalogById);
         }
 
-        return fetch('/api/sdgs', { headers: { Accept: 'application/json' } })
-            .then(function (response) {
-                if (!response.ok) {
-                    throw new Error('Failed to load SDGs');
-                }
-                return response.json();
+        function fetchCatalog() {
+            return fetch('/api/sdgs', {
+                headers: { Accept: 'application/json' },
+                credentials: 'same-origin'
             })
-            .then(function (payload) {
-                var items = Array.isArray(payload.data) ? payload.data : [];
-                sdgCatalogById = {};
-                items.forEach(function (item) {
-                    var id = Number(item.id);
-                    if (Number.isInteger(id)) {
-                        sdgCatalogById[id] = item;
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error('Failed to load SDGs');
                     }
+                    return response.json();
+                })
+                .then(function (payload) {
+                    var items = Array.isArray(payload.data) ? payload.data : [];
+                    var catalog = {};
+                    items.forEach(function (item) {
+                        var id = Number(item.id);
+                        if (Number.isInteger(id)) {
+                            catalog[id] = item;
+                        }
+                    });
+                    if (!Object.keys(catalog).length) {
+                        throw new Error('Empty SDG catalog');
+                    }
+                    return catalog;
                 });
-                return sdgCatalogById;
+        }
+
+        return fetchCatalog()
+            .catch(function () {
+                // Retry once because some mobile browsers/extensions transiently fail first fetch.
+                return fetchCatalog();
             })
             .catch(function () {
-                sdgCatalogById = {};
+                sdgCatalogById = buildFallbackSdgCatalog();
+                return sdgCatalogById;
+            })
+            .then(function (catalog) {
+                sdgCatalogById = catalog;
                 return sdgCatalogById;
             });
     }
