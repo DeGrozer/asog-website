@@ -12,7 +12,8 @@ class Landing extends BaseController
         $postModel = new PostModel();
 
         $data = [
-            'title'              => 'DOST-CSPC ASOG TBI',
+            'title'              => 'ASOG Technology Business Incubator (ASOG-TBI) | CSPC',
+            'metaDescription'    => 'ASOG-TBI helps startups grow through incubation, mentorship, facilities, and innovation programs in Camarines Sur.',
             'isLanding'          => true,
             'heroSlides'         => $postModel->getFeaturedSlides(5),
             'featuredPost'       => $postModel->getFeatured(),

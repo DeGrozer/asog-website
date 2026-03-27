@@ -4,10 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="ASOG Technology Business Incubator">
-    <title>
-        <?= isset($title) ? $title : 'ASOG Technology Business Incubator' ?>
-    </title>
+    <?php
+    $defaultTitle = 'ASOG Technology Business Incubator | Camarines Sur Polytechnic Colleges';
+    $defaultDescription = 'ASOG Technology Business Incubator (ASOG-TBI) supports startup incubation, mentorship, programs, and innovation development in Camarines Sur.';
+
+    $pageTitle = isset($title) && $title !== '' ? $title : $defaultTitle;
+    $pageDescription = isset($metaDescription) && $metaDescription !== '' ? $metaDescription : $defaultDescription;
+    $canonicalUrl = isset($canonical) && $canonical !== '' ? $canonical : current_url();
+    $canonicalUrl = preg_replace('#^http://#i', 'https://', $canonicalUrl ?? '');
+    $canonicalUrl = preg_replace('#^https://www\.#i', 'https://', $canonicalUrl ?? '');
+    ?>
+    <meta name="description" content="<?= esc($pageDescription) ?>">
+    <link rel="canonical" href="<?= esc($canonicalUrl) ?>">
+    <meta property="og:title" content="<?= esc($pageTitle) ?>">
+    <meta property="og:description" content="<?= esc($pageDescription) ?>">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<?= esc($canonicalUrl) ?>">
+    <title><?= esc($pageTitle) ?></title>
     <!-- ================== CSS/JS  ===================== -->
     <link href="<?= base_url('style.css') ?>" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -18,7 +31,9 @@
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap"
         rel="stylesheet" />
     <!-- ================== FAVICON  ========================== -->
-    <link rel="icon" href="<?= base_url('icon.png') ?>">
+    <link rel="icon" href="<?= base_url('favicon.ico') ?>" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('icon.png') ?>">
+    <link rel="apple-touch-icon" href="<?= base_url('icon.png') ?>">
 </head>
 
 <body class="font-body bg-dark text-off overflow-x-hidden">
