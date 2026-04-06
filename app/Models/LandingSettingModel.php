@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+/**
+ * LandingSettingModel stores key-value settings for landing page sections.
+ */
+class LandingSettingModel extends Model
+{
+    public const KEY_INCUBATEES_FILTER = 'landingIncubateesCohortFilter';
+
+    protected $table            = 'landing_settings';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
+    protected $returnType       = 'array';
+    protected $useSoftDeletes   = false;
+    protected $useTimestamps    = true;
+    protected $createdField     = 'createdAt';
+    protected $updatedField     = 'updatedAt';
+
+    protected $allowedFields = [
+        'settingKey',
+        'settingValue',
+    ];
+
+    public function getValue(string $key, ?string $default = null): ?string
+    {
+        $row = $this->where('settingKey', $key)->first();
+
+        if (! is_array($row) || ! array_key_exists('settingValue', $row)) {
+            return $default;
+        }
+
+        return $row['settingValue'] !== null ? (string) $row['settingValue'] : $default;
+    }
+
+    public function setValue(string $key, ?string $value): bool
+    {
+        $existing = $this->where('settingKey', $key)->first();
+
+        if (is_array($existing) && isset($existing['id'])) {
+            return (bool) $this->update((int) $existing['id'], ['settingValue' => $value]);
+        }
+
+        return (bool) $this->insert([
+            'settingKey'   => $key,
+            'settingValue' => $value,
+        ]);
+    }
+}

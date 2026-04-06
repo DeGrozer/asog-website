@@ -1,4 +1,22 @@
 <style>
+    .lf-panel{margin-top:1rem;background:#fff;border:1px solid #eceae6;border-radius:.45rem;padding:.9rem 1rem}
+    .lf-wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:.8rem}
+    .lf-copy{display:flex;flex-direction:column;gap:.2rem;min-width:260px;flex:1}
+    .lf-kicker{font-size:.56rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#94a3b8}
+    .lf-title{font-size:.86rem;font-weight:700;color:#1e293b;line-height:1.2;margin:0}
+    .lf-desc{font-size:.72rem;line-height:1.42;color:#64748b;max-width:640px}
+    .lf-form{display:flex;flex-wrap:wrap;align-items:end;gap:.5rem}
+    .lf-field{display:flex;flex-direction:column;gap:.28rem}
+    .lf-label{font-size:.56rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8}
+    .lf-select{min-width:210px;font-size:.78rem;color:#1e293b;border:1px solid #d8dbe1;border-radius:.3rem;padding:.48rem .58rem;background:#fff}
+    .lf-select:focus{outline:none;border-color:#03558C}
+
+    @media (max-width: 740px){
+        .lf-form{width:100%}
+        .lf-field{width:100%}
+        .lf-select{width:100%;min-width:0}
+    }
+
     .toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
     .toolbar .count{font-size:.78rem;color:#94a3b8}
     .inc-tbl{width:100%;background:#fff;border:1px solid #eceae6;border-radius:.4rem;border-collapse:separate;border-spacing:0;overflow:hidden}
@@ -13,10 +31,14 @@
     .tag-live{background:#ecfdf5;color:#065f46}
     .tag-draft{background:#f1f5f9;color:#64748b}
     .tag-cohort{background:#edf5fc;color:#03558C}
-    .acts{display:flex;gap:.4rem}
-    .acts a{font-size:.72rem;color:#03558C;text-decoration:none}
-    .acts a:hover{text-decoration:underline}
-    .acts .del{color:#be123c}
+    .acts{display:flex;align-items:center;gap:.35rem}
+    .acts form{margin:0}
+    .act-btn{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:.35rem;border:1px solid #e4e2dd;background:#fff;color:#64748b;cursor:pointer;transition:all .15s;text-decoration:none}
+    .act-btn svg{width:15px;height:15px;stroke:currentColor}
+    .act-btn.edit:hover{color:#03558C;border-color:#03558C;background:#edf5fc}
+    .act-btn.delete{color:#be123c;border-color:#f5c2cd}
+    .act-btn.delete:hover{color:#be123c;border-color:#be123c;background:#fff1f2}
+    .act-btn:focus-visible{outline:2px solid #03558C;outline-offset:1px}
     .empty-row{text-align:center;padding:2rem;color:#94a3b8;font-size:.82rem}
     .empty-row a{color:#03558C;text-decoration:underline}
 
@@ -211,7 +233,7 @@ function deleteCohort(id, name) {
                 <th>Cohort</th>
                 <th>Order</th>
                 <th>Status</th>
-                <th></th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -240,10 +262,22 @@ function deleteCohort(id, name) {
                     </td>
                     <td>
                         <div class="acts">
-                            <a href="<?= site_url('admin/incubatees/' . $inc['id'] . '/edit') ?>">Edit</a>
+                            <a href="<?= site_url('admin/incubatees/' . $inc['id'] . '/edit') ?>" class="act-btn edit" title="Edit" aria-label="Edit incubatee">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 20h9"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/>
+                                </svg>
+                            </a>
                             <form action="<?= site_url('admin/incubatees/' . $inc['id'] . '/delete') ?>" method="POST" onsubmit="return confirm('Delete this incubatee?')">
                                 <?= csrf_field() ?>
-                                <button type="submit" class="del" style="background:none;border:none;cursor:pointer;font:inherit">Delete</button>
+                                <button type="submit" class="act-btn delete" title="Delete" aria-label="Delete incubatee">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 6V4h8v2"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 6l-1 14H6L5 6"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 11v6M14 11v6"/>
+                                    </svg>
+                                </button>
                             </form>
                         </div>
                     </td>
@@ -252,3 +286,28 @@ function deleteCohort(id, name) {
         </tbody>
     </table>
 <?php endif; ?>
+
+<div class="lf-panel">
+    <div class="lf-wrap">
+        <div class="lf-copy">
+            <p class="lf-kicker">Homepage Incubatees</p>
+            <h3 class="lf-title">Display Filter</h3>
+            <p class="lf-desc">Choose one cohort or all cohorts for the landing section. If the selected cohort has no published startups yet, the site shows "Will be announced soon".</p>
+        </div>
+        <form method="POST" action="<?= site_url('admin/incubatees/landing-filter') ?>" class="lf-form">
+            <?= csrf_field() ?>
+            <div class="lf-field">
+                <label class="lf-label" for="landingCohortFilter">Cohort</label>
+                <select id="landingCohortFilter" name="landingCohortFilter" class="lf-select">
+                    <option value="all" <?= ($selectedLandingFilter ?? 'all') === 'all' ? 'selected' : '' ?>>All Cohorts</option>
+                    <?php foreach (($landingFilterOptions ?? []) as $cohortName): ?>
+                        <option value="<?= esc($cohortName) ?>" <?= ($selectedLandingFilter ?? 'all') === $cohortName ? 'selected' : '' ?>>
+                            <?= esc($cohortName) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-p">Save</button>
+        </form>
+    </div>
+</div>

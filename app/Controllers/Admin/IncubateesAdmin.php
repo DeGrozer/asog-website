@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\ImageUpload;
+use App\Models\LandingSettingModel;
 
 /**
  * IncubateesAdmin — Full CRUD for the incubatees showcase.
@@ -21,16 +22,55 @@ class IncubateesAdmin extends BaseController
      */
     public function index()
     {
+        $landingSettingModel = new LandingSettingModel();
+        $selectedLandingFilter = trim((string) $landingSettingModel->getValue(
+            LandingSettingModel::KEY_INCUBATEES_FILTER,
+            'all'
+        ));
+        $activeCohortNames = $this->cohortModel->getActiveNames();
+
+        if ($selectedLandingFilter === '' || ($selectedLandingFilter !== 'all' && ! in_array($selectedLandingFilter, $activeCohortNames, true))) {
+            $selectedLandingFilter = 'all';
+        }
+
         $data = [
             'pageTitle'   => 'Incubatees',
             'activePage'  => 'incubatees',
             'incubatees'  => $this->incubateeModel->orderBy('sortOrder', 'ASC')->orderBy('createdAt', 'DESC')->findAll(),
             'cohorts'     => $this->cohortModel->getAllSorted(),
+            'landingFilterOptions' => $activeCohortNames,
+            'selectedLandingFilter' => $selectedLandingFilter,
         ];
 
         return view('admin/layout/header', $data)
              . view('admin/incubatees/index', $data)
              . view('admin/layout/footer');
+    }
+
+    public function updateLandingFilter()
+    {
+        $selected = trim((string) ($this->request->getPost('landingCohortFilter') ?? 'all'));
+
+        $allowed = ['all'];
+        foreach ($this->cohortModel->getActiveNames() as $cohortName) {
+            $allowed[] = (string) $cohortName;
+        }
+
+        if (! in_array($selected, $allowed, true)) {
+            setToast('error', 'Invalid cohort selection.');
+            return redirect()->to(site_url('admin/incubatees'));
+        }
+
+        $landingSettingModel = new LandingSettingModel();
+        if (! $landingSettingModel->setValue(LandingSettingModel::KEY_INCUBATEES_FILTER, $selected)) {
+            setToast('error', 'Unable to save landing cohort setting.');
+            return redirect()->to(site_url('admin/incubatees'));
+        }
+
+        $label = $selected === 'all' ? 'All Cohorts' : $selected;
+        setToast('success', 'Landing incubatees set to ' . $label . '.');
+
+        return redirect()->to(site_url('admin/incubatees'));
     }
 
     public function create()

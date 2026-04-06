@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\LandingSettingModel;
 use App\Models\PostModel;
 
 class Landing extends BaseController
@@ -10,6 +11,21 @@ class Landing extends BaseController
     public function index(): string
     {
         $postModel = new PostModel();
+        $landingSettingModel = new LandingSettingModel();
+
+        $cohortFilter = trim((string) $landingSettingModel->getValue(
+            LandingSettingModel::KEY_INCUBATEES_FILTER,
+            'all'
+        ));
+
+        $activeCohorts = $this->cohortModel->getActiveNames();
+        if ($cohortFilter === '' || ($cohortFilter !== 'all' && ! in_array($cohortFilter, $activeCohorts, true))) {
+            $cohortFilter = 'all';
+        }
+
+        $landingIncubatees = $cohortFilter === 'all'
+            ? $this->incubateeModel->getPublished()
+            : $this->incubateeModel->getPublishedByCohort($cohortFilter);
 
         $data = [
             'title'              => 'ASOG Technology Business Incubator (ASOG-TBI) | CSPC',
@@ -19,7 +35,8 @@ class Landing extends BaseController
             'featuredPost'       => $postModel->getFeatured(),
             'latestPosts'        => $postModel->getPublished(5),
             'featuredIncubatee'  => $this->incubateeModel->getFeatured(),
-            'incubatees'         => $this->incubateeModel->getPublished(),
+            'incubatees'         => $landingIncubatees,
+            'landingIncubateesFilter' => $cohortFilter,
         ];
 
         return view('templates/header', $data)

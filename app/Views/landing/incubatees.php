@@ -6,7 +6,20 @@
 -->
 <?php
 $all = $incubatees ?? [];
-if (empty($all)) return;
+$hasIncubatees = ! empty($all);
+
+$selectedFilter = trim((string) ($landingIncubateesFilter ?? 'all'));
+$headingMain = 'All Cohorts';
+$headingHighlight = null;
+
+if ($selectedFilter !== '' && strtolower($selectedFilter) !== 'all') {
+    if (preg_match('/^Cohort\s+(.+)$/i', $selectedFilter, $m)) {
+        $headingMain = 'Cohort';
+        $headingHighlight = trim((string) ($m[1] ?? ''));
+    } else {
+        $headingMain = $selectedFilter;
+    }
+}
 ?>
 <link rel="stylesheet" href="<?= base_url('assets/css/landingIncubatees.css') ?>">
 
@@ -21,7 +34,8 @@ if (empty($all)) return;
                     <span class="text-[.58rem] font-semibold tracking-[.2em] uppercase text-navy">Incubatees</span>
                 </div>
                 <h2 class="font-display text-3xl md:text-[2.1rem] leading-[1.12] text-dark">
-                    Cohort <em class=" text-gold">1</em>
+                    <?= esc($headingMain) ?><?php if (! empty($headingHighlight)): ?> <em
+                        class=" text-gold"><?= esc($headingHighlight) ?></em><?php endif; ?>
                 </h2>
             </div>
             <a href="<?= site_url('incubatees') ?>"
@@ -29,8 +43,9 @@ if (empty($all)) return;
                 All Incubatees →</a>
         </div>
 
-        <!-- Scrolling Logo Carousel -->
         <div class="reveal reveal-d1">
+            <?php if ($hasIncubatees): ?>
+            <!-- Scrolling Logo Carousel -->
             <div class="inc-carousel">
                 <div class="inc-track">
                     <?php for ($loop = 0; $loop < 2; $loop++): ?>
@@ -49,6 +64,19 @@ if (empty($all)) return;
                     <?php endfor; ?>
                 </div>
             </div>
+            <?php else: ?>
+            <div class="rounded-xl border border-dark/10 bg-white/80 px-6 py-10 text-center">
+                <p class="text-[.6rem] font-semibold tracking-[.14em] uppercase text-navy/70 mb-3">Coming Soon</p>
+                <h3 class="font-display text-2xl md:text-3xl leading-tight text-dark mb-3">Will be announced soon</h3>
+                <p class="text-sm md:text-base text-dark/70 max-w-[640px] mx-auto">
+                    <?php if ($selectedFilter !== '' && strtolower($selectedFilter) !== 'all'): ?>
+                    <?= esc($selectedFilter) ?> incubatees will be announced soon.
+                    <?php else: ?>
+                    New incubatees will be announced soon.
+                    <?php endif; ?>
+                </p>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
     </div>

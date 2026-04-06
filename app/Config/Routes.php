@@ -102,6 +102,7 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('incubatees', 'Admin\IncubateesAdmin::index');
     $routes->get('incubatees/create', 'Admin\IncubateesAdmin::create');
     $routes->post('incubatees', 'Admin\IncubateesAdmin::store');
+    $routes->post('incubatees/landing-filter', 'Admin\IncubateesAdmin::updateLandingFilter');
     $routes->get('incubatees/(:num)/edit', 'Admin\IncubateesAdmin::edit/$1');
     $routes->post('incubatees/(:num)/update', 'Admin\IncubateesAdmin::update/$1');
     $routes->post('incubatees/(:num)/delete', 'Admin\IncubateesAdmin::delete/$1');
