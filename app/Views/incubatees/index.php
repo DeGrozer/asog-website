@@ -98,7 +98,7 @@ $firstCohort    = $hasCohorts ? $cohorts[0]['name'] : '';
             <p class="text-dark/55 text-[.88rem] max-w-lg mx-auto leading-relaxed mb-2">
                 Incubatees for this cohort will be announced soon.
             </p>
-            <a href="<?= site_url('incubatees/apply') ?>"
+            <a href="<?= site_url('apply') ?>"
                 class="inline-block mt-6 text-[.7rem] font-bold tracking-[.14em] uppercase text-white bg-navy px-8 py-3.5 rounded-sm no-underline transition-colors hover:bg-navy/85">
                 Apply Now
             </a>
@@ -107,7 +107,7 @@ $firstCohort    = $hasCohorts ? $cohorts[0]['name'] : '';
         <?php if (! $hasCohorts): ?>
         <div class="text-center py-12 reveal">
             <p class="text-dark/35 text-[.88rem] mb-6">No cohorts have been announced yet.</p>
-            <a href="<?= site_url('incubatees/apply') ?>"
+            <a href="<?= site_url('apply') ?>"
                 class="inline-block text-[.7rem] font-bold tracking-[.14em] uppercase text-white bg-navy px-8 py-3.5 rounded-sm no-underline transition-colors hover:bg-navy/85">
                 Apply Now
             </a>
@@ -177,121 +177,8 @@ $firstCohort    = $hasCohorts ? $cohorts[0]['name'] : '';
     </div>
 </div>
 
-<!-- Incubatee data (all cohorts combined) -->
-<script>
-window.__ibData = <?= json_encode(array_map(function($inc){
-        $contacts = [];
-        if (! empty($inc['contactDetails'])) {
-            $decodedContacts = json_decode((string) $inc['contactDetails'], true);
-            if (is_array($decodedContacts)) {
-                foreach ($decodedContacts as $contact) {
-                    if (! is_array($contact)) {
-                        continue;
-                    }
-                    $contacts[] = [
-                        'person' => html_entity_decode($contact['person'] ?? $contact['name'] ?? '', ENT_QUOTES, 'UTF-8'),
-                        'number' => html_entity_decode($contact['number'] ?? $contact['phone'] ?? '', ENT_QUOTES, 'UTF-8'),
-                        'email'  => html_entity_decode($contact['email'] ?? '', ENT_QUOTES, 'UTF-8'),
-                    ];
-                }
-            }
-        }
-
-        if (empty($contacts)) {
-            $legacyPerson = html_entity_decode($inc['contactName'] ?? '', ENT_QUOTES, 'UTF-8');
-            $legacyNumber = html_entity_decode($inc['contactNumber'] ?? '', ENT_QUOTES, 'UTF-8');
-            $legacyEmail  = html_entity_decode($inc['contactEmail'] ?? '', ENT_QUOTES, 'UTF-8');
-            if ($legacyPerson !== '' || $legacyNumber !== '' || $legacyEmail !== '') {
-                $contacts[] = [
-                    'person' => $legacyPerson,
-                    'number' => $legacyNumber,
-                    'email'  => $legacyEmail,
-                ];
-            }
-        }
-
-        return [
-            'companyName'      => html_entity_decode($inc['companyName'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'shortDescription' => html_entity_decode($inc['shortDescription'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'content'          => $inc['content'] ?? '',
-            'sdgNumbers'       => html_entity_decode($inc['sdgNumbers'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'logoPath'         => ! empty($inc['logoPath']) ? base_url($inc['logoPath']) : '',
-            'logoWhitePath'    => ! empty($inc['logoWhitePath']) ? base_url($inc['logoWhitePath']) : '',
-            'websiteUrl'       => html_entity_decode($inc['websiteUrl'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'facebookUrl'      => html_entity_decode($inc['facebookUrl'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'contactDetails'   => html_entity_decode($inc['contactDetails'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'contactName'      => html_entity_decode($inc['contactName'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'contactNumber'    => html_entity_decode($inc['contactNumber'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'contactEmail'     => html_entity_decode($inc['contactEmail'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'contacts'         => $contacts,
-            'cohort'           => html_entity_decode($inc['cohort'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'teamMembers'      => array_map(static function ($m) {
-                return [
-                    'name'  => html_entity_decode($m['name'] ?? '', ENT_QUOTES, 'UTF-8'),
-                    'role'  => html_entity_decode($m['role'] ?? '', ENT_QUOTES, 'UTF-8'),
-                    'photo' => ! empty($m['photo']) ? base_url($m['photo']) : '',
-                ];
-            }, ! empty($inc['teamMembers']) ? (json_decode($inc['teamMembers'], true) ?: []) : []),
-        ];
-    }, $allIncubatees), JSON_HEX_TAG | JSON_HEX_APOS) ?>;
-</script>
-<script src="<?= base_url('assets/js/incubatees.js') ?>"></script>
-
-<!-- Cohort Tab Switching -->
-<script>
-(function() {
-    var tabs = document.querySelectorAll('.ib-tab');
-    var cards = document.querySelectorAll('#ibStack .ib-card');
-    var stack = document.getElementById('ibStack');
-    var coming = document.getElementById('ibComingSoon');
-    var csLbl = document.getElementById('ibCSLabel');
-    var cntLbl = document.getElementById('ibCountLabel');
-
-    if (!tabs.length) return;
-
-    tabs.forEach(function(tab) {
-        tab.addEventListener('click', function() {
-            tabs.forEach(function(t) {
-                t.classList.remove('is-active');
-            });
-            tab.classList.add('is-active');
-
-            var cohort = tab.dataset.cohort;
-            var visible = 0;
-
-            cards.forEach(function(card) {
-                if (card.dataset.cohort === cohort) {
-                    card.style.display = '';
-                    visible++;
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-
-            if (visible === 0) {
-                if (stack) stack.style.display = 'none';
-                if (coming) coming.style.display = '';
-                if (csLbl) csLbl.textContent = cohort;
-                if (cntLbl) cntLbl.textContent = 'Interested in joining ASOG-TBI?';
-            } else {
-                if (stack) stack.style.display = '';
-                if (coming) coming.style.display = 'none';
-                if (cntLbl) cntLbl.textContent = visible + ' incubatee' + (visible !== 1 ? 's' :
-                    '') + ' in ' + cohort;
-
-                if (typeof gsap !== 'undefined') {
-                    gsap.from('#ibStack .ib-card:not([style*="display: none"])', {
-                        opacity: 0,
-                        y: 25,
-                        scale: .94,
-                        duration: .35,
-                        stagger: .05,
-                        ease: 'power2.out'
-                    });
-                }
-            }
-        });
-    });
-})();
-</script>
+<script src="<?= base_url('assets/js/incubateesLoader.js') ?>" defer
+    data-api-url="<?= site_url('api/incubatees') ?>"
+    data-app-script="<?= base_url('assets/js/incubatees.js') ?>"></script>
+<script src="<?= base_url('assets/js/incubateesCohortTabs.js') ?>" defer></script>
 <?php endif; ?>

@@ -28,11 +28,26 @@
 
     function syncStackHeights() {
         if (titleWrap && hls.length) {
-            var titleMax = 0;
-            hls.forEach(function (el) {
-                titleMax = Math.max(titleMax, el.scrollHeight || 0);
-            });
-            if (titleMax > 0) titleWrap.style.minHeight = Math.ceil(titleMax) + 'px';
+            var activeTitle = hls[cur] || hls.find(function (el) {
+                return el && el.classList && el.classList.contains('active');
+            }) || hls[0];
+
+            var activeTitleHeight = activeTitle ? Math.ceil(activeTitle.scrollHeight || 0) : 0;
+            if (activeTitleHeight > 0) {
+                titleWrap.style.minHeight = activeTitleHeight + 'px';
+            }
+
+            if (hero) {
+                hero.classList.remove('hero-title-short');
+                if (activeTitle && !mobileRectQuery.matches) {
+                    var style = window.getComputedStyle(activeTitle);
+                    var lineHeight = parseFloat(style.lineHeight) || 0;
+                    var visualLines = lineHeight > 0 ? (activeTitleHeight / lineHeight) : 2;
+                    if (visualLines <= 1.45) {
+                        hero.classList.add('hero-title-short');
+                    }
+                }
+            }
         }
 
         if (descWrap && descs.length) {

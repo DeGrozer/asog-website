@@ -50,7 +50,7 @@
             <div class="ft-col">
                 <h4 class="ft-heading">Get Involved</h4>
                 <ul class="ft-links">
-                    <li><a href="<?= site_url('incubatees/apply') ?>">Apply as Incubatee</a></li>
+                    <li><a href="<?= site_url('apply') ?>">Apply as Incubatee</a></li>
                     <li><a href="<?= site_url('organization') ?>">Organization</a></li>
                     <li><a href="<?= site_url('contact') ?>">Contact Us</a></li>
                 </ul>

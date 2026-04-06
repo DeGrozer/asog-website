@@ -109,10 +109,12 @@ class Filters extends BaseFilters
         'honeypot' => [
             'before' => [
                 'contact/send',
+                'apply/form',
                 'incubatees/apply/form',
             ],
             'after' => [
                 'contact',
+                'apply/form',
                 'incubatees/apply/form',
             ],
         ],

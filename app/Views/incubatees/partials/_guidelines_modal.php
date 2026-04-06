@@ -2,6 +2,8 @@
      ║  CALL FOR STARTUPS GUIDELINES MODAL — Reusable partial               ║
      ║  Include with: view('incubatees/partials/_guidelines_modal')         ║
      ╚══════════════════════════════════════════════════════════════════════╝ -->
+<link rel="stylesheet" href="<?= base_url('assets/css/guidelinesModal.css') ?>">
+
 <div id="guidelinesModal"
     class="fixed inset-0 z-[9998] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
     <!-- Backdrop -->
@@ -222,53 +224,4 @@
     </div>
 </div>
 
-<!-- Custom scrollbar for guidelines modal -->
-<style>
-.guidelines-scroll::-webkit-scrollbar { width: 6px }
-.guidelines-scroll::-webkit-scrollbar-track { background: #F8F6F2; border-radius: 3px }
-.guidelines-scroll::-webkit-scrollbar-thumb { background: rgba(3,85,140,.18); border-radius: 3px }
-.guidelines-scroll::-webkit-scrollbar-thumb:hover { background: rgba(3,85,140,.35) }
-.guidelines-scroll { scrollbar-width: thin; scrollbar-color: rgba(3,85,140,.18) #F8F6F2 }
-</style>
-
-<!-- Guidelines Modal Script -->
-<script>
-(function(){
-    const modal = document.getElementById('guidelinesModal');
-    const body  = document.getElementById('guidelinesBody');
-    if (!modal || !body) return;
-
-    function esc(e){ if(e.key === 'Escape') closeGuidelines(); }
-
-    function openGuidelines(){
-        modal.classList.remove('opacity-0','pointer-events-none');
-        body.classList.remove('scale-95');
-        body.classList.add('scale-100');
-        document.body.style.overflow = 'hidden';
-        document.addEventListener('keydown', esc);
-    }
-
-    function closeGuidelines(){
-        modal.classList.add('opacity-0','pointer-events-none');
-        body.classList.remove('scale-100');
-        body.classList.add('scale-95');
-        document.body.style.overflow = '';
-        document.removeEventListener('keydown', esc);
-    }
-
-    // All "open guidelines" triggers
-    document.querySelectorAll('[data-open-guidelines]').forEach(function(btn){
-        btn.addEventListener('click', function(e){
-            e.preventDefault();
-            openGuidelines();
-        });
-    });
-
-    // Close buttons
-    document.getElementById('btnCloseGuidelines')?.addEventListener('click', closeGuidelines);
-    document.getElementById('guidelinesBackdrop')?.addEventListener('click', closeGuidelines);
-
-    // Expose globally so other pages can trigger it
-    window.openGuidelines = openGuidelines;
-})();
-</script>
+<script src="<?= base_url('assets/js/guidelinesModal.js') ?>" defer></script>

@@ -30,6 +30,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap"
         rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- ================== FAVICON  ========================== -->
     <link rel="icon" href="<?= base_url('favicon.ico') ?>" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('icon.png') ?>">
@@ -49,7 +52,7 @@
     $navNews       = site_url('news');
     $navOrg        = site_url('organization');
     $navContact    = site_url('contact');
-    $navCta        = site_url('incubatees/apply');
+    $navCta        = site_url('apply');
     $navCohorts    = $navCohorts ?? [];
 
     $uri = service('uri');
@@ -61,7 +64,7 @@
 
     $isAbout         = $seg1 === 'about';
     $isProgramsGroup = in_array($seg1, ['programs', 'services', 'facilities'], true);
-    $isIncubatees    = $seg1 === 'incubatees';
+    $isIncubatees    = in_array($seg1, ['incubatees', 'apply'], true);
     $isNews          = $seg1 === 'news';
     $isNewsDetail    = preg_match('#(?:^|/)news/[^/]+$#', $uriPath) === 1;
     $isContact       = $seg1 === 'contact';
@@ -70,7 +73,7 @@
     $isLandingPage   = ! empty($isLanding);
 
     // $forceWhiteLogoPages = in_array($seg1, ['about', 'programs', 'services', 'facilities', 'news', 'organization', 'contact'], true)
-    //     || str_starts_with($uriPath, 'incubatees/apply');
+    //     || str_starts_with($uriPath, 'apply');
 
     $activeClass = static fn(bool $isActive): string => $isActive ? ' is-active' : '';
     ?>

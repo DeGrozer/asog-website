@@ -12,8 +12,8 @@
             $errs = session('errors') ?? [];
         ?>
 
-        <form action="<?= site_url('incubatees/apply/form') ?>" method="post" enctype="multipart/form-data"
-            data-check-url="<?= site_url('incubatees/apply/form/check-email') ?>">
+        <form action="<?= site_url('apply/form') ?>" method="post" enctype="multipart/form-data"
+            data-check-url="<?= site_url('apply/form/check-email') ?>">
             <?= csrf_field() ?>
 
             <!-- ═══════════════════════════════════════════════════════
@@ -295,7 +295,7 @@
         </form>
 
         <div class="mt-8 text-center">
-            <a href="<?= site_url('incubatees/apply') ?>"
+            <a href="<?= site_url('apply') ?>"
                 class="text-[.6rem] font-semibold tracking-[.13em] uppercase text-dark/35 no-underline hover:text-gold transition-colors duration-200">
                 ← Back to Be an Incubatee
             </a>

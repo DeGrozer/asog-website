@@ -4,6 +4,15 @@
      ╚══════════════════════════════════════════════════════════════════════╝ -->
 <section id="news" class="relative overflow-hidden bg-off py-16 md:py-24 px-6 md:px-10 lg:px-14">
     <div class="max-w-[1200px] mx-auto relative z-[2]">
+        <?php
+        $newsExcerpt = static function (?string $text, int $limit): string {
+            $decoded = html_entity_decode((string) ($text ?? ''), ENT_QUOTES, 'UTF-8');
+            $plain = trim(strip_tags($decoded));
+
+            return character_limiter($plain, $limit, '...');
+        };
+        ?>
+
         <!-- Header -->
         <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-4 mb-10 md:mb-12 reveal">
             <div>
@@ -40,7 +49,7 @@
                         </span>
                         <h3 class="font-display text-[1.2rem] md:text-[1.35rem] text-dark leading-snug mb-2"><?= esc($featured['title']) ?></h3>
                         <?php if (! empty($featured['shortDescription'])): ?>
-                            <p class="text-[.8rem] font-light leading-[1.75] text-black"><?= esc(character_limiter($featured['shortDescription'], 150)) ?></p>
+                            <p class="text-[.8rem] font-light leading-[1.75] text-black"><?= esc($newsExcerpt($featured['shortDescription'], 150)) ?></p>
                         <?php endif; ?>
                     </div>
                 </a>
@@ -57,7 +66,7 @@
                                     </span>
                                     <h3 class="font-display text-[.95rem] text-dark leading-snug mb-1"><?= esc($post['title']) ?></h3>
                                     <?php if (! empty($post['shortDescription'])): ?>
-                                        <p class="text-[.74rem] font-light leading-[1.65] text-black line-clamp-2"><?= esc(character_limiter($post['shortDescription'], 90)) ?></p>
+                                        <p class="text-[.74rem] font-light leading-[1.65] text-black line-clamp-2"><?= esc($newsExcerpt($post['shortDescription'], 90)) ?></p>
                                     <?php endif; ?>
                                 </div>
                                 <div class="w-[100px] h-[78px] shrink-0 bg-[#e5e2dc] overflow-hidden">

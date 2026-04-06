@@ -1,8 +1,8 @@
 ﻿/* =====================================================================
    ALTITUDE 3D — Wilderness-Zoom Transition + Three.js Mountain
    ===================================================================== */
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import * as THREE from 'https://esm.sh/three@0.170.0';
+import { OrbitControls } from 'https://esm.sh/three@0.170.0/examples/jsm/controls/OrbitControls.js';
 
 /* =============================================================
    DOM REFS

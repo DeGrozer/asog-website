@@ -54,32 +54,42 @@
             $encodedTitle = rawurlencode($shareTitle);
         ?>
         <?php if ($showStoryShare): ?>
-        <div class="mt-10 rounded-lg border border-dark/[.08] bg-white p-4 md:p-5">
+        <div id="storyShareBox" class="mt-10 rounded-lg border border-dark/[.08] bg-white p-4 md:p-5"
+            data-share-url="<?= esc($shareUrl, 'attr') ?>"
+            data-share-title="<?= esc($shareTitle, 'attr') ?>">
             <div class="text-[.56rem] font-semibold tracking-[.16em] uppercase text-dark/45 mb-3">Share This Story</div>
             <div class="flex flex-wrap items-center gap-2.5">
                 <a href="https://www.facebook.com/sharer/sharer.php?u=<?= $encodedUrl ?>" target="_blank" rel="noopener noreferrer"
-                    class="inline-flex items-center rounded-sm border border-dark/[.16] px-3 py-2 text-[.58rem] font-semibold tracking-[.08em] uppercase no-underline text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
-                    Facebook
+                    aria-label="Share on Facebook" title="Share on Facebook"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-dark/[.16] text-[.9rem] no-underline text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
+                    <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
                 </a>
                 <a href="https://wa.me/?text=<?= $encodedTitle . '%20' . $encodedUrl ?>" target="_blank" rel="noopener noreferrer"
-                    class="inline-flex items-center rounded-sm border border-dark/[.16] px-3 py-2 text-[.58rem] font-semibold tracking-[.08em] uppercase no-underline text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
-                    WhatsApp
+                    aria-label="Share on WhatsApp" title="Share on WhatsApp"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-dark/[.16] text-[.9rem] no-underline text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
+                    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
                 </a>
                 <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?= $encodedUrl ?>" target="_blank" rel="noopener noreferrer"
-                    class="inline-flex items-center rounded-sm border border-dark/[.16] px-3 py-2 text-[.58rem] font-semibold tracking-[.08em] uppercase no-underline text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
-                    LinkedIn
+                    aria-label="Share on LinkedIn" title="Share on LinkedIn"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-dark/[.16] text-[.9rem] no-underline text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
+                    <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
                 </a>
                 <a href="https://x.com/intent/tweet?url=<?= $encodedUrl ?>&text=<?= $encodedTitle ?>" target="_blank" rel="noopener noreferrer"
-                    class="inline-flex items-center rounded-sm border border-dark/[.16] px-3 py-2 text-[.58rem] font-semibold tracking-[.08em] uppercase no-underline text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
-                    X
+                    aria-label="Share on X" title="Share on X"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-dark/[.16] text-[.9rem] no-underline text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
+                    <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
                 </a>
                 <button type="button" id="copyStoryLink"
-                    class="inline-flex items-center rounded-sm border border-dark/[.16] px-3 py-2 text-[.58rem] font-semibold tracking-[.08em] uppercase text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
-                    Copy Link
+                    aria-label="Copy story link" title="Copy story link"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-dark/[.16] text-[.9rem] text-dark/70 transition-colors hover:text-dark hover:border-dark/35">
+                    <i class="fa-solid fa-link" aria-hidden="true"></i>
+                    <span class="sr-only">Copy Link</span>
                 </button>
                 <button type="button" id="nativeStoryShare"
-                    class="inline-flex items-center rounded-sm border border-dark/[.16] px-3 py-2 text-[.58rem] font-semibold tracking-[.08em] uppercase text-dark/70 transition-colors hover:text-dark hover:border-dark/35 hidden">
-                    Share
+                    aria-label="Share using device" title="Share using device"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-sm border border-dark/[.16] text-[.9rem] text-dark/70 transition-colors hover:text-dark hover:border-dark/35 hidden">
+                    <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
+                    <span class="sr-only">Share</span>
                 </button>
             </div>
         </div>
@@ -126,46 +136,6 @@
 </section>
 
 <?php if ($showStoryShare): ?>
-<script>
-(() => {
-    const copyBtn = document.getElementById('copyStoryLink');
-    const nativeBtn = document.getElementById('nativeStoryShare');
-    const shareUrl = <?= json_encode($shareUrl) ?>;
-    const shareTitle = <?= json_encode($shareTitle) ?>;
-
-    if (nativeBtn && navigator.share) {
-        nativeBtn.classList.remove('hidden');
-        nativeBtn.addEventListener('click', async () => {
-            try {
-                await navigator.share({ title: shareTitle, url: shareUrl });
-            } catch (err) {
-                // Ignore cancellation errors from native share sheets.
-            }
-        });
-    }
-
-    if (copyBtn) {
-        copyBtn.addEventListener('click', async () => {
-            try {
-                await navigator.clipboard.writeText(shareUrl);
-                copyBtn.textContent = 'Copied';
-                setTimeout(() => { copyBtn.textContent = 'Copy Link'; }, 1400);
-            } catch (err) {
-                const temp = document.createElement('textarea');
-                temp.value = shareUrl;
-                temp.setAttribute('readonly', '');
-                temp.style.position = 'absolute';
-                temp.style.left = '-9999px';
-                document.body.appendChild(temp);
-                temp.select();
-                document.execCommand('copy');
-                document.body.removeChild(temp);
-                copyBtn.textContent = 'Copied';
-                setTimeout(() => { copyBtn.textContent = 'Copy Link'; }, 1400);
-            }
-        });
-    }
-})();
-</script>
+<script src="<?= base_url('assets/js/newsDetailShare.js') ?>" defer></script>
 <?php endif; ?>
 

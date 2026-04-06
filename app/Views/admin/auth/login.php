@@ -113,6 +113,59 @@
         border-color: #03558C
     }
 
+    .pass-wrap {
+        position: relative;
+    }
+
+    .pass-wrap input {
+        padding-right: 2.4rem;
+    }
+
+    .pass-toggle {
+        position: absolute;
+        right: .55rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1.55rem;
+        height: 1.55rem;
+        border: none;
+        background: transparent;
+        color: #94a3b8;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: .2rem;
+        transition: color .15s, background .15s;
+    }
+
+    .pass-toggle:hover {
+        color: #03558C;
+        background: #f1f5f9;
+    }
+
+    .pass-toggle:focus-visible {
+        outline: 2px solid #03558C;
+        outline-offset: 1px;
+    }
+
+    .pass-toggle svg {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .pass-toggle .icon-eye-off {
+        display: none;
+    }
+
+    .pass-toggle.is-visible .icon-eye {
+        display: none;
+    }
+
+    .pass-toggle.is-visible .icon-eye-off {
+        display: block;
+    }
+
     .btn {
         width: 100%;
         font-family: inherit;
@@ -181,7 +234,24 @@
 
                 <div class="field">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
+                    <div class="pass-wrap">
+                        <input type="password" id="password" name="password" required>
+                        <button type="button" class="pass-toggle" id="togglePassword"
+                            aria-label="Show password" aria-controls="password" aria-pressed="false">
+                            <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a21.77 21.77 0 0 1 5.06-6.94"></path>
+                                <path d="M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 7 11 7a21.77 21.77 0 0 1-2.16 3.19"></path>
+                                <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"></path>
+                                <path d="M1 1l22 22"></path>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn">Sign in</button>
@@ -190,6 +260,22 @@
             <a href="<?= site_url('/') ?>" class="back">&larr; Back to website</a>
         </div>
     </div>
+
+    <script>
+    (function() {
+        var toggle = document.getElementById('togglePassword');
+        var input = document.getElementById('password');
+        if (!toggle || !input) return;
+
+        toggle.addEventListener('click', function() {
+            var show = input.type === 'password';
+            input.type = show ? 'text' : 'password';
+            toggle.classList.toggle('is-visible', show);
+            toggle.setAttribute('aria-pressed', show ? 'true' : 'false');
+            toggle.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        });
+    })();
+    </script>
 
 </body>
 

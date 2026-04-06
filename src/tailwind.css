@@ -413,6 +413,31 @@
     max-width: min(960px, 100%);
     overflow: hidden;
   }
+
+  @media (min-width: 768px) {
+    #hero .hero-read-wrap {
+      height: 1.55rem;
+      margin-bottom: .1rem;
+    }
+
+    #hero.hero-title-short .hero-kicker {
+      margin-bottom: .95rem;
+    }
+
+    #hero.hero-title-short #heroTitleWrap {
+      margin-bottom: .2rem;
+    }
+
+    #hero.hero-title-short .hero-read-wrap {
+      height: 1.25rem;
+      margin-bottom: 0;
+    }
+
+    #hero.hero-title-short .hero-actions {
+      gap: .15rem;
+    }
+  }
+
   .hl-desc.active {
     opacity: 1;
     transform: translateY(0);

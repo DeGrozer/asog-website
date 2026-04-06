@@ -29,11 +29,17 @@ $routes->get('/services', 'Programs::services');
 $routes->get('/facilities', 'Facilities::index');
 $routes->get('/incubatees', 'Incubatees::index');
 $routes->get('/incubatees/cohort-(:num)', 'Incubatees::cohort/$1');
-$routes->get('/incubatees/apply', 'Incubatees::apply');
-$routes->get('/incubatees/apply/form', 'Incubatees::applyForm');
-$routes->post('/incubatees/apply/form', 'Incubatees::applyFormStore');
-$routes->get('/incubatees/apply/form/check-email', 'Incubatees::checkEmail');
-$routes->get('/incubatees/apply/form/thank-you', 'Incubatees::applyFormThankYou');
+$routes->get('/apply', 'Incubatees::apply');
+$routes->get('/apply/form', 'Incubatees::applyForm');
+$routes->post('/apply/form', 'Incubatees::applyFormStore');
+$routes->get('/apply/form/check-email', 'Incubatees::checkEmail');
+$routes->get('/apply/form/thank-you', 'Incubatees::applyFormThankYou');
+
+// Legacy apply paths: keep working but redirect to canonical /apply URLs
+$routes->addRedirect('/incubatees/apply', '/apply', 301);
+$routes->addRedirect('/incubatees/apply/form', '/apply/form', 301);
+$routes->addRedirect('/incubatees/apply/form/check-email', '/apply/form/check-email', 301);
+$routes->addRedirect('/incubatees/apply/form/thank-you', '/apply/form/thank-you', 301);
 $routes->get('/news', 'News::index');
 $routes->get('/news/(:segment)', 'News::show/$1');
 $routes->get('/organization', 'Organization::index');
@@ -42,6 +48,7 @@ $routes->post('/contact/send', 'Contact::send');
 
 // Lightweight API endpoints used by frontend components
 $routes->get('/api/sdgs', 'Api\Sdgs::index');
+$routes->get('/api/incubatees', 'Api\Incubatees::index');
 
 /*
  * ────────────────────────────────────────────────────────────────────────────

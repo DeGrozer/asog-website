@@ -8,5 +8,5 @@
     </div>
     <h3>Incubatees Coming Soon</h3>
     <p>Our first cohort will be featured here once the program kicks off.</p>
-    <a href="<?= site_url('incubatees/apply') ?>" class="ib-apply" style="border:none">Apply to the Program →</a>
+    <a href="<?= site_url('apply') ?>" class="ib-apply" style="border:none">Apply to the Program →</a>
 </div>

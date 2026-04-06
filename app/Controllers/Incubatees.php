@@ -176,7 +176,7 @@ class Incubatees extends BaseController
             // Send a copy of their responses via email
             $this->sendConfirmationEmail($data);
 
-            return redirect()->to(site_url('incubatees/apply/form/thank-you'))
+            return redirect()->to(site_url('apply/form/thank-you'))
                 ->with('success', 'Your application has been submitted successfully!');
         }
 
@@ -225,7 +225,7 @@ class Incubatees extends BaseController
 
     /**
      * AJAX endpoint — check if an applicant email already exists in the DB.
-     * GET /incubatees/apply/form/check-email?email=...
+    * GET /apply/form/check-email?email=...
      */
     public function checkEmail(): \CodeIgniter\HTTP\ResponseInterface
     {

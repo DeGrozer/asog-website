@@ -6,7 +6,7 @@
     $ctaTitle       = 'Ready to Build your <em class="italic text-gold">business</em> with us?';
     $ctaDesc        = 'Apply to the ASOG TBI incubation program and get access to state-of-the-art facilities, mentorship, and funding opportunities.';
     $ctaBtnText     = 'Be an Incubatee';
-    $ctaBtnUrl      = site_url('incubatees/apply');
+    $ctaBtnUrl      = site_url('apply');
     $ctaSecText     = 'Explore Our Program';
     $ctaSecUrl      = site_url('programs');
 ?>
