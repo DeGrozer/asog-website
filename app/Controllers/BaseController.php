@@ -6,6 +6,7 @@ use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Config\Database;
 
 // Eto yung models
 use App\Models\PostModel;
@@ -38,6 +39,7 @@ abstract class BaseController extends Controller
     protected $contactModel;
     protected $adminModel;
     protected $cohortModel;
+    protected $db;
 
     /**
      * @return void
@@ -53,6 +55,7 @@ abstract class BaseController extends Controller
         $this->contactModel     = new ContactMessageModel();
         $this->adminModel       = new AdminModel();
         $this->cohortModel      = new CohortModel();
+        $this->db               = Database::connect();
 
         // Share cohort list globally so header nav can render dynamic dropdowns
         $renderer = \Config\Services::renderer();

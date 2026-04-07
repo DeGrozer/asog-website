@@ -73,6 +73,47 @@ class IncubateesAdmin extends BaseController
         return redirect()->to(site_url('admin/incubatees'));
     }
 
+    /**
+     * Persist the current incubatee order after drag-and-drop reordering.
+     */
+    public function saveOrder()
+    {
+        $orderedIds = $this->request->getPost('order');
+
+        if (! is_array($orderedIds) || $orderedIds === []) {
+            return $this->response->setJSON([
+                'ok' => false,
+                'error' => 'No incubatee order received.',
+            ]);
+        }
+
+        $this->db->transStart();
+
+        foreach (array_values($orderedIds) as $index => $id) {
+            $incubateeId = (int) $id;
+            if ($incubateeId <= 0) {
+                continue;
+            }
+
+            $this->db->table('incubatees')
+                ->where('id', $incubateeId)
+                ->update(['sortOrder' => $index + 1]);
+        }
+
+        $this->db->transComplete();
+
+        if (! $this->db->transStatus()) {
+            return $this->response->setJSON([
+                'ok' => false,
+                'error' => 'Unable to save the new order.',
+            ]);
+        }
+
+        return $this->response->setJSON([
+            'ok' => true,
+        ]);
+    }
+
     public function create()
     {
         $data = [
@@ -374,8 +415,7 @@ class IncubateesAdmin extends BaseController
 
         // Use a clean DB builder for the update to avoid any residual
         // query-builder state from find() or generateSlug().
-        $db = \Config\Database::connect();
-        $ok = $db->table('incubatees')->where('id', $id)->update($data);
+        $ok = $this->db->table('incubatees')->where('id', $id)->update($data);
 
         if (! $ok) {
             setToast('error', 'Update failed. Please try again.');
