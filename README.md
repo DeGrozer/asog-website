@@ -32,6 +32,88 @@ to your `app` folder. The affected files can be copied or merged from
 Copy `env` to `.env` and tailor for your app, specifically the baseURL
 and any database settings.
 
+## Google Login for Admin
+
+1. Install dependencies:
+   - Run `composer install` (or `composer update` if already installed).
+2. In Google Cloud Console:
+   - Create an OAuth 2.0 Client ID (Web application).
+   - Add Authorized redirect URI:
+     - `http://localhost:8080/asog-admin/google/callback`
+     - `https://asogtbi.com/asog-admin/google/callback`
+3. In your `.env`, set:
+   - `googleOAuthClientId="YOUR_GOOGLE_CLIENT_ID"`
+   - `googleOAuthClientSecret="YOUR_GOOGLE_CLIENT_SECRET"`
+   - Optional domain restriction (comma-separated):
+     - `googleOAuthAllowedDomains="gmail.com,example.edu.ph"`
+   - Use `app.baseURL = 'http://localhost:8080/'` for local testing and `app.baseURL = 'https://asogtbi.com/'` on Hostinger.
+4. Authorization rule:
+   - Only Google accounts with verified email that already exist as active records in the `admins` table can sign in.
+
+## Google Admin Authorization Schema
+
+The `admins` table now supports explicit Google account linking:
+
+- `googleEmail` - the Google account email allowed to sign in.
+- `googleSub` - the stable Google account identifier returned by OAuth.
+
+For existing installs, run the new migration and then set these values for the admin row you want to authorize.
+
+### Manage Admin Google Authorization
+
+#### Via Admin Dashboard
+1. Go to **Admins** menu in the admin panel.
+2. Click **Edit** on an admin account.
+3. Enter the Google email address and optionally the Google Sub ID.
+4. Save changes.
+
+#### Via Direct SQL
+
+**Authorize an admin to use Google OAuth:**
+```sql
+UPDATE admins 
+SET googleEmail = 'admin@gmail.com' 
+WHERE email = 'admin@yourdomain.com';
+```
+
+**Authorize with both email and stable Google Sub ID (more secure):**
+```sql
+UPDATE admins 
+SET 
+  googleEmail = 'admin@gmail.com',
+  googleSub = '1234567890123456789'
+WHERE email = 'admin@yourdomain.com';
+```
+
+**Remove Google authorization from an admin:**
+```sql
+UPDATE admins 
+SET googleEmail = NULL, googleSub = NULL 
+WHERE email = 'admin@yourdomain.com';
+```
+
+**List all admins and their Google authorization status:**
+```sql
+SELECT id, fullName, email, googleEmail, googleSub, isActive, lastLoginAt 
+FROM admins 
+ORDER BY createdAt DESC;
+```
+
+**Deactivate an admin account:**
+```sql
+UPDATE admins 
+SET isActive = 0 
+WHERE email = 'admin@yourdomain.com';
+```
+
+### Finding Your Google Account Sub ID
+
+To find your Google account's stable **Sub ID**:
+1. Sign in to your app using Google OAuth.
+2. Check the application logs or error output for the OAuth token details.
+3. The `sub` claim in the token is your Google Sub ID.
+4. Alternatively, you can leave it blank and just use `googleEmail` for simpler setups.
+
 ## Important Change with index.php
 
 `index.php` is no longer in the root of the project! It has been moved inside the *public* folder,

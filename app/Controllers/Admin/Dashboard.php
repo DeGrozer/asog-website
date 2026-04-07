@@ -31,6 +31,8 @@ class Dashboard extends BaseController
             'rejectedApps'    => $appCounts['rejected'],
             'recentApps'      => $this->applicationModel->getAll(5),
             'unreadMessages'  => $this->contactModel->countUnread(),
+            'recentIncubatees'=> $this->incubateeModel->orderBy('createdAt', 'DESC')->findAll(5),
+            'recentAdmins'    => $this->adminModel->orderBy('createdAt', 'DESC')->findAll(5),
         ];
 
         return view('admin/layout/header', $data)

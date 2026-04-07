@@ -18,6 +18,8 @@ class AdminModel extends Model
     protected $allowedFields = [
         'fullName',
         'email',
+        'googleEmail',
+        'googleSub',
         'password',
         'role',
         'isActive',
@@ -97,5 +99,54 @@ class AdminModel extends Model
     public function findByEmail(string $email): ?array
     {
         return $this->where('email', $email)->first();
+    }
+
+    /**
+     * Find the admin authorized for a given Google account.
+     *
+     * Prefers the stable Google subject/id, then falls back to the email.
+     */
+    public function findByGoogleAccount(string $email, string $googleSub = ''): ?array
+    {
+        $email = strtolower(trim($email));
+        $googleSub = trim($googleSub);
+
+        $builder = $this->where('isActive', 1);
+
+        if ($googleSub !== '') {
+            return $builder
+                ->groupStart()
+                    ->where('googleSub', $googleSub)
+                    ->orWhere('googleEmail', $email)
+                    ->orWhere('email', $email)
+                ->groupEnd()
+                ->first();
+        }
+
+        return $builder
+            ->groupStart()
+                ->where('googleEmail', $email)
+                ->orWhere('email', $email)
+            ->groupEnd()
+            ->first();
+    }
+
+    /**
+     * Returns true when an email is already used by another admin.
+     */
+    public function isEmailTaken(string $email, ?int $excludeId = null): bool
+    {
+        $email = strtolower(trim($email));
+        if ($email === '') {
+            return false;
+        }
+
+        $builder = $this->builder()->where('LOWER(email)', $email);
+
+        if ($excludeId !== null && $excludeId > 0) {
+            $builder->where('id !=', $excludeId);
+        }
+
+        return $builder->countAllResults() > 0;
     }
 }

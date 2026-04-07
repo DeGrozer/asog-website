@@ -103,28 +103,6 @@
         justify-content: center;
     }
 
-    /* ── Kicker ─────────────────────────────────────────── */
-    .kicker {
-        display: inline-flex;
-        align-items: center;
-        gap: .45rem;
-        margin-bottom: .9rem;
-        font-size: .62rem;
-        letter-spacing: .18em;
-        text-transform: uppercase;
-        font-weight: 700;
-        color: var(--asog-navy);
-    }
-
-    .kicker::before {
-        content: '';
-        display: inline-block;
-        width: 18px;
-        height: 2px;
-        border-radius: 1px;
-        background: var(--asog-gold);
-    }
-
     /* ── Heading ────────────────────────────────────────── */
     h1 {
         font-family: 'DM Serif Display', Georgia, serif;
@@ -132,33 +110,21 @@
         line-height: .88;
         color: var(--asog-navy-2);
         letter-spacing: -.02em;
-        position: relative;
         display: inline-block;
     }
 
-    h1::after {
-        content: '';
-        position: absolute;
-        left: 4px;
-        bottom: -6px;
-        width: 56px;
-        height: 4px;
-        border-radius: 2px;
-        background: var(--asog-gold);
-    }
-
     h2 {
-        margin: 1.2rem 0 .65rem;
+        margin: 1.05rem 0 .85rem;
         font-size: clamp(1.2rem, 2.4vw, 1.72rem);
         font-weight: 500;
-        line-height: 1.22;
+        line-height: 1.3;
         color: var(--asog-ink);
         letter-spacing: -.01em;
     }
 
     .message {
         font-size: clamp(.9rem, 1.6vw, 1rem);
-        line-height: 1.65;
+        line-height: 1.72;
         color: #4a5f72;
         max-width: 50ch;
     }
@@ -226,39 +192,6 @@
         transform: translateY(-2px);
     }
 
-    /* ── Help chip ──────────────────────────────────────── */
-    .help-chip {
-        margin-top: 1.1rem;
-        display: inline-flex;
-        align-items: center;
-        gap: .45rem;
-        border-radius: 999px;
-        padding: .38rem .78rem .38rem .48rem;
-        font-size: .7rem;
-        font-weight: 600;
-        color: #4e6275;
-        background: rgba(255, 255, 255, .62);
-        border: 1px solid rgba(193, 210, 224, .7);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-        pointer-events: all;
-        width: fit-content;
-    }
-
-    .help-chip-dot {
-        width: 1.3rem;
-        height: 1.3rem;
-        border-radius: 50%;
-        background: #fff;
-        border: 1.5px solid #c6daea;
-        display: grid;
-        place-items: center;
-        color: var(--asog-navy);
-        font-weight: 700;
-        font-size: .74rem;
-        flex-shrink: 0;
-    }
-
     /* ── Map animations ─────────────────────────────────── */
     @keyframes mapFloat {
 
@@ -324,8 +257,18 @@
         animation: mapFloat 5s ease-in-out infinite;
     }
 
+    .map-layout {
+        transform-box: fill-box;
+        transform-origin: center;
+    }
+
     .map-shadow {
         animation: shadowPulse 5s ease-in-out infinite;
+    }
+
+    .q-wrap {
+        transform-box: fill-box;
+        transform-origin: center;
     }
 
     .q-a {
@@ -343,11 +286,7 @@
     /* ── Responsive ─────────────────────────────────────── */
     @media (max-width: 860px) {
         .glass-panel {
-            background: linear-gradient(180deg,
-                    rgba(248, 252, 255, .97) 0%,
-                    rgba(248, 252, 255, .92) 36%,
-                    rgba(248, 252, 255, .55) 62%,
-                    rgba(248, 252, 255, .10) 100%);
+            display: none;
         }
 
         .text-block {
@@ -355,15 +294,37 @@
             max-width: 100%;
             padding-top: 2.6rem;
         }
+
+        /* Keep map visible on portrait/tablet where SVG slice crops the right side. */
+        .map-layout {
+            transform: translate(620px, 410px) rotate(-1.2deg) scale(.9);
+        }
+
+        .map-shadow {
+            transform: translateX(-210px) scaleX(.82);
+            transform-origin: center;
+        }
+
+        .q-wrap {
+            transform: translate(-210px, 88px);
+        }
     }
 
     @media (max-width: 540px) {
-        h1::after {
-            width: 40px;
-        }
-
         .btn {
             padding: .65rem 1rem;
+        }
+
+        .map-layout {
+            transform: translate(520px, 440px) rotate(-1deg) scale(.82);
+        }
+
+        .map-shadow {
+            transform: translateX(-270px) scaleX(.72);
+        }
+
+        .q-wrap {
+            transform: translate(-270px, 120px) scale(.9);
         }
     }
     </style>
@@ -404,16 +365,18 @@
                 <ellipse class="map-shadow" cx="1060" cy="794" rx="212" ry="34" fill="#062E2E" opacity=".34" />
 
                 <!-- Floating question marks -->
-                <text class="q-a" x="1048" y="332" fill="#f8af21" font-family="'DM Sans', sans-serif" font-weight="700"
-                    font-size="64">?</text>
-                <text class="q-b" x="1126" y="304" fill="#f8af21" font-family="'DM Sans', sans-serif" font-weight="700"
-                    font-size="50">?</text>
+                <g class="q-wrap">
+                    <text class="q-a" x="1048" y="332" fill="#f8af21" font-family="'DM Sans', sans-serif" font-weight="700"
+                        font-size="64">?</text>
+                    <text class="q-b" x="1126" y="304" fill="#f8af21" font-family="'DM Sans', sans-serif" font-weight="700"
+                        font-size="50">?</text>
+                </g>
 
                 <!-- Map group (floats up/down) -->
                 <g class="map-group">
 
                     <!-- Map paper with subtle fold lines -->
-                    <g transform="translate(840 350) rotate(-2)">
+                    <g class="map-layout" transform="translate(840 350) rotate(-2)">
 
                         <!-- Paper shadow -->
                         <rect x="8" y="10" width="410" height="268" rx="16" fill="rgba(6,46,62,.18)" />
@@ -437,10 +400,10 @@
                             fill="#C2D8A6" opacity=".85" />
 
                         <!-- Mountain-like icons -->
-                        <path d="M118 100L142 64L166 100H118Z" fill="#b8c8a1"/>
-                        <path d="M152 100L176 74L200 100H152Z" fill="#afc09a"/>
-                        <path d="M238 114L264 74L290 114H238Z" fill="#b8c8a1"/>
-                        <path d="M274 114L296 86L318 114H274Z" fill="#afc09a"/>
+                        <path d="M118 100L142 64L166 100H118Z" fill="#b8c8a1" />
+                        <path d="M152 100L176 74L200 100H152Z" fill="#afc09a" />
+                        <path d="M238 114L264 74L290 114H238Z" fill="#b8c8a1" />
+                        <path d="M274 114L296 86L318 114H274Z" fill="#afc09a" />
 
                         <!-- Meandering route path -->
                         <path d="M68 199 C110 154 126 112 180 116 C225 120 228 178 280 183 C325 186 346 148 380 126"
@@ -450,8 +413,8 @@
                         <!-- Start marker + flag -->
                         <circle cx="68" cy="199" r="12" fill="#2B8B7E" />
                         <circle cx="68" cy="199" r="7" fill="#fff" />
-                        <path d="M104 196V152" stroke="#3f5f59" stroke-width="4" stroke-linecap="round"/>
-                        <path d="M104 154L136 163L104 174Z" fill="#2f8d7f"/>
+                        <path d="M104 196V152" stroke="#3f5f59" stroke-width="4" stroke-linecap="round" />
+                        <path d="M104 154L136 163L104 174Z" fill="#2f8d7f" />
 
                         <!-- Dead-end circle -->
                         <circle cx="345" cy="110" r="42" fill="#ECD8C5" stroke="#B07748" stroke-width="3.2" />
@@ -478,8 +441,6 @@
 
         <!-- Text content -->
         <div class="text-block">
-            <p class="kicker">Navigation Error</p>
-
             <h1>404</h1>
 
             <h2>Oops, this path is still<br>under exploration.</h2>
@@ -498,11 +459,6 @@
                     Back to Home
                 </a>
                 <a class="btn btn-ghost" href="javascript:history.back()">Go Back</a>
-            </div>
-
-            <div class="help-chip">
-                <span class="help-chip-dot">i</span>
-                Need help? Contact ASOG TBI support.
             </div>
         </div>
 

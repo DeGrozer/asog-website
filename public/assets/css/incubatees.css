@@ -388,7 +388,7 @@
 }
 .ib-close {
     width: 40px; height: 40px;
-    border: 1px solid rgba(2,13,24,.08);
+    /* border: 1px solid rgba(2,13,24,.08); */
     background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(248,250,252,.88));
     border-radius: 10px;
     color: rgba(2,13,24,.3);
@@ -418,8 +418,8 @@
     padding: 1rem 2rem .85rem;
     background:
         linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.95));
-    border-bottom: 1px solid rgba(2,13,24,.08);
-    box-shadow: 0 8px 22px rgba(2,13,24,.07);
+    /* border-bottom: 1px solid rgba(2,13,24,.08); */
+    /* box-shadow: 0 8px 22px rgba(2,13,24,.07); */
     backdrop-filter: blur(8px);
 }
 .ib-p-about-title {

@@ -66,6 +66,8 @@ $routes->get('uploads/applications/(.+)', 'Uploads::serve/$1');
  */
 $routes->get('/asog-admin', 'Auth::login');
 $routes->post('/asog-admin', 'Auth::authenticate');
+$routes->get('/asog-admin/google', 'Auth::google');
+$routes->get('/asog-admin/google/callback', 'Auth::googleCallback');
 $routes->get('/asog-admin/logout', 'Auth::logout');
 
 /*
@@ -110,4 +112,12 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     // Cohort Management (AJAX)
     $routes->post('cohorts/add', 'Admin\IncubateesAdmin::addCohort');
     $routes->post('cohorts/(:num)/delete', 'Admin\IncubateesAdmin::deleteCohort/$1');
+
+    // Admin Account Management
+    $routes->get('admins', 'Admin\AdminsManagement::index');
+    $routes->get('admins/create', 'Admin\AdminsManagement::create');
+    $routes->post('admins', 'Admin\AdminsManagement::store');
+    $routes->get('admins/(:num)/edit', 'Admin\AdminsManagement::edit/$1');
+    $routes->put('admins/(:num)', 'Admin\AdminsManagement::update/$1');
+    $routes->delete('admins/(:num)', 'Admin\AdminsManagement::delete/$1');
 });

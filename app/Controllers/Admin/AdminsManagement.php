@@ -1,0 +1,172 @@
+<?php
+
+namespace App\Controllers\Admin;
+
+use App\Controllers\BaseController;
+
+/**
+ * AdminsManagement — CRUD for admin accounts and Google OAuth authorization.
+ */
+class AdminsManagement extends BaseController
+{
+    /**
+     * List all admin accounts with their Google authorization status.
+     */
+    public function index()
+    {
+        $admins = $this->adminModel->findAll();
+
+        $data = [
+            'pageTitle'  => 'Admin Accounts',
+            'activePage' => 'admins',
+            'admins'     => $admins,
+        ];
+
+        return view('admin/layout/header', $data)
+             . view('admin/admins/index', $data)
+             . view('admin/layout/footer');
+    }
+
+    /**
+     * Show form to create a new admin account.
+     */
+    public function create()
+    {
+        $data = [
+            'pageTitle'  => 'Create Admin Account',
+            'activePage' => 'admins',
+            'admin'      => null,
+        ];
+
+        return view('admin/layout/header', $data)
+             . view('admin/admins/form', $data)
+             . view('admin/layout/footer');
+    }
+
+    /**
+     * Store a new admin account.
+     */
+    public function store()
+    {
+        $email = trim((string) $this->request->getPost('email'));
+        $role  = trim((string) $this->request->getPost('role')) ?: 'superadmin';
+
+        if ($this->adminModel->isEmailTaken($email)) {
+            setToast('error', 'That email is already used by another admin.');
+            return redirect()->back()->withInput();
+        }
+
+        // Generate temp password
+        $tempPassword = bin2hex(random_bytes(8));
+
+        $data = [
+            // Full name is synced from Google profile on first successful OAuth login.
+            'fullName'    => 'Pending Google Name',
+            'email'       => $email,
+            'password'    => $tempPassword,
+            'role'        => $role,
+            'isActive'    => 1,
+        ];
+
+        if (!$this->adminModel->insert($data)) {
+            setToast('error', 'Error: ' . implode(', ', $this->adminModel->errors()));
+            return redirect()->back()->withInput();
+        }
+
+        setToast('success', 'Admin added. Email: ' . $email . ' | Role: ' . ucfirst($role));
+        return redirect()->to('admin/admins');
+    }
+
+    /**
+     * Show form to edit an admin account.
+     */
+    public function edit($id = null)
+    {
+        $id = (int) $id;
+        if ($id === 0) {
+            return redirect()->to('admin/admins')->with('error', 'Invalid admin ID.');
+        }
+
+        $admin = $this->adminModel->find($id);
+        if ($admin === null) {
+            return redirect()->to('admin/admins')->with('error', 'Admin not found.');
+        }
+
+        $data = [
+            'pageTitle'  => 'Edit Admin Account',
+            'activePage' => 'admins',
+            'admin'      => $admin,
+        ];
+
+        return view('admin/layout/header', $data)
+             . view('admin/admins/form', $data)
+             . view('admin/layout/footer');
+    }
+
+    /**
+     * Update admin account.
+     */
+    public function update($id = null)
+    {
+        $id = (int) $id;
+        if ($id === 0) {
+            return redirect()->to('admin/admins')->with('error', 'Invalid admin ID.');
+        }
+
+        $admin = $this->adminModel->find($id);
+        if ($admin === null) {
+            return redirect()->to('admin/admins')->with('error', 'Admin not found.');
+        }
+
+        $email       = trim((string) $this->request->getPost('email'));
+        $googleEmail = trim((string) $this->request->getPost('googleEmail'));
+        $googleSub   = trim((string) $this->request->getPost('googleSub'));
+        $role        = trim((string) $this->request->getPost('role')) ?: 'superadmin';
+        $isActive    = (bool) $this->request->getPost('isActive');
+
+        if ($this->adminModel->isEmailTaken($email, $id)) {
+            setToast('error', 'That email is already used by another admin.');
+            return redirect()->back()->withInput();
+        }
+
+        $updateData = [
+            'email'       => $email,
+            'googleEmail' => $googleEmail === '' ? null : $googleEmail,
+            'googleSub'   => $googleSub === '' ? null : $googleSub,
+            'role'        => $role,
+            'isActive'    => $isActive ? 1 : 0,
+        ];
+
+        if (!$this->adminModel->update($id, $updateData)) {
+            setToast('error', 'Error: ' . implode(', ', $this->adminModel->errors()));
+            return redirect()->back()->withInput();
+        }
+
+        setToast('success', 'Admin updated.');
+        return redirect()->to('admin/admins');
+    }
+
+    /**
+     * Delete an admin account.
+     */
+    public function delete($id = null)
+    {
+        $id = (int) $id;
+        if ($id === 0) {
+            return redirect()->to('admin/admins')->with('error', 'Invalid admin ID.');
+        }
+
+        $admin = $this->adminModel->find($id);
+        if ($admin === null) {
+            return redirect()->to('admin/admins')->with('error', 'Admin not found.');
+        }
+
+        if ($this->adminModel->delete($id)) {
+            setToast('success', 'Admin account deleted.');
+        } else {
+            setToast('error', 'Failed to delete admin account.');
+        }
+
+        return redirect()->to('admin/admins');
+    }
+}

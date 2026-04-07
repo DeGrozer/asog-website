@@ -46,6 +46,10 @@
                     <span style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:#03558C;color:#fff;font-size:.5rem;font-weight:700;min-width:16px;height:16px;border-radius:99px;display:flex;align-items:center;justify-content:center;padding:0 4px"><?= $unreadMsgCount ?></span>
                 <?php endif; ?>
             </a>
+            <a href="<?= site_url('admin/admins') ?>" class="<?= ($activePage ?? '') === 'admins' ? 'on' : '' ?>">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                Admins
+            </a>
         </nav>
 
         <div class="side-sep" style="margin-top:.4rem"></div>
@@ -65,10 +69,16 @@
 
     <div class="body">
         <header class="bar">
-            <h1><?= esc($pageTitle ?? 'Dashboard') ?></h1>
-            <div class="bar-r">
-                <a href="<?= site_url('/') ?>" target="_blank">View site</a>
-            </div>
+            <?php if (($activePage ?? '') === 'dashboard'): ?>
+                <div>
+                    <h1>Welcome back, <?= esc(session()->get('admin_name') ?? 'Admin') ?></h1>
+                </div>
+                <div style="font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;white-space:nowrap;">
+                    <?= date('l, M j, Y') ?>
+                </div>
+            <?php else: ?>
+                <h1><?= esc($pageTitle ?? 'Dashboard') ?></h1>
+            <?php endif; ?>
         </header>
 
         <div class="page">

@@ -28,6 +28,16 @@ class CreateAdminsTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
             ],
+            'googleEmail' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => true,
+            ],
+            'googleSub' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => true,
+            ],
             'password' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
@@ -58,6 +68,8 @@ class CreateAdminsTable extends Migration
 
         $this->forge->addKey('id', true);
         $this->forge->addUniqueKey('email');
+    $this->forge->addUniqueKey('googleEmail');
+    $this->forge->addUniqueKey('googleSub');
         $this->forge->addKey('isActive');
 
         $this->forge->createTable('admins', true);
